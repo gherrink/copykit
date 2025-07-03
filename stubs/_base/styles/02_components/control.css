@@ -1,0 +1,101 @@
+@property --control-color {
+  inherits: true;
+  initial-value: false;
+  syntax: "<number>+ | transparent | false";
+}
+
+@property --control-bg-color {
+  inherits: true;
+  initial-value: transparent;
+  syntax: "<number>+ | transparent";
+}
+
+@property --control-hover-color {
+  inherits: true;
+  initial-value: transparent;
+  syntax: "<number>+ | transparent";
+}
+
+@property --control-hover-bg-color {
+  inherits: true;
+  initial-value: transparent;
+  syntax: "<number>+ | transparent";
+}
+
+@layer components {
+  /**
+   * The `.control` class is used as base for all controls either by extending or using the class directly.
+   *
+   * @location components.control Control
+   * @example
+   * <a class="control">Link control</a><br>
+   * <button type="button" class="control">Button control</button><br>
+   * <button type="button" class="control" disabled>Button control disabled</button><br>
+   * <button type="button" class="control no-hover">Disable hover effect</button><br>
+   */
+  .control {
+    --control-font-color: var(--font-color);
+    --control-bg-color: var(--bg-color);
+
+    --control-hover-font-color: var(--accent-color);
+    --control-hover-bg-color: var(--control-bg-color);
+
+    --control-font-size: var(--font-size);
+    --control-font-weight: var(--font-weight-bold);
+    --font-line-height: var(--line-height-tight);
+
+    --control-py-space: 0;
+    --control-px-space: 0;
+
+    --control-transition-time: var(--transition-base);
+
+    --selection-color: var(--control-bg-color);
+    --selection-bg-color: var(--control-font-color);
+
+    --px: calc(var(--space-unit) * var(--control-px-space, 0));
+    --py: calc(var(--space-unit) * var(--control-py-space, 0));
+
+    cursor: pointer;
+    user-select: none;
+
+    display: inline-block;
+
+    padding: var(--py) var(--px);
+    border: none;
+    border-radius: unset;
+
+    line-height: normal;
+    color: rgb(var(--control-font-color));
+    text-align: center;
+    text-decoration: none;
+    word-break: keep-all;
+
+    appearance: none;
+    background: rgb(var(--control-bg-color));
+    outline: none;
+  }
+
+  .control.py,
+  .control.pxy {
+    --control-py-space: 1;
+  }
+
+  .control.px,
+  .control.pxy {
+    --control-px-space: 1;
+  }
+
+  .control:disabled,
+  .control[aria-disabled="true"] {
+    cursor: not-allowed;
+  }
+
+  .control:focus {
+    outline: 2px solid rgb(var(--accent-color));
+  }
+
+  .control:hover:not([aria-disabled="true"], [disabled], .btn[class*="bg-"], .no-hover) {
+    color: rgb(var(--control-hover-font-color));
+    background: rgb(var(--control-hover-bg-color));
+  }
+}

@@ -1,0 +1,15 @@
+@layer utilities {
+  /**
+   * You can hide elements using the `hidden` attribute or use the `.hidden` class. You should prefer the
+   * attribute version for accessibility reasons.
+   *
+   * @location utilities.hidden Hidden
+   * @example
+   * <div hidden>Hidden element with attribute.</div>
+   * <div class="hidden">Hidden element with class.</div>
+   */
+  [hidden],
+  .hidden {
+    display: none;
+  }
+}

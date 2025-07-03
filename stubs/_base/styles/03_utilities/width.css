@@ -1,0 +1,118 @@
+@property --width-min-offset-x {
+  inherits: true;
+  initial-value: 0;
+  syntax: "<length-percentage>";
+}
+
+@property --width-content {
+  inherits: true;
+  initial-value: 0;
+  syntax: "<length-percentage>";
+}
+
+:root {
+  /**
+   * Widths are a set of predefined values that can be used to limit the content width.
+   *
+   * - `--width-min-offset-x` - The minimum space on the left and right side.
+   * - `--width-content` - The width of the content.
+   * - `--width-lg` - The width of the large screen.
+   * - `--width-base` - Default width.
+   * - `--width-sm` - The width of the small screen.
+   *
+   * @location variables.width Width (Content)
+   */
+  --width-min-offset-x: 22px;
+  --width-lg: 1280px;
+  --width-base: 1024px;
+  --width-sm: 640px;
+  --width-content: var(--width-base);
+}
+
+@layer utilities {
+  /**
+   * Limit width of content. Use the `--width-content` variable to set the width and the `--width-min-offset-x` to
+   * set the minimum required space on the left and right side. If you want to offset the content a little bit but
+   * keep the same settings from `--width-content` and `--width-min-offset-x` you can use the `--width-content-offset`
+   * variable.
+   *
+   * @location utilities.width Width (Content)
+   */
+  .width-content,
+  .width-base,
+  .width-lg,
+  .width-sm {
+    /* use padding to get content to a specific width https://css-tricks.com/using-max-for-an-inner-element-max-width/ */
+    --width-calc: max(
+      calc(var(--width-min-offset-x) - var(--width-content-offset, 0px)),
+      calc((100% - var(--width-content)) / 2 - var(--width-content-offset, 0px))
+    );
+
+    padding-inline: var(--width-calc);
+  }
+
+  /**
+   * @location utilities.width.content Width base/content
+   * @example
+   * <div class="width-content">
+   *   <div class="bg bg-black" style="min-height: 1em"></div>
+   * </div>
+   */
+
+  /**
+   * @location utilities.width.small Width small
+   * @example
+   * <div class="width-sm">
+   *   <div class="bg bg-black" style="min-height: 1em"></div>
+   * </div>
+   */
+  .width-sm {
+    --width-content: var(--width-sm);
+  }
+
+  /**
+   * @location utilities.width.large Width large
+   * @example
+   * <div class="width-lg">
+   *   <div class="bg bg-black" style="min-height: 1em"></div>
+   * </div>
+   */
+  .width-lg {
+    --width-content: var(--width-lg);
+  }
+
+  /**
+   * @location utilities.width.full Width full
+   * @example
+   * <div class="width-full">
+   *   <div class="bg bg-black" style="min-height: 1em"></div>
+   * </div>
+   */
+  .width-full {
+    width: 100%;
+  }
+
+  /**
+   * @location utilities.width.auto Width auto
+   * @example
+   * <div class="width-auto">
+   *   <div class="bg bg-black" style="min-height: 1em"></div>
+   * </div>
+   */
+  .width-auto {
+    width: auto;
+  }
+
+  /**
+   * [See documntation](https://developer.mozilla.org/de/docs/Web/CSS/fit-content) for more details
+   *
+   * @location utilities.width.fit Width fit
+   * @example
+   * <div class="width-fit">
+   *   <div>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</div>
+   * </div>
+   */
+  .width-fit {
+    width: fit-content;
+  }
+}

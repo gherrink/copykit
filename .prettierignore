@@ -1,0 +1,9 @@
+dist/
+node_modules/
+*.min.js
+*.min.css
+coverage/
+.vite/
+public/
+LICENSE.md
+pnpm-lock.yaml

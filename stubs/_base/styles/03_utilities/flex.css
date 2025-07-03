@@ -1,0 +1,241 @@
+@layer utilities {
+  /**
+   * @page utilities
+   * @section flex Flex
+   * @example
+   * <div class="flex">
+   *   <div class="bg bg-black px py"></div>
+   *   <div class="bg bg-black px py"></div>
+   * </div>
+   */
+  .flex {
+    display: flex;
+  }
+
+  /**
+   * Use gap utility to define gaps.
+   * @page utilities
+   * @section flex.gap gap
+   * @order 10
+   * @example
+   * <div class="flex gap">
+   *   <div class="bg bg-black px py"></div>
+   *   <div class="bg bg-black px py"></div>
+   * </div>
+   * <div class="flex gap-xl">
+   *   <div class="bg bg-black px py"></div>
+   *   <div class="bg bg-black px py"></div>
+   * </div>
+   */
+  .flex.gap,
+  .flex[class*=" gap-"] {
+    --gap-x: calc(var(--space-unit) * var(--gap-space-x, var(--space-base)));
+    --gap-y: calc(var(--space-unit) * var(--gap-space-y, var(--space-base)));
+
+    gap: var(--gap-x) var(--gap-y);
+  }
+
+  /**
+   * @page utilities
+   * @section flex.row row
+   * @order 20
+   * @example
+   * <div class="flex row gap">
+   *   <div class="bg bg-black px py"></div>
+   *   <div class="bg bg-black px py"></div>
+   * </div>
+   * <div class="flex row gap mt">
+   *   <div class="bg bg-black px py"></div>
+   *   <div class="pull-right bg bg-black px py"></div>
+   *   <div class="pull-right bg bg-black px py"></div>
+   * </div>
+   */
+  .flex.row {
+    flex-direction: row;
+
+    > .pull-right:nth-child(1 of .pull-right) {
+      margin-left: auto;
+    }
+  }
+
+  /**
+   * @page utilities
+   * @section flex.column column
+   * @order 30
+   * @example
+   * <div class="flex column">
+   *   <div class="bg bg-black px py"></div>
+   *   <div class="bg bg-black px py"></div>
+   * </div>
+   */
+  .flex.column {
+    flex-direction: column;
+  }
+
+  /**
+   * @page utilities
+   * @section flex.wrap wrap
+   * @order 40
+   * @example
+   * <div class="flex row wrap">
+   *   <div class="bg bg-black px py" style="width: 700px"></div>
+   *   <div class="bg bg-black px py" style="width: 800px"></div>
+   * </div>
+   */
+  .flex.wrap {
+    flex-wrap: wrap;
+  }
+
+  /**
+ * @page utilities
+ * @section flex.nowrap no wrap
+ * @order 50
+ * @example
+ * <div class="flex row nowrap">
+ *   <div class="bg bg-black px py" style="width: 700px"></div>
+ *   <div class="bg bg-black px py" style="width: 800px"></div>
+ * </div>
+ */
+  .flex.nowrap {
+    flex-wrap: nowrap;
+  }
+
+  /**
+   * @page utilities
+   * @section flex.justify justify
+   * @order 60
+   */
+
+  /**
+   * @page utilities
+   * @section flex.justify.start start
+   * @example
+   * <div class="flex row gap justify-start">
+   *   <div class="bg bg-black px py"></div>
+   *   <div class="bg bg-black px py"></div>
+   * </div>
+   */
+  .flex.justify-start {
+    justify-content: flex-start;
+  }
+
+  /**
+   * @page utilities
+   * @section flex.justify.between space between
+   * @example
+   * <div class="flex row gap justify-between">
+   *   <div class="bg bg-black px py"></div>
+   *   <div class="bg bg-black px py"></div>
+   * </div>
+   */
+  .flex.justify-between {
+    justify-content: space-between;
+  }
+
+  /**
+   * @page utilities
+   * @section flex.justify.around space around
+   * @example
+   * <div class="flex row gap justify-around">
+   *   <div class="bg bg-black px py"></div>
+   *   <div class="bg bg-black px py"></div>
+   * </div>
+   */
+  .flex.justify-around {
+    justify-content: space-around;
+  }
+
+  /**
+   * @page utilities
+   * @section flex.justify.evenly space evenly
+   * @example
+   * <div class="flex row gap justify-evenly">
+   *   <div class="bg bg-black px py"></div>
+   *   <div class="bg bg-black px py"></div>
+   * </div>
+   */
+  .flex.justify-evenly {
+    justify-content: space-evenly;
+  }
+
+  /**
+   * @page utilities
+   * @section flex.justify.end end
+   * @example
+   * <div class="flex row gap justify-end">
+   *   <div class="bg bg-black px py"></div>
+   *   <div class="bg bg-black px py"></div>
+   * </div>
+   */
+  .flex.justify-end {
+    justify-content: flex-end;
+  }
+
+  /**
+   * @page utilities
+   * @section flex.items align items
+   * @order 70
+   */
+
+  /**
+   * @page utilities
+   * @section flex.items.start align start
+   * @example
+   * <div class="flex row gap items-start bg bg-black" style="height: 100px">
+   *   <div class="bg bg-white px py"></div>
+   * </div>
+   */
+  .flex.items-start {
+    align-items: flex-start;
+  }
+
+  /**
+   * @page utilities
+   * @section flex.items.center align center
+   * @example
+   * <div class="flex row gap items-center bg bg-black" style="height: 100px">
+   *   <div class="bg bg-white px py"></div>
+   * </div>
+   */
+  .flex.items-center {
+    align-items: center;
+  }
+
+  /**
+   * @page utilities
+   * @section flex.items.end align end
+   * @example
+   * <div class="flex row gap items-end bg bg-black" style="height: 100px">
+   *   <div class="bg bg-white px py"></div>
+   * </div>
+   */
+  .flex.items-end {
+    align-items: flex-end;
+  }
+
+  /**
+   * @page utilities
+   * @section flex.items.stretch align stretch
+   * @example
+   * <div class="flex row gap items-stretch bg bg-black" style="height: 100px">
+   *   <div class="bg bg-white px py"></div>
+   *   <div class="bg bg-white px py"></div>
+   * </div>
+   */
+  .flex.items-stretch {
+    align-items: stretch;
+  }
+
+  /**
+   * @page utilities
+   * @section flex.items.baseline align baseline
+   * @example
+   * <div class="flex row gap items-baseline bg bg-black" style="height: 100px">
+   *   <div class="bg bg-white px py"></div>
+   *   <div class="bg bg-white px py"></div>
+   * </div>
+   */
+  .flex.items-baseline {
+    align-items: baseline;
+  }
+}

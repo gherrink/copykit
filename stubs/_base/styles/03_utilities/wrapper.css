@@ -1,0 +1,18 @@
+@layer utilities {
+  /**
+   * You can use the wrapper class to put content inside.
+   *
+   * @location utilities.wrapper Wrapper
+   * @code
+   * <div class="wrapper"></div>
+   */
+  .wrapper {
+    > *:first-child {
+      margin-top: 0;
+    }
+
+    > *:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

@@ -1,0 +1,34 @@
+@layer utilities {
+  /**
+   * The `.bg` class can be used to set backgrounds, depending on the selected
+   * variant css variables will be changed, so all colors used inside will fit to
+   * the background.
+   *
+   * @location utilities.background Background
+   */
+  .bg {
+    --selection-bg-color: var(--font-color);
+    --selection-color: var(--bg-color);
+
+    color: rgb(var(--font-color));
+    background: rgb(var(--bg-color));
+  }
+
+  /**
+   * @location utilities.background.colors Colors
+   * @example
+   * <div class="bg bg-black" style="min-height: 100px"></div>
+   * <div class="bg bg-white" style="min-height: 100px"></div>
+   */
+  .bg-black {
+    --bg-color: var(--color-black);
+    --font-color: var(--color-white);
+    --accent-color: var(--color-gray);
+  }
+
+  .bg-white {
+    --bg-color: var(--color-white);
+    --font-color: var(--color-black);
+    --accent-color: var(--color-gray);
+  }
+}

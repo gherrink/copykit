@@ -1,0 +1,47 @@
+@property --space-unit {
+  inherits: true;
+  initial-value: 1px;
+  syntax: "<length>";
+}
+
+@property --gap {
+  inherits: false;
+  initial-value: 1;
+  syntax: "<length-percentage>";
+}
+
+@property --gap-space-x {
+  inherits: false;
+  initial-value: 1;
+  syntax: "<number>";
+}
+
+@property --gap-space-y {
+  inherits: false;
+  initial-value: 1;
+  syntax: "<number>";
+}
+
+@property --bg-color {
+  inherits: true;
+  initial-value: 0 0 0;
+  syntax: "<number>+";
+}
+
+@property --accent-color {
+  inherits: true;
+  initial-value: 0 0 0;
+  syntax: "<number>+";
+}
+
+@property --selection-color {
+  inherits: true;
+  initial-value: 0 0 0;
+  syntax: "<number>+";
+}
+
+@property --selection-bg-color {
+  inherits: true;
+  initial-value: 0 0 0;
+  syntax: "<number>+";
+}

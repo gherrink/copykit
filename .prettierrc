@@ -1,0 +1,28 @@
+{
+  "arrowParens": "avoid",
+  "printWidth": 100,
+  "singleQuote": true,
+  "quoteProps": "as-needed",
+  "trailingComma": "es5",
+  "useTabs": false,
+  "semi": false,
+  "bracketSpacing": true,
+  "bracketSameLine": false,
+  "tabWidth": 2,
+  "htmlWhitespaceSensitivity": "ignore",
+  "overrides": [
+    {
+      "files": "**/*.md",
+      "options": {
+        "proseWrap": "never"
+      }
+    },
+    {
+      "files": "**/*.css",
+      "options": {
+        "singleQuote": false
+      }
+    }
+  ],
+  "plugins": ["prettier-plugin-package"]
+}

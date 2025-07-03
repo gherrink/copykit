@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  "include": [
+    "src",
+    "pages",
+    ".commitlintrc.cjs",
+    ".eslintrc.cjs",
+    ".stylelintrc.cjs",
+    "postcss.config.cjs",
+    "vite.config.js",
+    "vite-env.d.ts"
+  ]
+}

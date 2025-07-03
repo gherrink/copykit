@@ -1,0 +1,287 @@
+:root {
+  /**
+   * Set of font families to be used in your project.
+   *
+   * - `--font-family-base`
+   *
+   * @location variables.font.weight Font weight
+   */
+  --font-family-base:
+    system-ui, "Segoe UI", roboto, helvetica, arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol";
+
+  /**
+   * Font weights are a set of predefined values that can be used to define the weight of a font:
+   *
+   * - `--font-weight-normal`
+   * - `--font-weight-bold`
+   *
+   * @location variables.font.weight Font weight
+   */
+  --font-weight-normal: 400;
+  --font-weight-bold: 700;
+
+  /**
+   * Font sizes are a set of predefined values that can be used to define the size of a font:
+   * - `--font-size-sm`
+   * - `--font-size-base`
+   * - `--font-size-md`
+   * - `--font-size-lg`
+   * - `--font-size-xl`
+   * - `--font-size-2xl`
+   *
+   * @location variables.font.size Font size
+   */
+  --font-size-sm: 0.875em;
+  --font-size-base: 1em;
+  --font-size-md: 1.125em;
+  --font-size-lg: 1.25em;
+  --font-size-xl: 1.25em;
+  --font-size-2xl: 1.5rem;
+
+  /**
+   * Line heit variables are a set of variables to switch between different line heights
+   *
+   * - `--line-height-tight`
+   * - `--line-height-base`
+   * - `--line-height-relaxed`
+   *
+   * @location variables.font.size Font size
+   */
+  --line-height-tight: 1.25;
+  --line-height-base: 1.4;
+  --line-height-relaxed: 1.6;
+
+  /**
+   * - `--font-space-unit` - The spacing unit when using font related spaces (see the spaces documentation for mor details).
+   * - `--font-size-html-base` - The font size base used on the html tag need to be a pixel value
+   * - `--font-color` - used font color.
+   * - `--font-family` - used font family.
+   * - `--font-weight` - used font weight.
+   * - `--font-size` - used font size.
+   * - `--font-line-height` - used font line height.
+   *
+   * @location variables.font Font
+   */
+  --font-space-unit: 1em;
+  --font-size-html-base: 16px;
+  --font-color: var(--color-black);
+  --font-family: var(--font-family-base);
+  --font-weight: var(--font-weight-normal);
+  --font-size: var(--font-size-base);
+  --font-line-height: var(--line-height-base);
+
+  /**
+   * Headline variables are used to change the headline
+   *
+   * - `--headline-space` - space to upper element
+   * - `--headline-family`
+   * - `--headline-weight`
+   * - `--headline-line-height`
+   * - `--headline-color`
+   * - `--headline-scale`
+   *
+   * @location variables.headline Headline
+   */
+  --headline-space: var(--space-base);
+  --headline-family: var(--font-family-base);
+  --headline-weight: var(--font-weight-bold);
+  --headline-line-height: var(--line-height-base);
+  --headline-color: inherit;
+  --headline-scale: 1;
+
+  /**
+   * Variables to change link behavior.
+   *
+   * - `--headline-space` - space to upper element
+   * - `--headline-family`
+   * - `--headline-weight`
+   * - `--headline-line-height`
+   * - `--headline-color`
+   * - `--headline-scale`
+   *
+   * @location variables.headline Headline
+   */
+  --link-color: inherit;
+  --link-decoration: underline;
+  --link-hover-color: var(--accent-color);
+  --link-hover-decoration: none;
+  --link-transition-time: var(--transition-base);
+}
+
+@layer defaults {
+  /**
+   * @location defaults.typography Typography
+   */
+
+  /**
+   * @location defaults.typography.font Font Style
+   * @example
+   * <div style="font-weight: bold;">Bold | bold | 700</div>
+   * <div style="font-weight: normal;">Normal | normal | 400</div>
+   * <div style="font-weight: bold; font-style: italic;">Bold Italic</div>
+   * <div style="font-weight: normal; font-style: italic;">Normal Italic</div>
+   * @hideCode
+   */
+  html {
+    font-size: var(--font-size-html-base);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-size-adjust: none;
+  }
+
+  body {
+    font-family: var(--font-family);
+    font-size: var(--font-size);
+    font-weight: var(--font-weight);
+    -webkit-font-smoothing: antialiased;
+    line-height: var(--font-line-height);
+    color: rgb(var(--font-color));
+  }
+
+  /* Avoid text overflows */
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .headline {
+    overflow-wrap: break-word;
+  }
+
+  /* Remove built-in form typography styles */
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  /**
+   * You can use html headline tags or the class `.headline` to define headlines. The hedline class comes in handy if you want to display
+   * a headline without the semantic meaning of a headline tag.
+   *
+   * @location defaults.typography.headlines Headlines
+   * @example
+   * <h1>Headline h1</h1>
+   * <h2>Headline h2</h2>
+   * <h3>Headline h3</h3>
+   * <h4>Headline h4</h4>
+   * <h5>Headline h5</h5>
+   * <h6>Headline h6</h6>
+   * <span class="headline h1">Class Headline h1</span>
+   * <span class="headline h2">Class Headline h2</span>
+   * <span class="headline h3">Class Headline h3</span>
+   * <span class="headline h4">Class Headline h4</span>
+   * <span class="headline h5">Class Headline h5</span>
+   * <span class="headline h6">Class Headline h6</span>
+   */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .headline {
+    display: block;
+
+    margin-top: calc(var(--font-space-unit) * var(--headline-space));
+    margin-bottom: 0;
+
+    font-family: var(--headline-family);
+    font-size: calc(var(--font-size-base) * var(--headline-scale));
+    font-weight: var(--headline-weight, var(--font-weight-bold));
+    line-height: var(--headline-line-height);
+    color: rgb(var(--headline-color));
+    text-wrap: balance;
+  }
+
+  h1,
+  .headline.h1 {
+    --headline-scale: 2.5;
+  }
+
+  h2,
+  .headline.h2 {
+    --headline-scale: 2;
+  }
+
+  h3,
+  .headline.h3 {
+    --headline-scale: 1.75;
+  }
+
+  h4,
+  .headline.h4 {
+    --headline-scale: 1.5;
+  }
+
+  h5,
+  .headline.h5 {
+    --headline-scale: 1.2;
+  }
+
+  h6,
+  .headline.h6 {
+    --headline-scale: 1.1;
+  }
+
+  /**
+    * You can use the `.no-space` class to remove the margin from the headline class.
+    *
+    * @location defaults.typography.headlines.no-space Headlines without space
+    * @example
+    * <span class="headline h1 no-space">Class Headline h1</span>
+    * <span class="headline h2 no-space">Class Headline h2</span>
+    */
+  .headline.no-space {
+    --headline-space: 0;
+  }
+
+  /**
+    * @location defaults.typography.text Text / Paragraph
+    * @example
+    * <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. </p>
+    * <p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+    * <p>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.</p>
+    */
+  /* p {} */
+  /**
+    * @location defaults.typography.link Link
+    * @example
+    * <a href="#">Link Text</a>
+    */
+  a {
+    color: rgb(var(--link-color));
+    text-decoration: var(--link-decoration);
+    text-decoration-skip-ink: auto;
+    transition:
+      color var(--link-transition-time) ease,
+      text-decoration var(--link-transition-time) ease;
+
+    &:hover {
+      --link-color: var(--link-hover-color);
+      --link-decoration: var(--link-hover-decoration);
+    }
+  }
+
+  /**
+    * @location defaults.typography.format Format
+    * @example
+    * <span>Normal Text</span><br>
+    * <strong>Strong Text</strong><br>
+    * <small>Small Text</small><br>
+    * <em>Emphasis Text</em><br>
+    * <i>Italic Text</i>
+    */
+  b,
+  strong {
+    --font-weight: var(--font-weight-bold);
+  }
+
+  small {
+    --font-size: var(--font-size-sm);
+  }
+}

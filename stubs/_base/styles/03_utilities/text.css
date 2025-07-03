@@ -1,0 +1,52 @@
+@layer utilities {
+  /**
+   * Set text specific styles
+   *
+   * @location utilities.text Text
+   */
+  /**
+   * Use the `.tc` class in combination with a color to set the text color.
+   *
+   * @location utilities.text.colors Colors
+   * @example
+   * <div class="tc tc-white">Text color white</div>
+   * <div class="tc tc-black">Text color black</div>
+   */
+  .tc {
+    color: rgb(var(--font-color));
+  }
+
+  .tc-white {
+    --font-color: var(--color-white);
+  }
+
+  .tc-black {
+    --font-color: var(--color-black);
+  }
+
+  /**
+   * There are some utility classes to define text alignment.
+   *
+   * @location utilities.text.align Alignment
+   * @example
+   * <div class="text-left">Text left</div>
+   * <div class="text-center">Text center</div>
+   * <div class="text-right">Text right</div>
+   * <div class="text-justify">Text justify - Lorem ipsum dolorsit amet, consetetur sadipscingelitr, seddiam nonumyeirmod temporinvidunt utlabore etdolore magnaaliquyamerat, seddiamvoluptua.</div>
+   */
+  .text-left {
+    text-align: left;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .text-right {
+    text-align: right;
+  }
+
+  .text-justify {
+    text-align: justify;
+  }
+}

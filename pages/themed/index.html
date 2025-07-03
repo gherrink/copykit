@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/src/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Main Navigation - Level 1</title>
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="./theme.css" />
+  </head>
+  <body>
+    <header class="wrapper width-content py bg bg-blue">
+      <h1 class="headline no-space">Themed Page</h1>
+    </header>
+    <main class="py" style="--py-space: var(--space-xl)">
+      <div class="wrapper width-content py">
+        <p>Small example that just tweaks the settings a bit.</p>
+        <button class="btn bg-blue">Button blue</button>
+        <button class="btn bg-orange">Button orange</button>
+      </div>
+
+      <div class="wrapper width-content bg bg-orange py" style="--py-space: var(--space-md)">
+        <p>
+          We can use layout styles to change how components look in different contexts. Here the
+          orange button on orange background should be changed and look different.
+        </p>
+        <button class="btn bg-blue">Button blue</button>
+        <button class="btn bg-orange">Button orange "a bit different"</button>
+      </div>
+    </main>
+    <footer class="wrapper width-content py bg bg-blue">Footer</footer>
+  </body>
+</html>

@@ -1,0 +1,72 @@
+/**
+ * Text for the index page
+ *
+ * @page index UI-Doc
+ */
+
+@layer defaults, components, utilities, layouts;
+
+/**
+ * Variables used in the project. These variables are a base set and can be changed depending on context and requirements. All components are using these variables to define the style or as a fallback if there more specific named variable is not present.
+ *
+ * @page variables Variables
+ * @order 10
+ */
+
+/**
+ * Defaults are used to specify standards and normalize the browser styles.
+ *
+ * @page defaults Defaults
+ * @order 20
+ */
+
+@import url("01_defaults/properties.css");
+@import url("01_defaults/variables.css");
+@import url("01_defaults/reset.css");
+@import url("01_defaults/typography.css");
+
+/**
+ * Components are reusable styling elements that can be reused across the project. It is possible to nests components inside of each other.
+ *
+ * @page components Components
+ * @order 30
+ */
+
+@import url("02_components/control.css");
+@import url("02_components/button.css");
+@import url("02_components/image.css");
+
+/**
+ * Utility classes are building the base of all styles. They can be applied everywhere to modify/control one specific thing.
+ *
+ * @page utilities Utilities
+ * @order 40
+ */
+
+@import url("03_utilities/hidden.css");
+@import url("03_utilities/background.css");
+@import url("03_utilities/text.css");
+@import url("03_utilities/padding.css");
+@import url("03_utilities/margin.css");
+@import url("03_utilities/wrapper.css");
+@import url("03_utilities/width.css");
+@import url("03_utilities/height.css");
+@import url("03_utilities/aspect-ratio.css");
+@import url("03_utilities/flex.css");
+@import url("03_utilities/grid.css");
+@import url("03_utilities/gap.css");
+
+/**
+ * Layouts are the outermost layer of the design. They define the structure of the page or define styles in specific contexts.
+ *
+ * @page layout Layout
+ * @order 50
+ */
+@import url("04_layouts/body.css");
+
+/**
+ * Basic JavaScript functions to make your live easier.
+ *
+ * @page functions Functions
+ * @order 60
+ */

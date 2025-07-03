@@ -1,0 +1,69 @@
+@property --aspect-ratio {
+  inherits: true;
+  initial-value: 1;
+  syntax: "*"; /* currently there is not <resolution> or something leve it to any TODO change later */
+}
+
+@layer utilities {
+  /**
+   * The aspect ratio class can be used to force a specific aspect ratio on an element. The child will positioned absolute in the center of the parent.
+   * The aspect ratio can be set by using the `--aspect-ratio` custom property. Can be done over css selector or directly in the style of the element.
+   *
+   * @location utilities.aspect-ratio Aspect ratio
+   * @example
+   * <style>
+   *   .aspect-ratio-16-9 { --aspect-ratio: 16 / 9; }
+   * </style>
+   * <div class="aspect-ratio-16-9 bg bg-black" style="max-width: 260px;"><span>16:9</span></div>
+   * <hr>
+   * <div class="aspect-ratio bg bg-black" style="--aspect-ratio: 16 / 9; max-width: 260px;"><span>16:9</span></div>
+   */
+  .aspect-ratio,
+  [class^="aspect-ratio-"],
+  [class*="aspect-ratio-"] {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: var(--aspect-ratio);
+    width: 100%;
+
+    > * {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  /**
+   * When using the aspect ratio in combination with an image, the image will be stretched to cover the whole area.
+   *
+   * @location utilities.aspect-ratio.with-picture With picture
+   * @example
+   * <picture class="image aspect-ratio" style="--aspect-ratio: 16/9; max-width: 360px;">
+   *   <img alt="Image Preview" src="img/preview-520x520.png" width="520" height="520"/>
+   * </picture>
+   * <picture class="image aspect-ratio" style="--aspect-ratio: 9/16; max-width: 200px;">
+   *   <img alt="Image Preview" src="img/preview-520x520.png" width="520" height="520"/>
+   * </picture>
+   */
+  .aspect-ratio > img,
+  [class^="aspect-ratio-"] > img,
+  [class*=" aspect-ratio-"] > img {
+    min-width: 100%;
+    min-height: 100%;
+    object-fit: cover;
+  }
+
+  /**
+   * The aspect ratio class can be used to force a specific aspect ratio on an element. The child will positioned absolute in the center of the parent.
+   * The aspect ratio can be set by using the `--aspect-ratio` custom property. Can be done over css selector or directly in the style of the element.
+   *
+   * @location utilities.aspect-ratio.16x9 16:9
+   * @example
+   * <div class="aspect-ratio-16-9 bg bg-black" style="max-width: 260px;"><span>16:9</span></div>
+   *
+   */
+  .aspect-ratio-16-9 {
+    --aspect-ratio: 16 / 9;
+  }
+}

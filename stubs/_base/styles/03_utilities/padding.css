@@ -1,0 +1,230 @@
+@property --pt {
+  inherits: false;
+  initial-value: undefined;
+  syntax: "<length-percentage> | undefined";
+}
+
+@property --pr {
+  inherits: false;
+  initial-value: undefined;
+  syntax: "<length-percentage> | undefined";
+}
+
+@property --pb {
+  inherits: false;
+  initial-value: undefined;
+  syntax: "<length-percentage> | undefined";
+}
+
+@property --pl {
+  inherits: false;
+  initial-value: undefined;
+  syntax: "<length-percentage> | undefined";
+}
+
+@property --px {
+  inherits: false;
+  initial-value: undefined;
+  syntax: "<length-percentage> | undefined";
+}
+
+@property --py {
+  inherits: false;
+  initial-value: undefined;
+  syntax: "<length-percentage> | undefined";
+}
+
+@property --pt-space {
+  inherits: false;
+  initial-value: 1;
+  syntax: "<number>";
+}
+
+@property --pr-space {
+  inherits: false;
+  initial-value: 1;
+  syntax: "<number>";
+}
+
+@property --pb-space {
+  inherits: false;
+  initial-value: 1;
+  syntax: "<number>";
+}
+
+@property --pl-space {
+  inherits: false;
+  initial-value: 1;
+  syntax: "<number>";
+}
+
+@property --px-space {
+  inherits: false;
+  initial-value: 1;
+  syntax: "<number>";
+}
+
+@property --py-space {
+  inherits: false;
+  initial-value: 1;
+  syntax: "<number>";
+}
+
+@layer utilities {
+  /**
+   * Using `padding` to add paddings top, right, bottom and left to your element.
+   * Possible variables are:
+   * - **--[space]** - set directly a spacing unit
+   * - **--[space]-space** - set a predefined space
+   *
+   * Possible <spaces> are:
+   * - **pt** - padding-top
+   * - **pr** - padding-right
+   * - **pb** - padding-bottom
+   * - **pl** - padding-left
+   *
+   * @location utilities.padding Padding
+   * @example
+   * <div class="padding bg bg-black"><div class="bg bg-white">text</div></div>
+   */
+  .padding,
+  .pxy {
+    padding: var(--pt) var(--pr) var(--pb) var(--pl);
+  }
+
+  /**
+   * Using `pt` to add padding top to your element.
+   * Possible variables are:
+   * - **--pt** - set directly a spacing unit
+   * - **--pt-space** - set a predefined space
+   *
+   * @location utilities.padding.top Padding top
+   * @example
+   * <div class="pt bg bg-black"><div class="bg bg-white">text</div></div>
+   */
+  .pt,
+  .py {
+    padding-top: var(--pt);
+  }
+
+  .padding,
+  .pt {
+    --pt: calc(var(--space-unit) * var(--pt-space, 1));
+  }
+
+  /**
+   * Using `pr` to add padding right to your element.
+   * Possible variables are:
+   * - **--pr** - set directly a spacing unit
+   * - **--pr-space** - set a predefined space
+   *
+   * @location utilities.padding.right Padding right
+   * @example
+   * <div class="pr bg bg-black"><div class="bg bg-white">text</div></div>
+   */
+  .pr,
+  .px {
+    padding-right: var(--pr);
+  }
+
+  .padding,
+  .pr {
+    --pr: calc(var(--space-unit) * var(--pr-space, 1));
+  }
+
+  /**
+   * Using `pb` to add padding bottom to your element.
+   * Possible variables are:
+   * - **--pb** - set directly a spacing unit
+   * - **--pb-space** - set a predefined space
+   *
+   * @location utilities.padding.bottom Padding bottom
+   * @example
+   * <div class="pb bg bg-black"><div class="bg bg-white">text</div></div>
+   */
+  .pb,
+  .py {
+    padding-bottom: var(--pb);
+  }
+
+  .padding,
+  .pb {
+    --pb: calc(var(--space-unit) * var(--pb-space, 1));
+  }
+
+  /**
+   * Using `pl` to add padding left to your element.
+   * Possible variables are:
+   * - **--pl** - set directly a spacing unit
+   * - **--pl-space** - set a predefined space
+   *
+   * @location utilities.padding.left Padding left
+   * @example
+   * <div class="pl bg bg-black"><div class="bg bg-white">text</div></div>
+   */
+  .pl,
+  .px {
+    padding-left: var(--pl);
+  }
+
+  .padding,
+  .pl {
+    --pl: calc(var(--space-unit) * var(--pl-space, 1));
+  }
+
+  /**
+   * Using `pxy` to add padding for the x and y axis to your element.
+   * Possible variables are:
+   * - **--[space]** - set directly a spacing unit
+   * - **--space-[space]** - set a predefined space
+   *
+   * Possible <spaces> are:
+   * - **my** - padding-top and padding-bottom
+   * - **mx** - padding-left and padding-right
+   *
+   * @location utilities.padding.xy padding y-axis and x-axis
+   * @example
+   * <div class="pxy bg bg-black"><div class="bg bg-white">text</div></div>
+   */
+  /**
+   * Using `py` to add paddings tob and bottom with same size to your element.
+   * Possible variables are:
+   * - **--py** - set directly a spacing unit
+   * - **--py-space** - set a predefined space
+   *
+   * @location utilities.padding.y Padding y-axis
+   * @example
+   * <div class="py bg bg-black"><div class="bg bg-white">text</div></div>
+   */
+  /**
+   * Using `px` to add paddings left and right with same size to your element.
+   * Possible variables are:
+   * - **--px** - set directly a spacing unit
+   * - **--px-space** - set a predefined space
+   *
+   * @location utilities.padding.x Padding x-axis
+   * @example
+   * <div class="px bg bg-black"><div class="bg bg-white">text</div></div>
+   */
+  .pxy,
+  .py {
+    --py: calc(var(--space-unit) * var(--py-space, 1));
+    --pt: var(--py);
+    --pb: var(--py);
+  }
+
+  .pxy,
+  .px {
+    --px: calc(var(--space-unit) * var(--px-space, 1));
+    --pl: var(--px);
+    --pr: var(--px);
+  }
+
+  /**
+   * If you nest padded element
+   *
+   * @location utilities.padding.nesting Padding nesting
+   * @example
+   * <div class="pxy bg bg-black" style="--px-space: var(--space-xl); --py-space: var(--space-md);"><div class="padding bg bg-white"><div class="padding bg bg-black">text nested</div></div></div>
+   */
+}

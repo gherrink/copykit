@@ -1,0 +1,42 @@
+@layer defaults {
+  *,
+  *::after,
+  *::before {
+    box-sizing: border-box;
+  }
+
+  ::selection {
+    color: rgb(var(--selection-color));
+    background: rgb(var(--selection-bg-color));
+  }
+
+  html,
+  body {
+    height: 100%;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: var(--scroll-padding-top, 0);
+  }
+
+  body {
+    margin: 0;
+    background: rgb(var(--bg-color));
+  }
+
+  /* Make images easier to work with */
+  img,
+  picture,
+  video,
+  canvas,
+  svg {
+    display: block;
+    max-width: 100%;
+  }
+
+  /* Anything that has been anchored to should have extra scroll margin */
+  :target {
+    scroll-margin-block: 5ex;
+  }
+}

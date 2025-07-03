@@ -1,0 +1,127 @@
+@property --btn-font-color {
+  inherits: true;
+  initial-value: undefined;
+  syntax: "<number>+ | undefined";
+}
+
+@property --btn-bg-color {
+  inherits: true;
+  initial-value: undefined;
+  syntax: "<number>+ | undefined";
+}
+
+@property --btn-hover-color {
+  inherits: true;
+  initial-value: undefined;
+  syntax: "<number>+ | undefined";
+}
+
+@property --btn-hover-bg-color {
+  inherits: true;
+  initial-value: undefined;
+  syntax: "<number>+ | undefined";
+}
+
+@layer components {
+  /**
+   * Buttons can be used with different html attributes.
+   *
+   * @location components.button Button
+   * @example
+   * <button class="btn">Button</button>
+   * <button class="btn" disabled>Button disabled</button>
+   * <a href="#" class="btn">Link Button</a>
+   * <input type="submit" class="btn" value="Submit button" />
+   */
+  .btn {
+    --btn-font-color: var(--font-color);
+    --btn-bg-color: var(--bg-color);
+    --btn-bg-alpha: 1;
+
+    --btn-hover-font-color: var(--btn-font-color);
+    --btn-hover-bg-color: var(--accent-color);
+
+    --btn-font-size: var(--font-size);
+    --btn-font-weight: var(--font-weight-bold);
+
+    --btn-py-space: var(--space-xs);
+    --btn-px-space: var(--space-sm);
+
+    --btn-transition-time: var(--transition-base);
+
+    --selection-color: var(--btn-bg-color);
+    --selection-bg-color: var(--btn-font-color);
+
+    --px: calc(var(--space-unit) * var(--btn-px-space));
+    --py: calc(var(--space-unit) * var(--btn-py-space));
+
+    cursor: pointer;
+    user-select: none;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: var(--py) var(--px);
+    border: none;
+    border-radius: unset;
+
+    line-height: normal;
+    color: rgb(var(--btn-font-color));
+    text-align: center;
+    text-decoration: none;
+    word-break: keep-all;
+    white-space: nowrap;
+
+    appearance: none;
+    background: rgb(var(--btn-bg-color) / var(--btn-bg-alpha));
+    outline: none;
+
+    transition:
+      background-color var(--btn-transition-time) ease,
+      color var(--btn-transition-time) ease;
+  }
+
+  /**
+   * You can disable buttons by setting the `disabled` or `aria-disabled="true"` attribute.
+   *
+   * @location components.button.disabled Disabled
+   * @example
+   * <button class="btn" aria-disabled="true">Disabled by aria</button>
+   * <button class="btn" disabled>Disabled</button>
+   */
+  .btn:disabled,
+  .btn[aria-disabled="true"] {
+    --btn-bg-alpha: 0.6;
+
+    cursor: not-allowed;
+  }
+
+  .btn:focus {
+    outline: 2px solid rgb(var(--accent-color));
+    outline-offset: 1px;
+  }
+
+  /**
+   * We are using the bg colors to modify the btn color. In combination with the accent color for hover effects.
+   *
+   * @location components.button.colors Colors
+   * @example
+   * <button class="btn bg-white">Button</button>
+   * <button class="btn bg-black">Button</button>
+   */
+  .btn[class*="bg-"]:hover:not([aria-disabled="true"], [disabled], .no-hover) {
+    color: rgb(var(--btn-hover-font-color));
+    background: rgb(var(--btn-hover-bg-color));
+  }
+
+  /**
+   * The hover effect when using bg colors is disabled when using disabled attributes. Or you can manually disable the hover effect with `.no-hover`.
+   *
+   * @location components.button.colors.hover Hover effect
+   * @example
+   * <button class="btn bg-black" aria-disabled="true">Disabled by aria</button>
+   * <button class="btn bg-black" disabled>Disabled</button>
+   * <button class="btn bg-black no-hover">No hover</button>
+   */
+}

@@ -1,0 +1,75 @@
+@layer utilities {
+  /**
+   * @page utilities
+   * @section gap Gap
+   */
+  .gap-xs,
+  .gap-x-xs {
+    --gap-space-x: var(--space-xs);
+  }
+
+  .gap-sm,
+  .gap-x-sm {
+    --gap-space-x: var(--space-sm);
+  }
+
+  .gap-base,
+  .gap-x-base {
+    --gap-space-x: var(--space-base);
+  }
+
+  .gap-md,
+  .gap-x-md {
+    --gap-space-x: var(--space-md);
+  }
+
+  .gap-lg,
+  .gap-x-lg {
+    --gap-space-x: var(--space-lg);
+  }
+
+  .gap-xl,
+  .gap-x-xl {
+    --gap-space-x: var(--space-xl);
+  }
+
+  .gap-2xl,
+  .gap-x-2xl {
+    --gap-space-x: var(--space-2xl);
+  }
+
+  .gap-xs,
+  .gap-y-xs {
+    --gap-space-y: var(--space-xs);
+  }
+
+  .gap-sm,
+  .gap-y-sm {
+    --gap-space-y: var(--space-sm);
+  }
+
+  .gap-base,
+  .gap-y-base {
+    --gap-space-y: var(--space-base);
+  }
+
+  .gap-md,
+  .gap-y-md {
+    --gap-space-y: var(--space-md);
+  }
+
+  .gap-lg,
+  .gap-y-lg {
+    --gap-space-y: var(--space-lg);
+  }
+
+  .gap-xl,
+  .gap-y-xl {
+    --gap-space-y: var(--space-xl);
+  }
+
+  .gap-2xl,
+  .gap-y-2xl {
+    --gap-space-y: var(--space-2xl);
+  }
+}
