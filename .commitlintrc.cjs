@@ -5,6 +5,7 @@ module.exports = {
       'docs',
       'pages',
       'stub:base',
+      'stub:accordion',
     ]],
   },
 }

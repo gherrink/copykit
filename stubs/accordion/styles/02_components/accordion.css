@@ -1,0 +1,205 @@
+@property --accordion-border-color {
+  inherits: true;
+  initial-value: 220 220 220;
+  syntax: "<number>+ | transparent";
+}
+
+@property --accordion-control-bg-color {
+  inherits: true;
+  initial-value: 248 248 248;
+  syntax: "<number>+ | transparent";
+}
+
+@property --accordion-control-hover-bg-color {
+  inherits: true;
+  initial-value: 240 240 240;
+  syntax: "<number>+ | transparent";
+}
+
+@property --accordion-content-bg-color {
+  inherits: true;
+  initial-value: 255 255 255;
+  syntax: "<number>+ | transparent";
+}
+
+@layer components {
+  /**
+   * Accordion component that uses the base expand functionality with aria-expanded and aria-controls.
+   * Each accordion item consists of a control (button) and content area.
+   *
+   * For single-select accordions, add `data-hide-same-level` to each accordion control.
+   * For animated accordions, add `data-animate="accordion"` to content areas.
+   *
+   * @location components.accordion Accordion
+   * @example
+   * <div class="accordion">
+   *   <div class="item">
+   *     <button class="control chevron" aria-expanded="false" aria-controls="content-1">
+   *       Item 1 Header
+   *     </button>
+   *     <div class="content" id="content-1" hidden>
+   *       Item 1 content goes here
+   *     </div>
+   *   </div>
+   *   <div class="item">
+   *     <button class="control chevron" aria-expanded="false" aria-controls="content-2">
+   *       Item 2 Header
+   *     </button>
+   *     <div class="content" id="content-2" hidden>
+   *       Item 2 content goes here
+   *     </div>
+   *   </div>
+   * </div>
+   */
+  .accordion {
+    --accordion-border-width: 1px;
+    --accordion-border-radius: 0;
+    --accordion-font-size: var(--font-size);
+    --accordion-transition-time: var(--transition-base);
+
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .accordion > .item {
+    position: relative;
+  }
+
+  .accordion > .item:not(:last-child) {
+    border-bottom: var(--accordion-border-width) solid rgb(var(--accordion-border-color));
+  }
+
+  .accordion > .item > .control {
+    --control-font-color: var(--font-color);
+    --control-bg-color: var(--accordion-control-bg-color);
+    --control-hover-bg-color: var(--accordion-control-hover-bg-color);
+    --control-py-space: var(--space-sm);
+    --control-px-space: var(--space-base);
+    --control-font-size: var(--accordion-font-size);
+    --control-font-weight: var(--font-weight-bold);
+    --control-transition-time: var(--accordion-transition-time);
+
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+    min-height: 3rem;
+
+    text-align: left;
+  }
+
+  .accordion > .item > .control:focus {
+    z-index: 1;
+    outline: 2px solid rgb(var(--accent-color));
+    outline-offset: -2px;
+  }
+
+  /**
+   * Accordion control with chevron indicator
+   *
+   * @location components.accordion.chevron Accordion with Chevron
+   * @example
+   * <div class="accordion">
+   *   <div class="item">
+   *     <button class="control chevron" aria-expanded="false" aria-controls="content-1">
+   *       Header with chevron
+   *     </button>
+   *     <div class="content" id="content-1" hidden>Content here</div>
+   *   </div>
+   * </div>
+   */
+  .accordion > .item > .control.chevron::after {
+    content: "";
+
+    transform: rotate(45deg);
+
+    flex-shrink: 0;
+
+    width: 0.5rem;
+    height: 0.5rem;
+    margin-left: auto;
+    border-right: 2px solid currentcolor;
+    border-bottom: 2px solid currentcolor;
+
+    transition: transform var(--accordion-transition-time) ease;
+  }
+
+  .accordion > .item > .control.chevron[aria-expanded="true"]::after {
+    transform: rotate(-135deg);
+  }
+
+  .accordion > .item > .content {
+    overflow: hidden;
+
+    padding: var(--space-base);
+
+    line-height: var(--line-height-relaxed);
+    color: rgb(var(--font-color));
+
+    background: rgb(var(--accordion-content-bg-color));
+  }
+
+  .accordion > .item > .content[hidden] {
+    display: none;
+  }
+
+  /**
+   * Single-select accordion where only one item can be open at a time. We ar using the `data-hide-same-level` tag from
+   * the expand function to toggle other elements.
+   *
+   * @location components.accordion.single Single-select Accordion
+   * @example
+   * <div class="accordion">
+   *   <div class="item">
+   *     <button class="control chevron" aria-expanded="false" aria-controls="single-1" data-hide-same-level>
+   *       Item 1
+   *     </button>
+   *     <div class="content" id="single-1" hidden>Content 1</div>
+   *   </div>
+   *   <div class="item">
+   *     <button class="control chevron" aria-expanded="false" aria-controls="single-2" data-hide-same-level>
+   *       Item 2
+   *     </button>
+   *     <div class="content" id="single-2" hidden>Content 2</div>
+   *   </div>
+   * </div>
+   */
+
+  /**
+   * Animation classes for accordion content
+   *
+   * @location components.accordion.animation Accordion with Animation
+   * @example
+   * <div class="accordion">
+   *   <div class="item">
+   *     <button class="control chevron" aria-expanded="false" aria-controls="animated-1">
+   *       Animated accordion
+   *     </button>
+   *     <div class="content" id="animated-1" hidden data-animate="accordion">
+   *       Animated content
+   *     </div>
+   *   </div>
+   * </div>
+   */
+  .accordion-enter-active,
+  .accordion-leave-active {
+    transform-origin: top;
+    transition: all var(--accordion-transition-time) ease;
+  }
+
+  .accordion-enter-from,
+  .accordion-leave-to {
+    transform: scaleY(0.95);
+    opacity: 0;
+  }
+
+  .accordion-enter-to,
+  .accordion-leave-from {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}

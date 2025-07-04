@@ -81,6 +81,50 @@ Uses CSS layers for organization:
 - **No console**: Console statements trigger warnings
 - **Accessibility**: Components must include proper ARIA attributes and keyboard navigation
 
+### CSS Documentation Standards
+Only add JSDoc documentation to CSS where it provides meaningful showcase value:
+
+**Document these CSS patterns:**
+- **Base components** with complete usage examples
+- **Component variants** that showcase different behaviors (`.accordion.flush`, `.btn.primary`)
+- **Interactive features** with special behaviors (`.control.chevron`, animations)
+- **Complex patterns** requiring specific HTML structure or data attributes
+
+**Don't document these CSS patterns:**
+- Simple structural elements (`.accordion > .item`, basic containers)
+- Basic utility classes or state selectors (`:hover`, `[hidden]`)
+- Internal implementation details
+
+**Documentation template:**
+```css
+/**
+ * Brief description of the component variant and its purpose
+ *
+ * @location components.component-name.variant Component Variant Name
+ * @example
+ * <!-- Complete, minimal example showing full functional structure -->
+ * <div class="component variant">
+ *   <div class="child">Complete example</div>
+ * </div>
+ */
+.component.variant {
+  /* CSS implementation */
+}
+```
+
+**Guidelines:**
+- Show **complete functional examples**, not code fragments
+- Use **descriptive @location paths** that group related variants
+- Focus on **user-facing functionality** rather than implementation details
+- Keep examples **minimal but complete** - show the essential structure
+- **CRITICAL**: `@location` keys must be **unique across the entire project** - never reuse the same location key
+
+**@location Key Rules:**
+- Use **dot notation**: `category.component.variant` (e.g., `components.accordion.single`)
+- Each key must be **globally unique** - check existing documentation before adding new locations
+- Follow hierarchical patterns for better organization
+- Examples: `components.button`, `components.button.primary`, `functions.expand`, `utilities.dom.select`
+
 ## Copy Point Creation
 
 ### IMPORTANT: Always Use the Automated Script

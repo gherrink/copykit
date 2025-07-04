@@ -73,6 +73,68 @@ When contributing, follow these structural guidelines:
 - Follow the existing naming conventions
 - Document new CSS variables with JSDoc comments
 
+### CSS Documentation Guidelines
+CSS documentation should only be added where it provides meaningful value for component showcases:
+
+**When TO add CSS documentation:**
+- **Main component**: Document the base component with basic usage example
+- **Component variations**: Document meaningful variants that users would want to see showcased (e.g., `.accordion.flush`, `.btn.primary`)
+- **Interactive features**: Document special interactive behaviors (e.g., `.control.chevron`, `.accordion.single-select`)
+- **Animation variants**: Document components with special animation features
+- **Complex usage patterns**: Document components that require specific HTML structure or data attributes
+
+**When NOT to add CSS documentation:**
+- **Basic structural elements**: Don't document simple containers or wrappers (e.g., `.accordion > .item`)
+- **Helper classes**: Don't document basic utility or helper classes
+- **State classes**: Don't document simple state classes like `:hover`, `:focus`, `[hidden]`
+- **Internal implementation**: Don't document CSS that's purely for internal styling
+
+**Documentation format:**
+```css
+/**
+ * Component description focusing on when/why to use this variant
+ *
+ * @location components.accordion.flush Flush Accordion
+ * @example
+ * <div class="accordion flush">
+ *   <div class="item">
+ *     <button class="control">Header</button>
+ *     <div class="content" hidden>Content</div>
+ *   </div>
+ * </div>
+ */
+.accordion.flush {
+  /* styles */
+}
+```
+
+**Key principles:**
+- Each documented example should show a **complete, functional component**
+- Focus on **variants and behaviors** that users need to understand
+- Keep examples **minimal but complete** (show full structure, not fragments)
+- Use **descriptive location paths** that group related variants
+- **CRITICAL**: Each `@location` key must be **unique across the entire project** - never reuse the same location key twice
+
+**@location Key Guidelines:**
+```css
+/* ✅ CORRECT - Unique location keys */
+@location components.accordion Accordion
+@location components.accordion.single Single-select Accordion
+@location components.accordion.chevron Accordion with Chevron
+@location components.button Button
+@location components.button.primary Primary Button
+
+/* ❌ INCORRECT - Duplicate location keys */
+@location components.accordion Accordion
+@location components.accordion Basic Accordion  // Duplicate key!
+```
+
+**Location key naming rules:**
+- Use **dot notation** to create hierarchical organization (e.g., `components.accordion.single`)
+- Keep keys **descriptive but concise**
+- Follow pattern: `category.component.variant` (e.g., `components.button.primary`)
+- **Never reuse** the same key, even across different files
+
 ### JavaScript/TypeScript
 - Place reusable utilities in `stubs/_base/scripts/utilities/`
 - Place feature services in `stubs/_base/scripts/services/`
