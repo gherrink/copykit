@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+    <link rel="shortcut icon" href="../favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Accordion Component - WebBase</title>
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header class="width-content">
+      <nav class="flex items-center justify-between py">
+        <a href="../" class="control">← Back to Pages</a>
+        <h1 class="headline h3 no-space">Accordion Component</h1>
+      </nav>
+    </header>
+    
+    <main class="width-content">
+      <section class="mt-lg">
+        <h2 class="headline h4">Basic Accordion</h2>
+        <p>A basic accordion with multiple items that can be opened independently.</p>
+        
+        <div class="accordion" style="max-width: 600px;">
+          <div class="item">
+            <button class="control chevron" aria-expanded="false" aria-controls="basic-1">
+              What is an accordion?
+            </button>
+            <div class="content" id="basic-1" hidden data-animate="accordion">
+              <p>An accordion is a UI component that allows users to expand and collapse sections of content. It's useful for organizing information in a space-efficient way.</p>
+              <p>This accordion uses the base expand functionality with enhanced styling and accessibility features.</p>
+            </div>
+          </div>
+          
+          <div class="item">
+            <button class="control chevron" aria-expanded="false" aria-controls="basic-2">
+              How does it work?
+            </button>
+            <div class="content" id="basic-2" hidden data-animate="accordion">
+              <p>The accordion uses <code>aria-expanded</code> and <code>aria-controls</code> attributes to manage the expand/collapse functionality.</p>
+              <ul>
+                <li>Click the control to toggle the content</li>
+                <li>Content is hidden with the <code>hidden</code> attribute</li>
+                <li>Animations are handled by the <code>data-animate</code> attribute</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="item">
+            <button class="control chevron" aria-expanded="false" aria-controls="basic-3">
+              Accessibility features
+            </button>
+            <div class="content" id="basic-3" hidden data-animate="accordion">
+              <p>The accordion includes several accessibility features:</p>
+              <ul>
+                <li><strong>ARIA attributes:</strong> Proper use of <code>aria-expanded</code> and <code>aria-controls</code></li>
+                <li><strong>Keyboard navigation:</strong> Arrow keys, Home, End, Space, and Enter support</li>
+                <li><strong>Focus management:</strong> Proper focus handling and visual indicators</li>
+                <li><strong>Screen reader support:</strong> Semantic HTML and ARIA labels</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="mt-lg">
+        <h2 class="headline h4">Single-Select Accordion</h2>
+        <p>Only one item can be open at a time. Opening a new item closes the previously opened one.</p>
+        
+        <div class="accordion" data-accordion="single" style="max-width: 600px;">
+          <div class="item">
+            <button class="control chevron" aria-expanded="false" aria-controls="single-1">
+              Section 1
+            </button>
+            <div class="content" id="single-1" hidden data-animate="accordion">
+              <p>This is the first section. When you open another section, this one will automatically close.</p>
+            </div>
+          </div>
+          
+          <div class="item">
+            <button class="control chevron" aria-expanded="false" aria-controls="single-2">
+              Section 2
+            </button>
+            <div class="content" id="single-2" hidden data-animate="accordion">
+              <p>This is the second section. Notice how opening this section closes the previous one.</p>
+            </div>
+          </div>
+          
+          <div class="item">
+            <button class="control chevron" aria-expanded="false" aria-controls="single-3">
+              Section 3
+            </button>
+            <div class="content" id="single-3" hidden data-animate="accordion">
+              <p>This is the third section. The single-select behavior is achieved by using <code>data-accordion="single"</code> on the accordion container.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="mt-lg">
+        <h2 class="headline h4">Without Chevron</h2>
+        <p>A simpler accordion design without the chevron indicator.</p>
+        
+        <div class="accordion" style="max-width: 600px;">
+          <div class="item">
+            <button class="control" aria-expanded="false" aria-controls="simple-1">
+              Simple Control
+            </button>
+            <div class="content" id="simple-1" hidden data-animate="accordion">
+              <p>This accordion doesn't use the chevron class, so no arrow indicator is shown.</p>
+            </div>
+          </div>
+          
+          <div class="item">
+            <button class="control" aria-expanded="false" aria-controls="simple-2">
+              Another Control
+            </button>
+            <div class="content" id="simple-2" hidden data-animate="accordion">
+              <p>Sometimes a simpler design is preferred for certain use cases.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="mt-lg">
+        <h2 class="headline h4">Keyboard Navigation Demo</h2>
+        <p>Try focusing on the accordion below and using keyboard navigation:</p>
+        <ul>
+          <li><strong>Arrow keys:</strong> Navigate between controls</li>
+          <li><strong>Home/End:</strong> Jump to first/last control</li>
+          <li><strong>Space/Enter:</strong> Toggle the focused control</li>
+        </ul>
+        
+        <div class="accordion" data-accordion="single" data-keyboard="true" style="max-width: 600px;">
+          <div class="item">
+            <button class="control chevron" aria-expanded="false" aria-controls="keyboard-1">
+              Focus me and use arrow keys
+            </button>
+            <div class="content" id="keyboard-1" hidden data-animate="accordion">
+              <p>Use the arrow keys to navigate between controls, and Space or Enter to toggle.</p>
+            </div>
+          </div>
+          
+          <div class="item">
+            <button class="control chevron" aria-expanded="false" aria-controls="keyboard-2">
+              Navigate here with Down arrow
+            </button>
+            <div class="content" id="keyboard-2" hidden data-animate="accordion">
+              <p>Keyboard navigation makes the accordion more accessible for users who can't use a mouse.</p>
+            </div>
+          </div>
+          
+          <div class="item">
+            <button class="control chevron" aria-expanded="false" aria-controls="keyboard-3">
+              Use Home/End keys to jump
+            </button>
+            <div class="content" id="keyboard-3" hidden data-animate="accordion">
+              <p>Press Home to jump to the first control, or End to jump to the last control.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="mt-lg">
+        <h2 class="headline h4">Programmatic Control</h2>
+        <p>You can also control accordions programmatically using JavaScript.</p>
+        
+        <div class="flex gap items-center mb">
+          <button class="btn bg-black" onclick="controlAccordion.open(0)">Open First</button>
+          <button class="btn bg-black" onclick="controlAccordion.close(0)">Close First</button>
+          <button class="btn bg-black" onclick="controlAccordion.toggle(1)">Toggle Second</button>
+          <button class="btn bg-black" onclick="controlAccordion.closeAll()">Close All</button>
+        </div>
+        
+        <div class="accordion" id="controlled-accordion" style="max-width: 600px;">
+          <div class="item">
+            <button class="control chevron" aria-expanded="false" aria-controls="controlled-1">
+              Controlled Item 1
+            </button>
+            <div class="content" id="controlled-1" hidden data-animate="accordion">
+              <p>This item can be controlled using the buttons above.</p>
+            </div>
+          </div>
+          
+          <div class="item">
+            <button class="control chevron" aria-expanded="false" aria-controls="controlled-2">
+              Controlled Item 2
+            </button>
+            <div class="content" id="controlled-2" hidden data-animate="accordion">
+              <p>Try the "Toggle Second" button to control this item.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="mt-lg">
+        <h2 class="headline h4">HTML Structure</h2>
+        <p>Here's the basic HTML structure for an accordion:</p>
+        
+        <pre class="p bg-gray" style="border-radius: 4px; overflow-x: auto;"><code>&lt;div class="accordion"&gt;
+  &lt;div class="item"&gt;
+    &lt;button class="control chevron" aria-expanded="false" aria-controls="content-1"&gt;
+      Control Text
+    &lt;/button&gt;
+    &lt;div class="content" id="content-1" hidden data-animate="accordion"&gt;
+      Content goes here
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      </section>
+
+      <section class="mt-lg">
+        <h2 class="headline h4">JavaScript Integration</h2>
+        <p>Initialize accordions with enhanced functionality:</p>
+        
+        <pre class="p bg-gray" style="border-radius: 4px; overflow-x: auto;"><code>import { initAccordions, createAccordion } from '@/accordion/scripts/services/accordion'
+
+// Initialize all accordions on the page
+initAccordions()
+
+// Or create a specific accordion instance
+const accordion = createAccordion('#my-accordion', {
+  multiSelect: false,
+  keyboard: true,
+  onOpen: (element, target) =&gt; console.log('Opened:', element),
+  onClose: (element, target) =&gt; console.log('Closed:', element)
+})
+
+// Programmatic control
+accordion.open(0)
+accordion.close(0)
+accordion.toggle(0)</code></pre>
+      </section>
+    </main>
+    
+    <script type="module" src="./accordion.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,59 @@
+@import url("../../stubs/_base/styles/index.css");
+@import url("../../stubs/accordion/styles/02_components/accordion.css");
+
+/* Page-specific styles */
+:root {
+  --bg-color: var(--color-white);
+}
+
+/* Demo styling */
+pre {
+  --font-family: "SF Mono", "Monaco", "Inconsolata", "Roboto Mono", "Consolas", monospace;
+  font-family: var(--font-family);
+  font-size: 0.875em;
+  line-height: 1.4;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+code {
+  padding: 0.125em 0.25em;
+  border-radius: 2px;
+
+  font-family: inherit;
+  font-size: 0.9em;
+
+  background: rgb(var(--color-gray), 0.1);
+}
+
+pre code {
+  padding: 0;
+  border-radius: 0;
+  background: none;
+}
+
+/* Utility classes for the demo */
+.mb {
+  margin-bottom: calc(var(--space-unit) * var(--space-base));
+}
+
+.mt-lg {
+  margin-top: calc(var(--space-unit) * var(--space-lg));
+}
+
+.gap {
+  gap: calc(var(--space-unit) * var(--space-sm));
+}
+
+.py {
+  padding-top: calc(var(--space-unit) * var(--space-sm));
+  padding-bottom: calc(var(--space-unit) * var(--space-sm));
+}
+
+.p {
+  padding: calc(var(--space-unit) * var(--space-base));
+}
+
+.bg-gray {
+  background: rgb(var(--color-gray), 0.1);
+}
