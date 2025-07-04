@@ -3,6 +3,15 @@ import { queryParentSelector } from '../utilities/select'
 import { EventEmitter } from '../utilities/event-emitter'
 
 /**
+ * Global declarations for DOM-based instance storage
+ */
+declare global {
+  interface HTMLElement {
+    __expand?: Expand
+  }
+}
+
+/**
  * Interface defining the events that the Expand class can emit
  */
 interface ExpandEvents {
@@ -89,8 +98,6 @@ interface ExpandEvents {
  * Expand class for handling expandable/collapsible elements with ARIA attributes
  */
 export class Expand extends EventEmitter<ExpandEvents> {
-  private static instances = new WeakMap<HTMLElement, Expand>()
-  
   public readonly element: HTMLElement
   public readonly controlTarget: string | null
   
@@ -99,8 +106,8 @@ export class Expand extends EventEmitter<ExpandEvents> {
     this.element = element
     this.controlTarget = element.getAttribute('aria-controls')
     
-    // Store instance on DOM element
-    Expand.instances.set(element, this)
+    // Store instance directly on DOM element
+    ;(element as any).__expand = this
     
     // Bind event listeners
     this.element.addEventListener('click', this.handleClick.bind(this))
@@ -116,7 +123,7 @@ export class Expand extends EventEmitter<ExpandEvents> {
   }
   
   static getInstance(element: HTMLElement): Expand | null {
-    return Expand.instances.get(element) || null
+    return (element as any).__expand || null
   }
   
   get isExpanded(): boolean {
