@@ -59,9 +59,75 @@ Before submitting a pull request, ensure your code meets these standards:
 - Use CSS custom properties for theming
 
 ### Testing
+- Run `pnpm test` to execute the full test suite
 - Ensure your changes don't break existing functionality
+- Add tests for new features following the naming conventions
 - Test across different browsers if making UI changes
 - Verify accessibility compliance
+
+#### Test File Naming Convention
+Follow this strict naming convention for all test files:
+
+**Unit Tests**: `[name].test.ts`
+- Examples: `cookie.test.ts`, `expand.test.ts`, `accordion.test.ts`
+- For testing individual functions, classes, or components
+
+**Accessibility Tests**: `[name].accessibility.test.ts`
+- Examples: `accordion.accessibility.test.ts`, `aria-fundamentals.accessibility.test.ts`
+- For testing WCAG compliance, ARIA attributes, keyboard navigation, and axe-core scanning
+
+#### Testing Structure
+```
+test/                                    # Global test utilities and infrastructure tests
+├── setup.ts                           # Test environment configuration
+├── utils.ts                           # Shared test utilities and helpers
+├── aria-fundamentals.accessibility.test.ts    # Basic ARIA and accessibility tests
+└── axe-core-integration.accessibility.test.ts # Automated accessibility scanning tests
+
+stubs/_base/scripts/
+├── utilities/
+│   ├── cookie.test.ts                  # Unit tests for cookie utilities
+│   ├── dom.test.ts                     # Unit tests for DOM utilities
+│   ├── event-emitter.test.ts          # Unit tests for EventEmitter class
+│   └── select.test.ts                  # Unit tests for selector utilities
+└── services/
+    └── expand.test.ts                  # Unit tests for expand service
+
+stubs/accordion/scripts/services/
+├── accordion.test.ts                   # Unit tests for accordion functionality
+└── accordion.accessibility.test.ts    # Accessibility tests for accordion component
+```
+
+#### Test Coverage Requirements
+- **Unit Tests**: Test all public APIs, edge cases, error handling
+- **Accessibility Tests**: Verify WCAG compliance, ARIA attributes, keyboard navigation
+- **Integration Tests**: Test component interactions and event handling
+- **Automated Scanning**: Use axe-core for automated accessibility violation detection
+
+#### Writing Tests
+```typescript
+// Unit test example
+import { describe, it, expect } from 'vitest'
+import { cookieRead, cookieWrite } from './cookie'
+
+describe('Cookie Utilities', () => {
+  it('should read and write cookies correctly', () => {
+    cookieWrite('test', 'value')
+    expect(cookieRead('test')).toBe('value')
+  })
+})
+
+// Accessibility test example  
+import { describe, it, expect } from 'vitest'
+import { expectAccessible, createAccordionElement } from '@test/utils'
+
+describe('Accordion Accessibility', () => {
+  it('should pass axe-core accessibility scan', async () => {
+    const accordion = createAccordionElement({ itemCount: 3 })
+    await expectAccessible(accordion)
+  })
+})
+```
 
 ## Project Structure Guidelines
 

@@ -19,6 +19,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `pnpm run format:check` - Check code formatting
 - `pnpm run security` - Run security audit
 
+### Testing
+- `pnpm test` - Run the complete test suite using Vitest
+- Tests use jsdom environment for DOM manipulation and browser API testing
+- Automated accessibility testing with axe-core integration
+- 178+ tests covering utilities, services, components, and accessibility
+
 ### Copy Point Management
 - `pnpm run create-copy-point [name]` - Generate new copy point with proper structure and templates
 
@@ -214,3 +220,175 @@ git commit -m "docs: update component usage examples"
 ```
 
 **Important**: After creating a new copy point, you must manually add its scope to `.commitlintrc.cjs` in the `scope-enum` array.
+
+## Testing Framework and Standards
+
+### Test Environment
+- **Framework**: Vitest with TypeScript support
+- **Environment**: jsdom for DOM manipulation and browser API simulation
+- **Coverage**: Comprehensive testing for utilities, services, components, and accessibility
+- **Accessibility**: Automated testing with axe-core integration and manual ARIA validation
+
+### Test File Naming Convention
+**CRITICAL**: Always follow this exact naming convention for test files:
+
+#### Unit Tests: `[name].test.ts`
+Use for testing individual functions, classes, services, or component functionality:
+```
+cookie.test.ts                    # Tests for cookie utility functions
+event-emitter.test.ts            # Tests for EventEmitter class
+expand.test.ts                   # Tests for expand service
+accordion.test.ts                # Tests for accordion component functionality
+```
+
+#### Accessibility Tests: `[name].accessibility.test.ts`
+Use for testing WCAG compliance, ARIA attributes, keyboard navigation, and automated scanning:
+```
+accordion.accessibility.test.ts           # Accessibility tests for accordion component
+aria-fundamentals.accessibility.test.ts   # Basic ARIA and accessibility fundamentals
+axe-core-integration.accessibility.test.ts # Automated accessibility scanning tests
+```
+
+### Test Directory Structure
+```
+test/                                    # Global test infrastructure
+├── setup.ts                           # Test environment configuration (Canvas API mocks, etc.)
+├── utils.ts                           # Shared test utilities and helpers
+├── aria-fundamentals.accessibility.test.ts    # Basic ARIA and accessibility patterns
+└── axe-core-integration.accessibility.test.ts # Automated accessibility violation detection
+
+stubs/_base/scripts/
+├── utilities/
+│   ├── cookie.test.ts                  # Cookie read/write function tests
+│   ├── dom.test.ts                     # DOM manipulation utility tests
+│   ├── event-emitter.test.ts          # Type-safe EventEmitter tests
+│   └── select.test.ts                  # Parent selector utility tests
+└── services/
+    └── expand.test.ts                  # Expand/collapse service tests
+
+stubs/accordion/scripts/services/
+├── accordion.test.ts                   # Accordion component functionality tests
+└── accordion.accessibility.test.ts    # Accordion WCAG compliance and ARIA tests
+```
+
+### Testing Standards
+
+#### Unit Test Requirements
+- **Complete API Coverage**: Test all public methods, functions, and classes
+- **Edge Cases**: Test boundary conditions, empty inputs, null/undefined values
+- **Error Handling**: Verify proper error throwing and graceful degradation
+- **TypeScript Integration**: Test type safety and generic constraints
+- **Event Handling**: Test event emission, listener management, and cleanup
+
+#### Accessibility Test Requirements
+- **ARIA Compliance**: Verify proper aria-expanded, aria-controls, aria-hidden attributes
+- **Keyboard Navigation**: Test arrow keys, Home/End, Space/Enter activation
+- **Focus Management**: Test focus indicators, tabindex management, focus trapping
+- **Screen Reader Support**: Test semantic HTML structure and accessible content
+- **Automated Scanning**: Use axe-core to detect WCAG violations automatically
+- **Color Contrast**: Verify sufficient contrast ratios and visual accessibility
+
+#### Test Utilities (`@test/utils`)
+The test utilities provide comprehensive helpers for testing:
+
+**DOM Utilities**:
+```typescript
+createTestContainer()           # Create isolated test container
+cleanupTestContainer()          # Clean up after tests
+createElement(tag, attrs, content) # Create elements with attributes
+```
+
+**Accessibility Utilities**:
+```typescript
+expectAccessible(element)       # Run axe-core accessibility scan
+expectExpanded(element)         # Verify aria-expanded="true"
+expectCollapsed(element)        # Verify aria-expanded="false"
+expectFocusedElement(element)   # Verify element has focus
+```
+
+**Accordion-Specific Utilities**:
+```typescript
+createAccordionElement(options) # Create accordion with items/controls
+getAccordionControls(accordion) # Get all control buttons
+getAccordionContents(accordion) # Get all content panels
+navigateAccordion(control, key) # Simulate keyboard navigation
+expectAccordionState(accordion, state) # Verify open/closed state
+```
+
+### Writing Tests
+
+#### Unit Test Example
+```typescript
+import { describe, it, expect, vi } from 'vitest'
+import { EventEmitter } from './event-emitter'
+
+interface TestEvents {
+  test: (data: string) => void
+}
+
+describe('EventEmitter', () => {
+  it('should emit events with type safety', () => {
+    const emitter = new EventEmitter<TestEvents>()
+    const listener = vi.fn()
+    
+    emitter.on('test', listener)
+    emitter.emit('test', 'hello')
+    
+    expect(listener).toHaveBeenCalledWith('hello')
+  })
+})
+```
+
+#### Accessibility Test Example
+```typescript
+import { describe, it, expect } from 'vitest'
+import { 
+  createAccordionElement, 
+  expectAccessible,
+  getAccordionControls,
+  navigateAccordion 
+} from '@test/utils'
+
+describe('Accordion Accessibility', () => {
+  it('should support keyboard navigation', async () => {
+    const accordion = createAccordionElement({ itemCount: 3 })
+    const controls = getAccordionControls(accordion)
+    
+    controls[0].focus()
+    await navigateAccordion(controls[0], 'ArrowDown')
+    
+    expect(document.activeElement).toBe(controls[1])
+    await expectAccessible(accordion)
+  })
+})
+```
+
+### Test Coverage Goals
+- **Unit Tests**: 100% coverage of public APIs and critical paths
+- **Accessibility Tests**: WCAG 2.1 AA compliance verification
+- **Integration Tests**: Component interaction and event flow testing
+- **Cross-browser**: Functionality works across modern browsers
+- **Performance**: No significant performance regressions
+
+### Running Tests
+```bash
+pnpm test                 # Run all tests
+pnpm test cookie          # Run specific test file
+pnpm test accessibility   # Run accessibility tests only
+```
+
+### Adding Tests for New Features
+When adding new features:
+
+1. **Create unit tests** first using `[name].test.ts` convention
+2. **Add accessibility tests** if creating UI components using `[name].accessibility.test.ts`
+3. **Update test utilities** in `@test/utils` if adding reusable patterns
+4. **Ensure all tests pass** before committing changes
+5. **Add test coverage** for edge cases and error conditions
+
+### Mock and Test Environment
+- **document.cookie**: Properly mocked for cookie utility testing
+- **Canvas API**: Mocked for axe-core color contrast testing
+- **Event listeners**: Full event simulation and cleanup testing
+- **ARIA attributes**: Complete ARIA state management testing
+- **Focus management**: Browser focus behavior simulation

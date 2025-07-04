@@ -91,7 +91,6 @@ export class Accordion extends EventEmitter<AccordionEvents> {
       return expandInstance
     })
 
-
     // Set up event listeners on Expand instances
     this.setupExpandListeners()
 

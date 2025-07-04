@@ -32,12 +32,16 @@ export function queryParentSelector(
   selector: string,
   maxDepth = 10,
 ): Element | null {
-  if (maxDepth <= 0 || element === null) {
+  if (element === null) {
     return null
   }
 
   if (element.matches(selector)) {
     return element as Element
+  }
+
+  if (maxDepth <= 0) {
+    return null
   }
 
   return element.parentElement

@@ -38,7 +38,9 @@ export class EventEmitter<T extends Record<keyof T, (...args: any[]) => void>> {
    */
   emit<K extends keyof T>(event: K, ...args: Parameters<T[K]>): void {
     if (!this.events.has(event)) return
-    this.events.get(event)!.forEach(listener => {
+    // Create a copy of the listeners array to avoid issues when listeners modify the array during iteration
+    const listeners = [...this.events.get(event)!]
+    listeners.forEach(listener => {
       listener(...args)
     })
   }
