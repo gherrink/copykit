@@ -1,0 +1,121 @@
+@property --level {
+  inherits: true;
+  initial-value: 0;
+  syntax: "<number>";
+}
+
+@property --elevate-boost {
+  inherits: true;
+  initial-value: 0%;
+  syntax: "<percentage>";
+}
+
+@property --elevate-color {
+  inherits: true;
+  initial-value: 255 255 255;
+  syntax: "<number>+";
+}
+
+@layer components {
+  /**
+    * Elevate the `--bg-color` variable by mixing it with the `--elevate-color` variable based on the `--level` (value from 0 to 24) variable. Additionally you can boost the elevation by using the `--elevate-boost` variable.
+    *
+    * @location utilities.elevate Elevation
+    * @example
+    * <div style="--bg-color: 0 0 0; --font-color: 255 255 255">
+    *   <div class="elevate" style="--level: 0;">0</div>
+    *   <div class="elevate" style="--level: 1;">1</div>
+    *   <div class="elevate" style="--level: 2;">2</div>
+    *   <div class="elevate" style="--level: 3;">3</div>
+    *   <div class="elevate" style="--level: 4;">4</div>
+    *   <div class="elevate" style="--level: 5;">5</div>
+    *   <div class="elevate" style="--level: 6;">6</div>
+    *   <div class="elevate" style="--level: 7;">7</div>
+    *   <div class="elevate" style="--level: 8;">8</div>
+    *   <div class="elevate" style="--level: 9;">9</div>
+    *   <div class="elevate" style="--level: 10;">10</div>
+    *   <div class="elevate" style="--level: 11;">11</div>
+    *   <div class="elevate" style="--level: 12;">12</div>
+    *   <div class="elevate" style="--level: 13;">13</div>
+    *   <div class="elevate" style="--level: 14;">14</div>
+    *   <div class="elevate" style="--level: 15;">15</div>
+    *   <div class="elevate" style="--level: 16;">16</div>
+    *   <div class="elevate" style="--level: 17;">17</div>
+    *   <div class="elevate" style="--level: 18;">18</div>
+    *   <div class="elevate" style="--level: 19;">19</div>
+    *   <div class="elevate" style="--level: 20;">20</div>
+    *   <div class="elevate" style="--level: 21;">21</div>
+    *   <div class="elevate" style="--level: 22;">22</div>
+    *   <div class="elevate" style="--level: 23;">23</div>
+    *   <div class="elevate" style="--level: 24;">24</div>
+    * </div>
+    */
+  .elevate {
+    --selection-bg-color: var(--font-color);
+    --selection-color: var(--bg-color);
+
+    color: rgb(var(--font-color));
+
+    /*
+     * use the color-mix function to mix the background color with the elevation color. The elevation color will be mixed with the background color by a percentage that is calculated based on the level.
+     * Try to get following output depending on the --level variable:
+     * 0: 0%
+     * 1: 5%
+     * 2: 7%
+     * 3: 8%
+     * 4: 9%,
+     * 5: 10%,
+     * 6: 11%,
+     * 7: 11.5%,
+     * 8: 12%,
+     * 9: 12.5%,
+     * 10: 13%,
+     * 11: 13.5%,
+     * 12: 14%,
+     * 13: 14.25%,
+     * 14: 14.5%,
+     * 15: 14.75%,
+     * 16: 15%,
+     * 17: 15.125%,
+     * 18: 15.25%,
+     * 19: 15.375%,
+     * 20: 15.5%,
+     * 21: 15.625%,
+     * 22: 15.75%,
+     * 23: 15.825%,
+     * 24: 16%;
+     *
+     * To achieve this, you need to use two different calculations:
+     * 1. Base calculation: getting a base value depending on the level, the max function will get then the highest value
+     * 2. Level based addition calculation: getting a level based addition that will use a base and multiply it by the level, then the max function will get the highest value
+     */
+
+    /* prettier-ignore */
+    background: color-mix(
+      in srgb,
+      rgb(var(--bg-color)),
+      rgb(var(--elevate-color, 255 255 255))
+      calc(
+        var(--elevate-boost, 0%) +
+        (
+          /* base calculation */
+        max(
+          /* level 1 to 2 use 3 */ min(3, 3 * (0 + var(--level))),
+          /* level 3 to 6 use 8 */ min(8, 8 * (-2 + var(--level))),
+          /* level 7 to 12 use 11 */ min(11, 11 * (-6 + var(--level))),
+          /* level 13 to 16 use 14 */ min(14, 14 * (-12 + var(--level))),
+          /* level 17 to 24 use 15 */ min(15, 15 * (-16 + var(--level)))
+        ) +
+          /* lavel based addition calculation */
+        max(
+          /* level 1 to 2 use 2 */ (2 * min(1, (3 - var(--level)))) * var(--level),
+          /* level 3 to 6 use 1 */ (1 * min(1, (7 - var(--level)))) * (-3 + var(--level)),
+          /* level 7 to 12 use 0.5 */ (0.5 * min(1, (13 - var(--level)))) * (-6 + var(--level)),
+          /* level 13 to 16 use 0.25 */ (0.25 * min(1, (17 - var(--level)))) * (-12 + var(--level)),
+          /* level 17 to 24 use 0.125 */ (0.125 * min(1, (25 - var(--level)))) * (-16 + var(--level))
+        )
+        ) * 1%
+      )
+    );
+  }
+}
