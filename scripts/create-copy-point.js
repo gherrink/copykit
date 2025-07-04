@@ -26,14 +26,14 @@ async function createCopyPoint() {
   // Validate name
   if (name.startsWith('_')) {
     console.error(
-      '❌ Error: Copy point names should not start with underscore (only _base has underscore)'
+      '❌ Error: Copy point names should not start with underscore (only _base has underscore)',
     )
     process.exit(1)
   }
 
   if (!/^[a-z][a-z0-9-]*$/.test(name)) {
     console.error(
-      '❌ Error: Copy point name must be lowercase, start with a letter, and use only letters, numbers, and hyphens'
+      '❌ Error: Copy point name must be lowercase, start with a letter, and use only letters, numbers, and hyphens',
     )
     console.log('Examples: advanced, components-extended, dark-theme')
     process.exit(1)
@@ -88,11 +88,13 @@ async function createCopyPoint() {
     console.log('📝 Next steps:')
     console.log(`   1. Add "stub:${name}" scope to .commitlintrc.cjs`)
     console.log(`   2. Develop components in stubs/${name}/`)
-    console.log('   3. Create example pages demonstrating the components')
-    console.log('   4. Test integration with _base copy point')
+    console.log('   3. Add UI-Doc block comments')
+    console.log('   4. May create example pages demonstrating the components')
+    console.log('   5. Do not forget to register your styles in pages/style.css')
+    console.log('   6. Test integration with _base copy point')
     console.log('')
     console.log('💡 Commit your changes:')
-    console.log(`   git commit -m "feat(stub:${name}): create ${name} copy point"`)
+    console.log(`   git commit -m "feat(stub:${name}): init"`)
   } catch (error) {
     console.error('❌ Error creating copy point:', error.message)
     process.exit(1)
@@ -206,13 +208,13 @@ async function promptForOptions() {
 
   console.log('\n📝 What templates would you like to include?')
 
-  const includeScripts = (await question('? Include scripts templates? (Y/n) ')) !== 'n'
+  const includeScripts = (await question('? Include scripts templates? (y/N) ')) === 'y'
   let includeServices = false
   let includeUtilities = false
 
   if (includeScripts) {
     includeServices = (await question('? Include scripts/services templates? (Y/n) ')) !== 'n'
-    includeUtilities = (await question('? Include scripts/utilities templates? (Y/n) ')) !== 'n'
+    includeUtilities = (await question('? Include scripts/utilities templates? (y/N) ')) === 'y'
   }
 
   const includeStyles = (await question('? Include styles templates? (Y/n) ')) !== 'n'
@@ -222,11 +224,11 @@ async function promptForOptions() {
   let includeLayouts = false
 
   if (includeStyles) {
-    includeDefaults = (await question('? Include styles/01_defaults templates? (Y/n) ')) !== 'n'
+    includeDefaults = (await question('? Include styles/01_defaults templates? (y/N) ')) === 'y'
     includeComponents = (await question('? Include styles/02_components templates? (Y/n) ')) !== 'n'
     includeStyleUtilities =
-      (await question('? Include styles/03_utilities templates? (Y/n) ')) !== 'n'
-    includeLayouts = (await question('? Include styles/04_layouts templates? (Y/n) ')) !== 'n'
+      (await question('? Include styles/03_utilities templates? (y/N) ')) === 'y'
+    includeLayouts = (await question('? Include styles/04_layouts templates? (y/N) ')) === 'y'
   }
 
   rl.close()
@@ -252,16 +254,16 @@ async function createTemplateFiles(copyPointPath, name, options) {
   if (options.includeDefaults)
     cssTemplates['01_defaults/variables.css'] = createDefaultsTemplate(name)
   if (options.includeComponents)
-    cssTemplates['02_components/example.css'] = createComponentTemplate(name)
+    cssTemplates[`02_components/${name}.css`] = createComponentTemplate(name)
   if (options.includeStyleUtilities)
-    cssTemplates['03_utilities/example.css'] = createUtilityTemplate(name)
-  if (options.includeLayouts) cssTemplates['04_layouts/example.css'] = createLayoutTemplate(name)
+    cssTemplates[`03_utilities/${name}.css`] = createUtilityTemplate(name)
+  if (options.includeLayouts) cssTemplates[`04_layouts/${name}.css`] = createLayoutTemplate(name)
 
   // JavaScript template files
   const jsTemplates = {}
-  if (options.includeServices) jsTemplates['services/example.ts'] = createServiceTemplate(name)
+  if (options.includeServices) jsTemplates[`services/${name}.ts`] = createServiceTemplate(name)
   if (options.includeUtilities)
-    jsTemplates['utilities/example.ts'] = createUtilityScriptTemplate(name)
+    jsTemplates[`utilities/${name}.ts`] = createUtilityScriptTemplate(name)
 
   // Write CSS files
   for (const [path, content] of Object.entries(cssTemplates)) {
@@ -289,7 +291,7 @@ function createDefaultsTemplate(name) {
  */
 
 :root {
-  /* Example: Override or extend base variables */
+  /* Override or extend base variables */
   /* --example-color: 120 50 50; */
 
   /* Add new variables specific to ${name} */
@@ -306,14 +308,14 @@ function createComponentTemplate(name) {
  * This is a template component. Replace with actual components
  * that extend or enhance the base components.
  *
- * @location components.${name}.example ${name.charAt(0).toUpperCase() + name.slice(1)} Example Component
+ * @location components.${name} ${name.charAt(0).toUpperCase() + name.slice(1)}
  * @order 10
  * @example
- * <div class="${name}-example">Example component</div>
+ * <div class="${name}">Example component</div>
  */
 
 @layer components {
-  .${name}-example {
+  .${name} {
     /* Base styles building on _base foundation */
     padding: calc(var(--space-unit) * var(--space-md));
     border-radius: var(--border-radius-base);
@@ -331,7 +333,7 @@ function createUtilityTemplate(name) {
  *
  * Additional utility classes that extend the base utilities.
  *
- * @location utilities.${name}.example ${name.charAt(0).toUpperCase() + name.slice(1)} Example Utilities
+ * @location utilities.${name} ${name.charAt(0).toUpperCase() + name.slice(1)}
  * @order 10
  */
 
@@ -354,13 +356,13 @@ function createLayoutTemplate(name) {
  *
  * Layout patterns and page-level styles that build upon base layouts.
  *
- * @location layouts.${name}.example ${name.charAt(0).toUpperCase() + name.slice(1)} Example Layouts
+ * @location layouts.${name} ${name.charAt(0).toUpperCase() + name.slice(1)}
  * @order 10
  */
 
 @layer layouts {
   /* Example layout for ${name} */
-  .${name}-layout {
+  .${name} {
     /* Add layout styles specific to ${name} */
   }
 }
@@ -373,7 +375,7 @@ function createServiceTemplate(name) {
  *
  * Interactive functionality that extends base services.
  *
- * @location functions.${name}.example ${name.charAt(0).toUpperCase() + name.slice(1)} Example Service
+ * @location functions.${name} ${name.charAt(0).toUpperCase() + name.slice(1)}
  * @order 10
  */
 
