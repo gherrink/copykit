@@ -1,5 +1,18 @@
 import { animate } from '../utilities/dom'
 import { queryParentSelector } from '../utilities/select'
+import { EventEmitter } from '../utilities/event-emitter'
+
+/**
+ * Interface defining the events that the Expand class can emit
+ */
+interface ExpandEvents {
+  beforeToggle: (data: { element: HTMLElement; expanded: boolean; event?: MouseEvent }) => void
+  afterToggle: (data: { element: HTMLElement; expanded: boolean; event?: MouseEvent }) => void
+  beforeExpand: (data: { element: HTMLElement; event?: MouseEvent }) => void
+  afterExpand: (data: { element: HTMLElement; event?: MouseEvent }) => void
+  beforeCollapse: (data: { element: HTMLElement; event?: MouseEvent }) => void
+  afterCollapse: (data: { element: HTMLElement; event?: MouseEvent }) => void
+}
 
 /**
  * Sometimes you need to prevent the user from interacting with other elements while an element is expanded. Then you need the [inert](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inert) attribute.
@@ -22,35 +35,6 @@ import { queryParentSelector } from '../utilities/select'
  * <div data-inert-controlled="1"><button>Button 1.1</button><button>Button 1.2</button></div>
  * <div id="inert-controlled-2"><button>Button 2.1</button><button>Button 2.2</button></div>
  */
-function toggleInert(target: HTMLElement, show: boolean): void {
-  const inertSelector = target.getAttribute('data-inert')
-
-  if (!inertSelector) {
-    return
-  }
-
-  inertSelector.split(',').forEach(selector => {
-    // if the target is inside an element with the same selector, we don't want to remove the inert attribute
-    const activeParentWithSameSelector = !show
-      ? queryParentSelector(
-          target.parentElement,
-          `[data-inert="${selector}"],[data-inert^="${selector},"],[data-inert$=",${selector}"],[data-inert*=",${selector},"]`
-        )
-      : null
-
-    if (activeParentWithSameSelector) {
-      return
-    }
-
-    document.querySelectorAll(selector).forEach(invertOn => {
-      if (show) {
-        invertOn.setAttribute('inert', '')
-      } else {
-        invertOn.removeAttribute('inert')
-      }
-    })
-  })
-}
 
 /**
  * If you want to control a specific aria you can combine [aria-expanded](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-expanded) attribute with [aria-controls](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-controls) attribute.
@@ -100,53 +84,168 @@ function toggleInert(target: HTMLElement, show: boolean): void {
  * <button aria-expanded="true" aria-controls="target-hidden">Toggle Controlled Area</button>
  * <div id="target-hidden" data-animate="fade">Controlled Target</div>
  */
-function toggleControlTarget(selector: string, show: boolean, callback: () => void): void {
-  const target = document.querySelector<HTMLElement>(selector)
 
-  if (!target) {
-    return
-  }
-
-  const animationName = target.getAttribute('data-animate')
-  const toggleHide = () => {
-    if (target.hasAttribute('aria-hidden')) {
-      target.setAttribute('aria-hidden', show ? 'false' : 'true')
-    } else if (show) {
-      target.removeAttribute('hidden')
-    } else {
-      target.setAttribute('hidden', '')
+/**
+ * Expand class for handling expandable/collapsible elements with ARIA attributes
+ */
+export class Expand extends EventEmitter<ExpandEvents> {
+  private static instances = new WeakMap<HTMLElement, Expand>()
+  
+  public readonly element: HTMLElement
+  public readonly controlTarget: string | null
+  
+  constructor(element: HTMLElement) {
+    super()
+    this.element = element
+    this.controlTarget = element.getAttribute('aria-controls')
+    
+    // Store instance on DOM element
+    Expand.instances.set(element, this)
+    
+    // Bind event listeners
+    this.element.addEventListener('click', this.handleClick.bind(this))
+    
+    // Also bind listeners to controls inside the controlled area
+    if (this.controlTarget) {
+      document
+        .querySelectorAll<HTMLElement>(`#${this.controlTarget} [aria-controls="${this.controlTarget}"]`)
+        .forEach(control => {
+          control.addEventListener('click', this.handleClick.bind(this))
+        })
     }
-
-    callback()
   }
-
-  if (show) {
-    // set tabindex=0 for all elements with tabindex=-1 that are not inside an aria-hidden element
-    target
-      .querySelectorAll<HTMLElement>(
-        ':scope > [tabindex="-1"], [tabindex="-1"]:not([aria-hidden="true"] [tabindex="-1"], [hidden] [tabindex="-1"])'
-      )
-      .forEach(el => {
-        el.setAttribute('tabindex', '0')
-      })
-  } else {
-    // set tabindex=-1 for all elements with tabindex=0
-    target.querySelectorAll<HTMLElement>('[tabindex="0"]').forEach(el => {
-      el.setAttribute('tabindex', '-1')
-    })
+  
+  static getInstance(element: HTMLElement): Expand | null {
+    return Expand.instances.get(element) || null
   }
-
-  toggleInert(target, show)
-
-  if (animationName) {
+  
+  get isExpanded(): boolean {
+    return this.element.getAttribute('aria-expanded') === 'true'
+  }
+  
+  private handleClick(e: MouseEvent): void {
+    this.toggle(e)
+  }
+  
+  public toggle(e?: MouseEvent): void {
+    const expanded = this.isExpanded
+    
+    this.emit('beforeToggle', { element: this.element, expanded, event: e })
+    
+    if (expanded) {
+      this.emit('beforeCollapse', { element: this.element, event: e })
+    } else {
+      this.emit('beforeExpand', { element: this.element, event: e })
+    }
+    
+    const toggleExpanded = () => {
+      this.element.setAttribute('aria-expanded', expanded ? 'false' : 'true')
+      
+      this.emit('afterToggle', { element: this.element, expanded: !expanded, event: e })
+      
+      if (expanded) {
+        this.emit('afterCollapse', { element: this.element, event: e })
+      } else {
+        this.emit('afterExpand', { element: this.element, event: e })
+      }
+    }
+    
+    // Handle data-hide-same-level functionality
+    if (this.element.parentElement && this.element.hasAttribute('data-hide-same-level')) {
+      Array.from(this.element.parentElement.querySelectorAll(':scope > [aria-expanded="true"]'))
+        .filter(el => el !== this.element && el !== e?.relatedTarget)
+        .forEach(sibling => {
+          sibling.dispatchEvent(
+            new MouseEvent('click', { bubbles: true, relatedTarget: this.element })
+          )
+        })
+    }
+    
+    if (this.controlTarget) {
+      this.toggleControlTarget(`#${this.controlTarget}`, !expanded, toggleExpanded)
+    } else {
+      toggleExpanded()
+    }
+  }
+  
+  private toggleControlTarget(selector: string, show: boolean, callback: () => void): void {
+    const target = document.querySelector<HTMLElement>(selector)
+    
+    if (!target) {
+      return
+    }
+    
+    const animationName = target.getAttribute('data-animate')
+    const toggleHide = () => {
+      if (target.hasAttribute('aria-hidden')) {
+        target.setAttribute('aria-hidden', show ? 'false' : 'true')
+      } else if (show) {
+        target.removeAttribute('hidden')
+      } else {
+        target.setAttribute('hidden', '')
+      }
+      
+      callback()
+    }
+    
     if (show) {
-      toggleHide()
-      animate(target, animationName, show)
+      // set tabindex=0 for all elements with tabindex=-1 that are not inside an aria-hidden element
+      target
+        .querySelectorAll<HTMLElement>(
+          ':scope > [tabindex="-1"], [tabindex="-1"]:not([aria-hidden="true"] [tabindex="-1"], [hidden] [tabindex="-1"])'
+        )
+        .forEach(el => {
+          el.setAttribute('tabindex', '0')
+        })
     } else {
-      animate(target, animationName, show, toggleHide)
+      // set tabindex=-1 for all elements with tabindex=0
+      target.querySelectorAll<HTMLElement>('[tabindex="0"]').forEach(el => {
+        el.setAttribute('tabindex', '-1')
+      })
     }
-  } else {
-    toggleHide()
+    
+    this.toggleInert(target, show)
+    
+    if (animationName) {
+      if (show) {
+        toggleHide()
+        animate(target, animationName, show)
+      } else {
+        animate(target, animationName, show, toggleHide)
+      }
+    } else {
+      toggleHide()
+    }
+  }
+  
+  private toggleInert(target: HTMLElement, show: boolean): void {
+    const inertSelector = target.getAttribute('data-inert')
+    
+    if (!inertSelector) {
+      return
+    }
+    
+    inertSelector.split(',').forEach(selector => {
+      // if the target is inside an element with the same selector, we don't want to remove the inert attribute
+      const activeParentWithSameSelector = !show
+        ? queryParentSelector(
+            target.parentElement,
+            `[data-inert="${selector}"],[data-inert^="${selector},"],[data-inert$=",${selector}"],[data-inert*=",${selector},"]`
+          )
+        : null
+      
+      if (activeParentWithSameSelector) {
+        return
+      }
+      
+      document.querySelectorAll(selector).forEach(invertOn => {
+        if (show) {
+          invertOn.setAttribute('inert', '')
+        } else {
+          invertOn.removeAttribute('inert')
+        }
+      })
+    })
   }
 }
 
@@ -168,40 +267,9 @@ function toggleControlTarget(selector: string, show: boolean, callback: () => vo
  */
 export function initExpand(): void {
   document.querySelectorAll<HTMLElement>('[aria-expanded]').forEach(expander => {
-    const controlTarget = expander.getAttribute('aria-controls')
-    const toggle = (e: MouseEvent) => {
-      const expanded = expander.getAttribute('aria-expanded') === 'true'
-      const toggleExpanded = () => {
-        expander.setAttribute('aria-expanded', expanded ? 'false' : 'true') // when expanded we need to set false
-      }
-
-      // if data-hide-same-level is set, we need to klick all other expanded elements to close them
-      if (expander.parentElement && expander.hasAttribute('data-hide-same-level')) {
-        Array.from(expander.parentElement.querySelectorAll(':scope > [aria-expanded="true"]'))
-          .filter(el => el !== expander && el !== e.relatedTarget)
-          .forEach(sibling => {
-            sibling.dispatchEvent(
-              new MouseEvent('click', { bubbles: true, relatedTarget: expander })
-            )
-          })
-      }
-
-      if (controlTarget) {
-        toggleControlTarget(`#${controlTarget}`, !expanded, toggleExpanded)
-      } else {
-        toggleExpanded()
-      }
-    }
-
-    expander.addEventListener('click', toggle)
-
-    if (controlTarget) {
-      // select all controls inside the controlled area that have the same aria-controls attribute
-      document
-        .querySelectorAll<HTMLElement>(`#${controlTarget} [aria-controls="${controlTarget}"]`)
-        .forEach(control => {
-          control.addEventListener('click', toggle)
-        })
+    // Check if instance already exists to avoid duplicate initialization
+    if (!Expand.getInstance(expander)) {
+      new Expand(expander)
     }
   })
 }
