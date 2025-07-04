@@ -27,7 +27,7 @@
    * Accordion component that uses the base expand functionality with aria-expanded and aria-controls.
    * Each accordion item consists of a control (button) and content area.
    *
-   * For single-select accordions, add `data-hide-same-level` to each accordion control.
+   * For single-select accordions, use `data-accordion="single"` on the accordion container.
    * For animated accordions, add `data-animate="accordion"` to content areas.
    *
    * @location components.accordion Accordion
@@ -148,20 +148,20 @@
   }
 
   /**
-   * Single-select accordion where only one item can be open at a time. We ar using the `data-hide-same-level` tag from
-   * the expand function to toggle other elements.
+   * Single-select accordion where only one item can be open at a time. Use `data-accordion="single"` 
+   * on the accordion container to enable single-select behavior.
    *
    * @location components.accordion.single Single-select Accordion
    * @example
-   * <div class="accordion">
+   * <div class="accordion" data-accordion="single">
    *   <div class="item">
-   *     <button class="control chevron" aria-expanded="false" aria-controls="single-1" data-hide-same-level>
+   *     <button class="control chevron" aria-expanded="false" aria-controls="single-1">
    *       Item 1
    *     </button>
    *     <div class="content" id="single-1" hidden>Content 1</div>
    *   </div>
    *   <div class="item">
-   *     <button class="control chevron" aria-expanded="false" aria-controls="single-2" data-hide-same-level>
+   *     <button class="control chevron" aria-expanded="false" aria-controls="single-2">
    *       Item 2
    *     </button>
    *     <div class="content" id="single-2" hidden>Content 2</div>

@@ -91,12 +91,6 @@ export class Accordion extends EventEmitter<AccordionEvents> {
       return expandInstance
     })
 
-    // Set up single-select behavior if needed
-    if (!this.options.multiSelect) {
-      controls.forEach(control => {
-        control.setAttribute('data-hide-same-level', '')
-      })
-    }
 
     // Set up event listeners on Expand instances
     this.setupExpandListeners()
@@ -117,6 +111,15 @@ export class Accordion extends EventEmitter<AccordionEvents> {
   private setupExpandListeners(): void {
     this.expandInstances.forEach((expandInstance, index) => {
       expandInstance.on('beforeToggle', data => {
+        // Handle single-select behavior: close other items when opening this one
+        if (!this.options.multiSelect && !data.expanded) {
+          this.expandInstances.forEach((otherInstance, otherIndex) => {
+            if (otherIndex !== index && otherInstance.isExpanded) {
+              otherInstance.toggle()
+            }
+          })
+        }
+
         this.emit('itemToggle', {
           accordion: this.element,
           item: data.element,
@@ -269,7 +272,6 @@ export class Accordion extends EventEmitter<AccordionEvents> {
       const controls = this.element.querySelectorAll<HTMLElement>('.control')
       controls.forEach(control => {
         control.removeEventListener('keydown', this.keyboardListener!)
-        control.removeAttribute('data-hide-same-level')
       })
     }
 
