@@ -1,3 +1,32 @@
+import { EventEmitter } from '@/_base/scripts/utilities/event-emitter.ts'
+import { Expand } from '@/_base/scripts/services/expand.ts'
+
+/**
+ * Global declarations for DOM-based instance storage
+ */
+declare global {
+  interface HTMLElement {
+    __accordion?: Accordion
+  }
+}
+
+/**
+ * Interface defining the events that the Accordion class can emit
+ */
+interface AccordionEvents {
+  itemOpen: (data: { accordion: HTMLElement; item: HTMLElement; index: number }) => void
+  itemClose: (data: { accordion: HTMLElement; item: HTMLElement; index: number }) => void
+  itemToggle: (data: {
+    accordion: HTMLElement
+    item: HTMLElement
+    index: number
+    expanded: boolean
+  }) => void
+  allOpen: (data: { accordion: HTMLElement }) => void
+  allClose: (data: { accordion: HTMLElement }) => void
+  keyboardNavigation: (data: { accordion: HTMLElement; from: number; to: number }) => void
+}
+
 /**
  * Accordion service that enhances the base expand functionality with accordion-specific behavior.
  *
@@ -35,21 +64,218 @@ export interface AccordionOptions {
   onClose?: (element: HTMLElement, target: HTMLElement) => void
 }
 
-export interface AccordionInstance {
-  /* Open specific accordion item */
-  open: (index: number) => void
-  /* Close specific accordion item */
-  close: (index: number) => void
-  /* Toggle specific accordion item */
-  toggle: (index: number) => void
-  /* Open all accordion items (multi-select only) */
-  openAll: () => void
-  /* Close all accordion items */
-  closeAll: () => void
-  /* Get current state of all items */
-  getState: () => boolean[]
-  /* Destroy accordion instance */
-  destroy: () => void
+/**
+ * Accordion class that extends EventEmitter and integrates with Expand instances
+ */
+export class Accordion extends EventEmitter<AccordionEvents> {
+  public readonly element: HTMLElement
+  public readonly expandInstances: Expand[]
+  public readonly options: AccordionOptions
+  private keyboardListener?: (e: KeyboardEvent) => void
+
+  constructor(element: HTMLElement, options: AccordionOptions = {}) {
+    super()
+    this.element = element
+    this.options = { multiSelect: false, keyboard: true, ...options }
+
+    // Store instance directly on DOM element
+    ;(element as any).__accordion = this
+
+    // Find all control elements and get/create Expand instances
+    const controls = element.querySelectorAll<HTMLElement>('.control[aria-expanded]')
+    this.expandInstances = Array.from(controls).map(control => {
+      let expandInstance = Expand.getInstance(control)
+      if (!expandInstance) {
+        expandInstance = new Expand(control)
+      }
+      return expandInstance
+    })
+
+    // Set up single-select behavior if needed
+    if (!this.options.multiSelect) {
+      controls.forEach(control => {
+        control.setAttribute('data-hide-same-level', '')
+      })
+    }
+
+    // Set up event listeners on Expand instances
+    this.setupExpandListeners()
+
+    // Initialize keyboard navigation
+    if (this.options.keyboard) {
+      this.initKeyboardNavigation()
+    }
+
+    // Set up legacy callbacks as event listeners
+    this.setupLegacyCallbacks()
+  }
+
+  static getInstance(element: HTMLElement): Accordion | null {
+    return (element as any).__accordion || null
+  }
+
+  private setupExpandListeners(): void {
+    this.expandInstances.forEach((expandInstance, index) => {
+      expandInstance.on('beforeToggle', data => {
+        this.emit('itemToggle', {
+          accordion: this.element,
+          item: data.element,
+          index,
+          expanded: !data.expanded,
+        })
+      })
+
+      expandInstance.on('afterExpand', data => {
+        this.emit('itemOpen', {
+          accordion: this.element,
+          item: data.element,
+          index,
+        })
+      })
+
+      expandInstance.on('afterCollapse', data => {
+        this.emit('itemClose', {
+          accordion: this.element,
+          item: data.element,
+          index,
+        })
+      })
+    })
+  }
+
+  private setupLegacyCallbacks(): void {
+    const { onOpen, onClose } = this.options
+
+    if (onOpen) {
+      this.on('itemOpen', data => {
+        const content = document.querySelector(`#${data.item.getAttribute('aria-controls')}`)
+        if (content) {
+          onOpen(data.item, content as HTMLElement)
+        }
+      })
+    }
+
+    if (onClose) {
+      this.on('itemClose', data => {
+        const content = document.querySelector(`#${data.item.getAttribute('aria-controls')}`)
+        if (content) {
+          onClose(data.item, content as HTMLElement)
+        }
+      })
+    }
+  }
+
+  private initKeyboardNavigation(): void {
+    const controls = this.element.querySelectorAll<HTMLElement>('.control')
+
+    this.keyboardListener = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement
+      const currentIndex = Array.from(controls).indexOf(target)
+
+      if (currentIndex === -1) return
+
+      let targetIndex = currentIndex
+
+      switch (e.key) {
+        case 'ArrowDown':
+          e.preventDefault()
+          targetIndex = (currentIndex + 1) % controls.length
+          break
+        case 'ArrowUp':
+          e.preventDefault()
+          targetIndex = (currentIndex - 1 + controls.length) % controls.length
+          break
+        case 'Home':
+          e.preventDefault()
+          targetIndex = 0
+          break
+        case 'End':
+          e.preventDefault()
+          targetIndex = controls.length - 1
+          break
+        case ' ':
+        case 'Enter':
+          e.preventDefault()
+          this.toggle(currentIndex)
+          return
+        default:
+          return
+      }
+
+      const targetControl = controls[targetIndex]
+      if (targetControl && targetIndex !== currentIndex) {
+        targetControl.focus()
+        this.emit('keyboardNavigation', {
+          accordion: this.element,
+          from: currentIndex,
+          to: targetIndex,
+        })
+      }
+    }
+
+    controls.forEach(control => {
+      control.addEventListener('keydown', this.keyboardListener!)
+    })
+  }
+
+  public open(index: number): void {
+    const expandInstance = this.expandInstances[index]
+    if (expandInstance && !expandInstance.isExpanded) {
+      expandInstance.toggle()
+    }
+  }
+
+  public close(index: number): void {
+    const expandInstance = this.expandInstances[index]
+    if (expandInstance && expandInstance.isExpanded) {
+      expandInstance.toggle()
+    }
+  }
+
+  public toggle(index: number): void {
+    const expandInstance = this.expandInstances[index]
+    if (expandInstance) {
+      expandInstance.toggle()
+    }
+  }
+
+  public openAll(): void {
+    if (this.options.multiSelect) {
+      this.expandInstances.forEach(instance => {
+        if (!instance.isExpanded) {
+          instance.toggle()
+        }
+      })
+      this.emit('allOpen', { accordion: this.element })
+    }
+  }
+
+  public closeAll(): void {
+    this.expandInstances.forEach(instance => {
+      if (instance.isExpanded) {
+        instance.toggle()
+      }
+    })
+    this.emit('allClose', { accordion: this.element })
+  }
+
+  public getState(): boolean[] {
+    return this.expandInstances.map(instance => instance.isExpanded)
+  }
+
+  public destroy(): void {
+    // Remove keyboard listeners
+    if (this.keyboardListener) {
+      const controls = this.element.querySelectorAll<HTMLElement>('.control')
+      controls.forEach(control => {
+        control.removeEventListener('keydown', this.keyboardListener!)
+        control.removeAttribute('data-hide-same-level')
+      })
+    }
+
+    // Remove instance from DOM element
+    delete (this.element as any).__accordion
+  }
 }
 
 /**
@@ -68,46 +294,6 @@ export interface AccordionInstance {
  *   </div>
  * </div>
  */
-function initAccordionKeyboard(accordion: HTMLElement): void {
-  const headers = accordion.querySelectorAll<HTMLElement>('.control')
-
-  headers.forEach((header, index) => {
-    header.addEventListener('keydown', e => {
-      let targetIndex = index
-
-      switch (e.key) {
-        case 'ArrowDown':
-          e.preventDefault()
-          targetIndex = (index + 1) % headers.length
-          break
-        case 'ArrowUp':
-          e.preventDefault()
-          targetIndex = (index - 1 + headers.length) % headers.length
-          break
-        case 'Home':
-          e.preventDefault()
-          targetIndex = 0
-          break
-        case 'End':
-          e.preventDefault()
-          targetIndex = headers.length - 1
-          break
-        case ' ':
-        case 'Enter':
-          e.preventDefault()
-          header.click()
-          return
-        default:
-          return
-      }
-
-      const targetHeader = headers[targetIndex]
-      if (targetHeader) {
-        targetHeader.focus()
-      }
-    })
-  })
-}
 
 /**
  * Create accordion instance with enhanced functionality
@@ -132,108 +318,38 @@ function initAccordionKeyboard(accordion: HTMLElement): void {
  *   onClose: (element, target) => console.log('Closed:', element)
  * })
  *
- * // Programmatic control
+ * // Programmatic control - returns Accordion class instance
  * accordion.open(0)
  * accordion.close(0)
  * accordion.toggle(0)
+ * accordion.openAll()
+ * accordion.closeAll()
+ * console.log(accordion.getState())
+ *
+ * // Event listening
+ * accordion.on('itemOpen', (data) => console.log('Item opened:', data.index))
+ *
+ * // Alternative: Get existing instance from DOM
+ * const existingAccordion = Accordion.getInstance(document.querySelector('#my-accordion'))
  */
 export function createAccordion(
   selector: string | HTMLElement,
-  options: AccordionOptions = {}
-): AccordionInstance {
-  const accordion =
+  options: AccordionOptions = {},
+): Accordion {
+  const element =
     typeof selector === 'string' ? document.querySelector<HTMLElement>(selector) : selector
 
-  if (!accordion) {
+  if (!element) {
     throw new Error('Accordion element not found')
   }
 
-  const { multiSelect = false, keyboard = true, onOpen, onClose } = options
-
-  const headers = accordion.querySelectorAll<HTMLElement>('.control')
-  const contents = accordion.querySelectorAll<HTMLElement>('.content')
-
-  // Set up single-select behavior if needed
-  if (!multiSelect) {
-    headers.forEach(header => {
-      header.setAttribute('data-hide-same-level', '')
-    })
+  // Check if accordion instance already exists
+  let accordionInstance = Accordion.getInstance(element)
+  if (!accordionInstance) {
+    accordionInstance = new Accordion(element, options)
   }
 
-  // Initialize keyboard navigation
-  if (keyboard) {
-    initAccordionKeyboard(accordion)
-  }
-
-  // Add event listeners for callbacks
-  if (onOpen || onClose) {
-    headers.forEach((header, index) => {
-      header.addEventListener('click', () => {
-        const isExpanded = header.getAttribute('aria-expanded') === 'true'
-        const content = contents[index]
-
-        if (isExpanded && onClose) {
-          onClose(header, content)
-        } else if (!isExpanded && onOpen) {
-          onOpen(header, content)
-        }
-      })
-    })
-  }
-
-  return {
-    open: (index: number) => {
-      const header = headers[index]
-      if (header && header.getAttribute('aria-expanded') === 'false') {
-        header.click()
-      }
-    },
-
-    close: (index: number) => {
-      const header = headers[index]
-      if (header && header.getAttribute('aria-expanded') === 'true') {
-        header.click()
-      }
-    },
-
-    toggle: (index: number) => {
-      const header = headers[index]
-      if (header) {
-        header.click()
-      }
-    },
-
-    openAll: () => {
-      if (multiSelect) {
-        headers.forEach(header => {
-          if (header.getAttribute('aria-expanded') === 'false') {
-            header.click()
-          }
-        })
-      }
-    },
-
-    closeAll: () => {
-      headers.forEach(header => {
-        if (header.getAttribute('aria-expanded') === 'true') {
-          header.click()
-        }
-      })
-    },
-
-    getState: () => {
-      return Array.from(headers).map(header => header.getAttribute('aria-expanded') === 'true')
-    },
-
-    destroy: () => {
-      // Remove event listeners and clean up
-      headers.forEach(header => {
-        header.removeAttribute('data-hide-same-level')
-        const newHeader = header.cloneNode(true)
-        header.parentNode?.replaceChild(newHeader, header)
-      })
-    },
-  }
+  return accordionInstance
 }
 
 /**
@@ -253,8 +369,12 @@ export function createAccordion(
  * </div>
  */
 export function initAccordions(): void {
-  // Then enhance with accordion-specific features
   document.querySelectorAll<HTMLElement>('.accordion').forEach(accordion => {
+    // Skip if accordion instance already exists
+    if (Accordion.getInstance(accordion)) {
+      return
+    }
+
     const mode = accordion.getAttribute('data-accordion')
     const keyboardEnabled = accordion.getAttribute('data-keyboard') === 'true'
 
