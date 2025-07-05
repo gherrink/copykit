@@ -23,16 +23,16 @@ WebBase is a **copy-and-customize** component library that provides a starting p
 The repository contains multiple copy points, each with a consistent structure for easy integration:
 
 ```
-├── pages/                    # Example pages demonstrating components
-│   ├── index.html           # Component showcase and navigation
+├── pages/                  # Example pages demonstrating components
+│   ├── index.html          # Component showcase and navigation
 │   ├── app.ts              # Example application setup
 │   ├── style.css           # Example global styles
 │   └── [page-name]/        # Additional example pages
-├── stubs/                   # 📁 COPY THESE - Multiple copy points
+├── stubs/                  # 📁 COPY THESE - Multiple copy points
 │   ├── _base/              # ✨ Core foundation copy point
-│   ├── [copy-point]/      # ✨ Additional copy points (future)
-│   └── [copy-point]/      # ✨ Each with consistent structure
-├── assets/                  # Static assets for examples
+│   ├── [copy-point]/       # ✨ Additional copy points (future)
+│   └── [copy-point]/       # ✨ Each with consistent structure
+├── assets/                 # Static assets for examples
 └── dist/                   # Build output for development
 ```
 
@@ -41,8 +41,8 @@ The repository contains multiple copy points, each with a consistent structure f
 **Each copy point in `stubs/` follows the same consistent structure:**
 
 ```
-[copy-point-name]/           # Note: only _base has underscore prefix
-├── scripts/                 # JavaScript functionality
+[copy-point-name]/          # Note: only _base has underscore prefix
+├── scripts/                # JavaScript functionality
 │   ├── services/           # Feature services (interactive components)
 │   └── utilities/          # Helper functions and utilities
 └── styles/                 # CSS organized in layers
@@ -63,7 +63,112 @@ The repository contains multiple copy points, each with a consistent structure f
 
 ## Getting Started
 
-### Using WebBase Copy Points
+### WebBase CLI (Recommended)
+
+The easiest way to use WebBase is through the CLI tool, which automatically copies copy-points into your project with proper structure and integration.
+
+#### Installation
+
+**Option A: Install globally**
+```bash
+npm install -g gherrink-web-base
+# or
+pnpm add -g gherrink-web-base
+# or
+yarn global add gherrink-web-base
+```
+
+**Option B: Use npx (no installation needed)**
+```bash
+npx gherrink-web-base <command>
+```
+
+#### Quick Start
+
+```bash
+# 1. Initialize your project with the base copy-point
+webbase init
+
+# 2. Add additional copy-points as needed
+webbase add accordion
+webbase add elevate
+
+# 3. List available copy-points
+webbase list
+```
+
+#### CLI Commands
+
+**`webbase init`** - Initialize project with \_base copy-point
+```bash
+webbase init                   # Initialize in current directory
+webbase init --overwrite       # Overwrite existing files
+webbase init --skip-tests      # Skip copying test files
+webbase init --help            # Show help for init command
+```
+
+**`webbase add <copy-point>`** - Add specific copy-point
+```bash
+webbase add accordion              # Add accordion copy-point
+webbase add elevate                # Add elevate copy-point
+webbase add accordion --overwrite  # Overwrite existing files
+webbase add accordion --skip-tests # Skip copying test files
+webbase add --help                 # Show help for add command
+```
+
+**`webbase list`** - List available copy-points
+```bash
+webbase list                   # Show all available copy-points with features
+```
+
+**`webbase help`** - Show general help
+```bash
+webbase --help                 # Show main help
+webbase <command> --help       # Show command-specific help
+```
+
+#### Integration After CLI Usage
+
+After using the CLI, integrate the copied files into your project:
+
+**CSS Integration:**
+```css
+/* Import base styles in your main CSS file */
+@import "./stubs/_base/styles/index.css";
+
+/* Or import specific copy-point styles */
+@import "./stubs/accordion/styles/02_components/accordion.css";
+@import "./stubs/elevate/styles/03_utilities/elevate.css";
+```
+
+**JavaScript Integration:**
+```javascript
+// Import services and utilities
+import { expand } from "./stubs/_base/scripts/services/expand.js"
+import { selectParent } from "./stubs/_base/scripts/utilities/select.js"
+import { Accordion } from "./stubs/accordion/scripts/services/accordion.js"
+
+// Initialize functionality
+expand.init()
+const accordion = new Accordion()
+```
+
+**HTML Usage:**
+```html
+<!-- Use copied components with their classes -->
+<div class="accordion" data-animate>
+  <div class="item">
+    <button class="control" aria-expanded="false">Toggle</button>
+    <div class="content">Content here</div>
+  </div>
+</div>
+```
+
+### Manual Copy (Alternative Method)
+
+If you prefer manual control, you can copy files directly:
+
+#### Using WebBase Copy Points
 
 WebBase is designed as a **copy-and-customize** library organized in copy points. Here's how to use it:
 
@@ -147,6 +252,8 @@ pnpm run security    # Run security audit
 
 ## Available Copy Points
 
+Use `webbase list` to see all available copy-points, or view them below:
+
 ### Currently Available
 
 #### `_base/` - Core Foundation Copy Point ⭐ **REQUIRED STARTING POINT**
@@ -165,11 +272,38 @@ The essential foundation that **must be copied first**. All other copy points bu
 
 > **Important**: Always start by copying `_base` as it contains the foundational styles and utilities that other copy points depend on.
 
+#### `accordion/` - Accessible Accordion Component
+Advanced accordion/collapsible component with full ARIA support and keyboard navigation.
+
+**CSS** (`styles/`):
+- **Components**: Accordion styling with animation support
+
+**JavaScript** (`scripts/`):
+- **Services**: Full-featured accordion with accessibility
+- **Tests**: Comprehensive accessibility testing suite
+
+**Features**:
+- WCAG 2.1 AA compliant
+- Keyboard navigation (Arrow keys, Home/End, Space/Enter)
+- Customizable animation timing
+- Multiple accordion instances support
+
+#### `elevate/` - Visual Enhancement Utilities
+Utility classes for adding visual depth and elevation to components.
+
+**CSS** (`styles/`):
+- **Utilities**: Elevation classes with shadow effects
+
+**Features**:
+- Material Design inspired elevation levels
+- Consistent shadow patterns
+- Easy to apply utility classes
+
 ### Future Copy Points
 Additional copy points will follow the same structure:
 - `advanced/` - Extended components and advanced features
-- `components-extended/` - Additional UI components
 - `animations/` - Enhanced animation utilities
+- `forms/` - Advanced form components
 
 ### What's in Each Copy Point
 
