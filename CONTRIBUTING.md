@@ -8,7 +8,8 @@ This project uses [Conventional Commits](https://www.conventionalcommits.org/) w
 
 **Valid scopes** (enforced by commitlint):
 - `docs`: Documentation changes
-- `pages`: Changes to page templates  
+- `pages`: Changes to page templates
+- `scripts`: Changes to CLI scripts and development tools
 - `stub:base`: Changes to base components and utilities
 - `stub:[copy-point-name]`: Changes to specific copy points (e.g., `stub:advanced`, `stub:animations`)
 
@@ -26,6 +27,9 @@ This project uses [Conventional Commits](https://www.conventionalcommits.org/) w
 git commit -m "feat(pages): add new themed page template"
 git commit -m "fix(stub:base): resolve expand animation timing issue"
 git commit -m "feat(stub:advanced): add new advanced button variants"
+git commit -m "feat(scripts): add webbase CLI for copy-point distribution"
+git commit -m "fix(scripts): resolve CLI TypeScript compilation errors"
+git commit -m "docs(scripts): add CLI development and testing guide"
 git commit -m "docs: update component usage examples"
 git commit -m "style(stub:base): format CSS utility classes"
 git commit -m "chore: update dependencies"

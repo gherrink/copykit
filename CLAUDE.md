@@ -28,6 +28,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ### Copy Point Management
 - `pnpm run create-copy-point [name]` - Generate new copy point with proper structure and templates
 
+### WebBase CLI Development
+- See [scripts/CLAUDE.md](scripts/CLAUDE.md) - CLI development, testing, and distribution guidance
+- `pnpm run build:cli` - Build TypeScript CLI files to JavaScript
+
 ### Pre-commit Hooks
 - Husky + lint-staged automatically run linting and formatting on staged files
 - ESLint fixes JavaScript/TypeScript files
@@ -191,6 +195,7 @@ This project uses [Conventional Commits](https://www.conventionalcommits.org/) w
 **Valid scopes** (defined in `.commitlintrc.cjs`):
 - `docs`: Documentation changes
 - `pages`: Changes to page templates
+- `scripts`: Changes to CLI scripts and development tools
 - `stub:base`: Changes to base components and utilities
 - `stub:[copy-point-name]`: Changes to specific copy points (e.g., `stub:advanced`, `stub:animations`)
 
@@ -213,6 +218,11 @@ git commit -m "feat(stub:dark-theme): create dark-theme copy point"
 git commit -m "feat(stub:advanced): add enhanced button variants"
 git commit -m "fix(stub:animations): resolve transition timing issue"
 git commit -m "style(stub:base): format CSS utility classes"
+
+# CLI and development scripts
+git commit -m "feat(scripts): add webbase CLI with init and add commands"
+git commit -m "fix(scripts): resolve TypeScript type errors in CLI"
+git commit -m "refactor(scripts): restructure CLI command modules"
 
 # General commits
 git commit -m "feat(pages): add new themed page template"
