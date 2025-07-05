@@ -7,8 +7,8 @@
 
 import { resolve } from 'path'
 import type { CLIOptions, Command } from './commands/types.js'
-import { executeInit, showInitHelp } from './commands/init.js'
-import { executeAdd, showAddHelp, executeList } from './commands/add.js'
+import { getCommand } from './commands/registry.js'
+import { showGeneralHelp } from './commands/help.js'
 import { logError } from './commands/utils.js'
 
 /**
@@ -18,6 +18,11 @@ function parseArgs(): CLIOptions {
   const args = process.argv.slice(2)
 
   if (args.length === 0) {
+    return { command: 'help', args: [], flags: {} }
+  }
+
+  // Handle --help at the root level
+  if (args[0] === '--help' || args[0] === '-h') {
     return { command: 'help', args: [], flags: {} }
   }
 
@@ -55,23 +60,7 @@ function parseArgs(): CLIOptions {
  * Show general help
  */
 function showHelp(): void {
-  console.log('WebBase CLI - Manage webbase copy-points')
-  console.log('')
-  console.log('Usage: webbase <command> [options]')
-  console.log('')
-  console.log('Commands:')
-  console.log('  init              Initialize project with _base copy-point')
-  console.log('  add <name>        Add a copy-point to existing project')
-  console.log('  list              List available copy-points')
-  console.log('  help              Show this help message')
-  console.log('')
-  console.log('Examples:')
-  console.log('  webbase init')
-  console.log('  webbase add accordion')
-  console.log('  webbase list')
-  console.log('')
-  console.log('For command-specific help:')
-  console.log('  webbase <command> --help')
+  showGeneralHelp()
 }
 
 /**
@@ -81,57 +70,62 @@ async function main(): Promise<void> {
   const options = parseArgs()
 
   try {
+    // Get command definition from registry
+    const commandDef = getCommand(options.command)
+
+    if (!commandDef) {
+      logError(`Unknown command: ${options.command}`)
+      showHelp()
+      process.exit(1)
+    }
+
+    // Show command-specific help if requested
+    if (options.flags.help) {
+      commandDef.showHelpFunction()
+      return
+    }
+
+    // Prepare command options based on command type
+    let commandOptions: any = {}
+
     switch (options.command) {
       case 'init': {
-        if (options.flags.help) {
-          showInitHelp()
-          return
-        }
-
-        const success = await executeInit({
+        commandOptions = {
           targetPath: resolve(process.cwd()),
           overwrite: !!options.flags.overwrite,
           skipTests: !!options.flags['skip-tests'],
-        })
-
-        process.exit(success ? 0 : 1)
+        }
         break
       }
 
       case 'add': {
-        if (options.flags.help) {
-          showAddHelp()
-          return
-        }
-
         if (options.args.length === 0) {
           logError('Copy-point name is required')
-          showAddHelp()
+          commandDef.showHelpFunction()
           process.exit(1)
         }
 
-        const success = await executeAdd({
+        commandOptions = {
           copyPointName: options.args[0],
           targetPath: resolve(process.cwd()),
           overwrite: !!options.flags.overwrite,
           skipTests: !!options.flags['skip-tests'],
-        })
-
-        process.exit(success ? 0 : 1)
+        }
         break
       }
 
-      case 'list': {
-        const success = await executeList()
-        process.exit(success ? 0 : 1)
+      case 'list':
+      case 'help': {
+        // These commands don't need options
         break
       }
+    }
 
-      case 'help':
-      default: {
-        showHelp()
-        break
-      }
+    // Execute the command
+    const success = await commandDef.executeFunction(commandOptions)
+
+    if (options.command !== 'help') {
+      process.exit(success ? 0 : 1)
     }
   } catch (error) {
     logError(`Unexpected error: ${error instanceof Error ? error.message : String(error)}`)

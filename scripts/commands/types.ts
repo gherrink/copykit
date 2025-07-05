@@ -50,3 +50,23 @@ export interface CLIOptions {
   args: string[]
   flags: Record<string, boolean | string>
 }
+
+export interface CommandDefinition {
+  name: Command
+  description: string
+  usage: string
+  examples: string[]
+  options: Array<{
+    flag: string
+    description: string
+  }>
+  executeFunction: (options?: any) => Promise<boolean>
+  showHelpFunction: () => void
+}
+
+export interface CommandRegistry {
+  commands: Map<Command, CommandDefinition>
+  getCommand(name: Command): CommandDefinition | undefined
+  getAllCommands(): CommandDefinition[]
+  registerCommand(definition: CommandDefinition): void
+}
