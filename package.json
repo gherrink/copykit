@@ -7,8 +7,8 @@
     "webbase": "scripts/webbase.js"
   },
   "scripts": {
-    "build": "tsc && vite build",
-    "build:cli": "tsc scripts/webbase.ts scripts/commands/*.ts --outDir scripts --target es2020 --module node16 --moduleResolution node16 --esModuleInterop",
+    "build": "tsc --project tsconfig.app.json && vite build",
+    "build:cli": "tsc --project tsconfig.cli.json",
     "create-copy-point": "node scripts/create-copy-point.js",
     "dev": "vite",
     "format": "prettier --write \"(stubs|pages)/**/*.{ts,tsx,css,scss,json}\"",

@@ -7,12 +7,13 @@ import globals from 'globals'
 export default [
   js.configs.recommended,
   {
-    files: ['**/*.{js,mjs,cjs,ts}'],
+    files: ['**/*.ts'],
     languageOptions: {
       parser: typescriptParser,
       parserOptions: {
         ecmaVersion: 'latest',
         sourceType: 'module',
+        project: './tsconfig.eslint.json',
       },
       globals: {
         ...globals.browser,
@@ -40,11 +41,16 @@ export default [
       'no-undef': 'off',
     },
   },
-  // Test files configuration
+  // Test files configuration - TypeScript
   {
-    files: ['**/*.test.{js,ts}', 'test/**/*.{js,ts}'],
+    files: ['**/*.test.{ts}', 'test/**/*.{ts}'],
     languageOptions: {
       parser: typescriptParser,
+      parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+        project: './tsconfig.eslint.json',
+      },
       globals: {
         ...globals.browser,
         ...globals.node,
@@ -76,11 +82,16 @@ export default [
       'no-undef': 'off',
     },
   },
-  // CLI scripts configuration
+  // CLI scripts configuration - TypeScript
   {
-    files: ['scripts/**/*.{js,ts}'],
+    files: ['scripts/**/*.{ts}'],
     languageOptions: {
       parser: typescriptParser,
+      parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+        project: './tsconfig.eslint.json',
+      },
       globals: {
         ...globals.node,
       },
@@ -106,6 +117,6 @@ export default [
     },
   },
   {
-    ignores: ['dist/**', 'node_modules/**'],
+    ignores: ['dist/**', 'node_modules/**', 'scripts/**/*.js'],
   },
 ]
