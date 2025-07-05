@@ -7,3 +7,5 @@ coverage/
 public/
 LICENSE.md
 pnpm-lock.yaml
+scripts/webbase.js
+scripts/commands/*.js

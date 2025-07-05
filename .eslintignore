@@ -1,2 +1,4 @@
 **/dist
 **/node_modules
+scripts/webbase.js
+scripts/commands/*.js

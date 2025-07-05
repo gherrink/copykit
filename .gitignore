@@ -5,6 +5,8 @@ node_modules/
 # Build outputs
 dist/
 build/
+scripts/webbase.js
+scripts/commands/*.js
 
 # Environment files
 .env
