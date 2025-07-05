@@ -1,0 +1,175 @@
+/**
+ * Add command for webbase CLI
+ * Adds a specific copy-point to existing project
+ */
+
+import type { AddOptions } from './types.js'
+import {
+  validateTargetDirectory,
+  copyCopyPoint,
+  copyPointExists,
+  discoverCopyPoints,
+  logSuccess,
+  logWarning,
+  logError,
+  logInfo,
+} from './utils.js'
+
+/**
+ * Execute the add command
+ */
+export async function executeAdd(options: AddOptions): Promise<boolean> {
+  const { copyPointName, targetPath, overwrite = false, skipTests = false } = options
+
+  logInfo(`Adding copy-point "${copyPointName}" to: ${targetPath}`)
+
+  try {
+    // Validate target directory
+    const validation = await validateTargetDirectory(targetPath)
+
+    if (!validation.valid) {
+      logError('Validation failed:')
+      validation.errors.forEach(error => logError(`  ${error}`))
+      return false
+    }
+
+    // Check if _base exists (required for all other copy-points)
+    if (copyPointName !== '_base' && !copyPointExists(targetPath, '_base')) {
+      logError('_base copy-point is required. Run "webbase init" first.')
+      return false
+    }
+
+    // Get available copy-points
+    const copyPoints = await discoverCopyPoints()
+    const copyPoint = copyPoints.find(cp => cp.name === copyPointName)
+
+    if (!copyPoint) {
+      logError(`Copy-point "${copyPointName}" not found.`)
+      logInfo('Available copy-points:')
+      copyPoints.forEach(cp => {
+        const features = []
+        if (cp.hasStyles) features.push('styles')
+        if (cp.hasScripts) features.push('scripts')
+        if (cp.hasTests) features.push('tests')
+        console.log(`  ${cp.name} (${features.join(', ')})`)
+      })
+      return false
+    }
+
+    // Check if copy-point already exists
+    if (copyPointExists(targetPath, copyPointName)) {
+      if (!overwrite) {
+        logError(`Copy-point "${copyPointName}" already exists. Use --overwrite to replace it.`)
+        return false
+      } else {
+        logWarning(`Overwriting existing ${copyPointName} copy-point`)
+      }
+    }
+
+    // Check dependencies
+    for (const dep of copyPoint.dependencies) {
+      if (!copyPointExists(targetPath, dep)) {
+        logError(`Required dependency "${dep}" not found. Please add it first.`)
+        return false
+      }
+    }
+
+    // Copy the copy-point
+    logInfo(`Copying ${copyPointName} copy-point...`)
+    const result = await copyCopyPoint(copyPointName, targetPath, overwrite, skipTests)
+
+    if (!result.success) {
+      logError(`Failed to copy ${copyPointName} copy-point:`)
+      result.errors.forEach(error => logError(`  ${error}`))
+      return false
+    }
+
+    // Show copy results
+    logSuccess(`Successfully added ${copyPointName} copy-point!`)
+    logInfo(`Copied ${result.operations.length} files`)
+
+    if (result.warnings.length > 0) {
+      result.warnings.forEach(warning => logWarning(warning))
+    }
+
+    // Show integration instructions
+    console.log('')
+    logInfo('Integration instructions:')
+
+    if (copyPoint.hasStyles) {
+      console.log('  1. Import styles in your main CSS file:')
+      console.log(`     @import "./stubs/${copyPointName}/styles/index.css";`)
+      console.log('     OR import specific component styles:')
+      console.log(`     @import "./stubs/${copyPointName}/styles/02_components/*.css";`)
+    }
+
+    if (copyPoint.hasScripts) {
+      console.log('  2. Import functions in your TypeScript/JavaScript:')
+      console.log(`     import { ... } from "./stubs/${copyPointName}/scripts/services/...js"`)
+      console.log(`     import { ... } from "./stubs/${copyPointName}/scripts/utilities/...js"`)
+    }
+
+    console.log('')
+    logInfo(`View documentation and examples in: stubs/${copyPointName}/`)
+
+    return true
+  } catch (error) {
+    logError(`Failed to add copy-point: ${error instanceof Error ? error.message : String(error)}`)
+    return false
+  }
+}
+
+/**
+ * Show help for add command
+ */
+export function showAddHelp(): void {
+  console.log('Usage: webbase add <copy-point-name> [options]')
+  console.log('')
+  console.log('Add a copy-point to an existing webbase project')
+  console.log('')
+  console.log('Arguments:')
+  console.log('  copy-point-name  Name of the copy-point to add (e.g., accordion, elevate)')
+  console.log('')
+  console.log('Options:')
+  console.log('  --overwrite     Overwrite existing files')
+  console.log('  --skip-tests    Skip copying test files')
+  console.log('  --help          Show this help message')
+  console.log('')
+  console.log('Examples:')
+  console.log('  webbase add accordion')
+  console.log('  webbase add elevate --overwrite')
+  console.log('  webbase add accordion --skip-tests')
+}
+
+/**
+ * List available copy-points
+ */
+export async function executeList(): Promise<boolean> {
+  try {
+    const copyPoints = await discoverCopyPoints()
+
+    console.log('Available copy-points:')
+    console.log('')
+
+    copyPoints.forEach(cp => {
+      const features = []
+      if (cp.hasStyles) features.push('styles')
+      if (cp.hasScripts) features.push('scripts')
+      if (cp.hasTests) features.push('tests')
+
+      console.log(`  ${cp.name}`)
+      console.log(`    Features: ${features.join(', ')}`)
+      if (cp.dependencies.length > 0) {
+        console.log(`    Dependencies: ${cp.dependencies.join(', ')}`)
+      }
+      console.log('')
+    })
+
+    return true
+  } catch (error) {
+    logError(
+      `Failed to list copy-points: ${error instanceof Error ? error.message : String(error)}`,
+    )
+    return false
+  }
+}
