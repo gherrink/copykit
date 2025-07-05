@@ -256,48 +256,34 @@ Use `webbase list` to see all available copy-points, or view them below:
 
 ### Currently Available
 
-#### `_base/` - Core Foundation Copy Point ⭐ **REQUIRED STARTING POINT**
+#### [`_base/`](stubs/_base/README.md) - Core Foundation Copy Point ⭐ **REQUIRED STARTING POINT**
 The essential foundation that **must be copied first**. All other copy points build upon this base.
 
-**CSS Layers** (`styles/`):
-1. **Defaults** (`01_defaults/`): Browser resets, CSS variables, typography
-2. **Components** (`02_components/`): Core UI components (buttons, forms, images)
-3. **Utilities** (`03_utilities/`): Essential utility classes (spacing, layout, visibility)
-4. **Layouts** (`04_layouts/`): Basic page-level structural styles
-5. **index.css**: Main entry point that imports all layers (only included in `_base`)
+- **CSS Layers**: Browser resets, variables, components, utilities, and layouts
+- **JavaScript**: Expand/collapse services and DOM utilities
+- **Foundation**: Complete base styles and interactive functionality
 
-**JavaScript** (`scripts/`):
-- **Services**: Expand/collapse functionality with ARIA support
-- **Utilities**: DOM helpers, cookie management, element selection
+> **📖 [View complete _base documentation](stubs/_base/README.md)**
 
-> **Important**: Always start by copying `_base` as it contains the foundational styles and utilities that other copy points depend on.
-
-#### `accordion/` - Accessible Accordion Component
+#### [`accordion/`](stubs/accordion/README.md) - Accessible Accordion Component
 Advanced accordion/collapsible component with full ARIA support and keyboard navigation.
 
-**CSS** (`styles/`):
-- **Components**: Accordion styling with animation support
+- **WCAG 2.1 AA compliant** with keyboard navigation support
+- **Customizable styling** with CSS custom properties
+- **Animation support** with configurable timing
+- **Multiple instances** support
 
-**JavaScript** (`scripts/`):
-- **Services**: Full-featured accordion with accessibility
-- **Tests**: Comprehensive accessibility testing suite
+> **📖 [View complete accordion documentation](stubs/accordion/README.md)**
 
-**Features**:
-- WCAG 2.1 AA compliant
-- Keyboard navigation (Arrow keys, Home/End, Space/Enter)
-- Customizable animation timing
-- Multiple accordion instances support
+#### [`elevate/`](stubs/elevate/README.md) - Visual Enhancement Utilities
+Utility classes for adding visual depth and elevation to components using advanced CSS color-mixing.
 
-#### `elevate/` - Visual Enhancement Utilities
-Utility classes for adding visual depth and elevation to components.
+- **Material Design inspired** elevation levels (0-24)
+- **Advanced color mixing** with CSS `color-mix()` function
+- **Customizable elevation** color and boost values
+- **Performance optimized** utility classes
 
-**CSS** (`styles/`):
-- **Utilities**: Elevation classes with shadow effects
-
-**Features**:
-- Material Design inspired elevation levels
-- Consistent shadow patterns
-- Easy to apply utility classes
+> **📖 [View complete elevate documentation](stubs/elevate/README.md)**
 
 ### Future Copy Points
 Additional copy points will follow the same structure:
@@ -305,12 +291,13 @@ Additional copy points will follow the same structure:
 - `animations/` - Enhanced animation utilities
 - `forms/` - Advanced form components
 
-### What's in Each Copy Point
+### Copy Point Structure
 
-Every copy point contains the same organized structure:
+Every copy point follows the same organized structure:
 
 ```
 [name]/                     # Note: only _base has underscore prefix
+├── README.md               # Complete documentation for this copy point
 ├── scripts/
 │   ├── services/           # Interactive functionality
 │   └── utilities/          # Helper functions
@@ -322,15 +309,15 @@ Every copy point contains the same organized structure:
     └── index.css           # Main entry point (only in _base copy point)
 ```
 
-> **Note**: The `styles/index.css` file that imports all layers is only included in the `_base` copy point. Other copy points contain individual layer files that extend or replace the base styles.
+> **Note**: Each copy point includes complete documentation in its `README.md` file with usage examples, customization options, and integration guides.
 
 ### Integration Benefits
 
 - **Predictable Structure**: Every copy point organizes code the same way
+- **Complete Documentation**: Each copy point has comprehensive documentation
 - **Easy Mixing**: Combine components from different copy points seamlessly
 - **Layer Organization**: CSS layers ensure proper cascade order
 - **Modular Imports**: Take only what you need from any copy point
-- **Consistent Patterns**: Same folder structure across all copy points
 
 ## Development
 
