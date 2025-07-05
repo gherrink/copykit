@@ -89,10 +89,14 @@ export async function validateTargetDirectory(targetPath: string): Promise<Valid
       errors.push(`Target path is not a directory: ${targetPath}`)
     }
 
-    // Check if stubs directory already exists
-    const stubsPath = join(targetPath, 'stubs')
-    if (existsSync(stubsPath)) {
-      warnings.push(`Stubs directory already exists: ${stubsPath}`)
+    // Check if scripts or styles directories already exist
+    const scriptsPath = join(targetPath, 'scripts')
+    const stylesPath = join(targetPath, 'styles')
+    if (existsSync(scriptsPath)) {
+      warnings.push(`Scripts directory already exists: ${scriptsPath}`)
+    }
+    if (existsSync(stylesPath)) {
+      warnings.push(`Styles directory already exists: ${stylesPath}`)
     }
   } catch (error) {
     errors.push(`Cannot access target directory: ${targetPath}`)
@@ -109,8 +113,27 @@ export async function validateTargetDirectory(targetPath: string): Promise<Valid
  * Check if a copy-point exists in the target directory
  */
 export function copyPointExists(targetPath: string, copyPointName: string): boolean {
-  const copyPointPath = join(targetPath, 'stubs', copyPointName)
-  return existsSync(copyPointPath)
+  // For _base, check if either scripts or styles directory exists with _base files
+  if (copyPointName === '_base') {
+    const scriptsPath = join(targetPath, 'scripts')
+    const stylesPath = join(targetPath, 'styles')
+    // Check for specific _base files
+    const hasBaseScripts = existsSync(join(scriptsPath, 'services', 'expand.ts'))
+    const hasBaseStyles = existsSync(join(stylesPath, 'index.css'))
+    return hasBaseScripts || hasBaseStyles
+  }
+  
+  // For other copy-points, check if they have specific files
+  if (copyPointName === 'accordion') {
+    return existsSync(join(targetPath, 'scripts', 'services', 'accordion.ts'))
+  }
+  
+  if (copyPointName === 'elevate') {
+    return existsSync(join(targetPath, 'styles', '03_utilities', 'elevate.css'))
+  }
+  
+  // For unknown copy-points, return false to allow copying
+  return false
 }
 
 /**
@@ -136,18 +159,13 @@ export async function copyCopyPoint(
       return { success: false, operations, errors, warnings }
     }
 
-    // Create target directory structure
-    const targetStubsPath = join(targetPath, 'stubs')
-    const targetCopyPointPath = join(targetStubsPath, copyPointName)
-
-    await mkdir(targetStubsPath, { recursive: true })
-    await mkdir(targetCopyPointPath, { recursive: true })
-
     // Copy styles if they exist
     if (copyPoint.hasStyles) {
+      const targetStylesPath = join(targetPath, 'styles')
+      await mkdir(targetStylesPath, { recursive: true })
       await copyDirectory(
         join(copyPoint.path, 'styles'),
-        join(targetCopyPointPath, 'styles'),
+        targetStylesPath,
         operations,
         overwrite,
       )
@@ -155,17 +173,19 @@ export async function copyCopyPoint(
 
     // Copy scripts if they exist
     if (copyPoint.hasScripts) {
+      const targetScriptsPath = join(targetPath, 'scripts')
+      await mkdir(targetScriptsPath, { recursive: true })
       await copyDirectory(
         join(copyPoint.path, 'scripts'),
-        join(targetCopyPointPath, 'scripts'),
+        targetScriptsPath,
         operations,
         overwrite,
         skipTests,
       )
     }
 
-    // Copy additional files (like markdown docs)
-    await copyAdditionalFiles(copyPoint.path, targetCopyPointPath, operations, overwrite)
+    // Copy additional files (like markdown docs) to target directory root
+    await copyAdditionalFiles(copyPoint.path, targetPath, operations, overwrite)
 
     return { success: true, operations, errors, warnings }
   } catch (error) {
@@ -257,7 +277,7 @@ export async function createMainCSSImport(
   targetPath: string,
   copyPointName: string,
 ): Promise<void> {
-  const stylesPath = join(targetPath, 'stubs', copyPointName, 'styles')
+  const stylesPath = join(targetPath, 'styles')
 
   if (!existsSync(stylesPath)) {
     return

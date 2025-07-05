@@ -98,19 +98,22 @@ export async function executeAdd(options: AddOptions): Promise<boolean> {
 
     if (copyPoint.hasStyles) {
       console.log('  1. Import styles in your main CSS file:')
-      console.log(`     @import "./stubs/${copyPointName}/styles/index.css";`)
-      console.log('     OR import specific component styles:')
-      console.log(`     @import "./stubs/${copyPointName}/styles/02_components/*.css";`)
+      console.log(`     @import "./styles/02_components/${copyPointName}.css";`)
+      console.log('     OR import from specific CSS layer directories:')
+      console.log(`     @import "./styles/01_defaults/*.css";`)
+      console.log(`     @import "./styles/02_components/*.css";`)
+      console.log(`     @import "./styles/03_utilities/*.css";`)
+      console.log(`     @import "./styles/04_layouts/*.css";`)
     }
 
     if (copyPoint.hasScripts) {
       console.log('  2. Import functions in your TypeScript/JavaScript:')
-      console.log(`     import { ... } from "./stubs/${copyPointName}/scripts/services/...js"`)
-      console.log(`     import { ... } from "./stubs/${copyPointName}/scripts/utilities/...js"`)
+      console.log(`     import { ... } from "./scripts/services/...js"`)
+      console.log(`     import { ... } from "./scripts/utilities/...js"`)
     }
 
     console.log('')
-    logInfo(`View documentation and examples in: stubs/${copyPointName}/`)
+    logInfo(`View documentation and examples in the project directory`)
 
     return true
   } catch (error) {
@@ -126,6 +129,7 @@ export function showAddHelp(): void {
   console.log('Usage: webbase add <copy-point-name> [options]')
   console.log('')
   console.log('Add a copy-point to an existing webbase project')
+  console.log('Files will be copied to scripts/ and styles/ directories in the current directory.')
   console.log('')
   console.log('Arguments:')
   console.log('  copy-point-name  Name of the copy-point to add (e.g., accordion, elevate)')
