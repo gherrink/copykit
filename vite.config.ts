@@ -1,4 +1,3 @@
-/* eslint-disable sort-keys */
 import uidoc from '@ui-doc/vite'
 import { glob } from 'glob'
 import { resolve } from 'path'

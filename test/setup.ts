@@ -154,5 +154,5 @@ if (typeof global.OffscreenCanvas === 'undefined') {
     transferToImageBitmap() {
       return {} as ImageBitmap
     }
-  } as any
+  } as never
 }

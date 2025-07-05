@@ -2,6 +2,7 @@
  * Generic EventEmitter implementation with type safety
  * @template T - Interface defining event names and their listener function signatures
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class EventEmitter<T extends Record<keyof T, (...args: any[]) => void>> {
   private events: Map<keyof T, T[keyof T][]> = new Map()
 

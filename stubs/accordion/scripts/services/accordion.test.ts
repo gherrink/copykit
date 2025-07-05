@@ -677,7 +677,7 @@ describe('Accordion Service', () => {
       const instance = Accordion.getInstance(malformedAccordion)
       expect(instance).toBeInstanceOf(Accordion)
       expect(instance?.expandInstances).toHaveLength(0)
-      
+
       consoleSpy.mockRestore()
     })
   })

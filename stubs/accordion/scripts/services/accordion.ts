@@ -79,7 +79,7 @@ export class Accordion extends EventEmitter<AccordionEvents> {
     this.options = { multiSelect: false, keyboard: true, ...options }
 
     // Store instance directly on DOM element
-    ;(element as any).__accordion = this
+    element.__accordion = this
 
     // Find all control elements and get/create Expand instances
     const controls = element.querySelectorAll<HTMLElement>('.control[aria-expanded]')
@@ -104,7 +104,7 @@ export class Accordion extends EventEmitter<AccordionEvents> {
   }
 
   static getInstance(element: HTMLElement): Accordion | null {
-    return (element as any).__accordion || null
+    return element.__accordion || null
   }
 
   private setupExpandListeners(): void {
@@ -275,7 +275,7 @@ export class Accordion extends EventEmitter<AccordionEvents> {
     }
 
     // Remove instance from DOM element
-    delete (this.element as any).__accordion
+    delete this.element.__accordion
   }
 }
 
@@ -387,6 +387,7 @@ export function initAccordions(): void {
     try {
       createAccordion(accordion, options)
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.warn('Failed to initialize accordion:', error)
     }
   })

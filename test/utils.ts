@@ -14,18 +14,18 @@ export const user = userEvent.setup()
 export function createElement(
   tag: string,
   attributes: Record<string, string> = {},
-  content = ''
+  content = '',
 ): HTMLElement {
   const element = document.createElement(tag)
-  
+
   Object.entries(attributes).forEach(([key, value]) => {
     element.setAttribute(key, value)
   })
-  
+
   if (content) {
     element.textContent = content
   }
-  
+
   return element
 }
 
@@ -36,7 +36,7 @@ export function createTestContainer(): HTMLElement {
   const container = document.createElement('div')
   container.setAttribute('data-testid', 'test-container')
   document.body.appendChild(container)
-  
+
   return container
 }
 
@@ -54,12 +54,12 @@ export function cleanupTestContainer(): void {
 export function waitForAnimation(element: HTMLElement): Promise<void> {
   return new Promise(resolve => {
     const animations = element.getAnimations()
-    
+
     if (animations.length === 0) {
       resolve()
       return
     }
-    
+
     Promise.all(animations.map(animation => animation.finished))
       .then(() => resolve())
       .catch(() => resolve()) // Resolve even if animation fails
@@ -93,7 +93,7 @@ export function getByAriaExpanded(expanded: boolean): HTMLElement {
  */
 export function hasProperAriaAttributes(
   element: HTMLElement,
-  expectedAttributes: Record<string, string>
+  expectedAttributes: Record<string, string>,
 ): boolean {
   return Object.entries(expectedAttributes).every(([attr, value]) => {
     return element.getAttribute(attr) === value
@@ -103,10 +103,7 @@ export function hasProperAriaAttributes(
 /**
  * Helper to simulate keyboard navigation
  */
-export async function navigateWithKeyboard(
-  element: HTMLElement,
-  key: string
-): Promise<void> {
+export async function navigateWithKeyboard(element: HTMLElement, key: string): Promise<void> {
   element.focus()
   await user.keyboard(`{${key}}`)
 }
@@ -143,48 +140,58 @@ export function expectCollapsed(element: HTMLElement): void {
 /**
  * Helper to create a basic accordion structure for testing
  */
-export function createAccordionElement(options: {
-  itemCount?: number
-  multiSelect?: boolean
-  keyboard?: boolean
-  animate?: boolean
-  className?: string
-} = {}): HTMLElement {
-  const { 
-    itemCount = 3, 
-    multiSelect = false, 
-    keyboard = true, 
+export function createAccordionElement(
+  options: {
+    itemCount?: number
+    multiSelect?: boolean
+    keyboard?: boolean
+    animate?: boolean
+    className?: string
+  } = {},
+): HTMLElement {
+  const {
+    itemCount = 3,
+    multiSelect = false,
+    keyboard = true,
     animate = false,
-    className = 'accordion'
+    className = 'accordion',
   } = options
-  
-  const accordion = createElement('div', { 
+
+  const accordion = createElement('div', {
     class: className,
     'data-accordion': multiSelect ? 'multi' : 'single',
-    'data-keyboard': keyboard.toString()
+    'data-keyboard': keyboard.toString(),
   })
-  
+
   for (let i = 0; i < itemCount; i++) {
     const item = createElement('div', { class: 'item' })
-    
-    const control = createElement('button', {
-      class: 'control chevron',
-      'aria-expanded': 'false',
-      'aria-controls': `content-${i}`
-    }, `Item ${i + 1}`)
-    
-    const content = createElement('div', {
-      class: 'content',
-      id: `content-${i}`,
-      hidden: '',
-      ...(animate && { 'data-animate': 'accordion' })
-    }, `Content for item ${i + 1}`)
-    
+
+    const control = createElement(
+      'button',
+      {
+        class: 'control chevron',
+        'aria-expanded': 'false',
+        'aria-controls': `content-${i}`,
+      },
+      `Item ${i + 1}`,
+    )
+
+    const content = createElement(
+      'div',
+      {
+        class: 'content',
+        id: `content-${i}`,
+        hidden: '',
+        ...(animate && { 'data-animate': 'accordion' }),
+      },
+      `Content for item ${i + 1}`,
+    )
+
     item.appendChild(control)
     item.appendChild(content)
     accordion.appendChild(item)
   }
-  
+
   return accordion
 }
 
@@ -214,7 +221,7 @@ export function getAccordionItems(accordion: HTMLElement): HTMLElement[] {
  */
 export async function navigateAccordion(
   startControl: HTMLElement,
-  key: 'ArrowDown' | 'ArrowUp' | 'Home' | 'End' | 'Space' | 'Enter'
+  key: 'ArrowDown' | 'ArrowUp' | 'Home' | 'End' | 'Space' | 'Enter',
 ): Promise<void> {
   startControl.focus()
   await user.keyboard(`{${key}}`)
@@ -231,10 +238,7 @@ export function getAccordionState(accordion: HTMLElement): boolean[] {
 /**
  * Helper to expect specific accordion state
  */
-export function expectAccordionState(
-  accordion: HTMLElement, 
-  expectedState: boolean[]
-): void {
+export function expectAccordionState(accordion: HTMLElement, expectedState: boolean[]): void {
   const actualState = getAccordionState(accordion)
   expect(actualState).toEqual(expectedState)
 }
@@ -242,17 +246,14 @@ export function expectAccordionState(
 /**
  * Helper to expect accordion item to be expanded
  */
-export function expectAccordionItemExpanded(
-  accordion: HTMLElement, 
-  itemIndex: number
-): void {
+export function expectAccordionItemExpanded(accordion: HTMLElement, itemIndex: number): void {
   const controls = getAccordionControls(accordion)
   const contents = getAccordionContents(accordion)
-  
+
   if (itemIndex >= controls.length) {
     throw new Error(`Item index ${itemIndex} out of bounds`)
   }
-  
+
   expectExpanded(controls[itemIndex])
   expectVisible(contents[itemIndex])
 }
@@ -260,17 +261,14 @@ export function expectAccordionItemExpanded(
 /**
  * Helper to expect accordion item to be collapsed
  */
-export function expectAccordionItemCollapsed(
-  accordion: HTMLElement, 
-  itemIndex: number
-): void {
+export function expectAccordionItemCollapsed(accordion: HTMLElement, itemIndex: number): void {
   const controls = getAccordionControls(accordion)
   const contents = getAccordionContents(accordion)
-  
+
   if (itemIndex >= controls.length) {
     throw new Error(`Item index ${itemIndex} out of bounds`)
   }
-  
+
   expectCollapsed(controls[itemIndex])
   expectHidden(contents[itemIndex])
 }
@@ -278,16 +276,13 @@ export function expectAccordionItemCollapsed(
 /**
  * Helper to simulate clicking an accordion item
  */
-export async function clickAccordionItem(
-  accordion: HTMLElement, 
-  itemIndex: number
-): Promise<void> {
+export async function clickAccordionItem(accordion: HTMLElement, itemIndex: number): Promise<void> {
   const controls = getAccordionControls(accordion)
-  
+
   if (itemIndex >= controls.length) {
     throw new Error(`Item index ${itemIndex} out of bounds`)
   }
-  
+
   await user.click(controls[itemIndex])
 }
 
@@ -297,27 +292,23 @@ export async function clickAccordionItem(
 export function createNestedStructure(levels: number, className = 'level'): HTMLElement {
   let currentParent = createElement('div', { class: `${className}-0` })
   const root = currentParent
-  
+
   for (let i = 1; i < levels; i++) {
     const newLevel = createElement('div', { class: `${className}-${i}` })
     currentParent.appendChild(newLevel)
     currentParent = newLevel
   }
-  
+
   return root
 }
 
 /**
  * Helper to wait for accordion animations to complete
  */
-export async function waitForAccordionAnimation(
-  accordion: HTMLElement
-): Promise<void> {
+export async function waitForAccordionAnimation(accordion: HTMLElement): Promise<void> {
   const contents = getAccordionContents(accordion)
-  
-  await Promise.all(
-    contents.map(content => waitForAnimation(content))
-  )
+
+  await Promise.all(contents.map(content => waitForAnimation(content)))
 }
 
 // Re-export commonly used testing utilities

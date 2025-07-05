@@ -98,7 +98,7 @@ export async function validateTargetDirectory(targetPath: string): Promise<Valid
     if (existsSync(stylesPath)) {
       warnings.push(`Styles directory already exists: ${stylesPath}`)
     }
-  } catch (error) {
+  } catch {
     errors.push(`Cannot access target directory: ${targetPath}`)
   }
 
@@ -122,16 +122,16 @@ export function copyPointExists(targetPath: string, copyPointName: string): bool
     const hasBaseStyles = existsSync(join(stylesPath, 'index.css'))
     return hasBaseScripts || hasBaseStyles
   }
-  
+
   // For other copy-points, check if they have specific files
   if (copyPointName === 'accordion') {
     return existsSync(join(targetPath, 'scripts', 'services', 'accordion.ts'))
   }
-  
+
   if (copyPointName === 'elevate') {
     return existsSync(join(targetPath, 'styles', '03_utilities', 'elevate.css'))
   }
-  
+
   // For unknown copy-points, return false to allow copying
   return false
 }
@@ -163,12 +163,7 @@ export async function copyCopyPoint(
     if (copyPoint.hasStyles) {
       const targetStylesPath = join(targetPath, 'styles')
       await mkdir(targetStylesPath, { recursive: true })
-      await copyDirectory(
-        join(copyPoint.path, 'styles'),
-        targetStylesPath,
-        operations,
-        overwrite,
-      )
+      await copyDirectory(join(copyPoint.path, 'styles'), targetStylesPath, operations, overwrite)
     }
 
     // Copy scripts if they exist

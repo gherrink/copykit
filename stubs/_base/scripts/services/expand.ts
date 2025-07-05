@@ -107,7 +107,7 @@ export class Expand extends EventEmitter<ExpandEvents> {
     this.controlTarget = element.getAttribute('aria-controls')
 
     // Store instance directly on DOM element
-    ;(element as any).__expand = this
+    element.__expand = this
 
     // Bind event listeners
     this.element.addEventListener('click', this.handleClick.bind(this))
@@ -125,7 +125,7 @@ export class Expand extends EventEmitter<ExpandEvents> {
   }
 
   static getInstance(element: HTMLElement): Expand | null {
-    return (element as any).__expand || null
+    return element.__expand || null
   }
 
   get isExpanded(): boolean {
