@@ -163,6 +163,7 @@ The script (`scripts/create-copy-point.js`) automatically:
 ### Script Output Structure
 ```
 stubs/[name]/
+├── README.md                        # Complete copy point documentation
 ├── scripts/
 │   ├── services/example.ts          # Service template
 │   └── utilities/example.ts         # Utility template
@@ -175,13 +176,29 @@ stubs/[name]/
 
 **Note**: No `index.css` is created (only `_base` has this master import file)
 
+### Documentation Requirements
+
+Every copy point must include a comprehensive `README.md` file with:
+
+- **Overview** - Purpose and features of the copy point
+- **Dependencies** - Required copy points (usually `_base`)
+- **Usage** - Basic usage examples and HTML structure
+- **CSS Architecture** - Custom properties and component structure  
+- **Integration Guide** - How to import and use in projects
+- **Customization** - Examples of theming and modifications
+- **Browser Support** - Compatibility requirements
+- **Best Practices** - Recommended usage patterns
+
+The `create-copy-point` script automatically generates a README.md template that should be completed with copy point-specific information.
+
 ### Post-Script Workflow
-1. **Script generates**: Complete structure in `stubs/[name]/`
-2. **Update commitlint**: Add `stub:[name]` scope to `.commitlintrc.cjs`
-3. **Develop components**: Replace template files with actual components
-4. **Test integration**: Ensure compatibility with `_base` and other copy points
-5. **Create examples**: Add demonstration pages in `pages/`
-6. **Commit changes**: Use `feat(stub:[name]): create [name] copy point`
+1. **Script generates**: Complete structure in `stubs/[name]/` including README.md template
+2. **Complete documentation**: Fill out the generated README.md template with copy point-specific information
+3. **Update commitlint**: Add `stub:[name]` scope to `.commitlintrc.cjs`
+4. **Develop components**: Replace template files with actual components
+5. **Test integration**: Ensure compatibility with `_base` and other copy points
+6. **Create examples**: Add demonstration pages in `pages/`
+7. **Commit changes**: Use `feat(stub:[name]): create [name] copy point`
 
 ### Copy Point Naming Rules
 - **Lowercase only**: `advanced`, `dark-theme`, `components-extended`

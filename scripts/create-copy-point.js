@@ -86,12 +86,13 @@ async function createCopyPoint() {
 
     console.log('')
     console.log('📝 Next steps:')
-    console.log(`   1. Add "stub:${name}" scope to .commitlintrc.cjs`)
-    console.log(`   2. Develop components in stubs/${name}/`)
-    console.log('   3. Add UI-Doc block comments')
-    console.log('   4. May create example pages demonstrating the components')
-    console.log('   5. Do not forget to register your styles in pages/style.css')
-    console.log('   6. Test integration with _base copy point')
+    console.log(`   1. Complete the documentation in stubs/${name}/README.md`)
+    console.log(`   2. Add "stub:${name}" scope to .commitlintrc.cjs`)
+    console.log(`   3. Develop components in stubs/${name}/`)
+    console.log('   4. Add UI-Doc block comments')
+    console.log('   5. May create example pages demonstrating the components')
+    console.log('   6. Do not forget to register your styles in pages/style.css')
+    console.log('   7. Test integration with _base copy point')
     console.log('')
     console.log('💡 Commit your changes:')
     console.log(`   git commit -m "feat(stub:${name}): init"`)
@@ -107,9 +108,13 @@ async function createCopyPoint() {
 function showCreatedStructure(name, options) {
   console.log('📁 Structure created:')
   console.log(`   stubs/${name}/`)
+  console.log('   ├── README.md')
 
   if (options.includeScripts) {
-    console.log('   ├── scripts/')
+    const hasStyles = options.includeStyles
+    const scriptsPrefix = hasStyles ? '   ├── scripts/' : '   └── scripts/'
+    console.log(scriptsPrefix)
+    
     if (options.includeServices) console.log('   │   ├── services/')
     if (options.includeUtilities) {
       const prefix = options.includeServices ? '   │   └── utilities/' : '   │   └── utilities/'
@@ -118,9 +123,7 @@ function showCreatedStructure(name, options) {
   }
 
   if (options.includeStyles) {
-    const scriptsExists = options.includeScripts
-    const prefix = scriptsExists ? '   └── styles/' : '   └── styles/'
-    console.log(prefix)
+    console.log('   └── styles/')
 
     if (options.includeDefaults) console.log('       ├── 01_defaults/')
     if (options.includeComponents) console.log('       ├── 02_components/')
@@ -129,7 +132,7 @@ function showCreatedStructure(name, options) {
   }
 
   if (!options.includeScripts && !options.includeStyles) {
-    console.log('   └── (empty - minimal structure)')
+    console.log('   └── README.md (only)')
   }
 }
 
@@ -249,6 +252,10 @@ async function promptForOptions() {
  * Create template files for the copy point
  */
 async function createTemplateFiles(copyPointPath, name, options) {
+  // Create README.md file
+  const readmeContent = createReadmeTemplate(name)
+  await writeFile(join(copyPointPath, 'README.md'), readmeContent)
+
   // CSS template files
   const cssTemplates = {}
   if (options.includeDefaults)
@@ -414,6 +421,92 @@ export function format${name.charAt(0).toUpperCase() + name.slice(1)}(value: str
   // Add formatting logic specific to ${name}
   return value
 }
+`
+}
+
+function createReadmeTemplate(name) {
+  const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1)
+  return `# ${name} Copy Point
+
+A description of what this copy point provides and its main features.
+
+## Overview
+
+Brief overview of the copy point's purpose and what it contains.
+
+## Dependencies
+
+> **⚠️ Important**: The \`${name}\` copy-point requires the \`_base\` copy-point to be installed first.
+
+## Features
+
+- Feature 1
+- Feature 2  
+- Feature 3
+
+## Usage
+
+### Basic Usage
+
+\`\`\`html
+<!-- Basic usage example -->
+<div class="${name}">
+  Example content
+</div>
+\`\`\`
+
+### CSS Integration
+
+\`\`\`css
+/* Import ${name} styles */
+@import "./stubs/${name}/styles/02_components/${name}.css";
+\`\`\`
+
+## CSS Architecture
+
+### Custom Properties
+
+The ${name} component uses CSS custom properties for customization:
+
+\`\`\`css
+:root {
+  /* Add relevant custom properties */
+}
+\`\`\`
+
+## Integration Guide
+
+### Installation
+
+Use the WebBase CLI:
+\`\`\`bash
+webbase add ${name}
+\`\`\`
+
+Or copy manually:
+\`\`\`bash
+cp -r stubs/${name}/ your-project/src/
+\`\`\`
+
+## Customization
+
+Examples of how to customize the ${name} components.
+
+## Browser Support
+
+- Modern browsers with ES2020+ support
+- CSS Custom Properties support required
+- [Add specific requirements]
+
+## Best Practices
+
+1. Best practice 1
+2. Best practice 2
+3. Best practice 3
+
+## Resources
+
+- [Relevant documentation links]
 `
 }
 
