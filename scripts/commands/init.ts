@@ -38,7 +38,7 @@ export async function executeInit(options: InitOptions): Promise<boolean> {
     }
 
     // Check if _base already exists
-    if (copyPointExists(targetPath, '_base')) {
+    if (await copyPointExists(targetPath, '_base')) {
       if (!overwrite) {
         logError('_base copy-point already exists. Use --overwrite to replace it.')
         return false

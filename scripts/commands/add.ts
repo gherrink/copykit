@@ -35,7 +35,7 @@ export async function executeAdd(options: AddOptions): Promise<boolean> {
     }
 
     // Check if _base exists (required for all other copy-points)
-    if (copyPointName !== '_base' && !copyPointExists(targetPath, '_base')) {
+    if (copyPointName !== '_base' && !(await copyPointExists(targetPath, '_base'))) {
       logError('_base copy-point is required. Run "webbase init" first.')
       return false
     }
@@ -58,7 +58,7 @@ export async function executeAdd(options: AddOptions): Promise<boolean> {
     }
 
     // Check if copy-point already exists
-    if (copyPointExists(targetPath, copyPointName)) {
+    if (await copyPointExists(targetPath, copyPointName)) {
       if (!overwrite) {
         logError(`Copy-point "${copyPointName}" already exists. Use --overwrite to replace it.`)
         return false
@@ -69,7 +69,7 @@ export async function executeAdd(options: AddOptions): Promise<boolean> {
 
     // Check dependencies
     for (const dep of copyPoint.dependencies) {
-      if (!copyPointExists(targetPath, dep)) {
+      if (!(await copyPointExists(targetPath, dep))) {
         logError(`Required dependency "${dep}" not found. Please add it first.`)
         return false
       }

@@ -160,30 +160,102 @@ export async function validateTargetDirectory(targetPath: string): Promise<Valid
 }
 
 /**
+ * Get signature files that uniquely identify a copy-point installation
+ */
+async function getCopyPointSignatureFiles(copyPoint: CopyPointInfo): Promise<string[]> {
+  const signatureFiles: string[] = []
+
+  try {
+    // Priority 1: Check for unique script files (services first, then utilities)
+    if (copyPoint.hasScripts) {
+      const scriptsPath = join(copyPoint.path, 'scripts')
+
+      // Check services directory
+      const servicesPath = join(scriptsPath, 'services')
+      if (existsSync(servicesPath)) {
+        const services = await readdir(servicesPath)
+        for (const service of services) {
+          if (service.endsWith('.ts') && !service.includes('.test.')) {
+            signatureFiles.push(join('scripts', 'services', service))
+          }
+        }
+      }
+
+      // Check utilities directory if no services found
+      if (signatureFiles.length === 0) {
+        const utilitiesPath = join(scriptsPath, 'utilities')
+        if (existsSync(utilitiesPath)) {
+          const utilities = await readdir(utilitiesPath)
+          for (const utility of utilities) {
+            if (utility.endsWith('.ts') && !utility.includes('.test.')) {
+              signatureFiles.push(join('scripts', 'utilities', utility))
+            }
+          }
+        }
+      }
+    }
+
+    // Priority 2: Check for unique style files if no scripts found
+    if (signatureFiles.length === 0 && copyPoint.hasStyles) {
+      const stylesPath = join(copyPoint.path, 'styles')
+
+      // Check each style layer for unique files
+      const styleLayers = ['01_defaults', '02_components', '03_utilities', '04_layouts']
+      for (const layer of styleLayers) {
+        const layerPath = join(stylesPath, layer)
+        if (existsSync(layerPath)) {
+          const styleFiles = await readdir(layerPath)
+          for (const styleFile of styleFiles) {
+            if (styleFile.endsWith('.css')) {
+              signatureFiles.push(join('styles', layer, styleFile))
+              break // Only need one file per layer
+            }
+          }
+        }
+      }
+    }
+
+    // Fallback: For _base, use known signature files
+    if (signatureFiles.length === 0 && copyPoint.name === '_base') {
+      signatureFiles.push('scripts/services/expand.ts', 'styles/index.css')
+    }
+
+    return signatureFiles
+  } catch {
+    // If there's any error reading directories, return empty array
+    return []
+  }
+}
+
+/**
  * Check if a copy-point exists in the target directory
  */
-export function copyPointExists(targetPath: string, copyPointName: string): boolean {
-  // For _base, check if either scripts or styles directory exists with _base files
-  if (copyPointName === '_base') {
-    const scriptsPath = join(targetPath, 'scripts')
-    const stylesPath = join(targetPath, 'styles')
-    // Check for specific _base files
-    const hasBaseScripts = existsSync(join(scriptsPath, 'services', 'expand.ts'))
-    const hasBaseStyles = existsSync(join(stylesPath, 'index.css'))
-    return hasBaseScripts || hasBaseStyles
-  }
+export async function copyPointExists(targetPath: string, copyPointName: string): Promise<boolean> {
+  try {
+    // Get source copy-point info to determine signature files
+    const copyPoint = await loadCopyPointInfo(copyPointName)
 
-  // For other copy-points, check if they have specific files
-  if (copyPointName === 'accordion') {
-    return existsSync(join(targetPath, 'scripts', 'services', 'accordion.ts'))
-  }
+    if (!copyPoint) {
+      // If copy-point doesn't exist in source, it can't be installed
+      return false
+    }
 
-  if (copyPointName === 'elevate') {
-    return existsSync(join(targetPath, 'styles', '03_utilities', 'elevate.css'))
-  }
+    // Get signature files from the source copy-point structure
+    const signatureFiles = await getCopyPointSignatureFiles(copyPoint)
 
-  // For unknown copy-points, return false to allow copying
-  return false
+    // Check if any signature files exist in the target directory
+    for (const signatureFile of signatureFiles) {
+      const targetFile = join(targetPath, signatureFile)
+      if (existsSync(targetFile)) {
+        return true
+      }
+    }
+
+    return false
+  } catch {
+    // If there's any error, assume copy-point doesn't exist
+    return false
+  }
 }
 
 /**
