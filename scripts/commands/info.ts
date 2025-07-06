@@ -102,7 +102,6 @@ export function showInfoHelp(): void {
   console.log('  copy-point-name   Name of the copy-point to show information for')
   console.log('')
   console.log('Examples:')
-  console.log('  webbase info _base')
   console.log('  webbase info accordion')
   console.log('  webbase info elevate')
 }

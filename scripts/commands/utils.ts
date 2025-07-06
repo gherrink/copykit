@@ -28,9 +28,28 @@ export function getSourceStubsPath(): string {
 }
 
 /**
- * Discover all available copy-points in the source directory
+ * Load information about a specific copy-point by name
  */
-export async function discoverCopyPoints(): Promise<CopyPointInfo[]> {
+export async function loadCopyPointInfo(name: string): Promise<CopyPointInfo | null> {
+  const stubsPath = getSourceStubsPath()
+  const copyPointPath = join(stubsPath, name)
+
+  try {
+    const entryStat = await stat(copyPointPath)
+    if (entryStat.isDirectory()) {
+      return await analyzeCopyPoint(name, copyPointPath)
+    }
+  } catch {
+    // Copy point doesn't exist or is not accessible
+  }
+
+  return null
+}
+
+/**
+ * Discover available copy-points in the source directory
+ */
+export async function discoverCopyPoints(includeHidden: boolean = false): Promise<CopyPointInfo[]> {
   const stubsPath = getSourceStubsPath()
 
   try {
@@ -38,11 +57,13 @@ export async function discoverCopyPoints(): Promise<CopyPointInfo[]> {
     const copyPoints: CopyPointInfo[] = []
 
     for (const entry of entries) {
-      const entryPath = join(stubsPath, entry)
-      const entryStat = await stat(entryPath)
+      // Skip hidden copy-points (starting with _) unless explicitly included
+      if (!includeHidden && entry.startsWith('_')) {
+        continue
+      }
 
-      if (entryStat.isDirectory()) {
-        const copyPointInfo = await analyzeCopyPoint(entry, entryPath)
+      const copyPointInfo = await loadCopyPointInfo(entry)
+      if (copyPointInfo) {
         copyPoints.push(copyPointInfo)
       }
     }
@@ -180,8 +201,7 @@ export async function copyCopyPoint(
 
   try {
     // Get source copy-point info
-    const copyPoints = await discoverCopyPoints()
-    const copyPoint = copyPoints.find(cp => cp.name === copyPointName)
+    const copyPoint = await loadCopyPointInfo(copyPointName)
 
     if (!copyPoint) {
       errors.push(`Copy-point "${copyPointName}" not found`)

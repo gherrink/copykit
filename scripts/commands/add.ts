@@ -9,6 +9,7 @@ import {
   copyCopyPoint,
   copyPointExists,
   discoverCopyPoints,
+  loadCopyPointInfo,
   logSuccess,
   logWarning,
   logError,
@@ -39,14 +40,14 @@ export async function executeAdd(options: AddOptions): Promise<boolean> {
       return false
     }
 
-    // Get available copy-points
-    const copyPoints = await discoverCopyPoints()
-    const copyPoint = copyPoints.find(cp => cp.name === copyPointName)
+    // Get copy-point info
+    const copyPoint = await loadCopyPointInfo(copyPointName)
 
     if (!copyPoint) {
       logError(`Copy-point "${copyPointName}" not found.`)
       logInfo('Available copy-points:')
-      copyPoints.forEach(cp => {
+      const availableCopyPoints = await discoverCopyPoints()
+      availableCopyPoints.forEach(cp => {
         const features = []
         if (cp.hasStyles) features.push('styles')
         if (cp.hasScripts) features.push('scripts')
