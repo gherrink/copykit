@@ -300,9 +300,6 @@ export async function copyCopyPoint(
       )
     }
 
-    // Copy additional files (like markdown docs) to target directory root
-    await copyAdditionalFiles(copyPoint.path, targetPath, operations, overwrite)
-
     return { success: true, operations, errors, warnings }
   } catch (error) {
     errors.push(
@@ -340,38 +337,6 @@ async function copyDirectory(
       }
 
       // Check if file exists and handle overwrite
-      if (existsSync(destPath) && !overwrite) {
-        continue
-      }
-
-      await copyFile(sourcePath, destPath)
-      operations.push({
-        source: sourcePath,
-        destination: destPath,
-        type: 'copy',
-      })
-    }
-  }
-}
-
-/**
- * Copy additional files from copy-point root
- */
-async function copyAdditionalFiles(
-  source: string,
-  destination: string,
-  operations: FileOperation[],
-  overwrite: boolean,
-): Promise<void> {
-  const entries = await readdir(source)
-
-  for (const entry of entries) {
-    const sourcePath = join(source, entry)
-    const destPath = join(destination, entry)
-    const entryStat = await stat(sourcePath)
-
-    // Only copy files (not directories) from root
-    if (entryStat.isFile() && !entry.startsWith('.')) {
       if (existsSync(destPath) && !overwrite) {
         continue
       }
