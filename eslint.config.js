@@ -43,7 +43,7 @@ export default [
   },
   // Test files configuration - TypeScript
   {
-    files: ['**/*.test.{ts}', 'test/**/*.{ts}'],
+    files: ['**/*.test.ts', 'test/**/*.ts'],
     languageOptions: {
       parser: typescriptParser,
       parserOptions: {
@@ -84,7 +84,7 @@ export default [
   },
   // CLI scripts configuration - TypeScript
   {
-    files: ['scripts/**/*.{ts}'],
+    files: ['scripts/**/*.ts'],
     languageOptions: {
       parser: typescriptParser,
       parserOptions: {
