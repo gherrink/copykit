@@ -95,6 +95,9 @@ webbase add elevate
 
 # 3. List available copy-points
 webbase list
+
+# 4. Get detailed information about a copy-point
+webbase info accordion
 ```
 
 #### CLI Commands
@@ -118,7 +121,14 @@ webbase add --help                 # Show help for add command
 
 **`webbase list`** - List available copy-points
 ```bash
-webbase list                   # Show all available copy-points with features
+webbase list                   # Show all available copy-points with basic info
+```
+
+**`webbase info <copy-point>`** - Show detailed copy-point information
+```bash
+webbase info accordion        # Show detailed info about accordion copy-point
+webbase info _base           # Show detailed info about base copy-point
+webbase info elevate         # Show detailed info about elevate copy-point
 ```
 
 **`webbase help`** - Show general help
@@ -252,7 +262,7 @@ pnpm run security    # Run security audit
 
 ## Available Copy Points
 
-Use `webbase list` to see all available copy-points, or view them below:
+Use `webbase list` to see all available copy-points with basic information, or `webbase info <copy-point>` for detailed information. Available copy-points:
 
 ### Currently Available
 
@@ -297,6 +307,7 @@ Every copy point follows the same organized structure:
 
 ```
 [name]/                     # Note: only _base has underscore prefix
+├── copy-point.json         # Metadata for CLI discovery and tooling
 ├── README.md               # Complete documentation for this copy point
 ├── scripts/
 │   ├── services/           # Interactive functionality

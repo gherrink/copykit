@@ -1,0 +1,20 @@
+{
+  "name": "accordion",
+  "title": "Accordion Component",
+  "description": "Advanced accordion component with full accessibility support, keyboard navigation, and customizable styling using CSS custom properties.",
+  "version": "1.0.0",
+  "features": [
+    "ARIA compliant accessibility",
+    "Keyboard navigation support",
+    "Customizable styling with CSS custom properties",
+    "Animation support with data-animate",
+    "Single-select and multi-select modes",
+    "Chevron indicator controls",
+    "Responsive design patterns",
+    "Color theming support",
+    "Comprehensive test coverage"
+  ],
+  "dependencies": [],
+  "author": "WebBase",
+  "keywords": ["accordion", "component", "accessible", "interactive", "collapsible"]
+}

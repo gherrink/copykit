@@ -7,6 +7,7 @@ import type { Command, CommandDefinition, CommandRegistry } from './types.js'
 import { executeInit, showInitHelp } from './init.js'
 import { executeAdd, showAddHelp } from './add.js'
 import { executeList } from './list.js'
+import { executeInfo, showInfoHelp } from './info.js'
 import { executeHelp, showGeneralHelp } from './help.js'
 
 /**
@@ -79,8 +80,19 @@ function createCommandRegistry(): CommandRegistry {
     showHelpFunction: () => {
       console.log('Usage: webbase list')
       console.log('')
-      console.log('List all available copy-points with their features and dependencies')
+      console.log('List all available copy-points with basic information')
     },
+  })
+
+  // Register info command
+  registry.registerCommand({
+    name: 'info',
+    description: 'Show detailed information about a copy-point',
+    usage: 'webbase info <copy-point-name>',
+    examples: ['webbase info _base', 'webbase info accordion', 'webbase info elevate'],
+    options: [{ flag: '--help', description: 'Show help for info command' }],
+    executeFunction: executeInfo,
+    showHelpFunction: showInfoHelp,
   })
 
   // Register help command
@@ -159,6 +171,7 @@ export function generateGeneralHelp(): void {
   console.log('  webbase init')
   console.log('  webbase add accordion')
   console.log('  webbase list')
+  console.log('  webbase info accordion')
   console.log('')
   console.log('For command-specific help:')
   console.log('  webbase <command> --help')

@@ -1,0 +1,19 @@
+{
+  "name": "elevate",
+  "title": "Visual Enhancement Utilities",
+  "description": "Utility classes for adding visual depth and elevation to components using advanced CSS color-mixing techniques. Creates Material Design-inspired elevation effects.",
+  "version": "1.0.0",
+  "features": [
+    "25 elevation levels (0-24) following Material Design",
+    "Advanced color mixing using CSS color-mix() function",
+    "Customizable elevation color and boost values",
+    "Material Design compliance",
+    "Performance optimized with CSS custom properties",
+    "Responsive elevation support",
+    "Animation support for elevation changes",
+    "Theme integration support"
+  ],
+  "dependencies": [],
+  "author": "WebBase",
+  "keywords": ["elevation", "material-design", "utilities", "visual", "depth", "color-mixing"]
+}

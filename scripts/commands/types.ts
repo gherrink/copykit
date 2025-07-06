@@ -2,6 +2,17 @@
  * Type definitions for the webbase CLI
  */
 
+export interface CopyPointMetadata {
+  name: string
+  title: string
+  description: string
+  version: string
+  features: string[]
+  dependencies: string[]
+  author: string
+  keywords: string[]
+}
+
 export interface CopyPointInfo {
   name: string
   path: string
@@ -9,6 +20,7 @@ export interface CopyPointInfo {
   hasScripts: boolean
   hasTests: boolean
   dependencies: string[]
+  metadata?: CopyPointMetadata
 }
 
 export interface InitOptions {
@@ -43,7 +55,7 @@ export interface CopyResult {
   warnings: string[]
 }
 
-export type Command = 'init' | 'add' | 'list' | 'help'
+export type Command = 'init' | 'add' | 'list' | 'info' | 'help'
 
 export interface CLIOptions {
   command: Command

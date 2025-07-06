@@ -28,6 +28,7 @@ git commit -m "feat(pages): add new themed page template"
 git commit -m "fix(stub:base): resolve expand animation timing issue"
 git commit -m "feat(stub:advanced): add new advanced button variants"
 git commit -m "feat(scripts): add webbase CLI for copy-point distribution"
+git commit -m "feat(scripts): add info command for detailed copy-point information"
 git commit -m "fix(scripts): resolve CLI TypeScript compilation errors"
 git commit -m "docs(scripts): add CLI development and testing guide"
 git commit -m "docs: update component usage examples"
@@ -229,6 +230,8 @@ All copy points (except `_base`) follow this naming and structure:
 stubs/
 ├── _base/                   # Foundation copy point (with underscore)
 └── [new-copy-point]/        # New copy points (no underscore)
+    ├── copy-point.json      # Metadata for CLI discovery and tooling
+    ├── README.md            # Complete documentation
     ├── scripts/
     │   ├── services/        # Interactive functionality
     │   └── utilities/       # Helper functions
@@ -263,6 +266,78 @@ stubs/
    - `utilities/`: Additional helper functions or enhanced base utilities
    - Maintain compatibility with base utilities when possible
 
+5. **Copy Point Metadata** (`copy-point.json`):
+   - Every copy point must include a metadata file for CLI discovery
+   - Follow the standard JSON schema with required fields
+   - Keep metadata accurate and up-to-date with actual features
+
+### Copy Point Metadata System
+
+Each copy point requires a `copy-point.json` file that provides structured metadata for the WebBase CLI and other tools. This enables dynamic discovery and rich information display.
+
+**Required Metadata Schema**:
+```json
+{
+  "name": "copy-point-name",
+  "title": "Human-readable Title",
+  "description": "Detailed description of features and purpose",
+  "version": "1.0.0",
+  "features": [
+    "List of key features",
+    "What this copy point provides",
+    "Technical capabilities"
+  ],
+  "dependencies": [],
+  "author": "WebBase",
+  "keywords": ["relevant", "search", "terms"]
+}
+```
+
+**CLI Integration**:
+- `webbase list` - Shows name, title, and description for quick overview
+- `webbase info <name>` - Shows complete metadata including features, version, keywords
+- Automatic discovery by CLI tools for enhanced user experience
+
+**Metadata Guidelines**:
+- **Name**: Must match the directory name exactly
+- **Title**: Descriptive, human-readable name for display
+- **Description**: Clear explanation of what the copy point provides
+- **Features**: Specific, user-focused list of what the copy point offers
+- **Dependencies**: Usually empty (since _base is always required first)
+- **Keywords**: Relevant terms for searchability and categorization
+
+**Quality Standards**:
+- Keep descriptions concise but informative
+- List features from user perspective, not implementation details
+- Use consistent terminology across all copy points
+- Update metadata when adding or removing features
+
+### WebBase CLI Commands
+
+Contributors should be familiar with the CLI commands for testing and validation:
+
+**Core Commands**:
+```bash
+webbase list                    # List all available copy-points with basic info
+webbase info <copy-point>       # Show detailed information about a specific copy-point
+webbase init                    # Initialize project with _base copy-point
+webbase add <copy-point>        # Add specific copy-point to project
+webbase help                    # Show general help and command overview
+```
+
+**Testing Copy Points**:
+```bash
+# Test copy point discovery and metadata loading
+webbase list
+webbase info your-copy-point
+
+# Test copy operations in temporary directory
+mkdir test-copy-point && cd test-copy-point
+webbase init
+webbase add your-copy-point
+cd .. && rm -rf test-copy-point
+```
+
 ### Automated Script Benefits
 
 The `create-copy-point` script provides several advantages:
@@ -295,26 +370,34 @@ The `create-copy-point` script provides several advantages:
    ```bash
    mkdir -p stubs/[copy-point-name]/scripts/{services,utilities}
    mkdir -p stubs/[copy-point-name]/styles/{01_defaults,02_components,03_utilities,04_layouts}
+   # Manually create copy-point.json and README.md files
    ```
 
-3. **Develop Components**:
+3. **Complete Metadata**:
+   - Update the generated `copy-point.json` with accurate information
+   - Write clear, user-focused features and description
+   - Choose relevant keywords for discoverability
+   - Verify the metadata accurately reflects the copy point's capabilities
+
+4. **Develop Components**:
    - Follow existing naming conventions
    - Use CSS custom properties for theming
    - Ensure accessibility compliance
    - Add JSDoc comments for documentation
 
-4. **Test Integration**:
+5. **Test Integration**:
    - Test copying individual files
    - Test copying the entire copy point
    - Test mixing with `_base` and other copy points
    - Verify CSS layer cascading works properly
+   - Test CLI discovery: `webbase list` and `webbase info your-copy-point`
 
-5. **Create Examples**:
+6. **Create Examples**:
    - Add demonstration pages in `pages/`
    - Show how components work with the `@/` alias
    - Document usage patterns
 
-6. **Update Documentation**:
+7. **Update Documentation**:
    - Add copy point to README.md
    - Update UI-Doc comments
    - Add examples and usage notes
@@ -339,11 +422,13 @@ git commit -m "fix(stub:[copy-point-name]): resolve animation timing issue"
 Before submitting a new copy point:
 
 - [ ] Follows the standard directory structure
+- [ ] Includes accurate `copy-point.json` metadata file
 - [ ] No `index.css` file (only in `_base`)
 - [ ] All CSS uses appropriate layers
 - [ ] JavaScript follows existing patterns
 - [ ] Components are accessible (ARIA compliant)
 - [ ] JSDoc comments are complete
+- [ ] CLI discovery works: `webbase list` and `webbase info <name>` function correctly
 - [ ] Integration testing completed
 - [ ] Example pages created
 - [ ] Documentation updated

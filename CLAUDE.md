@@ -2,6 +2,54 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Documentation Organization
+
+This project maintains clear separation between different types of documentation to serve different audiences:
+
+### README.md - User Documentation
+**Audience**: Developers who installed the WebBase CLI package and want to use copy-points in their projects
+**Content**:
+- Installation instructions (global npm install, npx usage)
+- CLI command reference with examples (`webbase init`, `webbase add`, `webbase list`, `webbase info`)
+- Copy-point overview and available options
+- Integration examples (CSS imports, JavaScript usage, HTML structure)
+- Getting started tutorials for end-users
+- Copy-point structure explanation for users
+- Philosophy and features from user perspective
+
+### CONTRIBUTING.md - Developer Documentation  
+**Audience**: Developers who want to contribute to the WebBase project itself
+**Content**:
+- Development workflow and contribution process
+- Code quality standards and linting requirements
+- Testing framework and naming conventions
+- Creating new copy-points (structure, metadata, validation)
+- WebBase CLI development and testing procedures
+- Commit message formats and scopes
+- Pull request guidelines
+- Technical implementation details for contributors
+
+### CLAUDE.md - Internal Development Guidance
+**Audience**: Claude Code AI assistant working on this codebase
+**Content**:
+- Project commands and development environment setup
+- Code architecture and patterns to follow
+- Copy-point creation workflow with automated scripts
+- CSS documentation standards and @location key rules
+- Testing requirements and framework details
+- Internal development standards and conventions
+
+### scripts/CLAUDE.md - CLI Development Guidance
+**Audience**: Claude Code AI assistant working specifically on CLI functionality
+**Content**:
+- CLI architecture and command structure
+- TypeScript compilation and build processes
+- Testing procedures for CLI commands
+- Distribution and packaging details
+- Command implementation patterns
+
+**Key Principle**: Keep user-facing information in README.md, contributor information in CONTRIBUTING.md, and AI development guidance in CLAUDE.md files.
+
 ## Commands
 
 ### Development
@@ -163,6 +211,7 @@ The script (`scripts/create-copy-point.js`) automatically:
 ### Script Output Structure
 ```
 stubs/[name]/
+├── copy-point.json                  # Copy point metadata for CLI discovery
 ├── README.md                        # Complete copy point documentation
 ├── scripts/
 │   ├── services/example.ts          # Service template
@@ -175,6 +224,40 @@ stubs/[name]/
 ```
 
 **Note**: No `index.css` is created (only `_base` has this master import file)
+
+### Copy Point Metadata System
+
+Each copy point includes a `copy-point.json` file that provides structured metadata for the WebBase CLI and other tools:
+
+**Metadata Schema**:
+```json
+{
+  "name": "copy-point-name",
+  "title": "Human-readable Title",
+  "description": "Detailed description of features and purpose",
+  "version": "1.0.0",
+  "features": [
+    "List of key features",
+    "What this copy point provides",
+    "Technical capabilities"
+  ],
+  "dependencies": [],
+  "author": "WebBase",
+  "keywords": ["relevant", "search", "terms"]
+}
+```
+
+**CLI Integration**:
+- `webbase list` - Shows name, title, and description for quick overview
+- `webbase info <name>` - Shows complete metadata including features, version, keywords
+- Automatic discovery and loading by CLI tools
+- Graceful fallback when metadata files are missing
+
+**Benefits**:
+- **Dynamic Discovery**: Copy points are automatically discovered with rich information
+- **Extensible**: Easy to add new metadata fields without breaking existing tools
+- **Tooling Friendly**: JSON format consumable by documentation generators, build tools, etc.
+- **User Experience**: Rich information available for copy point selection and usage
 
 ### Documentation Requirements
 
@@ -192,13 +275,14 @@ Every copy point must include a comprehensive `README.md` file with:
 The `create-copy-point` script automatically generates a README.md template that should be completed with copy point-specific information.
 
 ### Post-Script Workflow
-1. **Script generates**: Complete structure in `stubs/[name]/` including README.md template
-2. **Complete documentation**: Fill out the generated README.md template with copy point-specific information
-3. **Update commitlint**: Add `stub:[name]` scope to `.commitlintrc.cjs`
-4. **Develop components**: Replace template files with actual components
-5. **Test integration**: Ensure compatibility with `_base` and other copy points
-6. **Create examples**: Add demonstration pages in `pages/`
-7. **Commit changes**: Use `feat(stub:[name]): create [name] copy point`
+1. **Script generates**: Complete structure in `stubs/[name]/` including metadata and README.md templates
+2. **Complete metadata**: Update `copy-point.json` with accurate title, description, features, and keywords
+3. **Complete documentation**: Fill out the generated README.md template with copy point-specific information
+4. **Update commitlint**: Add `stub:[name]` scope to `.commitlintrc.cjs`
+5. **Develop components**: Replace template files with actual components
+6. **Test integration**: Ensure compatibility with `_base` and other copy points
+7. **Create examples**: Add demonstration pages in `pages/`
+8. **Commit changes**: Use `feat(stub:[name]): create [name] copy point`
 
 ### Copy Point Naming Rules
 - **Lowercase only**: `advanced`, `dark-theme`, `components-extended`

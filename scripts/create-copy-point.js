@@ -86,13 +86,14 @@ async function createCopyPoint() {
 
     console.log('')
     console.log('📝 Next steps:')
-    console.log(`   1. Complete the documentation in stubs/${name}/README.md`)
-    console.log(`   2. Add "stub:${name}" scope to .commitlintrc.cjs`)
-    console.log(`   3. Develop components in stubs/${name}/`)
-    console.log('   4. Add UI-Doc block comments')
-    console.log('   5. May create example pages demonstrating the components')
-    console.log('   6. Do not forget to register your styles in pages/style.css')
-    console.log('   7. Test integration with _base copy point')
+    console.log(`   1. Complete the metadata in stubs/${name}/copy-point.json`)
+    console.log(`   2. Complete the documentation in stubs/${name}/README.md`)
+    console.log(`   3. Add "stub:${name}" scope to .commitlintrc.cjs`)
+    console.log(`   4. Develop components in stubs/${name}/`)
+    console.log('   5. Add UI-Doc block comments')
+    console.log('   6. May create example pages demonstrating the components')
+    console.log('   7. Do not forget to register your styles in pages/style.css')
+    console.log('   8. Test integration with _base copy point')
     console.log('')
     console.log('💡 Commit your changes:')
     console.log(`   git commit -m "feat(stub:${name}): init"`)
@@ -108,6 +109,7 @@ async function createCopyPoint() {
 function showCreatedStructure(name, options) {
   console.log('📁 Structure created:')
   console.log(`   stubs/${name}/`)
+  console.log('   ├── copy-point.json')
   console.log('   ├── README.md')
 
   if (options.includeScripts) {
@@ -252,6 +254,10 @@ async function promptForOptions() {
  * Create template files for the copy point
  */
 async function createTemplateFiles(copyPointPath, name, options) {
+  // Create copy-point.json metadata file
+  const metadataContent = createMetadataTemplate(name)
+  await writeFile(join(copyPointPath, 'copy-point.json'), metadataContent)
+
   // Create README.md file
   const readmeContent = createReadmeTemplate(name)
   await writeFile(join(copyPointPath, 'README.md'), readmeContent)
@@ -286,6 +292,24 @@ async function createTemplateFiles(copyPointPath, name, options) {
 /**
  * Template generators
  */
+function createMetadataTemplate(name) {
+  const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1)
+  return `{
+  "name": "${name}",
+  "title": "${capitalizedName}",
+  "description": "A brief description of what this copy point provides and its main features.",
+  "version": "1.0.0",
+  "features": [
+    "Feature 1",
+    "Feature 2",
+    "Feature 3"
+  ],
+  "dependencies": [],
+  "author": "WebBase",
+  "keywords": ["${name}", "component"]
+}`
+}
+
 function createDefaultsTemplate(name) {
   return `/**
  * Default variables and overrides for ${name} copy point

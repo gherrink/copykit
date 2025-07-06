@@ -2,11 +2,17 @@
  * Shared utilities for the webbase CLI
  */
 
-import { readdir, stat, access, mkdir, copyFile } from 'fs/promises'
+import { readdir, stat, access, mkdir, copyFile, readFile } from 'fs/promises'
 import { join, dirname } from 'path'
 import { existsSync, constants } from 'fs'
 import { fileURLToPath } from 'url'
-import type { CopyPointInfo, ValidationResult, FileOperation, CopyResult } from './types.js'
+import type {
+  CopyPointInfo,
+  CopyPointMetadata,
+  ValidationResult,
+  FileOperation,
+  CopyResult,
+} from './types.js'
 
 /**
  * Get the source directory for copy-points
@@ -50,6 +56,25 @@ export async function discoverCopyPoints(): Promise<CopyPointInfo[]> {
 }
 
 /**
+ * Load copy-point metadata from copy-point.json file
+ */
+async function loadCopyPointMetadata(path: string): Promise<CopyPointMetadata | undefined> {
+  const metadataPath = join(path, 'copy-point.json')
+
+  try {
+    if (existsSync(metadataPath)) {
+      const content = await readFile(metadataPath, 'utf-8')
+      return JSON.parse(content) as CopyPointMetadata
+    }
+  } catch {
+    // If metadata file is invalid, continue without it
+    console.warn(`Warning: Could not load metadata for copy-point at ${path}`)
+  }
+
+  return undefined
+}
+
+/**
  * Analyze a copy-point directory structure
  */
 async function analyzeCopyPoint(name: string, path: string): Promise<CopyPointInfo> {
@@ -59,8 +84,11 @@ async function analyzeCopyPoint(name: string, path: string): Promise<CopyPointIn
     existsSync(join(path, 'scripts')) &&
     (await readdir(join(path, 'scripts'))).some(file => file.includes('.test.'))
 
-  // For now, assume _base is required by all others
-  const dependencies = name === '_base' ? [] : ['_base']
+  // Load metadata if available
+  const metadata = await loadCopyPointMetadata(path)
+
+  // Use metadata dependencies if available, otherwise empty array
+  const dependencies = metadata?.dependencies || []
 
   return {
     name,
@@ -69,6 +97,7 @@ async function analyzeCopyPoint(name: string, path: string): Promise<CopyPointIn
     hasScripts,
     hasTests,
     dependencies,
+    metadata,
   }
 }
 

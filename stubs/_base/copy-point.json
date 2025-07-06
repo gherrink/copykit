@@ -1,0 +1,21 @@
+{
+  "name": "_base",
+  "title": "Core Foundation",
+  "description": "Essential foundation that must be copied first. All other copy-points build upon this base. It provides the core styles, utilities, and services that create a consistent foundation for web projects.",
+  "version": "1.0.0",
+  "features": [
+    "CSS Layers organized foundation styles",
+    "JavaScript Services with ARIA support",
+    "JavaScript Utilities for DOM manipulation",
+    "Expand/collapse functionality with accessibility",
+    "CSS custom properties for theming",
+    "Modern CSS reset and typography",
+    "Button and control components",
+    "Comprehensive utility classes",
+    "Event emitter with TypeScript support",
+    "Cookie and DOM utilities"
+  ],
+  "dependencies": [],
+  "author": "WebBase",
+  "keywords": ["foundation", "base", "core", "utilities", "services", "css", "javascript"]
+}

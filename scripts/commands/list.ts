@@ -16,18 +16,18 @@ export async function executeList(): Promise<boolean> {
     console.log('')
 
     copyPoints.forEach(cp => {
-      const features = []
-      if (cp.hasStyles) features.push('styles')
-      if (cp.hasScripts) features.push('scripts')
-      if (cp.hasTests) features.push('tests')
+      // Use metadata title if available, otherwise use name
+      const title = cp.metadata?.title || cp.name
+      const description = cp.metadata?.description || 'No description available'
 
-      console.log(`  ${cp.name}`)
-      console.log(`    Features: ${features.join(', ')}`)
-      if (cp.dependencies.length > 0) {
-        console.log(`    Dependencies: ${cp.dependencies.join(', ')}`)
-      }
+      console.log(`  📦 ${cp.name} - ${title}`)
+      console.log(`     ${description}`)
       console.log('')
     })
+
+    console.log('For detailed information about a copy-point:')
+    console.log('  webbase info <copy-point-name>')
+    console.log('')
 
     return true
   } catch (error) {

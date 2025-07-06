@@ -11,7 +11,8 @@ This file provides guidance for developing and maintaining the WebBase CLI tool 
 ### CLI Usage Commands
 - `webbase init` - Initialize project with _base copy-point
 - `webbase add <copy-point>` - Add specific copy-point to project
-- `webbase list` - List available copy-points with features
+- `webbase list` - List available copy-points with basic information
+- `webbase info <copy-point>` - Show detailed copy-point information (features, dependencies, etc.)
 - `webbase help` - Show CLI help information
 
 ## CLI Architecture
@@ -28,6 +29,10 @@ scripts/
     ├── utils.ts            # Shared utilities (file ops, validation, logging)
     ├── init.ts             # Implementation of 'webbase init' command
     ├── add.ts              # Implementation of 'webbase add' command
+    ├── list.ts             # Implementation of 'webbase list' command
+    ├── info.ts             # Implementation of 'webbase info' command
+    ├── help.ts             # Implementation of 'webbase help' command
+    ├── registry.ts         # Command registry and help generation
     └── *.js                # Compiled JavaScript files (ignored by git)
 ```
 
@@ -72,6 +77,7 @@ pnpm run build:cli
 # Test CLI commands locally
 node scripts/webbase.js --help
 node scripts/webbase.js list
+node scripts/webbase.js info accordion
 node scripts/webbase.js init
 node scripts/webbase.js add accordion
 ```
@@ -115,6 +121,7 @@ pnpm run build:cli
 # 2. Test command parsing
 node scripts/webbase.js --help
 node scripts/webbase.js list
+node scripts/webbase.js info accordion
 
 # 3. Test copy operations in a temporary directory
 mkdir test-cli && cd test-cli
@@ -133,7 +140,9 @@ cd .. && rm -rf test-cli
 
 ### Validation Checklist
 - [ ] `webbase --help` shows proper help text
-- [ ] `webbase list` displays all available copy-points
+- [ ] `webbase list` displays all available copy-points with basic information
+- [ ] `webbase info <name>` shows detailed copy-point information
+- [ ] `webbase info nonexistent` shows helpful error with available options
 - [ ] `webbase init` copies _base copy-point successfully
 - [ ] `webbase add <name>` copies specific copy-point
 - [ ] File operations work with proper validation
@@ -157,6 +166,32 @@ export function show[Command]Help(): void {
   // Command-specific help text
 }
 ```
+
+### Copy Point Metadata System
+The CLI now uses a dynamic metadata loading system for rich copy point information:
+
+**Metadata Files** (`copy-point.json`):
+```json
+{
+  "name": "accordion",
+  "title": "Accordion Component",
+  "description": "Advanced accordion component with full accessibility support...",
+  "version": "1.0.0",
+  "features": ["ARIA compliant accessibility", "Keyboard navigation support"],
+  "dependencies": [],
+  "author": "WebBase",
+  "keywords": ["accordion", "component", "accessible"]
+}
+```
+
+**Command Behavior**:
+- `webbase list` - Shows name, title, and description only (clean overview)
+- `webbase info <name>` - Shows complete metadata including features, dependencies, version, etc.
+
+**Implementation**:
+- `utils.ts` - `loadCopyPointMetadata()` function reads JSON files
+- `analyzeCopyPoint()` - Merges metadata with structural analysis
+- Gracefully handles missing metadata files
 
 ### Error Handling
 - Commands return `boolean` for success/failure
@@ -288,7 +323,7 @@ export function showNewCommandHelp(): void {
 ### 2. Update Types
 ```typescript
 // commands/types.ts
-export type Command = 'init' | 'add' | 'list' | 'new-command' | 'help'
+export type Command = 'init' | 'add' | 'list' | 'info' | 'new-command' | 'help'
 
 export interface NewCommandOptions {
   // Command-specific options
@@ -306,7 +341,21 @@ case 'new-command': {
 }
 ```
 
-### 4. Build & Test
+### 4. Register Command
+```typescript
+// commands/registry.ts - Add to createCommandRegistry()
+registry.registerCommand({
+  name: 'new-command',
+  description: 'Description of new command',
+  usage: 'webbase new-command [options]',
+  examples: ['webbase new-command'],
+  options: [{ flag: '--help', description: 'Show help' }],
+  executeFunction: executeNewCommand,
+  showHelpFunction: showNewCommandHelp,
+})
+```
+
+### 5. Build & Test
 ```bash
 pnpm run build:cli
 node scripts/webbase.js new-command --help

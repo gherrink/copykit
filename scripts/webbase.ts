@@ -114,6 +114,19 @@ async function main(): Promise<void> {
         break
       }
 
+      case 'info': {
+        if (options.args.length === 0) {
+          logError('Copy-point name is required')
+          commandDef.showHelpFunction()
+          process.exit(1)
+        }
+
+        commandOptions = {
+          copyPointName: options.args[0],
+        }
+        break
+      }
+
       case 'list':
       case 'help': {
         // These commands don't need options
