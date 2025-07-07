@@ -452,51 +452,81 @@ function createReadmeTemplate(name) {
   const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1)
   return `# ${name} Copy Point
 
-A description of what this copy point provides and its main features.
+A concise description of what this copy point provides and its main features.
 
 ## Overview
 
-Brief overview of the copy point's purpose and what it contains.
-
-## Dependencies
-
-> **⚠️ Important**: The \`${name}\` copy-point requires the \`_base\` copy-point to be installed first.
+Brief overview of the copy point's purpose, what it contains, and its key capabilities.
 
 ## Features
 
-- Feature 1
-- Feature 2  
-- Feature 3
+- Key feature 1 with brief description
+- Key feature 2 with brief description
+- Key feature 3 with brief description
+- [Add more features as needed]
+
+## Dependencies
+
+> **Note**: This copy-point only requires additional dependencies beyond the core \`_base\` foundation if any are needed. List only non-base dependencies here, or remove this section if none are required.
 
 ## Usage
 
 ### Basic Usage
 
 \`\`\`html
-<!-- Basic usage example -->
+<!-- Basic usage example with minimal required structure -->
 <div class="${name}">
   Example content
+</div>
+\`\`\`
+
+### Advanced Examples
+
+\`\`\`html
+<!-- More complex usage patterns -->
+<div class="${name} variant" style="--custom-property: value;">
+  <div class="child-element">
+    Advanced usage example
+  </div>
 </div>
 \`\`\`
 
 ### CSS Integration
 
 \`\`\`css
-/* Import ${name} styles */
+/* Import specific ${name} styles */
 @import "./stubs/${name}/styles/02_components/${name}.css";
+
+/* Or import utilities if available */
+@import "./stubs/${name}/styles/03_utilities/${name}.css";
 \`\`\`
 
 ## CSS Architecture
 
 ### Custom Properties
 
-The ${name} component uses CSS custom properties for customization:
+The ${name} component uses CSS custom properties for flexible customization:
 
 \`\`\`css
 :root {
-  /* Add relevant custom properties */
+  /* Primary customization properties */
+  --${name}-property: default-value;
+  --${name}-color: 0 0 0;
+  --${name}-size: 1rem;
+  
+  /* Optional enhancement properties */
+  --${name}-transition: 0.3s ease;
+  --${name}-radius: 0;
 }
 \`\`\`
+
+### Component Structure
+
+Key CSS classes and their purposes:
+
+- \`.${name}\` - Main component container
+- \`.${name} .child\` - Child element styling
+- \`.${name}.variant\` - Component variant modifier
 
 ## Integration Guide
 
@@ -512,25 +542,203 @@ Or copy manually:
 cp -r stubs/${name}/ your-project/src/
 \`\`\`
 
+### Theme Integration
+
+\`\`\`css
+/* Light theme customization */
+:root {
+  --${name}-bg-color: 255 255 255;
+  --${name}-text-color: 0 0 0;
+}
+
+/* Dark theme customization */
+[data-theme="dark"] {
+  --${name}-bg-color: 24 24 27;
+  --${name}-text-color: 255 255 255;
+}
+\`\`\`
+
+### JavaScript Integration (if applicable)
+
+\`\`\`javascript
+// Import and initialize ${name} functionality
+import { ${name} } from "./stubs/${name}/scripts/services/${name}.js"
+
+// Initialize the component
+${name}.init()
+
+// Or with specific options
+${name}.init({
+  container: document.querySelector('.${name}'),
+  options: { /* configuration */ }
+})
+\`\`\`
+
 ## Customization
 
-Examples of how to customize the ${name} components.
+### Component Variants
+
+\`\`\`css
+/* Create custom variants */
+.${name}.custom {
+  --${name}-property: custom-value;
+  --${name}-color: 59 130 246;
+}
+
+.${name}.large {
+  --${name}-size: 1.5rem;
+}
+
+.${name}.compact {
+  --${name}-size: 0.875rem;
+}
+\`\`\`
+
+### Responsive Design
+
+\`\`\`css
+/* Mobile-first responsive approach */
+.${name} {
+  --${name}-size: 0.875rem;
+}
+
+@media (min-width: 768px) {
+  .${name} {
+    --${name}-size: 1rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .${name} {
+    --${name}-size: 1.125rem;
+  }
+}
+\`\`\`
+
+### Animation Support
+
+\`\`\`css
+/* Smooth transitions for interactive elements */
+.${name} {
+  transition: var(--${name}-transition);
+}
+
+.${name}:hover {
+  --${name}-property: hover-value;
+}
+
+/* Advanced animation patterns */
+.${name}.animated {
+  animation: ${name}Animation 0.5s ease;
+}
+
+@keyframes ${name}Animation {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+\`\`\`
 
 ## Browser Support
 
-- Modern browsers with ES2020+ support
-- CSS Custom Properties support required
-- [Add specific requirements]
+- **Modern browsers** with ES2020+ support
+- **CSS Custom Properties** support required
+- **[Add specific features]** support needed
+- **CSS Grid/Flexbox** support (if applicable)
+
+### Fallback Patterns
+
+\`\`\`css
+/* Fallback for older browsers */
+.${name} {
+  /* Static fallback styles */
+  background: #ffffff;
+  color: #000000;
+}
+
+/* Enhanced styles for modern browsers */
+@supports (background: rgb(var(--${name}-bg-color))) {
+  .${name} {
+    background: rgb(var(--${name}-bg-color));
+    color: rgb(var(--${name}-text-color));
+  }
+}
+\`\`\`
+
+## Performance Considerations
+
+- **CSS Custom Properties**: Changes trigger repaints, not reflows
+- **Animations**: Use transform and opacity for smooth performance
+- **Rendering**: Avoid complex selectors and deeply nested structures
+- **Memory**: Component cleanup handled automatically
 
 ## Best Practices
 
-1. Best practice 1
-2. Best practice 2
-3. Best practice 3
+1. **Use semantic HTML** - Choose appropriate elements for accessibility
+2. **Leverage CSS custom properties** - Customize through variables rather than overriding
+3. **Follow responsive patterns** - Design mobile-first, enhance for larger screens
+4. **Test accessibility** - Ensure keyboard navigation and screen reader support
+5. **Progressive enhancement** - Provide fallbacks for older browsers
+6. **Performance awareness** - Monitor rendering performance with complex animations
+
+## Common Patterns
+
+### Utility Classes
+
+\`\`\`css
+/* Common utility patterns */
+.${name}-sm { --${name}-size: 0.75rem; }
+.${name}-md { --${name}-size: 1rem; }
+.${name}-lg { --${name}-size: 1.25rem; }
+.${name}-xl { --${name}-size: 1.5rem; }
+\`\`\`
+
+### State Management
+
+\`\`\`html
+<!-- State-based styling -->
+<div class="${name}" data-state="active">
+  State-aware content
+</div>
+\`\`\`
+
+### Integration with Other Copy-Points
+
+\`\`\`html
+<!-- Combining with other copy-points -->
+<div class="${name} elevate" style="--level: 4;">
+  Enhanced with elevation
+</div>
+\`\`\`
+
+## Troubleshooting
+
+### Common Issues
+
+1. **Styling not applying**: Verify CSS import paths are correct
+2. **Custom properties not working**: Check browser support and fallbacks
+3. **JavaScript not initializing**: Ensure proper script loading order
+4. **Animations not smooth**: Review CSS properties being animated
+
+### Debug Mode
+
+\`\`\`css
+/* Add debug styling to identify issues */
+.${name}.debug {
+  outline: 2px solid red;
+}
+
+.${name}.debug .child {
+  outline: 2px solid blue;
+}
+\`\`\`
 
 ## Resources
 
-- [Relevant documentation links]
+- [CSS Custom Properties Guide](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)
+- [Modern CSS Layout Techniques](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout)
+- [Web Accessibility Guidelines](https://www.w3.org/WAI/ARIA/apg/)
+- [WebBase CLI Documentation](https://your-docs-url.com)
+- [Performance Best Practices](https://web.dev/performance/)
 `
 }
 

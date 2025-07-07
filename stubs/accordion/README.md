@@ -1,132 +1,188 @@
-# Accordion Component Styling Guide
+# Accordion Copy Point
 
-This guide provides comprehensive information on customizing the accordion component using CSS custom properties and modifier classes.
+Accessible, expandable accordion component with full keyboard navigation, ARIA compliance, and customizable styling.
 
 ## Overview
 
-The accordion component is built using CSS custom properties (CSS variables) that allow for easy customization without modifying the core CSS. All accordion styles are contained within the `components` CSS layer. The accordion uses simplified selectors with `.accordion > .item`, `.accordion > .control`, and `.accordion > .content` structure.
+The accordion copy-point provides a fully-featured accordion component with sophisticated expand/collapse functionality. Built with accessibility-first principles, it includes proper ARIA attributes, keyboard navigation, and smooth animations while maintaining excellent performance.
 
-## HTML Structure
+## Features
 
-The accordion uses a simplified HTML structure:
+- **Full Accessibility**: WCAG 2.1 AA compliant with proper ARIA attributes
+- **Keyboard Navigation**: Complete keyboard support with arrow keys, Home/End, Space/Enter
+- **Smooth Animations**: CSS-based animations with configurable timing
+- **Flexible Structure**: Simplified HTML structure with direct child selectors
+- **Customizable Styling**: Extensive CSS custom properties for theming
+- **Single/Multi-Select**: Support for both single and multiple open items
+- **Chevron Indicators**: Optional rotating chevron icons for visual feedback
+
+## Usage
+
+### Basic Usage
 
 ```html
 <div class="accordion">
   <div class="item">
-    <button class="control chevron" aria-expanded="false" aria-controls="content-1">
-      Accordion Header
+    <button class="control" aria-expanded="false" aria-controls="content-1">
+      Accordion Header 1
     </button>
     <div class="content" id="content-1" hidden data-animate="accordion">
-      Accordion content goes here
+      <p>Accordion content goes here. This content is collapsible and accessible.</p>
+    </div>
+  </div>
+  
+  <div class="item">
+    <button class="control" aria-expanded="false" aria-controls="content-2">
+      Accordion Header 2
+    </button>
+    <div class="content" id="content-2" hidden data-animate="accordion">
+      <p>Second accordion panel content.</p>
     </div>
   </div>
 </div>
 ```
 
-### Key Elements
+### Advanced Examples
 
-- **`.accordion`** - Container element
-- **`.item`** - Individual accordion item wrapper (replaces `.accordion-item`)
-- **`.control`** - Interactive button that toggles content (replaces `.accordion-header`, uses base `.control` class)
-- **`.content`** - Collapsible content area (replaces `.accordion-content`, no separate body wrapper needed)
-
-### Selector Structure
-
-All accordion styles use direct child selectors for better specificity and cleaner CSS:
-
-- **`.accordion > .item`** - Targets accordion items
-- **`.accordion > .item > .control`** - Targets control buttons within items
-- **`.accordion > .item > .content`** - Targets content areas within items
-
-## CSS Custom Properties
-
-### Color Properties
-
-The accordion uses several CSS custom properties for colors:
-
-```css
-/* Border colors */
---accordion-border-color: 220 220 220; /* Light gray border */
-
-/* Control colors */
---accordion-control-bg-color: 248 248 248; /* Light gray background */
---accordion-control-hover-bg-color: 240 240 240; /* Slightly darker on hover */
-
-/* Content colors */
---accordion-content-bg-color: 255 255 255; /* White background */
+```html
+<!-- Single-select accordion with chevron indicators -->
+<div class="accordion single-select">
+  <div class="item">
+    <button class="control chevron" aria-expanded="false" aria-controls="content-1" data-hide-same-level>
+      Feature Overview
+    </button>
+    <div class="content" id="content-1" hidden data-animate="accordion">
+      <p>Detailed feature information...</p>
+    </div>
+  </div>
+  
+  <div class="item">
+    <button class="control chevron" aria-expanded="false" aria-controls="content-2" data-hide-same-level>
+      Technical Details
+    </button>
+    <div class="content" id="content-2" hidden data-animate="accordion">
+      <p>Technical implementation details...</p>
+    </div>
+  </div>
+</div>
 ```
 
-### Spacing and Layout Properties
+### CSS Integration
 
 ```css
-/* Border and layout */
---accordion-border-width: 1px;
---accordion-border-radius: 0;
-
-/* Typography */
---accordion-font-size: var(--font-size);
-
-/* Animation */
---accordion-transition-time: var(--transition-base);
+/* Import accordion styles */
+@import "./stubs/accordion/styles/02_components/accordion.css";
 ```
 
-## Customization Examples
+### JavaScript Integration
 
-### 1. Dark Theme Accordion
+```javascript
+// Import and initialize accordion functionality
+import { expand } from "./stubs/_base/scripts/services/expand.js"
+
+// Initialize accordion expand/collapse behavior
+expand.init()
+
+// Or initialize with specific container
+expand.init(document.querySelector('.accordion'))
+```
+
+## CSS Architecture
+
+### Custom Properties
+
+The accordion component uses CSS custom properties for flexible customization:
 
 ```css
-.accordion.dark {
-  --accordion-border-color: 64 64 64;
-  --accordion-control-bg-color: 32 32 32;
-  --accordion-control-hover-bg-color: 48 48 48;
-  --accordion-content-bg-color: 24 24 24;
-  --font-color: 255 255 255;
+:root {
+  /* Border and layout */
+  --accordion-border-color: 220 220 220;
+  --accordion-border-width: 1px;
+  --accordion-border-radius: 0;
+  
+  /* Control styling */
+  --accordion-control-bg-color: 248 248 248;
+  --accordion-control-hover-bg-color: 240 240 240;
+  
+  /* Content styling */
+  --accordion-content-bg-color: 255 255 255;
+  
+  /* Typography */
+  --accordion-font-size: var(--font-size);
+  
+  /* Animation */
+  --accordion-transition-time: var(--transition-base);
 }
 ```
 
-### 2. Colored Accordion
+### Component Structure
+
+Key CSS classes and their purposes:
+
+- `.accordion` - Main accordion container
+- `.accordion > .item` - Individual accordion item wrapper
+- `.accordion > .item > .control` - Interactive toggle button
+- `.accordion > .item > .content` - Collapsible content area
+- `.accordion.single-select` - Single-select behavior styling
+- `.control.chevron` - Chevron indicator variant
+
+## Integration Guide
+
+### Installation
+
+Use the WebBase CLI:
+```bash
+webbase add accordion
+```
+
+Or copy manually:
+```bash
+cp -r stubs/accordion/ your-project/src/
+```
+
+### Theme Integration
 
 ```css
+/* Light theme */
+:root {
+  --accordion-border-color: 220 220 220;
+  --accordion-control-bg-color: 248 248 248;
+  --accordion-content-bg-color: 255 255 255;
+}
+
+/* Dark theme */
+[data-theme="dark"] {
+  --accordion-border-color: 64 64 64;
+  --accordion-control-bg-color: 32 32 32;
+  --accordion-content-bg-color: 24 24 24;
+}
+```
+
+## Customization
+
+### Component Variants
+
+```css
+/* Colored accordion themes */
 .accordion.blue {
   --accordion-border-color: 59 130 246;
   --accordion-control-bg-color: 239 246 255;
   --accordion-control-hover-bg-color: 219 234 254;
-  --accordion-content-bg-color: 255 255 255;
 }
 
 .accordion.green {
   --accordion-border-color: 34 197 94;
   --accordion-control-bg-color: 240 253 244;
   --accordion-control-hover-bg-color: 220 252 231;
-  --accordion-content-bg-color: 255 255 255;
-}
-```
-
-### 3. Rounded Accordion
-
-```css
-.accordion.rounded {
-  --accordion-border-radius: 8px;
 }
 
-.accordion.rounded-lg {
-  --accordion-border-radius: 12px;
-}
-```
-
-### 4. Larger Accordion
-
-```css
+/* Size variants */
 .accordion.large {
   --accordion-font-size: var(--font-size-lg);
   --control-py-space: var(--space-md);
   --control-px-space: var(--space-lg);
 }
-```
 
-### 5. Compact Accordion
-
-```css
 .accordion.compact {
   --accordion-font-size: var(--font-size-sm);
   --control-py-space: var(--space-xs);
@@ -134,121 +190,10 @@ The accordion uses several CSS custom properties for colors:
 }
 ```
 
-## Built-in Modifier Classes
-
-### Single-Select Accordion
+### Responsive Design
 
 ```css
-.accordion.single-select
-```
-
-Provides visual styling for single-select behavior. Must be combined with `data-hide-same-level` attribute on controls.
-
-### Chevron Controls
-
-```css
-.accordion > .item > .control.chevron
-```
-
-Adds a rotating chevron indicator to the control.
-
-## Animation Customization
-
-### Custom Animation Duration
-
-```css
-.accordion.slow {
-  --accordion-transition-time: var(--transition-slow);
-}
-
-.accordion.fast {
-  --accordion-transition-time: var(--transition-fast);
-}
-```
-
-### Custom Animation Effects
-
-You can create custom animation effects by modifying the animation classes:
-
-```css
-/* Slide animation */
-.accordion.slide .accordion-enter-active,
-.accordion.slide .accordion-leave-active {
-  transform-origin: top;
-  transition: 
-    transform var(--accordion-transition-time) ease,
-    opacity var(--accordion-transition-time) ease;
-}
-
-.accordion.slide .accordion-enter-from,
-.accordion.slide .accordion-leave-to {
-  opacity: 0;
-  transform: translateY(-10px);
-}
-
-/* Fade animation */
-.accordion.fade .accordion-enter-active,
-.accordion.fade .accordion-leave-active {
-  transition: opacity var(--accordion-transition-time) ease;
-}
-
-.accordion.fade .accordion-enter-from,
-.accordion.fade .accordion-leave-to {
-  opacity: 0;
-}
-```
-
-## Advanced Customization
-
-### Custom Control Styles
-
-```css
-.accordion > .item > .control.custom {
-  --control-font-color: var(--color-white);
-  --control-bg-color: var(--color-black);
-  --control-hover-bg-color: var(--color-gray);
-  
-  font-weight: var(--font-weight-bold);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-```
-
-### Custom Content Styles
-
-```css
-.accordion > .item > .content.custom {
-  --accordion-content-bg-color: 248 250 252;
-  
-  border-left: 3px solid rgb(var(--accent-color));
-  font-size: var(--font-size-sm);
-  line-height: var(--line-height-relaxed);
-}
-```
-
-### Icon Controls
-
-```css
-.accordion > .item > .control.icon {
-  display: flex;
-  align-items: center;
-  gap: calc(var(--space-unit) * var(--space-sm));
-}
-
-.accordion > .item > .control.icon::before {
-  content: '';
-  width: 1.25rem;
-  height: 1.25rem;
-  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>') no-repeat center;
-  background-size: contain;
-}
-```
-
-## Responsive Design
-
-### Mobile-First Approach
-
-```css
+/* Mobile-first responsive approach */
 .accordion {
   --accordion-font-size: var(--font-size-sm);
   --control-py-space: var(--space-xs);
@@ -272,39 +217,108 @@ You can create custom animation effects by modifying the animation classes:
 }
 ```
 
-## Best Practices
+### Animation Support
 
-1. **Use CSS Custom Properties**: Always use the provided custom properties for consistent theming.
-
-2. **Layer Specificity**: Use modifier classes rather than overriding base styles to maintain specificity.
-
-3. **Accessibility**: Ensure sufficient color contrast when customizing colors.
-
-4. **Animation Performance**: Keep animations lightweight for better performance.
-
-5. **Mobile Considerations**: Test accordion behavior on touch devices.
-
-## Integration with Design Systems
-
-### Using with CSS-in-JS
-
-```javascript
-const accordionTheme = {
-  '--accordion-border-color': '59 130 246',
-  '--accordion-control-bg-color': '239 246 255',
-  '--accordion-control-hover-bg-color': '219 234 254',
-  '--accordion-content-bg-color': '255 255 255',
+```css
+/* Custom animation timing */
+.accordion.slow {
+  --accordion-transition-time: var(--transition-slow);
 }
 
-// Apply to accordion element
-Object.assign(accordionElement.style, accordionTheme)
+.accordion.fast {
+  --accordion-transition-time: var(--transition-fast);
+}
+
+/* Rounded corners */
+.accordion.rounded {
+  --accordion-border-radius: 8px;
+}
+
+.accordion.rounded-lg {
+  --accordion-border-radius: 12px;
+}
 ```
 
-### Using with Tailwind CSS
+## Browser Support
+
+- **Modern browsers** with ES2020+ support
+- **CSS Custom Properties** support required
+- **ARIA** support for accessibility
+- **CSS Grid/Flexbox** support for layout
+
+### Fallback Patterns
+
+```css
+/* Fallback for browsers without custom properties */
+.accordion {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+/* Enhanced styles for modern browsers */
+@supports (border-color: rgb(var(--accordion-border-color))) {
+  .accordion {
+    border-color: rgb(var(--accordion-border-color));
+    border-radius: var(--accordion-border-radius);
+  }
+}
+```
+
+## Performance Considerations
+
+- **CSS Custom Properties**: Changes trigger repaints, not reflows
+- **Animations**: Uses CSS transforms for smooth performance
+- **Event Handling**: Efficient event delegation for large accordions
+- **Memory Management**: Automatic cleanup of event listeners
+
+## Best Practices
+
+1. **Use semantic HTML** - Button elements for controls, proper heading structure
+2. **Provide unique IDs** - Each content area needs a unique ID for aria-controls
+3. **Test keyboard navigation** - Ensure all functionality works without mouse
+4. **Consider screen readers** - Test with assistive technologies
+5. **Progressive enhancement** - Ensure content is accessible without JavaScript
+6. **Avoid nested accordions** - Can create confusing navigation patterns
+
+## Common Patterns
+
+### Utility Classes
+
+```css
+/* Quick styling utilities */
+.accordion-bordered { --accordion-border-width: 2px; }
+.accordion-borderless { --accordion-border-width: 0; }
+.accordion-rounded { --accordion-border-radius: 8px; }
+.accordion-shadow { box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+```
+
+### State Management
 
 ```html
-<div class="accordion" style="--accordion-border-color: 59 130 246;">
-  <!-- accordion content -->
+<!-- Accordion with initial open state -->
+<div class="accordion">
+  <div class="item">
+    <button class="control" aria-expanded="true" aria-controls="content-1">
+      Initially Open
+    </button>
+    <div class="content" id="content-1" data-animate="accordion">
+      This content is open by default.
+    </div>
+  </div>
+</div>
+```
+
+### Integration with Other Copy-Points
+
+```html
+<!-- Accordion with elevation -->
+<div class="accordion elevate" style="--level: 4;">
+  <div class="item">
+    <button class="control">Enhanced with elevation</button>
+    <div class="content" id="content-1" hidden data-animate="accordion">
+      Content with elevated styling
+    </div>
+  </div>
 </div>
 ```
 
@@ -312,16 +326,16 @@ Object.assign(accordionElement.style, accordionTheme)
 
 ### Common Issues
 
-1. **Accordion not expanding**: Ensure `aria-controls` matches the content `id`.
-2. **Animations not working**: Check that `data-animate="accordion"` is present on content.
-3. **Styling not applying**: Verify CSS custom property names are correct.
-4. **Keyboard navigation not working**: Ensure the accordion service is properly initialized.
+1. **Accordion not expanding**: Verify `aria-controls` matches the content `id`
+2. **Animations not working**: Check that `data-animate="accordion"` is present
+3. **Keyboard navigation not working**: Ensure expand service is initialized
+4. **Styling not applying**: Verify CSS import paths and custom property names
+5. **Multiple panels opening**: Add `data-hide-same-level` for single-select behavior
 
 ### Debug Mode
 
-Add this CSS to debug accordion structure:
-
 ```css
+/* Add debug styling to identify structure issues */
 .accordion.debug > .item {
   outline: 2px solid red;
 }
@@ -335,8 +349,24 @@ Add this CSS to debug accordion structure:
 }
 ```
 
+### Accessibility Testing
+
+```javascript
+// Test accordion accessibility
+const accordion = document.querySelector('.accordion')
+const controls = accordion.querySelectorAll('.control')
+
+// Verify ARIA attributes
+controls.forEach(control => {
+  console.log('aria-expanded:', control.getAttribute('aria-expanded'))
+  console.log('aria-controls:', control.getAttribute('aria-controls'))
+})
+```
+
 ## Resources
 
-- [MDN: Using CSS Custom Properties](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)
 - [WCAG Accordion Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/)
+- [CSS Custom Properties Guide](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)
+- [ARIA Authoring Practices](https://www.w3.org/WAI/ARIA/apg/)
+- [Keyboard Navigation Guidelines](https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/)
 - [CSS Animations Performance](https://developer.mozilla.org/en-US/docs/Web/Performance/CSS_JavaScript_animation_performance)

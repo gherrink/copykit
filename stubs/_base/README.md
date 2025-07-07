@@ -290,12 +290,21 @@ The `_base` copy-point has **no external dependencies**. It uses only:
 - Modern JavaScript (ES2020+, TypeScript)
 - Web Standards (ARIA, semantic HTML)
 
+> **Note**: As the foundation copy-point, `_base` is required by all other copy-points in the WebBase system.
+
 ## Browser Support
 
 - **Modern browsers** with ES2020+ support
 - **CSS Grid** and **Flexbox** support required
 - **CSS Custom Properties** support required
 - **ARIA** support for accessibility
+
+## Performance Considerations
+
+- **CSS Custom Properties**: Changes trigger repaints, not reflows
+- **JavaScript Services**: Lightweight utilities with minimal overhead
+- **Event Handling**: Efficient event delegation and cleanup
+- **Memory Management**: Automatic cleanup of event listeners and resources
 
 ## Best Practices
 
