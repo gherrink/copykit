@@ -4,7 +4,7 @@ module.exports = {
     'scope-enum': [
       2,
       'always',
-      ['docs', 'pages', 'scripts', 'stub:base', 'stub:accordion', 'stub:elevate'],
+      ['docs', 'pages', 'scripts', 'stub:base', 'stub:accordion', 'stub:elevate', 'stub:shadow'],
     ],
   },
 }

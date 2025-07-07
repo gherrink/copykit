@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shadow Utilities - WebBase</title>
+    <link rel="stylesheet" href="../style.css" />
+    <style>
+      .example-level > * {
+        width: 4rem;
+        height: 4rem;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .example-color > * {
+        width: 6rem;
+        height: 6rem;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .common-use-cases > * {
+      }
+      .shadow-customization > * {
+        width: 6rem;
+        height: 6rem;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="main-content">
+      <header class="width-content">
+        <nav class="flex items-center justify-between">
+          <a href="../" class="control">← Back to Pages</a>
+          <h1 class="headline no-space">Shadow Utilities</h1>
+        </nav>
+        <p>Material Design-inspired shadow system with 24 levels of elevation</p>
+      </header>
+
+      <section class="width-content">
+        <h2>Shadow Levels (0-24)</h2>
+        <p>
+          The shadow system provides 24 levels of elevation, from flat (0) to maximum depth (24):
+        </p>
+
+        <div class="grid cols gap-md example-level">
+          <div class="col-span-1 bg bg-white padding text-center shadow" style="--level: 0">
+            <span>0</span>
+          </div>
+          <div class="col-span-1 bg bg-white padding text-center shadow" style="--level: 1">
+            <span>1</span>
+          </div>
+          <div class="col-span-1 bg bg-white padding text-center shadow" style="--level: 2">
+            <span>2</span>
+          </div>
+          <div class="col-span-1 bg bg-white padding text-center shadow" style="--level: 3">
+            <span>3</span>
+          </div>
+          <div class="col-span-1 bg bg-white padding text-center shadow" style="--level: 4">
+            <span>4</span>
+          </div>
+          <div class="col-span-1 bg bg-white padding text-center shadow" style="--level: 5">
+            <span>5</span>
+          </div>
+          <div class="col-span-1 bg bg-white padding text-center shadow" style="--level: 6">
+            <span>6</span>
+          </div>
+          <div class="col-span-1 bg bg-white padding text-center shadow" style="--level: 7">
+            <span>7</span>
+          </div>
+          <div class="col-span-1 bg bg-white padding text-center shadow" style="--level: 8">
+            <span>8</span>
+          </div>
+          <div class="col-span-1 bg bg-white padding text-center shadow" style="--level: 9">
+            <span>9</span>
+          </div>
+          <div class="col-span-1 bg bg-white padding text-center shadow" style="--level: 10">
+            <span>10</span>
+          </div>
+          <div class="col-span-1 bg bg-white padding text-center shadow" style="--level: 11">
+            <span>11</span>
+          </div>
+          <div class="col-span-1 bg bg-white padding text-center shadow" style="--level: 12">
+            <span>12</span>
+          </div>
+          <div class="col-span-1 bg bg-white padding text-center shadow" style="--level: 13">
+            <span>13</span>
+          </div>
+          <div class="col-span-1 bg bg-white padding text-center shadow" style="--level: 14">
+            <span>14</span>
+          </div>
+          <div class="col-span-1 bg bg-white padding text-center shadow" style="--level: 15">
+            <span>15</span>
+          </div>
+          <div class="col-span-1 bg bg-white padding text-center shadow" style="--level: 16">
+            <span>16</span>
+          </div>
+          <div class="col-span-1 bg bg-white padding text-center shadow" style="--level: 17">
+            <span>17</span>
+          </div>
+          <div class="col-span-1 bg bg-white padding text-center shadow" style="--level: 18">
+            <span>18</span>
+          </div>
+          <div class="col-span-1 bg bg-white padding text-center shadow" style="--level: 19">
+            <span>19</span>
+          </div>
+          <div class="col-span-1 bg bg-white padding text-center shadow" style="--level: 20">
+            <span>20</span>
+          </div>
+          <div class="col-span-1 bg bg-white padding text-center shadow" style="--level: 21">
+            <span>21</span>
+          </div>
+          <div class="col-span-1 bg bg-white padding text-center shadow" style="--level: 22">
+            <span>22</span>
+          </div>
+          <div class="col-span-1 bg bg-white padding text-center shadow" style="--level: 23">
+            <span>23</span>
+          </div>
+          <div class="col-span-1 bg bg-white padding text-center shadow" style="--level: 24">
+            <span>24</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="width-content">
+        <h2>Custom Shadow Colors</h2>
+        <p>
+          Shadow colors can be customized using the
+          <code>--shadow-color</code>
+          CSS custom property:
+        </p>
+
+        <div class="flex row wrap gap-lg example-color">
+          <div
+            class="bg bg-white padding text-center shadow"
+            style="--level: 8; --shadow-color: 0 0 0"
+          >
+            <span>Black</span>
+          </div>
+          <div
+            class="bg bg-white padding text-center shadow"
+            style="--level: 8; --shadow-color: 255 0 0"
+          >
+            <span>Red</span>
+          </div>
+          <div
+            class="bg bg-white padding text-center shadow"
+            style="--level: 8; --shadow-color: 0 150 255"
+          >
+            <span>Blue</span>
+          </div>
+          <div
+            class="bg bg-white padding text-center shadow"
+            style="--level: 8; --shadow-color: 0 200 100"
+          >
+            <span>Green</span>
+          </div>
+          <div
+            class="bg bg-white padding text-center shadow"
+            style="--level: 8; --shadow-color: 255 150 0"
+          >
+            <span>Orange</span>
+          </div>
+          <div
+            class="bg bg-white padding text-center shadow"
+            style="--level: 8; --shadow-color: 150 0 255"
+          >
+            <span>Purple</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="width-content">
+        <h2>Common Use Cases</h2>
+        <p>Different shadow levels are appropriate for different UI elements:</p>
+
+        <div class="grid cols gap-lg common-use-cases">
+          <div class="col-span-3 bg bg-white padding shadow" style="--level: 2">
+            <div class="wrapper text-center">
+              <h3>Card (Level 2)</h3>
+              <p>Basic cards and surfaces</p>
+            </div>
+          </div>
+          <div class="col-span-3 bg bg-white padding shadow" style="--level: 4">
+            <div class="wrapper text-center">
+              <h3>Button (Level 4)</h3>
+              <p>Raised buttons and interactive elements</p>
+            </div>
+          </div>
+          <div class="col-span-3 bg bg-white padding shadow" style="--level: 8">
+            <div class="wrapper text-center">
+              <h3>Menu (Level 8)</h3>
+              <p>Dropdown menus and overlays</p>
+            </div>
+          </div>
+          <div class="col-span-3 bg bg-white padding shadow" style="--level: 16">
+            <div class="wrapper text-center">
+              <h3>Dialog (Level 16)</h3>
+              <p>Modal dialogs and important overlays</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="width-content">
+        <h2>Shadow Customization</h2>
+        <p>Fine-tune shadow appearance with opacity controls:</p>
+
+        <div class="flex row wrap gap-lg shadow-customization">
+          <div class="bg bg-white padding text-center shadow" style="--level: 8">
+            <span>Default</span>
+          </div>
+          <div
+            class="bg bg-white padding text-center shadow"
+            style="--level: 8; --shadow-boost: 0.2"
+          >
+            <span>Boosted</span>
+          </div>
+          <div
+            class="bg bg-white padding text-center shadow"
+            style="--level: 8; --shadow-umbra: 0.1; --shadow-penumbra: 0.07"
+          >
+            <span>Subtle</span>
+          </div>
+          <div
+            class="bg bg-white padding text-center shadow"
+            style="--level: 8; --shadow-umbra: 0.3; --shadow-penumbra: 0.2"
+          >
+            <span>Intense</span>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

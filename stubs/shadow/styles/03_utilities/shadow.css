@@ -1,0 +1,124 @@
+@property --shadow-umbra {
+  inherits: true;
+  initial-value: 0.2;
+  syntax: "<number>";
+}
+
+@property --shadow-penumbra {
+  inherits: true;
+  initial-value: 0.14;
+  syntax: "<number>";
+}
+
+@property --shadow-ambient {
+  inherits: true;
+  initial-value: 0.12;
+  syntax: "<number>";
+}
+
+@property --shadow-boost {
+  inherits: true;
+  initial-value: 0;
+  syntax: "<number>";
+}
+
+@layer utilities {
+  /**
+  * A utility class for adding shadow to an element. This uses [umbra, penumbra and antumbra](https://en.wikipedia.org/wiki/Umbra,_penumbra_and_antumbra) to create the shadow.  You will mainly control the shadow with:
+  * - `--level` for the shadow level (value from 0 to 24).
+  * - `--shadow-color` for the shadow color.
+  * - `--shadow-umbra` for the shadow umbra opacity.
+  * - `--shadow-penumbra` for the shadow penumbra opacity.
+  * - `--shadow-ambient` for the shadow ambient opacity.
+  * - `--shadow-boost` for the shadow boost opacity.
+  * @location utilities.shadow Shadow
+  * @example
+  * <style>
+  *  body > div {
+  *    display: grid;
+  *    grid-gap: 3em;
+  *    grid-template-columns: repeat(auto-fill, minmax(3em, 1fr));
+  *    padding: 1em;
+  *    text-align: center;
+  *  }
+  *  .shadow {
+  *    width: 3em;
+  *    height: 3em;
+  *  }
+  * </style>
+  * <div style="--shadow-color: 0 0 0;">
+  *   <div class="shadow" style="--level: 0;">0</div>
+  *   <div class="shadow" style="--level: 1;">1</div>
+  *   <div class="shadow" style="--level: 2;">2</div>
+  *   <div class="shadow" style="--level: 3;">3</div>
+  *   <div class="shadow" style="--level: 4;">4</div>
+  *   <div class="shadow" style="--level: 5;">5</div>
+  *   <div class="shadow" style="--level: 6;">6</div>
+  *   <div class="shadow" style="--level: 7;">7</div>
+  *   <div class="shadow" style="--level: 8;">8</div>
+  *   <div class="shadow" style="--level: 9;">9</div>
+  *   <div class="shadow" style="--level: 10;">10</div>
+  *   <div class="shadow" style="--level: 11;">11</div>
+  *   <div class="shadow" style="--level: 12;">12</div>
+  *   <div class="shadow" style="--level: 13;">13</div>
+  *   <div class="shadow" style="--level: 14;">14</div>
+  *   <div class="shadow" style="--level: 15;">15</div>
+  *   <div class="shadow" style="--level: 16;">16</div>
+  *   <div class="shadow" style="--level: 17;">17</div>
+  *   <div class="shadow" style="--level: 18;">18</div>
+  *   <div class="shadow" style="--level: 19;">19</div>
+  *   <div class="shadow" style="--level: 20;">20</div>
+  *   <div class="shadow" style="--level: 21;">21</div>
+  *   <div class="shadow" style="--level: 22;">22</div>
+  *   <div class="shadow" style="--level: 23;">23</div>
+  *   <div class="shadow" style="--level: 24;">24</div>
+  * </div>
+  * @code
+  * <div style="--shadow-color: 0 0 0;">
+  *   <div class="shadow" style="--level: 0;">0</div>
+  *   <div class="shadow" style="--level: 1;">1</div>
+  *   <div class="shadow" style="--level: 2;">2</div>
+  *   <div class="shadow" style="--level: 3;">3</div>
+  *   <div class="shadow" style="--level: 4;">4</div>
+  *   <div class="shadow" style="--level: 5;">5</div>
+  *   <div class="shadow" style="--level: 6;">6</div>
+  *   <div class="shadow" style="--level: 7;">7</div>
+  *   <div class="shadow" style="--level: 8;">8</div>
+  *   <div class="shadow" style="--level: 9;">9</div>
+  *   <div class="shadow" style="--level: 10;">10</div>
+  *   <div class="shadow" style="--level: 11;">11</div>
+  *   <div class="shadow" style="--level: 12;">12</div>
+  *   <div class="shadow" style="--level: 13;">13</div>
+  *   <div class="shadow" style="--level: 14;">14</div>
+  *   <div class="shadow" style="--level: 15;">15</div>
+  *   <div class="shadow" style="--level: 16;">16</div>
+  *   <div class="shadow" style="--level: 17;">17</div>
+  *   <div class="shadow" style="--level: 18;">18</div>
+  *   <div class="shadow" style="--level: 19;">19</div>
+  *   <div class="shadow" style="--level: 20;">20</div>
+  *   <div class="shadow" style="--level: 21;">21</div>
+  *   <div class="shadow" style="--level: 22;">22</div>
+  *   <div class="shadow" style="--level: 23;">23</div>
+  *   <div class="shadow" style="--level: 24;">24</div>
+  * </div>
+  */
+  .shadow {
+    /* prettier-ignore */
+    box-shadow:
+      /* Umbra */
+      rgb(var(--shadow-color, 0 0 0) / calc(var(--shadow-umbra, 0.2) + var(--shadow-boost, 0)))
+      0
+      calc(calc(1px * var(--level)) * 0.2)
+      calc(calc(1px * var(--level)) * 0.4),
+        /* Penumbra */
+      rgb(var(--shadow-color, 0 0 0) / calc(var(--shadow-penumbra, 0.14) + var(--shadow-boost, 0)))
+      0
+      calc(calc(1px * var(--level)) * 0.4)
+      calc(calc(1px * var(--level)) * 0.8),
+        /* Ambient */
+      rgb(var(--shadow-color, 0 0 0) / calc(var(--shadow-ambient, 0.12) + var(--shadow-boost, 0)))
+      0
+      calc(calc(1px * var(--level)) * 0.6)
+      calc(calc(1px * var(--level)) * 1.2);
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "shadow",
+  "title": "Shadow Utilities",
+  "description": "Material Design-inspired shadow utilities with customizable levels, colors, and opacity controls using umbra, penumbra, and ambient shadow layers.",
+  "version": "1.0.0",
+  "features": [
+    "24-level shadow system (0-24) for precise elevation control",
+    "Material Design shadow calculation using umbra, penumbra, and ambient layers",
+    "Customizable shadow colors via CSS custom properties",
+    "Adjustable shadow opacity and boost controls",
+    "CSS @property declarations for type-safe shadow customization"
+  ],
+  "dependencies": [],
+  "author": "WebBase",
+  "keywords": ["shadow", "elevation", "material", "utilities", "design-system"]
+}
