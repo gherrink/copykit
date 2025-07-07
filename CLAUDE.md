@@ -96,10 +96,9 @@ This project maintains clear separation between different types of documentation
   - Subdirectories for additional pages (e.g., `basic/`, `themed/`)
 
 - **`stubs/`** - Reusable components and utilities (aliased as `@/` in imports)
-  - `_base/` - Core foundation components
-    - `scripts/services/` - JavaScript services (e.g., expand functionality)
-    - `scripts/utilities/` - Utility functions (DOM, cookies, selectors)
-    - `styles/` - CSS organized in layers
+  - Contains copy-points: self-contained component and utility collections
+  - See [stubs/CLAUDE.md](stubs/CLAUDE.md) for complete copy-point development guide
+  - `_base/` - Core foundation components required by most copy-points
 
 ### CSS Architecture
 Uses CSS layers for organization:
@@ -183,112 +182,15 @@ Only add JSDoc documentation to CSS where it provides meaningful showcase value:
 - Follow hierarchical patterns for better organization
 - Examples: `components.button`, `components.button.primary`, `functions.expand`, `utilities.dom.select`
 
-## Copy Point Creation
+## Copy-Point Development
 
-### IMPORTANT: Always Use the Automated Script
-**Never create copy points manually.** Always use the `create-copy-point` script to ensure consistency and proper structure.
+For complete copy-point development guidance, see [stubs/CLAUDE.md](stubs/CLAUDE.md).
 
-```bash
-# REQUIRED: Use this script for all new copy points
-pnpm run create-copy-point [name]
-
-# Examples:
-pnpm run create-copy-point advanced
-pnpm run create-copy-point components-extended
-pnpm run create-copy-point dark-theme
-pnpm run create-copy-point animations
-```
-
-### Script Features and Validation
-The script (`scripts/create-copy-point.js`) automatically:
-
-- **Validates naming**: Ensures kebab-case, no underscores (except `_base`), lowercase only
-- **Prevents conflicts**: Checks if copy point already exists
-- **Creates structure**: Standard directories (`scripts/`, `styles/` with all 4 layers)
-- **Generates templates**: Starter files with proper JSDoc comments and layer organization
-- **Provides guidance**: Shows next steps and commit message format
-
-### Script Output Structure
-```
-stubs/[name]/
-├── copy-point.json                  # Copy point metadata for CLI discovery
-├── README.md                        # Complete copy point documentation
-├── scripts/
-│   ├── services/example.ts          # Service template
-│   └── utilities/example.ts         # Utility template
-└── styles/
-    ├── 01_defaults/variables.css    # Variables/overrides
-    ├── 02_components/example.css    # Component templates
-    ├── 03_utilities/example.css     # Utility templates
-    └── 04_layouts/example.css       # Layout templates
-```
-
-**Note**: No `index.css` is created (only `_base` has this master import file)
-
-### Copy Point Metadata System
-
-Each copy point includes a `copy-point.json` file that provides structured metadata for the WebBase CLI and other tools:
-
-**Metadata Schema**:
-```json
-{
-  "name": "copy-point-name",
-  "title": "Human-readable Title",
-  "description": "Detailed description of features and purpose",
-  "version": "1.0.0",
-  "features": [
-    "List of key features",
-    "What this copy point provides",
-    "Technical capabilities"
-  ],
-  "dependencies": [],
-  "author": "WebBase",
-  "keywords": ["relevant", "search", "terms"]
-}
-```
-
-**CLI Integration**:
-- `webbase list` - Shows name, title, and description for quick overview
-- `webbase info <name>` - Shows complete metadata including features, version, keywords
-- Automatic discovery and loading by CLI tools
-- Graceful fallback when metadata files are missing
-
-**Benefits**:
-- **Dynamic Discovery**: Copy points are automatically discovered with rich information
-- **Extensible**: Easy to add new metadata fields without breaking existing tools
-- **Tooling Friendly**: JSON format consumable by documentation generators, build tools, etc.
-- **User Experience**: Rich information available for copy point selection and usage
-
-### Documentation Requirements
-
-Every copy point must include a comprehensive `README.md` file with:
-
-- **Overview** - Purpose and features of the copy point
-- **Dependencies** - Required copy points (usually `_base`)
-- **Usage** - Basic usage examples and HTML structure
-- **CSS Architecture** - Custom properties and component structure  
-- **Integration Guide** - How to import and use in projects
-- **Customization** - Examples of theming and modifications
-- **Browser Support** - Compatibility requirements
-- **Best Practices** - Recommended usage patterns
-
-The `create-copy-point` script automatically generates a README.md template that should be completed with copy point-specific information.
-
-### Post-Script Workflow
-1. **Script generates**: Complete structure in `stubs/[name]/` including metadata and README.md templates
-2. **Complete metadata**: Update `copy-point.json` with accurate title, description, features, and keywords
-3. **Complete documentation**: Fill out the generated README.md template with copy point-specific information
-4. **Update commitlint**: Add `stub:[name]` scope to `.commitlintrc.cjs`
-5. **Develop components**: Replace template files with actual components
-6. **Test integration**: Ensure compatibility with `_base` and other copy points
-7. **Create examples**: Add demonstration pages in `pages/`
-8. **Commit changes**: Use `feat(stub:[name]): create [name] copy point`
-
-### Copy Point Naming Rules
-- **Lowercase only**: `advanced`, `dark-theme`, `components-extended`
-- **Kebab-case**: Use hyphens for multi-word names
-- **No underscores**: Only `_base` uses underscore prefix
-- **Descriptive**: Name should indicate purpose (`animations`, `advanced`, `dark-theme`)
+### Quick Reference
+- **Create new copy-point**: `pnpm run create-copy-point [name]`
+- **Always use the automated script** - never create copy-points manually
+- **Standard structure**: README.md, copy-point.json, scripts/, styles/ with 4 CSS layers
+- **Commit format**: `feat(stub:[name]): create [name] copy point`
 
 ### Conventional Commits
 This project uses [Conventional Commits](https://www.conventionalcommits.org/) with commitlint enforcement.
