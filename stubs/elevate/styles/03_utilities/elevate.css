@@ -1,9 +1,3 @@
-@property --level {
-  inherits: true;
-  initial-value: 0;
-  syntax: "<number>";
-}
-
 @property --elevate-boost {
   inherits: true;
   initial-value: 0%;

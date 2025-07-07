@@ -45,3 +45,9 @@
   initial-value: 0 0 0;
   syntax: "<number>+";
 }
+
+@property --level {
+  inherits: true;
+  initial-value: 0;
+  syntax: "<number>";
+}
