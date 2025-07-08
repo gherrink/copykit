@@ -1,0 +1,16 @@
+{
+  "name": "rounded-simple",
+  "title": "Rounded Simple",
+  "description": "Simple and flexible border radius utilities with CSS custom properties for creating rounded corners on any element.",
+  "version": "1.0.0",
+  "features": [
+    "Configurable border radius sizes (sm, base, md, lg, xl)",
+    "CSS custom properties for per-corner customization",
+    "Utility classes for common rounding patterns",
+    "Full circle and pill-shaped element support",
+    "Responsive and themeable design"
+  ],
+  "dependencies": [],
+  "author": "WebBase",
+  "keywords": ["rounded", "border-radius", "utilities", "css", "theming"]
+}

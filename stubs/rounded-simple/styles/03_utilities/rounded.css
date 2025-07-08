@@ -1,0 +1,131 @@
+@property --rounded-unit {
+  inherits: true;
+  initial-value: 1px;
+  syntax: "<length-percentage>";
+}
+
+@property --rounded-size-tl {
+  inherits: false;
+  initial-value: 0.25;
+  syntax: "<number>";
+}
+
+@property --rounded-size-tr {
+  inherits: false;
+  initial-value: 0.25;
+  syntax: "<number>";
+}
+
+@property --rounded-size-bl {
+  inherits: false;
+  initial-value: 0.25;
+  syntax: "<number>";
+}
+
+@property --rounded-size-br {
+  inherits: false;
+  initial-value: 0.25;
+  syntax: "<number>";
+}
+
+:root {
+  /**
+   * Border radius definition
+   *
+   * - `--rounded-sm`
+   * - `--rounded-base`
+   * - `--rounded-md`
+   * - `--rounded-lg`
+   * - `--rounded-xl`
+   *
+   * @location variables.rounded Rounded
+   */
+  --rounded-unit: 1em;
+  --rounded-sm: 0.125;
+  --rounded-base: 0.25;
+  --rounded-md: 0.375;
+  --rounded-lg: 0.5;
+  --rounded-xl: 0.75;
+}
+
+@layer utilities {
+  /**
+   * Using `rounded` to add border radius to all corners of your element.
+   * Uses the default --border-radius-base value from variables.
+   *
+   * @location utilities.border-radius Rounded
+   * @example
+   * <div class="rounded padding bg bg-black">Rounded corners</div>
+   */
+  .rounded,
+  [class^="rounded-"],
+  [class*=" rounded-"] {
+    --rounded-tl: calc(var(--rounded-unit, 1em) * var(--rounded-size-tl, var(--rounded-base)));
+    --rounded-tr: calc(var(--rounded-unit, 1em) * var(--rounded-size-tr, var(--rounded-base)));
+    --rounded-br: calc(var(--rounded-unit, 1em) * var(--rounded-size-br, var(--rounded-base)));
+    --rounded-bl: calc(var(--rounded-unit, 1em) * var(--rounded-size-bl, var(--rounded-base)));
+
+    border-radius: var(--rounded-tl) var(--rounded-tr) var(--rounded-br) var(--rounded-bl);
+  }
+
+  /**
+   * Using `rounded-full` to create circular or pill-shaped elements.
+   * Uses the --border-radius-full value for maximum rounding.
+   *
+   * @location utilities.border-radius.full Rounded full
+   * @example
+   * <div class="rounded-full paddding bg bg-black" style="width: 3rem; height: 3rem; display: flex; align-items: center; justify-content: center;">●</div>
+   */
+  .rounded-full {
+    border-radius: 9999px;
+  }
+
+  /**
+   * Using `rounded-none` to remove border radius from an element.
+   *
+   * @location utilities.border-radius.none Rounded none
+   * @example
+   * <div class="rounded-none padding bg bg-black">No rounded corners</div>
+   */
+  .rounded-none {
+    border-radius: 0;
+  }
+
+  /**
+   * Size variants for different border radius scales.
+   *
+   * @location utilities.border-radius.sizes Rounded sizes
+   * @example
+   * <div class="rounded-sm mt padding bg bg-black">Small rounded</div>
+   * <div class="rounded-md mt padding bg bg-black">Medium rounded</div>
+   * <div class="rounded-lg mt padding bg bg-black">Large rounded</div>
+   * <div class="rounded-xl mt padding bg bg-black">Extra large rounded</div>
+   */
+  .rounded-sm {
+    --rounded-size-tl: var(--rounded-sm);
+    --rounded-size-tr: var(--rounded-sm);
+    --rounded-size-br: var(--rounded-sm);
+    --rounded-size-bl: var(--rounded-sm);
+  }
+
+  .rounded-md {
+    --rounded-size-tl: var(--rounded-md);
+    --rounded-size-tr: var(--rounded-md);
+    --rounded-size-br: var(--rounded-md);
+    --rounded-size-bl: var(--rounded-md);
+  }
+
+  .rounded-lg {
+    --rounded-size-tl: var(--rounded-lg);
+    --rounded-size-tr: var(--rounded-lg);
+    --rounded-size-br: var(--rounded-lg);
+    --rounded-size-bl: var(--rounded-lg);
+  }
+
+  .rounded-xl {
+    --rounded-size-tl: var(--rounded-xl);
+    --rounded-size-tr: var(--rounded-xl);
+    --rounded-size-br: var(--rounded-xl);
+    --rounded-size-bl: var(--rounded-xl);
+  }
+}
