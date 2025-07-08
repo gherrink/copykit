@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+    <link rel="shortcut icon" href="../favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rounded Simple Utilities | WebBase</title>
+    <link rel="stylesheet" href="../style.css" />
+    <style>
+      .demo-item,
+      .demo-square,
+      .demo-unit,
+      .demo-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+
+      .demo-square {
+        aspect-ratio: 1;
+      }
+
+      .demo-unit {
+        width: 6rem;
+        height: 6rem;
+      }
+
+      .demo-card {
+        min-height: 10rem;
+      }
+
+      .avatar-examples {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        margin: 2rem 0;
+        align-items: center;
+      }
+
+      .avatar {
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        color: white;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      }
+    </style>
+  </head>
+  <body>
+    <header class="wrapper width-content py bg bg-black">
+      <nav class="flex items-center justify-between">
+        <a href="../" class="control">← Back to Pages</a>
+        <h1 class="headline no-space">Rounded Simple Utilities</h1>
+      </nav>
+      <p class="mt">Simple and flexible border radius utilities with CSS custom properties</p>
+    </header>
+
+    <main class="wrapper width-content py" style="--py-space: var(--space-xl)">
+      <section class="mt-lg">
+        <h2 class="headline h4">Size Variations</h2>
+        <p>The rounded utilities provide five size variations, from small to extra large:</p>
+
+        <div
+          class="grid gap-md my"
+          style="
+            grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+            --font-weight: var(--font-weight-bold);
+          "
+        >
+          <div class="demo-square rounded-sm padding bg bg-black">
+            <span>rounded-sm</span>
+          </div>
+          <div class="demo-square rounded padding bg bg-black">
+            <span>rounded</span>
+          </div>
+          <div class="demo-square rounded-md padding bg bg-black">
+            <span>rounded-md</span>
+          </div>
+          <div class="demo-square rounded-lg padding bg bg-black">
+            <span>rounded-lg</span>
+          </div>
+          <div class="demo-square rounded-xl padding bg bg-black">
+            <span>rounded-xl</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="mt-lg">
+        <h2 class="headline h4">Special Shapes</h2>
+        <p>Create perfect circles, pills, and remove rounding entirely:</p>
+
+        <div class="flex flex-wrap items-center gap-md my">
+          <div class="demo-item rounded-full padding bg bg-black" style="width: 4rem; height: 4rem">
+            <span>Circle</span>
+          </div>
+          <div class="demo-item rounded-full padding bg bg-black" style="width: 8rem; height: 4rem">
+            <span>Pill Shape</span>
+          </div>
+          <div class="demo-item rounded-none padding bg bg-black" style="width: 6rem; height: 4rem">
+            <span>No Rounding</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="mt-lg">
+        <h2 class="headline h4">Per-Corner Customization</h2>
+        <p>Use CSS custom properties to control individual corners:</p>
+
+        <div
+          class="grid my gap-md"
+          style="grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr))"
+        >
+          <div
+            class="demo-square rounded padding bg bg-black"
+            style="--rounded-size-tl: 0; --rounded-size-br: 0"
+          >
+            <span>
+              Diagonal
+              <br />
+              Corners
+            </span>
+          </div>
+          <div
+            class="demo-square rounded padding bg bg-black"
+            style="
+              --rounded-size-tl: var(--rounded-lg);
+              --rounded-size-tr: var(--rounded-lg);
+              --rounded-size-bl: 0;
+              --rounded-size-br: 0;
+            "
+          >
+            <span>
+              Top
+              <br />
+              Only
+            </span>
+          </div>
+          <div
+            class="demo-square rounded padding bg bg-black"
+            style="
+              --rounded-size-tl: 0;
+              --rounded-size-tr: 0;
+              --rounded-size-bl: var(--rounded-lg);
+              --rounded-size-br: var(--rounded-lg);
+            "
+          >
+            <span>
+              Bottom
+              <br />
+              Only
+            </span>
+          </div>
+          <div
+            class="demo-square rounded padding bg bg-black"
+            style="
+              --rounded-size-tl: var(--rounded-xl);
+              --rounded-size-tr: 0;
+              --rounded-size-bl: 0;
+              --rounded-size-br: var(--rounded-xl);
+            "
+          >
+            <span>
+              Opposite
+              <br />
+              Corners
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <section class="mt-lg">
+        <h2 class="headline h4">Custom Size</h2>
+        <p>
+          Use CSS custom property
+          <i>--rounded-size</i>
+          to change radius size:
+        </p>
+
+        <div class="flex flex-wrap gap-md my">
+          <div class="demo-unit rounded-md padding bg bg-black" style="--rounded-size: 0.5">
+            <span>0.5</span>
+          </div>
+          <div class="demo-unit rounded-md padding bg bg-black" style="--rounded-size: 1">
+            <span>1</span>
+          </div>
+          <div class="demo-unit rounded-md padding bg bg-black" style="--rounded-size: 1.5">
+            <span>1.5</span>
+          </div>
+          <div class="demo-unit rounded-md padding bg bg-black" style="--rounded-size: 2">
+            <span>2</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="mt-lg">
+        <h2 class="headline h4">Custom Units</h2>
+        <p>Adjust the base unit to make rounding depend on different units:</p>
+
+        <div class="flex flex-wrap gap-md my">
+          <div class="demo-unit rounded-md padding bg bg-black" style="--rounded-unit: 1em">
+            <span>
+              1em
+              <br />
+              Unit
+            </span>
+          </div>
+          <div
+            class="demo-unit rounded-md padding bg bg-black"
+            style="--rounded-unit: 1em; --font-size: 2rem"
+          >
+            <span>
+              1em
+              <br />
+              Unit
+            </span>
+          </div>
+          <div class="demo-unit rounded-md padding bg bg-black" style="--rounded-unit: 1rem">
+            <span>
+              1rem
+              <br />
+              Unit
+            </span>
+          </div>
+          <div
+            class="demo-unit rounded-md padding bg bg-black"
+            style="--rounded-unit: 1rem; --font-size: 2rem"
+          >
+            <span>
+              1rem
+              <br />
+              Unit
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <section class="mt-lg">
+        <h2 class="headline h4">Common Use Cases</h2>
+        <p>Practical examples of rounded corners in UI components:</p>
+
+        <div
+          class="grid gap-md my"
+          style="grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr))"
+        >
+          <div
+            class="demo-item rounded-lg padding bg bg-white text-center"
+            style="box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1)"
+          >
+            <h3 class="headline h4 no-space">Card Component</h3>
+            <p class="mt">Perfect for content cards with subtle rounding</p>
+          </div>
+          <div class="demo-item rounded-xl padding bg bg-black">
+            <h3 class="headline h4 no-space">Feature Box</h3>
+            <p class="mt">Larger rounding for emphasis and modern feel</p>
+          </div>
+          <div class="demo-item rounded-sm padding bg bg-gray">
+            <h3 class="headline h4 no-space">Input Field</h3>
+            <p class="mt">Small rounding for form elements</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="mt-lg">
+        <h2 class="headline h4">Button Variations</h2>
+        <p>Different button styles using rounded utilities:</p>
+
+        <div class="flex flex-wrap gap-md my">
+          <button class="btn rounded-md padding bg bg-black">Standard Button</button>
+          <button class="btn rounded-full padding bg bg-black">Pill Button</button>
+          <button class="btn rounded-none padding bg bg-black">Sharp Button</button>
+          <button class="btn rounded-xl padding bg bg-black">Rounded Button</button>
+        </div>
+      </section>
+
+      <section class="mt-lg">
+        <h2 class="headline h4">Avatar & Image Examples</h2>
+        <p>Perfect circles and rounded containers for images:</p>
+
+        <div class="avatar-examples">
+          <div class="avatar rounded-full" style="width: 4rem; height: 4rem">
+            <span>AB</span>
+          </div>
+          <div class="avatar rounded-full" style="width: 5rem; height: 5rem">
+            <span>CD</span>
+          </div>
+          <div class="avatar rounded-lg" style="width: 4rem; height: 4rem">
+            <span>EF</span>
+          </div>
+          <div class="avatar rounded-xl" style="width: 5rem; height: 5rem">
+            <span>GH</span>
+          </div>
+        </div>
+        demo-card
+      </section>
+
+      <section class="mt-lg">
+        <h2 class="headline h4">Theme Integration</h2>
+        <p>Rounded corners work beautifully with different color schemes:</p>
+
+        <div
+          class="grid gap-md my"
+          style="grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr))"
+        >
+          <div class="demo-card rounded-lg padding bg bg-black">
+            <h3 class="headline h4 no-space">Dark Theme</h3>
+            <p class="mt">Elegant with subtle shadows</p>
+          </div>
+          <div
+            class="demo-card rounded-lg padding bg bg-white"
+            style="box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1)"
+          >
+            <h3 class="headline h4 no-space">Light Theme</h3>
+            <p class="mt">Clean with soft shadows</p>
+          </div>
+          <div class="demo-card rounded-lg padding bg bg-black">
+            <h3 class="headline h4 no-space">Accent Theme</h3>
+            <p class="mt">Bold and vibrant</p>
+          </div>
+          <div class="demo-card rounded-lg padding bg bg-black">
+            <h3 class="headline h4 no-space">Warm Theme</h3>
+            <p class="mt">Friendly and approachable</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
