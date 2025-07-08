@@ -1,0 +1,16 @@
+{
+  "name": "border",
+  "title": "Border Utilities",
+  "description": "Comprehensive border utility system with CSS custom properties for flexible styling. Provides directional border controls (top, right, bottom, left, x-axis, y-axis, all sides) with customizable width, style, and color through CSS variables.",
+  "version": "1.0.0",
+  "features": [
+    "Directional border utilities (bt, br, bb, bl, bx, by, border)",
+    "CSS custom properties for width, style, and color customization",
+    "Predefined border style classes (solid, dashed, dotted, none)",
+    "Axis-based border controls for symmetrical styling",
+    "Flexible color system using RGB custom properties"
+  ],
+  "dependencies": [],
+  "author": "WebBase",
+  "keywords": ["border", "utilities", "css", "styling", "directional"]
+}

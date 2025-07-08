@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+    <link rel="shortcut icon" href="../favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Border Utilities - WebBase</title>
+    <link rel="stylesheet" href="../style.css" />
+    <style>
+      .demo-box {
+        padding: 1rem;
+        background: white;
+        min-height: 4rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+
+      .color-box {
+        --font-weight: var(--font-weight-bold);
+
+        width: 5rem;
+        height: 5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="wrapper width-content py bg bg-black">
+      <nav class="flex items-center justify-between">
+        <a href="../" class="control">← Back to Pages</a>
+        <h1 class="headline no-space">Border Utilities</h1>
+      </nav>
+      <p class="tc-white">
+        Comprehensive border utility system with directional controls and CSS custom properties
+      </p>
+    </header>
+
+    <main class="wrapper width-content py" style="--py-space: var(--space-xl)">
+      <section class="mt-lg">
+        <h2 class="headline h4">Directional Border Controls</h2>
+        <p>Apply borders to specific sides using directional utility classes:</p>
+
+        <div class="grid cols gap">
+          <div class="col-span-2 border demo-box">
+            .border
+            <br />
+            All sides
+          </div>
+          <div class="col-span-2 bt demo-box">
+            .bt
+            <br />
+            Top only
+          </div>
+          <div class="col-span-2 br demo-box">
+            .br
+            <br />
+            Right only
+          </div>
+          <div class="col-span-2 bb demo-box">
+            .bb
+            <br />
+            Bottom only
+          </div>
+          <div class="col-span-2 bl demo-box">
+            .bl
+            <br />
+            Left only
+          </div>
+          <div class="col-span-2 bx demo-box">
+            .bx
+            <br />
+            Horizontal
+          </div>
+          <div class="col-span-2 by demo-box">
+            .by
+            <br />
+            Vertical
+          </div>
+          <div class="col-span-2 bxy demo-box">
+            .bxy
+            <br />
+            All sides
+          </div>
+        </div>
+      </section>
+
+      <section class="mt-lg">
+        <h2 class="headline h4">Border Styles</h2>
+        <p>Control border appearance with style modifier classes:</p>
+
+        <div class="grid cols gap">
+          <div
+            class="col-span-3 border border-solid demo-box"
+            style="--b-width: var(--b-width-medium)"
+          >
+            .border-solid
+            <br />
+            (default)
+          </div>
+          <div
+            class="col-span-3 border border-dashed demo-box"
+            style="--b-width: var(--b-width-medium)"
+          >
+            .border-dashed
+          </div>
+          <div
+            class="col-span-3 border border-dotted demo-box"
+            style="--b-width: var(--b-width-medium)"
+          >
+            .border-dotted
+          </div>
+          <div
+            class="col-span-3 border border-none demo-box"
+            style="--b-width: var(--b-width-medium)"
+          >
+            .border-none
+          </div>
+        </div>
+      </section>
+
+      <section class="mt-lg">
+        <h2 class="headline h4">Border Widths</h2>
+        <p>Predefined width variables for consistent border sizing:</p>
+
+        <div class="grid cols gap">
+          <div class="col-span-4 border demo-box" style="--b-width: var(--b-width-thin)">
+            --b-width-thin
+            <br />
+            1px
+          </div>
+          <div class="col-span-4 border demo-box" style="--b-width: var(--b-width-medium)">
+            --b-width-medium
+            <br />
+            2px
+          </div>
+          <div class="col-span-4 border demo-box" style="--b-width: var(--b-width-thick)">
+            --b-width-thick
+            <br />
+            4px
+          </div>
+        </div>
+      </section>
+
+      <section class="mt-lg">
+        <h2 class="headline h4">Custom Border Colors</h2>
+        <p>Use RGB custom properties to customize border colors:</p>
+
+        <div class="flex row wrap gap">
+          <div
+            class="border color-box"
+            style="--b-width: var(--b-width-thick); --b-color: 239 68 68"
+          >
+            Red
+          </div>
+          <div
+            class="border color-box"
+            style="--b-width: var(--b-width-thick); --b-color: 34 197 94"
+          >
+            Green
+          </div>
+          <div
+            class="border color-box"
+            style="--b-width: var(--b-width-thick); --b-color: 59 130 246"
+          >
+            Blue
+          </div>
+          <div
+            class="border color-box"
+            style="--b-width: var(--b-width-thick); --b-color: 168 85 247"
+          >
+            Purple
+          </div>
+          <div
+            class="border color-box"
+            style="--b-width: var(--b-width-thick); --b-color: 245 158 11"
+          >
+            Orange
+          </div>
+          <div
+            class="border color-box"
+            style="--b-width: var(--b-width-thick); --b-color: 20 184 166"
+          >
+            Teal
+          </div>
+        </div>
+      </section>
+
+      <section class="mt-lg">
+        <h2 class="headline h4">Asymmetric Borders</h2>
+        <p>Control each border side independently with per-side custom properties:</p>
+
+        <div class="grid cols gap">
+          <div
+            class="col-span-6 border demo-box"
+            style="--bt-width: 1px; --br-width: 2px; --bb-width: 4px; --bl-width: 8px"
+          >
+            Graduated Widths
+            <br />
+            1px → 2px → 4px → 8px
+          </div>
+          <div
+            class="col-span-6 border demo-box"
+            style="
+              --bt-color: 239 68 68;
+              --br-color: 34 197 94;
+              --bb-color: 59 130 246;
+              --bl-color: 168 85 247;
+            "
+          >
+            Rainbow Colors
+            <br />
+            Red → Green → Blue → Purple
+          </div>
+        </div>
+      </section>
+
+      <section class="mt-lg">
+        <h2 class="headline h4">Interactive Border Demo</h2>
+        <p>Hover over the cards to see border color transitions:</p>
+
+        <div class="grid cols gap">
+          <div
+            class="col-span-4 border demo-box"
+            style="
+              --b-color: 209 213 219;
+              --b-width: var(--b-width-medium);
+              cursor: pointer;
+              transition: border-color 0.2s ease;
+            "
+            onmouseover="this.style.setProperty('--b-color', '59 130 246')"
+            onmouseout="this.style.setProperty('--b-color', '209 213 219')"
+          >
+            <div>
+              <strong>Hover Effect</strong>
+              <br />
+              Gray → Blue
+            </div>
+          </div>
+          <div
+            class="col-span-4 border demo-box"
+            style="
+              --b-color: 209 213 219;
+              --b-width: var(--b-width-medium);
+              cursor: pointer;
+              transition: border-color 0.2s ease;
+            "
+            onmouseover="this.style.setProperty('--b-color', '34 197 94')"
+            onmouseout="this.style.setProperty('--b-color', '209 213 219')"
+          >
+            <div>
+              <strong>Success State</strong>
+              <br />
+              Gray → Green
+            </div>
+          </div>
+          <div
+            class="col-span-4 border demo-box"
+            style="
+              --b-color: 209 213 219;
+              --b-width: var(--b-width-medium);
+              cursor: pointer;
+              transition: border-color 0.2s ease;
+            "
+            onmouseover="this.style.setProperty('--b-color', '239 68 68')"
+            onmouseout="this.style.setProperty('--b-color', '209 213 219')"
+          >
+            <div>
+              <strong>Error State</strong>
+              <br />
+              Gray → Red
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="mt-lg">
+        <h2 class="headline h4">Common UI Patterns</h2>
+        <p>Real-world examples of border utility usage:</p>
+
+        <div class="grid cols gap">
+          <div class="col-span-6 border demo-box" style="--b-color: 229 231 235">
+            <div>
+              <strong>Card Component</strong>
+              <br />
+              Simple card with subtle gray border
+              <br />
+              <code>border + --b-color: 229 231 235</code>
+            </div>
+          </div>
+
+          <div class="col-span-6 bb demo-box" style="--bb-color: 229 231 235">
+            <div>
+              <strong>Section Divider</strong>
+              <br />
+              Bottom border as visual separator
+              <br />
+              <code>bb + --bb-color: 229 231 235</code>
+            </div>
+          </div>
+
+          <div
+            class="col-span-6 bl demo-box"
+            style="--bl-color: 59 130 246; --bl-width: var(--b-width-thick)"
+          >
+            <div>
+              <strong>Sidebar Accent</strong>
+              <br />
+              Left border for highlighting content
+              <br />
+              <code>bl + --bl-color: 59 130 246</code>
+            </div>
+          </div>
+
+          <div class="col-span-6 bx demo-box" style="--bx-color: 209 213 219">
+            <div>
+              <strong>Input Field Style</strong>
+              <br />
+              Horizontal borders for form elements
+              <br />
+              <code>bx + --bx-color: 209 213 219</code>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
