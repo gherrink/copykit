@@ -60,21 +60,6 @@
   --space-2xl: 4.8;
 
   /**
-   * Border radius definition
-   *
-   * - `--border-radius-base`
-   * - `--border-radius-full`
-   *
-   * @location variables.colors.usage Color Usage
-   */
-  /* --border-radius-sm: 0.125em; */
-  --border-radius-base: 0.25em;
-  /* --border-radius-md: 0.375em; */
-  /* --border-radius-lg: 0.5em; */
-  /* --border-radius-xl: 0.75em; */
-  --border-radius-full: 9999px;
-
-  /**
    *
    * - `--transition-fast`
    * - `--transition-base`

@@ -60,10 +60,16 @@
   .rounded,
   [class^="rounded-"],
   [class*=" rounded-"] {
-    --rounded-tl: calc(var(--rounded-unit, 1em) * var(--rounded-size-tl, var(--rounded-base)));
-    --rounded-tr: calc(var(--rounded-unit, 1em) * var(--rounded-size-tr, var(--rounded-base)));
-    --rounded-br: calc(var(--rounded-unit, 1em) * var(--rounded-size-br, var(--rounded-base)));
-    --rounded-bl: calc(var(--rounded-unit, 1em) * var(--rounded-size-bl, var(--rounded-base)));
+    --rounded-size: var(--rounded-base);
+    --rounded-size-tl: var(--rounded-size);
+    --rounded-size-tr: var(--rounded-size);
+    --rounded-size-br: var(--rounded-size);
+    --rounded-size-bl: var(--rounded-size);
+
+    --rounded-tl: calc(var(--rounded-unit, 1em) * var(--rounded-size-tl));
+    --rounded-tr: calc(var(--rounded-unit, 1em) * var(--rounded-size-tr));
+    --rounded-br: calc(var(--rounded-unit, 1em) * var(--rounded-size-br));
+    --rounded-bl: calc(var(--rounded-unit, 1em) * var(--rounded-size-bl));
 
     border-radius: var(--rounded-tl) var(--rounded-tr) var(--rounded-br) var(--rounded-bl);
   }
@@ -102,30 +108,18 @@
    * <div class="rounded-xl mt padding bg bg-black">Extra large rounded</div>
    */
   .rounded-sm {
-    --rounded-size-tl: var(--rounded-sm);
-    --rounded-size-tr: var(--rounded-sm);
-    --rounded-size-br: var(--rounded-sm);
-    --rounded-size-bl: var(--rounded-sm);
+    --rounded-size: var(--rounded-sm);
   }
 
   .rounded-md {
-    --rounded-size-tl: var(--rounded-md);
-    --rounded-size-tr: var(--rounded-md);
-    --rounded-size-br: var(--rounded-md);
-    --rounded-size-bl: var(--rounded-md);
+    --rounded-size: var(--rounded-md);
   }
 
   .rounded-lg {
-    --rounded-size-tl: var(--rounded-lg);
-    --rounded-size-tr: var(--rounded-lg);
-    --rounded-size-br: var(--rounded-lg);
-    --rounded-size-bl: var(--rounded-lg);
+    --rounded-size: var(--rounded-lg);
   }
 
   .rounded-xl {
-    --rounded-size-tl: var(--rounded-xl);
-    --rounded-size-tr: var(--rounded-xl);
-    --rounded-size-br: var(--rounded-xl);
-    --rounded-size-bl: var(--rounded-xl);
+    --rounded-size: var(--rounded-xl);
   }
 }
