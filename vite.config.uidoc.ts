@@ -1,23 +1,22 @@
 import uidoc from '@ui-doc/vite'
-import { glob } from 'glob'
 import { resolve } from 'path'
 import { defineConfig } from 'vite'
 
 export default defineConfig(async ({ command }) => {
   return {
-    root: 'pages',
+    // No root configuration - works from project root
 
     build: {
       rollupOptions: {
-        // TODO: fix works ony when running dev but not when build
         input: {
-          style: 'style.css',
-          app: 'app.ts',
-          main: resolve(__dirname, 'pages/index.html'),
-          ...(await glob(resolve(__dirname, 'pages/[a-z0-9-_][a-z0-9-_]*/index.html'))),
+          // UI-Doc required entries only
+          style: resolve(__dirname, 'stubs/ui-doc-style.css'),
+          app: resolve(__dirname, 'stubs/ui-doc-app.ts'),
         },
         output: {
-          dir: './dist',
+          dir: './dist/ui-doc',
+          assetFileNames: 'assets/[name]-[hash].[ext]',
+          entryFileNames: 'assets/[name]-[hash].js',
         },
       },
     },
