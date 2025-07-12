@@ -1,124 +1,124 @@
-@property --b-width {
+@property --border-width {
   inherits: true;
   initial-value: 1px;
   syntax: "<length>";
 }
 
-@property --bt-width {
+@property --border-t-width {
   inherits: false;
   initial-value: 1px;
   syntax: "<length>";
 }
 
-@property --br-width {
+@property --border-r-width {
   inherits: false;
   initial-value: 1px;
   syntax: "<length>";
 }
 
-@property --bb-width {
+@property --border-b-width {
   inherits: false;
   initial-value: 1px;
   syntax: "<length>";
 }
 
-@property --bl-width {
+@property --border-l-width {
   inherits: false;
   initial-value: 1px;
   syntax: "<length>";
 }
 
-@property --bx-width {
+@property --border-x-width {
   inherits: false;
   initial-value: 1px;
   syntax: "<length>";
 }
 
-@property --by-width {
+@property --border-y-width {
   inherits: false;
   initial-value: 1px;
   syntax: "<length>";
 }
 
-@property --b-style {
+@property --border-style {
   inherits: true;
   initial-value: solid;
   syntax: "solid | dashed | dotted | double | groove | ridge | inset | outset | none | hidden";
 }
 
-@property --bt-style {
+@property --border-t-style {
   inherits: false;
   initial-value: solid;
   syntax: "solid | dashed | dotted | double | groove | ridge | inset | outset | none | hidden";
 }
 
-@property --br-style {
+@property --border-r-style {
   inherits: false;
   initial-value: solid;
   syntax: "solid | dashed | dotted | double | groove | ridge | inset | outset | none | hidden";
 }
 
-@property --bb-style {
+@property --border-b-style {
   inherits: false;
   initial-value: solid;
   syntax: "solid | dashed | dotted | double | groove | ridge | inset | outset | none | hidden";
 }
 
-@property --bl-style {
+@property --border-l-style {
   inherits: false;
   initial-value: solid;
   syntax: "solid | dashed | dotted | double | groove | ridge | inset | outset | none | hidden";
 }
 
-@property --bx-style {
+@property --border-x-style {
   inherits: false;
   initial-value: solid;
   syntax: "solid | dashed | dotted | double | groove | ridge | inset | outset | none | hidden";
 }
 
-@property --by-style {
+@property --border-y-style {
   inherits: false;
   initial-value: solid;
   syntax: "solid | dashed | dotted | double | groove | ridge | inset | outset | none | hidden";
 }
 
-@property --b-color {
+@property --border-color {
   inherits: true;
   initial-value: 40 40 40;
   syntax: "<number>+";
 }
 
-@property --bt-color {
+@property --border-t-color {
   inherits: false;
   initial-value: undefined;
   syntax: "<number>+ | undefined";
 }
 
-@property --br-color {
+@property --border-r-color {
   inherits: false;
   initial-value: undefined;
   syntax: "<number>+ | undefined";
 }
 
-@property --bb-color {
+@property --border-b-color {
   inherits: false;
   initial-value: undefined;
   syntax: "<number>+ | undefined";
 }
 
-@property --bl-color {
+@property --border-l-color {
   inherits: false;
   initial-value: undefined;
   syntax: "<number>+ | undefined";
 }
 
-@property --bx-color {
+@property --border-x-color {
   inherits: false;
   initial-value: undefined;
   syntax: "<number>+ | undefined";
 }
 
-@property --by-color {
+@property --border-y-color {
   inherits: false;
   initial-value: undefined;
   syntax: "<number>+ | undefined";
@@ -128,36 +128,36 @@
   /**
    * Global border settings. Will be used as fallback.
    *
-   * - `--b-width` - set border width
-   * - `--b-style` - set border style
-   * - `--b-color` - set border color
+   * - `--border-width` - set border width
+   * - `--border-style` - set border style
+   * - `--border-color` - set border color
    *
    * @location variables.border Border
    */
-  --b-color: var(--border-color);
-  --b-width: var(--b-width-thin);
+  --border-color: var(--border-color);
+  --border-width: var(--border-width-thin);
 
   /**
    * Border width definition
    *
-   * - `--b-width-thin`
-   * - `--b-width-medium`
-   * - `--b-width-tick`
+   * - `--border-width-thin`
+   * - `--border-width-medium`
+   * - `--border-width-thick`
    *
    * @location variables.border.width Border width
    */
-  --b-width-thin: 1px;
-  --b-width-medium: 2px;
-  --b-width-thick: 4px;
+  --border-width-thin: 1px;
+  --border-width-medium: 2px;
+  --border-width-thick: 4px;
 }
 
 @layer utilities {
   /**
    * Using `border` to add borders to all sides of your element.
    * Possible variables are:
-   * - **--bt-width, --br-width, --bb-width, --bl-width** - set border width directly
-   * - **--bt-style, --br-style, --bb-style, --bl-style** - set border style
-   * - **--bt-color, --br-color, --bb-color, --bl-color** - set border color
+   * - **--border-t-width, --border-r-width, --border-b-width, --border-l-width** - set border width directly
+   * - **--border-t-style, --border-r-style, --border-b-style, --border-l-style** - set border style
+   * - **--border-t-color, --border-r-color, --border-b-color, --border-l-color** - set border color
    *
    * @location utilities.border Border
    * @example
@@ -167,9 +167,9 @@
   /**
    * Using `bt` to add border top to your element.
    * Possible variables are:
-   * - **--bt-width** - set border width directly
-   * - **--bt-style** - set border style
-   * - **--bt-color** - set border color
+   * - **--border-t-width** - set border width directly
+   * - **--border-t-style** - set border style
+   * - **--border-t-color** - set border color
    *
    * @location utilities.border.top Border top
    * @example
@@ -179,19 +179,19 @@
   .bxy,
   .by,
   .bt {
-    --bt-width: var(--b-width);
-    --bt-style: var(--b-style);
-    --bt-color: var(--b-color);
+    --border-t-width: var(--border-width);
+    --border-t-style: var(--border-style);
+    --border-t-color: var(--border-color);
 
-    border-top: var(--bt-width) var(--bt-style) rgb(var(--bt-color));
+    border-top: var(--border-t-width) var(--border-t-style) rgb(var(--border-t-color));
   }
 
   /**
    * Using `br` to add border right to your element.
    * Possible variables are:
-   * - **--br-width** - set border width directly
-   * - **--br-style** - set border style
-   * - **--br-color** - set border color
+   * - **--border-r-width** - set border width directly
+   * - **--border-r-style** - set border style
+   * - **--border-r-color** - set border color
    *
    * @location utilities.border.right Border right
    * @example
@@ -201,19 +201,19 @@
   .bxy,
   .bx,
   .br {
-    --br-width: var(--b-width);
-    --br-style: var(--b-style);
-    --br-color: var(--b-color);
+    --border-r-width: var(--border-width);
+    --border-r-style: var(--border-style);
+    --border-r-color: var(--border-color);
 
-    border-right: var(--br-width) var(--br-style) rgb(var(--br-color));
+    border-right: var(--border-r-width) var(--border-r-style) rgb(var(--border-r-color));
   }
 
   /**
    * Using `bb` to add border bottom to your element.
    * Possible variables are:
-   * - **--bb-width** - set border width directly
-   * - **--bb-style** - set border style
-   * - **--bb-color** - set border color
+   * - **--border-b-width** - set border width directly
+   * - **--border-b-style** - set border style
+   * - **--border-b-color** - set border color
    *
    * @location utilities.border.bottom Border bottom
    * @example
@@ -223,19 +223,19 @@
   .bxy,
   .by,
   .bb {
-    --bb-width: var(--b-width);
-    --bb-style: var(--b-style);
-    --bb-color: var(--b-color);
+    --border-b-width: var(--border-width);
+    --border-b-style: var(--border-style);
+    --border-b-color: var(--border-color);
 
-    border-bottom: var(--bb-width) var(--bb-style) rgb(var(--bb-color));
+    border-bottom: var(--border-b-width) var(--border-b-style) rgb(var(--border-b-color));
   }
 
   /**
    * Using `bl` to add border left to your element.
    * Possible variables are:
-   * - **--bl-width** - set border width directly
-   * - **--bl-style** - set border style
-   * - **--bl-color** - set border color
+   * - **--border-l-width** - set border width directly
+   * - **--border-l-style** - set border style
+   * - **--border-l-color** - set border color
    *
    * @location utilities.border.left Border left
    * @example
@@ -245,19 +245,19 @@
   .bxy,
   .bl,
   .bx {
-    --bl-width: var(--b-width);
-    --bl-style: var(--b-style);
-    --bl-color: var(--b-color);
+    --border-l-width: var(--border-width);
+    --border-l-style: var(--border-style);
+    --border-l-color: var(--border-color);
 
-    border-left: var(--bl-width) var(--bl-style) rgb(var(--bl-color));
+    border-left: var(--border-l-width) var(--border-l-style) rgb(var(--border-l-color));
   }
 
   /**
    * Using `bxy` to add borders for the x and y axis to your element.
    * Possible variables are:
-   * - **--bx-width, --by-width** - set border width directly
-   * - **--bx-style, --by-style** - set border style
-   * - **--bx-color, --by-color** - set border color
+   * - **--border-x-width, --border-y-width** - set border width directly
+   * - **--border-x-style, --border-y-style** - set border style
+   * - **--border-x-color, --border-y-color** - set border color
    *
    * @location utilities.border.xy Border y-axis and x-axis
    * @example
@@ -266,9 +266,9 @@
   /**
    * Using `by` to add borders top and bottom with same size to your element.
    * Possible variables are:
-   * - **--by-width** - set border width directly
-   * - **--by-style** - set border style
-   * - **--by-color** - set border color
+   * - **--border-y-width** - set border width directly
+   * - **--border-y-style** - set border style
+   * - **--border-y-color** - set border color
    *
    * @location utilities.border.y Border y-axis
    * @example
@@ -277,9 +277,9 @@
   /**
    * Using `bx` to add borders left and right with same size to your element.
    * Possible variables are:
-   * - **--bx-width** - set border width directly
-   * - **--bx-style** - set border style
-   * - **--bx-color** - set border color
+   * - **--border-x-width** - set border width directly
+   * - **--border-x-style** - set border style
+   * - **--border-x-color** - set border color
    *
    * @location utilities.border.x Border x-axis
    * @example
@@ -287,30 +287,30 @@
    */
   .bxy,
   .by {
-    --by-width: var(--b-width);
-    --by-style: var(--b-style);
-    --by-color: var(--b-color);
+    --border-y-width: var(--border-width);
+    --border-y-style: var(--border-style);
+    --border-y-color: var(--border-color);
 
-    --bt-width: var(--by-width);
-    --bb-width: var(--by-width);
-    --bt-style: var(--by-style);
-    --bb-style: var(--by-style);
-    --bt-color: var(--by-color);
-    --bb-color: var(--by-color);
+    --border-t-width: var(--border-y-width);
+    --border-b-width: var(--border-y-width);
+    --border-t-style: var(--border-y-style);
+    --border-b-style: var(--border-y-style);
+    --border-t-color: var(--border-y-color);
+    --border-b-color: var(--border-y-color);
   }
 
   .bxy,
   .bx {
-    --bx-width: var(--b-width);
-    --bx-style: var(--b-style);
-    --bx-color: var(--b-color);
+    --border-x-width: var(--border-width);
+    --border-x-style: var(--border-style);
+    --border-x-color: var(--border-color);
 
-    --bl-width: var(--bx-width);
-    --br-width: var(--bx-width);
-    --bl-style: var(--bx-style);
-    --br-style: var(--bx-style);
-    --bl-color: var(--bx-color);
-    --br-color: var(--bx-color);
+    --border-l-width: var(--border-x-width);
+    --border-r-width: var(--border-x-width);
+    --border-l-style: var(--border-x-style);
+    --border-r-style: var(--border-x-style);
+    --border-l-color: var(--border-x-color);
+    --border-r-color: var(--border-x-color);
   }
 
   /**
@@ -324,18 +324,18 @@
    * <div class="border border-none mt">Dashed none</div>
    */
   .border-solid {
-    --b-style: solid;
+    --border-style: solid;
   }
 
   .border-dashed {
-    --b-style: dashed;
+    --border-style: dashed;
   }
 
   .border-dotted {
-    --b-style: dotted;
+    --border-style: dotted;
   }
 
   .border-none {
-    --b-style: none;
+    --border-style: none;
   }
 }

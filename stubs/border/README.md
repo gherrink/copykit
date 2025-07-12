@@ -68,14 +68,14 @@ The border utilities use CSS custom properties for flexible customization:
 ```css
 :root {
     /* Global border defaults */
-    --b-width: var(--b-width-thin);    /* Default border width */
-    --b-style: solid;                  /* Default border style */
-    --b-color: var(--color-black);     /* Default border color (RGB values) */
+    --border-width: var(--border-width-thin);    /* Default border width */
+    --border-style: solid;                       /* Default border style */
+    /* --border-color - default border color (RGB values) - already defined through colorset */
     
     /* Predefined border widths */
-    --b-width-thin: 1px;
-    --b-width-medium: 2px;
-    --b-width-thick: 4px;
+    --border-width-thin: 1px;
+    --border-width-medium: 2px;
+    --border-width-thick: 4px;
 }
 ```
 
@@ -85,14 +85,14 @@ Each border direction has its own set of custom properties:
 
 ```css
 /* Individual border control */
---bt-width, --bt-style, --bt-color    /* Top border */
---br-width, --br-style, --br-color    /* Right border */
---bb-width, --bb-style, --bb-color    /* Bottom border */
---bl-width, --bl-style, --bl-color    /* Left border */
+--border-t-width, --border-t-style, --border-t-color    /* Top border */
+--border-r-width, --border-r-style, --border-r-color    /* Right border */
+--border-b-width, --border-b-style, --border-b-color    /* Bottom border */
+--border-l-width, --border-l-style, --border-l-color    /* Left border */
 
 /* Axis-based control */
---bx-width, --bx-style, --bx-color    /* Horizontal (left + right) */
---by-width, --by-style, --by-color    /* Vertical (top + bottom) */
+--border-x-width, --border-x-style, --border-x-color    /* Horizontal (left + right) */
+--border-y-width, --border-y-style, --border-y-color    /* Vertical (top + bottom) */
 ```
 
 ### Utility Classes
@@ -119,25 +119,34 @@ cp -r stubs/border/ your-project/src/
 
 ### Theme Integration
 
+The border copy-point automatically integrates with the global colorset system. The `--border-color` variable is defined in the base colorset and can be customized through theme switching:
+
 ```css
-/* Light theme borders */
+/* Default colorset integration (automatic) */
 :root {
-  --b-color: 0 0 0;           /* Black borders */
-  --color-gray-300: 209 213 219;
+  --border-color: var(--color-gray-300);  /* Defined in base colorset */
 }
 
-/* Dark theme borders */
+/* Custom colorset themes */
+.cs-primary {
+  --border-color: var(--color-gray-500);  /* Darker borders for primary theme */
+}
+
+.cs-secondary {
+  --border-color: var(--color-gray-300);  /* Lighter borders for secondary theme */
+}
+
+/* Dark theme colorset */
 [data-theme="dark"] {
-  --b-color: 255 255 255;     /* White borders */
-  --b-color: var(--color-gray-300); /* Or use gray for subtle borders */
+  --border-color: var(--color-gray-600);  /* Dark theme borders */
 }
 
-/* Semantic color borders */
-.border-primary { --b-color: var(--color-primary); }
-.border-secondary { --b-color: var(--color-secondary); }
-.border-success { --b-color: var(--color-success); }
-.border-warning { --b-color: var(--color-warning); }
-.border-error { --b-color: var(--color-error); }
+/* Semantic border utilities */
+.border-primary { --border-color: var(--color-primary); }
+.border-secondary { --border-color: var(--color-secondary); }
+.border-success { --border-color: var(--color-success); }
+.border-warning { --border-color: var(--color-warning); }
+.border-error { --border-color: var(--color-error); }
 ```
 
 ## Customization
@@ -147,19 +156,19 @@ cp -r stubs/border/ your-project/src/
 ```css
 /* Override border widths */
 .thick-border {
-    --b-width: var(--b-width-thick);
+    --border-width: var(--border-width-thick);
 }
 
 .custom-border {
-    --b-width: 3px;
+    --border-width: 3px;
 }
 
 /* Per-side width customization */
 .asymmetric-border {
-    --bt-width: 1px;
-    --br-width: 2px;
-    --bb-width: 3px;
-    --bl-width: 4px;
+    --border-t-width: 1px;
+    --border-r-width: 2px;
+    --border-b-width: 3px;
+    --border-l-width: 4px;
 }
 ```
 
@@ -168,19 +177,19 @@ cp -r stubs/border/ your-project/src/
 ```css
 /* RGB color values for borders */
 .blue-border {
-    --b-color: 59 130 246;  /* Blue-500 */
+    --border-color: 59 130 246;  /* Blue-500 */
 }
 
 .red-border {
-    --b-color: 239 68 68;   /* Red-500 */
+    --border-color: 239 68 68;   /* Red-500 */
 }
 
 /* Per-side color customization */
 .rainbow-border {
-    --bt-color: 239 68 68;   /* Red top */
-    --br-color: 34 197 94;   /* Green right */
-    --bb-color: 59 130 246;  /* Blue bottom */
-    --bl-color: 168 85 247;  /* Purple left */
+    --border-t-color: 239 68 68;   /* Red top */
+    --border-r-color: 34 197 94;   /* Green right */
+    --border-b-color: 59 130 246;  /* Blue bottom */
+    --border-l-color: 168 85 247;  /* Purple left */
 }
 ```
 
@@ -189,18 +198,18 @@ cp -r stubs/border/ your-project/src/
 ```css
 /* Mobile-first responsive approach */
 .responsive-border {
-  --b-width: var(--b-width-thin);
+  --border-width: var(--border-width-thin);
 }
 
 @media (min-width: 768px) {
   .responsive-border {
-    --b-width: var(--b-width-medium);
+    --border-width: var(--border-width-medium);
   }
 }
 
 @media (min-width: 1024px) {
   .responsive-border {
-    --b-width: var(--b-width-thick);
+    --border-width: var(--border-width-thick);
   }
 }
 ```
@@ -210,16 +219,16 @@ cp -r stubs/border/ your-project/src/
 ```css
 /* Hover effects */
 .interactive-border {
-  --b-color: 209 213 219;  /* Gray default */
+  --border-color: 209 213 219;  /* Gray default */
   transition: border-color 0.2s ease;
 }
 
 .interactive-border:hover {
-  --b-color: 59 130 246;   /* Blue on hover */
+  --border-color: 59 130 246;   /* Blue on hover */
 }
 
 .interactive-border:focus {
-  --b-color: 168 85 247;   /* Purple on focus */
+  --border-color: 168 85 247;   /* Purple on focus */
 }
 ```
 
@@ -239,9 +248,9 @@ cp -r stubs/border/ your-project/src/
 }
 
 /* Enhanced styles for modern browsers */
-@supports (border: var(--b-width) var(--b-style) rgb(var(--b-color))) {
+@supports (border: var(--border-width) var(--border-style) rgb(var(--border-color))) {
   .border {
-    border: var(--b-width) var(--b-style) rgb(var(--b-color));
+    border: var(--border-width) var(--border-style) rgb(var(--border-color));
   }
 }
 ```
@@ -268,7 +277,7 @@ cp -r stubs/border/ your-project/src/
 
 ```html
 <!-- Card with subtle border -->
-<div class="border" style="--b-color: 229 231 235;">
+<div class="border" style="--border-color: 229 231 235;">
   Card content
 </div>
 
@@ -276,19 +285,19 @@ cp -r stubs/border/ your-project/src/
 <input class="border bt-0 br-0 bl-0 bb focus:border-blue" type="text">
 
 <!-- Divider border -->
-<hr class="border-0 bt" style="--bt-color: 229 231 235;">
+<hr class="border-0 bt" style="--border-t-color: 229 231 235;">
 ```
 
 ### Integration with Other Copy-Points
 
 ```html
 <!-- Border with elevation -->
-<div class="border shadow" style="--b-color: 229 231 235; --level: 2;">
+<div class="border shadow" style="--border-color: 229 231 235; --level: 2;">
   Card with border and shadow
 </div>
 
 <!-- Border with rounded corners -->
-<div class="border rounded" style="--b-color: 229 231 235;">
+<div class="border rounded" style="--border-color: 229 231 235;">
   Rounded border card
 </div>
 ```
@@ -297,10 +306,10 @@ cp -r stubs/border/ your-project/src/
 
 ### Common Issues
 
-1. **Borders not appearing**: Check that `--b-color` is set with RGB values (not hex)
+1. **Borders not appearing**: Check that `--border-color` is set with RGB values (not hex)
 2. **Wrong border direction**: Verify utility class spelling (`bt`, `br`, `bb`, `bl`)
 3. **Custom properties not applying**: Ensure proper CSS custom property syntax
-4. **Colors not working**: Use RGB format for `--b-color` (e.g., `59 130 246` not `#3b82f6`)
+4. **Colors not working**: Use RGB format for `--border-color` (e.g., `59 130 246` not `#3b82f6`)
 
 ### Debug Tips
 
@@ -319,7 +328,7 @@ cp -r stubs/border/ your-project/src/
 ### Browser DevTools
 
 Check computed styles in DevTools to verify custom property values:
-- Look for `--b-width`, `--b-style`, `--b-color` values
+- Look for `--border-width`, `--border-style`, `--border-color` values
 - Verify `border-top`, `border-right`, etc. computed values
 - Check if RGB color values are properly formatted
 

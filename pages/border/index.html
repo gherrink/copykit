@@ -93,7 +93,7 @@
         <div class="grid cols gap">
           <div
             class="col-span-3 border border-solid demo-box"
-            style="--b-width: var(--b-width-medium)"
+            style="--border-width: var(--border-width-medium)"
           >
             .border-solid
             <br />
@@ -101,19 +101,19 @@
           </div>
           <div
             class="col-span-3 border border-dashed demo-box"
-            style="--b-width: var(--b-width-medium)"
+            style="--border-width: var(--border-width-medium)"
           >
             .border-dashed
           </div>
           <div
             class="col-span-3 border border-dotted demo-box"
-            style="--b-width: var(--b-width-medium)"
+            style="--border-width: var(--border-width-medium)"
           >
             .border-dotted
           </div>
           <div
             class="col-span-3 border border-none demo-box"
-            style="--b-width: var(--b-width-medium)"
+            style="--border-width: var(--border-width-medium)"
           >
             .border-none
           </div>
@@ -125,18 +125,18 @@
         <p>Predefined width variables for consistent border sizing:</p>
 
         <div class="grid cols gap">
-          <div class="col-span-4 border demo-box" style="--b-width: var(--b-width-thin)">
-            --b-width-thin
+          <div class="col-span-4 border demo-box" style="--border-width: var(--border-width-thin)">
+            --border-width-thin
             <br />
             1px
           </div>
-          <div class="col-span-4 border demo-box" style="--b-width: var(--b-width-medium)">
-            --b-width-medium
+          <div class="col-span-4 border demo-box" style="--border-width: var(--border-width-medium)">
+            --border-width-medium
             <br />
             2px
           </div>
-          <div class="col-span-4 border demo-box" style="--b-width: var(--b-width-thick)">
-            --b-width-thick
+          <div class="col-span-4 border demo-box" style="--border-width: var(--border-width-thick)">
+            --border-width-thick
             <br />
             4px
           </div>
@@ -150,37 +150,37 @@
         <div class="flex row wrap gap">
           <div
             class="border color-box"
-            style="--b-width: var(--b-width-thick); --b-color: 239 68 68"
+            style="--border-width: var(--border-width-thick); --border-color: 239 68 68"
           >
             Red
           </div>
           <div
             class="border color-box"
-            style="--b-width: var(--b-width-thick); --b-color: 34 197 94"
+            style="--border-width: var(--border-width-thick); --border-color: 34 197 94"
           >
             Green
           </div>
           <div
             class="border color-box"
-            style="--b-width: var(--b-width-thick); --b-color: 59 130 246"
+            style="--border-width: var(--border-width-thick); --border-color: 59 130 246"
           >
             Blue
           </div>
           <div
             class="border color-box"
-            style="--b-width: var(--b-width-thick); --b-color: 168 85 247"
+            style="--border-width: var(--border-width-thick); --border-color: 168 85 247"
           >
             Purple
           </div>
           <div
             class="border color-box"
-            style="--b-width: var(--b-width-thick); --b-color: 245 158 11"
+            style="--border-width: var(--border-width-thick); --border-color: 245 158 11"
           >
             Orange
           </div>
           <div
             class="border color-box"
-            style="--b-width: var(--b-width-thick); --b-color: 20 184 166"
+            style="--border-width: var(--border-width-thick); --border-color: 20 184 166"
           >
             Teal
           </div>
@@ -194,7 +194,7 @@
         <div class="grid cols gap">
           <div
             class="col-span-6 border demo-box"
-            style="--bt-width: 1px; --br-width: 2px; --bb-width: 4px; --bl-width: 8px"
+            style="--border-t-width: 1px; --border-r-width: 2px; --border-b-width: 4px; --border-l-width: 8px"
           >
             Graduated Widths
             <br />
@@ -203,10 +203,10 @@
           <div
             class="col-span-6 border demo-box"
             style="
-              --bt-color: 239 68 68;
-              --br-color: 34 197 94;
-              --bb-color: 59 130 246;
-              --bl-color: 168 85 247;
+              --border-t-color: 239 68 68;
+              --border-r-color: 34 197 94;
+              --border-b-color: 59 130 246;
+              --border-l-color: 168 85 247;
             "
           >
             Rainbow Colors
@@ -224,13 +224,13 @@
           <div
             class="col-span-4 border demo-box"
             style="
-              --b-color: 209 213 219;
-              --b-width: var(--b-width-medium);
+              --border-color: 209 213 219;
+              --border-width: var(--border-width-medium);
               cursor: pointer;
               transition: border-color 0.2s ease;
             "
-            onmouseover="this.style.setProperty('--b-color', '59 130 246')"
-            onmouseout="this.style.setProperty('--b-color', '209 213 219')"
+            onmouseover="this.style.setProperty('--border-color', '59 130 246')"
+            onmouseout="this.style.setProperty('--border-color', '209 213 219')"
           >
             <div>
               <strong>Hover Effect</strong>
@@ -241,13 +241,13 @@
           <div
             class="col-span-4 border demo-box"
             style="
-              --b-color: 209 213 219;
-              --b-width: var(--b-width-medium);
+              --border-color: 209 213 219;
+              --border-width: var(--border-width-medium);
               cursor: pointer;
               transition: border-color 0.2s ease;
             "
-            onmouseover="this.style.setProperty('--b-color', '34 197 94')"
-            onmouseout="this.style.setProperty('--b-color', '209 213 219')"
+            onmouseover="this.style.setProperty('--border-color', '34 197 94')"
+            onmouseout="this.style.setProperty('--border-color', '209 213 219')"
           >
             <div>
               <strong>Success State</strong>
@@ -258,13 +258,13 @@
           <div
             class="col-span-4 border demo-box"
             style="
-              --b-color: 209 213 219;
-              --b-width: var(--b-width-medium);
+              --border-color: 209 213 219;
+              --border-width: var(--border-width-medium);
               cursor: pointer;
               transition: border-color 0.2s ease;
             "
-            onmouseover="this.style.setProperty('--b-color', '239 68 68')"
-            onmouseout="this.style.setProperty('--b-color', '209 213 219')"
+            onmouseover="this.style.setProperty('--border-color', '239 68 68')"
+            onmouseout="this.style.setProperty('--border-color', '209 213 219')"
           >
             <div>
               <strong>Error State</strong>
@@ -280,46 +280,46 @@
         <p>Real-world examples of border utility usage:</p>
 
         <div class="grid cols gap">
-          <div class="col-span-6 border demo-box" style="--b-color: 229 231 235">
+          <div class="col-span-6 border demo-box" style="--border-color: 229 231 235">
             <div>
               <strong>Card Component</strong>
               <br />
               Simple card with subtle gray border
               <br />
-              <code>border + --b-color: 229 231 235</code>
+              <code>border + --border-color: 229 231 235</code>
             </div>
           </div>
 
-          <div class="col-span-6 bb demo-box" style="--bb-color: 229 231 235">
+          <div class="col-span-6 bb demo-box" style="--border-b-color: 229 231 235">
             <div>
               <strong>Section Divider</strong>
               <br />
               Bottom border as visual separator
               <br />
-              <code>bb + --bb-color: 229 231 235</code>
+              <code>bb + --border-b-color: 229 231 235</code>
             </div>
           </div>
 
           <div
             class="col-span-6 bl demo-box"
-            style="--bl-color: 59 130 246; --bl-width: var(--b-width-thick)"
+            style="--border-l-color: 59 130 246; --border-l-width: var(--border-width-thick)"
           >
             <div>
               <strong>Sidebar Accent</strong>
               <br />
               Left border for highlighting content
               <br />
-              <code>bl + --bl-color: 59 130 246</code>
+              <code>bl + --border-l-color: 59 130 246</code>
             </div>
           </div>
 
-          <div class="col-span-6 bx demo-box" style="--bx-color: 209 213 219">
+          <div class="col-span-6 bx demo-box" style="--border-x-color: 209 213 219">
             <div>
               <strong>Input Field Style</strong>
               <br />
               Horizontal borders for form elements
               <br />
-              <code>bx + --bx-color: 209 213 219</code>
+              <code>bx + --border-x-color: 209 213 219</code>
             </div>
           </div>
         </div>
