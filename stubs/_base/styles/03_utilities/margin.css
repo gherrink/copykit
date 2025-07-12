@@ -85,8 +85,8 @@
    *
    * @location utilities.margin Margin
    * @example
-   * <div class="bg bg-black" style="display: flow-root;">
-   *   <div class="margin bg bg-white">text</div>
+   * <div class="bg" style="display: flow-root;">
+   *   <div class="margin" style="background: rgb(var(--bg-color)); color: rgb(var(--font-color));">text</div>
    * </div>
    */
   .margin,
@@ -102,8 +102,8 @@
    *
    * @location utilities.margin.top Margin top
    * @example
-   * <div class="bg bg-black" style="display: flow-root;">
-   *   <div class="mt bg bg-white">text</div>
+   * <div class="bg" style="display: flow-root;">
+   *   <div class="mt" style="background: rgb(var(--bg-color)); color: rgb(var(--font-color));">text</div>
    * </div>
    */
   .mt,
@@ -124,8 +124,8 @@
    *
    * @location utilities.margin.right Margin right
    * @example
-   * <div class="bg bg-black" style="display: flow-root;">
-   *   <div class="mr bg bg-white">text</div>
+   * <div class="bg" style="display: flow-root;">
+   *   <div class="mr" style="background: rgb(var(--bg-color)); color: rgb(var(--font-color));">text</div>
    * </div>
    */
   .mr,
@@ -146,8 +146,8 @@
    *
    * @location utilities.margin.bottom Margin bottom
    * @example
-   * <div class="bg bg-black" style="display: flow-root;">
-   *   <div class="mb bg bg-white">text</div>
+   * <div class="bg" style="display: flow-root;">
+   *   <div class="mb" style="background: rgb(var(--bg-color)); color: rgb(var(--font-color));">text</div>
    * </div>
    */
   .mb,
@@ -168,8 +168,8 @@
    *
    * @location utilities.margin.left Margin left
    * @example
-   * <div class="bg bg-black" style="display: flow-root;">
-   *   <div class="ml bg bg-white">text</div>
+   * <div class="bg" style="display: flow-root;">
+   *   <div class="ml" style="background: rgb(var(--bg-color)); color: rgb(var(--font-color));">text</div>
    * </div>
    */
   .ml,
@@ -194,8 +194,8 @@
    *
    * @location utilities.margin.xy Margin y-axis and x-axis
    * @example
-   * <div class="bg bg-black" style="display: flow-root;">
-   *   <div class="mxy bg bg-white">text</div>
+   * <div class="bg" style="display: flow-root;">
+   *   <div class="mxy" style="background: rgb(var(--bg-color)); color: rgb(var(--font-color));">text</div>
    * </div>
    */
   /**
@@ -206,8 +206,8 @@
    *
    * @location utilities.margin.y Margin y-axis
    * @example
-   * <div class="bg bg-black" style="display: flow-root;">
-   *   <div class="my bg bg-white">text</div>
+   * <div class="bg" style="display: flow-root;">
+   *   <div class="my" style="background: rgb(var(--bg-color)); color: rgb(var(--font-color));">text</div>
    * </div>
    */
   /**
@@ -218,8 +218,8 @@
    *
    * @location utilities.margin.x Margin x-axis
    * @example
-   * <div class="bg bg-black" style="display: flow-root;">
-   *   <div class="mx bg bg-white">text</div>
+   * <div class="bg" style="display: flow-root;">
+   *   <div class="mx" style="background: rgb(var(--bg-color)); color: rgb(var(--font-color));">text</div>
    * </div>
    */
   .mxy,

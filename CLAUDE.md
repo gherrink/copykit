@@ -107,6 +107,47 @@ Uses CSS layers for organization:
 3. **Utilities** (`03_utilities/`) - Single-purpose utility classes (spacing, layout, text)
 4. **Layouts** (`04_layouts/`) - Page-level structural styles
 
+### Colorset System
+WebBase uses a **colorset** approach for systematic color management. A colorset is a comprehensive color definition system that establishes a complete visual identity for UI components or sections, providing all essential color variables needed for consistent theming across your entire application.
+
+**Colorset Variables** (defined in `stubs/_base/styles/01_defaults/variables.css`):
+
+**Core Colors:**
+- `--font-color` - Primary text color for readable content
+- `--bg-color` - Main background color for containers and surfaces
+- `--border-color` - Color for borders, dividers, and outlines
+
+**Visual Enhancement:**
+- `--shadow-color` - RGB values for drop shadows and depth effects
+- `--shadow-alpha` - Opacity level for shadow transparency (0.0-1.0)
+
+**Interactive Elements:**
+- `--accent-color` - Highlight color for UI elements and emphasis
+- `--accent-font-color` - Text color when displayed on accent backgrounds
+- `--accent-bg-color` - Background color for accent elements and highlights
+
+**Hover States:**
+- `--accent-hover-font-color` - Text color for interactive elements on hover
+- `--accent-hover-bg-color` - Background color for interactive elements on hover
+
+**Text Selection:**
+- `--selection-color` - Text color when selected by user
+- `--selection-bg-color` - Background color for selected text
+
+**Benefits of Colorsets**:
+- **Component theming** - Apply consistent colors across buttons, cards, forms, and other UI elements
+- **Section-based styling** - Define distinct visual zones like headers, sidebars, or content areas
+- **Theme variations** - Create light/dark modes or brand-specific color schemes
+- **Contextual styling** - Differentiate between states like default, success, warning, or error
+- **Systematic design** - Maintain visual consistency with predefined color relationships
+- **Easy theme switching** - Swap entire color schemes without touching individual component styles
+
+**Development Guidelines**:
+- Always use colorset variables instead of direct color values
+- Create new colorsets for different themes or component contexts
+- Ensure all colorset variables work harmoniously together
+- Test color combinations for accessibility and contrast requirements
+
 ### Build System
 - **Vite** with TypeScript support
 - **Multi-page application** with dynamic HTML page discovery

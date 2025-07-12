@@ -28,8 +28,8 @@
    * @section grid Grid
    * @example
    * <div class="grid">
-   *   <div class="bg bg-black px py"></div>
-   *   <div class="bg bg-black px py"></div>
+   *   <div class="bg px py"></div>
+   *   <div class="bg px py"></div>
    * </div>
    */
   .grid {
@@ -40,15 +40,14 @@
    * Use gap utility to define gaps.
    * @page utilities
    * @section grid.gap Gap
-   * @order 10
    * @example
    * <div class="grid gap">
-   *   <div class="bg bg-black px py"></div>
-   *   <div class="bg bg-black px py"></div>
+   *   <div class="bg px py"></div>
+   *   <div class="bg px py"></div>
    * </div>
    * <div class="grid gap-xl">
-   *   <div class="bg bg-black px py"></div>
-   *   <div class="bg bg-black px py"></div>
+   *   <div class="bg px py"></div>
+   *   <div class="bg px py"></div>
    * </div>
    */
   .grid.gap,
@@ -70,23 +69,22 @@
    *
    * @page utilities
    * @section grid.cols Grid with Columns
-   * @order 20
    * @example
    * <div class="grid cols gap-x-base gap-y-lg">
-   *   <div class="bg bg-black pxy"></div>
-   *   <div class="bg bg-black pxy"></div>
-   *   <div class="bg bg-black pxy col-span-6"></div>
-   *   <div class="bg bg-black pxy col-span-6"></div>
-   *   <div class="bg bg-black pxy col-span-3"></div>
-   *   <div class="bg bg-black pxy col-span-3"></div>
-   *   <div class="bg bg-black pxy col-span-3"></div>
-   *   <div class="bg bg-black pxy col-span-3"></div>
-   *   <div class="bg bg-black pxy col-start-10 col-span-3"></div>
-   *   <div class="bg bg-black pxy col-start-1 col-end-6"></div>
-   *   <div class="bg bg-black pxy col-start-7 col-end-12"></div>
-   *   <div class="bg bg-black pxy col-start-1 col-end-3"></div>
-   *   <div class="bg bg-black pxy col-start-4 col-end-8"></div>
-   *   <div class="bg bg-black pxy col-start-9 col-end-12"></div>
+   *   <div class="bg pxy"></div>
+   *   <div class="bg pxy"></div>
+   *   <div class="bg pxy col-span-6"></div>
+   *   <div class="bg pxy col-span-6"></div>
+   *   <div class="bg pxy col-span-3"></div>
+   *   <div class="bg pxy col-span-3"></div>
+   *   <div class="bg pxy col-span-3"></div>
+   *   <div class="bg pxy col-span-3"></div>
+   *   <div class="bg pxy col-start-10 col-span-3"></div>
+   *   <div class="bg pxy col-start-1 col-end-6"></div>
+   *   <div class="bg pxy col-start-7 col-end-12"></div>
+   *   <div class="bg pxy col-start-1 col-end-3"></div>
+   *   <div class="bg pxy col-start-4 col-end-8"></div>
+   *   <div class="bg pxy col-start-9 col-end-12"></div>
    * </div>
    */
   .grid.cols {

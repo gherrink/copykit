@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="./theme.css" />
   </head>
   <body>
-    <header class="wrapper width-content py bg bg-blue">
+    <header class="wrapper width-content py bg cs-primary">
       <nav class="flex items-center justify-between">
         <a href="../" class="control">← Back to Pages</a>
         <h1 class="headline no-space">Themed Page</h1>
@@ -18,20 +18,32 @@
     </header>
     <main class="py" style="--py-space: var(--space-xl)">
       <div class="wrapper width-content py">
+        <h2 class="headline">Themed</h2>
         <p>Small example that just tweaks the settings a bit.</p>
-        <button class="btn bg-blue">Button blue</button>
-        <button class="btn bg-orange">Button orange</button>
+        <p>
+          A link somewhere:
+          <a href="#">gose nowhere</a>
+        </p>
+        <button class="btn">Button</button>
+        <button class="btn cs-primary">Button primary</button>
+        <button class="btn cs-secondary">Button secondary</button>
       </div>
 
-      <div class="wrapper width-content bg bg-orange py" style="--py-space: var(--space-md)">
+      <div class="wrapper width-content bg cs-secondary py" style="--py-space: var(--space-md)">
+        <h2 class="headline">Themed</h2>
         <p>
           We can use layout styles to change how components look in different contexts. Here the
           orange button on orange background should be changed and look different.
         </p>
-        <button class="btn bg-blue">Button blue</button>
-        <button class="btn bg-orange">Button orange "a bit different"</button>
+        <p>
+          A link somewhere:
+          <a href="#">gose nowhere</a>
+        </p>
+        <button class="btn">Button</button>
+        <button class="btn cs-primary">Button primary</button>
+        <button class="btn cs-secondary">Button secondary "a bit different"</button>
       </div>
     </main>
-    <footer class="wrapper width-content py bg bg-blue">Footer</footer>
+    <footer class="wrapper width-content py bg cs-primary">Footer</footer>
   </body>
 </html>

@@ -165,10 +165,49 @@ The script (`scripts/create-copy-point.js`) automatically:
 - Follow existing code patterns and conventions
 
 ### CSS Files
+- **Always use colorset variables** instead of direct color values for consistency and theme switching
 - Use CSS custom properties for theming
 - Include JSDoc documentation for user-facing components
 - Follow the 4-layer architecture
 - Ensure accessibility compliance (WCAG 2.1 AA)
+
+### Colorset Usage Requirements
+When developing copy-points, always use the colorset system for colors:
+
+**✅ Required - Use colorset variables:**
+```css
+.component {
+  color: var(--font-color);
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 2px 4px rgb(var(--shadow-color) / var(--shadow-alpha));
+}
+
+.component.accent {
+  color: var(--accent-font-color);
+  background-color: var(--accent-bg-color);
+}
+
+.component:hover {
+  color: var(--accent-hover-font-color);
+  background-color: var(--accent-hover-bg-color);
+}
+```
+
+**❌ Forbidden - Direct color values:**
+```css
+.component {
+  color: #000000;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+}
+```
+
+**Colorset Benefits for Copy-Points:**
+- Automatic theme compatibility across all copy-points
+- Consistent visual identity when mixing copy-points
+- Easy customization by overriding colorset variables
+- Future-proof for light/dark mode implementations
 
 ### Testing Requirements
 - Unit tests for all public APIs

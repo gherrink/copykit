@@ -10,6 +10,12 @@
   syntax: "<number>+ | undefined";
 }
 
+@property --btn-focus-color {
+  inherits: true;
+  initial-value: undefined;
+  syntax: "<number>+ | undefined";
+}
+
 @property --btn-hover-color {
   inherits: true;
   initial-value: undefined;
@@ -34,12 +40,14 @@
    * <input type="submit" class="btn" value="Submit button" />
    */
   .btn {
-    --btn-font-color: var(--font-color);
-    --btn-bg-color: var(--bg-color);
     --btn-bg-alpha: 1;
+    --btn-bg-color: var(--accent-bg-color);
+    --btn-font-color: var(--accent-font-color);
 
-    --btn-hover-font-color: var(--btn-font-color);
-    --btn-hover-bg-color: var(--accent-color);
+    --btn-hover-bg-color: var(--accent-hover-bg-color);
+    --btn-hover-font-color: var(--accent-hover-font-color);
+
+    --btn-focus-color: var(--accent-color);
 
     --btn-font-size: var(--font-size);
     --btn-font-weight: var(--font-weight-bold);
@@ -98,21 +106,26 @@
   }
 
   .btn:focus {
-    outline: 2px solid rgb(var(--accent-color));
+    outline: 2px solid rgb(var(--btn-focus-color));
     outline-offset: 1px;
   }
 
   /**
-   * We are using the bg colors to modify the btn color. In combination with the accent color for hover effects.
+   * We are using the colorset classes to change button color. Per default the button will use the
+   * current defined accent colors from the upper colorset definition.
    *
    * @location components.button.colors Colors
    * @example
-   * <button class="btn bg-white">Button</button>
-   * <button class="btn bg-black">Button</button>
+   * <button class="btn">Button (use current accent colors)</button>
+   * <button class="btn cs-primary">Button (use primary colorset)</button>
    */
-  .btn[class*="bg-"]:hover:not([aria-disabled="true"], [disabled], .no-hover) {
-    color: rgb(var(--btn-hover-font-color));
-    background: rgb(var(--btn-hover-bg-color));
+  .btn[class^="cs-"],
+  .btn[class*=" cs-"] {
+    --btn-bg-color: var(--bg-color);
+    --btn-font-color: var(--font-color);
+
+    --btn-hover-bg-color: var(--accent-bg-color);
+    --btn-hover-font-color: var(--accent-font-color);
   }
 
   /**
@@ -120,8 +133,12 @@
    *
    * @location components.button.colors.hover Hover effect
    * @example
-   * <button class="btn bg-black" aria-disabled="true">Disabled by aria</button>
-   * <button class="btn bg-black" disabled>Disabled</button>
-   * <button class="btn bg-black no-hover">No hover</button>
+   * <button class="btn" aria-disabled="true">Disabled by aria</button>
+   * <button class="btn" disabled>Disabled</button>
+   * <button class="btn no-hover">No hover</button>
    */
+  .btn:hover:not([aria-disabled="true"], [disabled], .no-hover) {
+    color: rgb(var(--btn-hover-font-color));
+    background: rgb(var(--btn-hover-bg-color));
+  }
 }

@@ -46,7 +46,7 @@ const pages = import.meta.glob('/[a-z0-9][a-z0-9-_]*/index.html')
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
-    <header class="wrapper width-content py bg bg-black">
+    <header class="wrapper width-content py bg cs-primary">
       <nav class="flex items-center justify-between">
         <a href="../" class="control">← Back to Pages</a>
         <h1 class="headline no-space">[Page Title]</h1>
@@ -55,7 +55,7 @@ const pages = import.meta.glob('/[a-z0-9][a-z0-9-_]*/index.html')
     <main class="wrapper width-content py" style="--py-space: var(--space-xl)">
       <!-- Page content -->
     </main>
-    <footer class="wrapper width-content py bg bg-black">Footer</footer>
+    <footer class="wrapper width-content py bg cs-primary">Footer</footer>
     
     <!-- Optional: TypeScript file -->
     <script type="module" src="./page-name.ts"></script>
@@ -105,19 +105,54 @@ The `../style.css` file imports all foundation styles:
 ```
 
 ### Custom Page Styles
-Create `style.css` in your page directory for custom styles:
+Create `style.css` in your page directory for custom styles using the colorset system:
+
 ```css
 :root {
-  --color-custom: 255 0 0;
+  /* Define custom colors as RGB values */
+  --color-custom-red: 255 0 0;
+  --color-custom-green: 0 128 0;
+  --color-custom-purple: 128 0 128;
 }
 
 @layer utilities {
-  .bg-custom {
-    --bg-color: var(--color-custom);
+  /* Create complete colorsets with all required variables */
+  .cs-danger {
     --font-color: var(--color-white);
+    --bg-color: var(--color-custom-red);
+    --border-color: var(--color-gray);
+    --shadow-color: var(--color-custom-red);
+    --shadow-alpha: 0.1;
+    --accent-color: var(--color-white);
+    --accent-font-color: var(--color-custom-red);
+    --accent-bg-color: var(--color-white);
+    --accent-hover-font-color: var(--color-custom-red);
+    --accent-hover-bg-color: var(--color-white);
+    --selection-color: var(--color-custom-red);
+    --selection-bg-color: var(--color-white);
+  }
+
+  .cs-success {
+    --font-color: var(--color-white);
+    --bg-color: var(--color-custom-green);
+    --border-color: var(--color-gray);
+    --shadow-color: var(--color-custom-green);
+    --shadow-alpha: 0.1;
+    --accent-color: var(--color-white);
+    --accent-font-color: var(--color-custom-green);
+    --accent-bg-color: var(--color-white);
+    --accent-hover-font-color: var(--color-custom-green);
+    --accent-hover-bg-color: var(--color-white);
+    --selection-color: var(--color-custom-green);
+    --selection-bg-color: var(--color-white);
   }
 }
 ```
+
+**IMPORTANT: Always use the colorset system** instead of individual color properties:
+- ✅ **Correct**: Define complete `.cs-` classes with all colorset variables
+- ❌ **Incorrect**: Setting individual `--bg-color` or `--font-color` without the full colorset
+- ✅ **Benefits**: Automatic theme compatibility, consistent styling, easy switching between color schemes
 
 ## Available Base Styles Summary
 
@@ -249,31 +284,80 @@ Use CSS variables to customize spacing:
 - **`h1`**, **`h2`**, **`h3`**, **`h4`** - Heading size variants
 - **`no-space`** - Remove margin/padding from typography
 
+### Colorset System
+
+WebBase uses a comprehensive **colorset** approach for systematic color management. A colorset provides all essential color variables needed for consistent theming across your entire application.
+
+#### Colorset Variables
+Every colorset defines these variables:
+- **`--font-color`** - Primary text color for readable content
+- **`--bg-color`** - Main background color for containers and surfaces  
+- **`--border-color`** - Color for borders, dividers, and outlines
+- **`--shadow-color`** - RGB values for drop shadows and depth effects
+- **`--shadow-alpha`** - Opacity level for shadow transparency (0.0-1.0)
+- **`--accent-color`** - Highlight color for UI elements and emphasis
+- **`--accent-font-color`** - Text color when displayed on accent backgrounds
+- **`--accent-bg-color`** - Background color for accent elements and highlights
+- **`--accent-hover-font-color`** - Text color for interactive elements on hover
+- **`--accent-hover-bg-color`** - Background color for interactive elements on hover
+- **`--selection-color`** - Text color when selected by user
+- **`--selection-bg-color`** - Background color for selected text
+
+#### Using Colorsets
+Apply colorsets with `.cs-` utility classes:
+```html
+<!-- Apply colorset to container -->
+<div class="bg cs-primary">Content with primary colorset</div>
+
+<!-- Apply colorset to button -->
+<button class="btn cs-secondary">Secondary Button</button>
+
+<!-- Colorsets work with any component -->
+<header class="wrapper py bg cs-primary">Header content</header>
+```
+
+#### Default Colorset
+The default colorset is defined in `:root` and inherited by all elements unless overridden.
+
+#### Benefits
+- **Component theming** - Apply consistent colors across buttons, cards, forms
+- **Theme variations** - Create light/dark modes or brand-specific color schemes  
+- **Easy theme switching** - Swap entire color schemes without touching individual components
+- **Systematic design** - Maintain visual consistency with predefined color relationships
+
 ### Background System
 
 #### Background Base
-- **`bg`** - Apply background system (required for color utilities)
+- **`bg`** - Apply background system (required for colorset utilities)
 
-#### Background Colors (Base)
-- **`bg-black`** - Black background with white text
-- **`bg-white`** - White background with black text
+#### Available Colorset Classes
+- **`cs-primary`** - Default primary colorset (black background, white text, gray accents)
+- **Custom colorsets** - Create additional `.cs-` classes in page-specific stylesheets (see themed page example)
 
-#### Background Colors (Extended - from pages)
-- **`bg-blue`** - Blue background with white text
-- **`bg-orange`** - Orange background with blue text
-- **`bg-gray`** - Gray background
+#### Usage with Background System
+```html
+<!-- Apply default primary colorset to background containers -->
+<div class="bg cs-primary">Primary themed content (black bg, white text)</div>
+
+<!-- Colorsets work without background system for text-only styling -->
+<span class="cs-primary">Themed text with primary colors</span>
+
+<!-- Custom colorsets (defined in page-specific stylesheets) -->
+<div class="bg cs-custom">Custom themed content</div>
+```
 
 ### Component System
 
 #### Button Component
 - **`btn`** - Base button component
-- **Color variants**: Combine with `bg-black`, `bg-white`, etc.
+- **Color variants**: Combine with colorset classes (`.cs-primary`, `.cs-secondary`, etc.)
 - **States**: `:disabled`, `[aria-disabled="true"]`, `.no-hover`
-- **Customization**: Use `--btn-*` CSS variables
+- **Customization**: Use `--btn-*` CSS variables or inherit from colorset variables
 
 ```html
-<button class="btn bg-black">Black Button</button>
-<button class="btn bg-white">White Button</button>
+<button class="btn">Default Button (inherits default colorset)</button>
+<button class="btn cs-primary">Primary Button (black bg, white text)</button>
+<button class="btn cs-custom">Custom Button (defined in page stylesheet)</button>
 <button class="btn" disabled>Disabled Button</button>
 ```
 
@@ -342,7 +426,7 @@ Use CSS variables to customize spacing:
 #### Common Layout Patterns
 ```html
 <!-- Header with back navigation -->
-<header class="wrapper width-content py bg bg-black">
+<header class="wrapper width-content py bg cs-primary">
   <nav class="flex items-center justify-between">
     <a href="../" class="control">← Back</a>
     <h1 class="headline no-space">Page Title</h1>
@@ -359,8 +443,8 @@ Use CSS variables to customize spacing:
 
 <!-- Button group -->
 <div class="flex gap items-center">
-  <button class="btn bg-black">Primary</button>
-  <button class="btn bg-white">Secondary</button>
+  <button class="btn cs-primary">Primary</button>
+  <button class="btn">Default</button>
 </div>
 
 <!-- Grid layout -->
@@ -441,16 +525,24 @@ Page showcasing a specific component:
 ```
 
 ### 3. Themed Page
-Page with custom color scheme:
+Page with custom colorsets (example: blue/orange theme):
 ```html
 <!-- In head -->
 <link rel="stylesheet" href="./theme.css" />
 
 <!-- In body -->
-<header class="wrapper width-content py bg bg-blue">
-  <!-- Header content -->
+<header class="wrapper width-content py bg cs-primary">
+  <!-- Header content with custom blue theme -->
 </header>
+
+<!-- Content with custom secondary colorset -->
+<section class="wrapper width-content bg cs-secondary py">
+  <p>Content with custom orange theme</p>
+  <button class="btn cs-secondary">Orange Themed Button</button>
+</section>
 ```
+
+**Note**: The `cs-primary` and `cs-secondary` classes in this example are custom colorsets defined in the themed page's `theme.css` file with blue and orange colors. By default, only `cs-primary` exists (black/gray theme).
 
 ### 4. Interactive Page
 Page with TypeScript functionality:
@@ -515,8 +607,8 @@ console.log(example)</code></pre>
   <p>Try the interactive features below:</p>
   
   <div class="flex gap items-center mb">
-    <button class="btn bg-black" onclick="demoFunction()">Demo Button</button>
-    <button class="btn bg-blue" onclick="resetDemo()">Reset</button>
+    <button class="btn cs-primary" onclick="demoFunction()">Demo Button</button>
+    <button class="btn" onclick="resetDemo()">Reset</button>
   </div>
   
   <div class="demo-area">

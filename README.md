@@ -260,6 +260,28 @@ pnpm run format      # Format code with Prettier
 pnpm run security    # Run security audit
 ```
 
+## Colorset System
+
+WebBase uses a **colorset** approach for systematic color management. A colorset is a comprehensive collection of coordinated colors that establishes a complete visual identity for UI components or sections.
+
+### What is a Colorset?
+
+A colorset provides all essential color variables needed for consistent theming:
+- Primary text and background colors
+- Borders and shadows
+- Accent colors and interactive states
+- Hover and selection colors
+
+### Why Use Colorsets?
+
+**Component theming** - Apply consistent colors across buttons, cards, forms, and other UI elements
+**Section-based styling** - Define distinct visual zones like headers, sidebars, or content areas  
+**Theme variations** - Create light/dark modes or brand-specific color schemes
+**Contextual styling** - Differentiate between states like default, success, warning, or error
+**Systematic design** - Maintain visual consistency across your entire application with predefined color relationships
+
+By using colorsets, you ensure that all related colors work harmoniously together while maintaining flexibility to swap entire color schemes without touching individual component styles.
+
 ## Available Copy Points
 
 Use `webbase list` to see all available copy-points with basic information, or `webbase info <copy-point>` for detailed information. Available copy-points:

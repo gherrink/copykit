@@ -65,7 +65,6 @@
    */
   --font-space-unit: 1em;
   --font-size-html-base: 16px;
-  --font-color: var(--color-black);
   --font-family: var(--font-family-base);
   --font-weight: var(--font-weight-normal);
   --font-size: var(--font-size-base);
@@ -137,6 +136,10 @@
     font-weight: var(--font-weight);
     line-height: var(--font-line-height);
     color: rgb(var(--font-color));
+  }
+
+  * {
+    --link-hover-color: var(--accent-color);
   }
 
   /* Avoid text overflows */

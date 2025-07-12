@@ -84,7 +84,7 @@
 
 @property --b-color {
   inherits: true;
-  initial-value: 0 0 0;
+  initial-value: 40 40 40;
   syntax: "<number>+";
 }
 
@@ -134,7 +134,7 @@
    *
    * @location variables.border Border
    */
-  --b-color: var(--color-black);
+  --b-color: var(--border-color);
   --b-width: var(--b-width-thin);
 
   /**
@@ -239,7 +239,7 @@
    *
    * @location utilities.border.left Border left
    * @example
-   * <div class="bl bg bg-white">Left border</div>
+   * <div class="bl">Left border</div>
    */
   .border,
   .bxy,
@@ -261,7 +261,7 @@
    *
    * @location utilities.border.xy Border y-axis and x-axis
    * @example
-   * <div class="bxy bg bg-white">XY borders</div>
+   * <div class="bxy">XY borders</div>
    */
   /**
    * Using `by` to add borders top and bottom with same size to your element.
@@ -272,7 +272,7 @@
    *
    * @location utilities.border.y Border y-axis
    * @example
-   * <div class="by bg bg-white">Y-axis borders</div>
+   * <div class="by">Y-axis borders</div>
    */
   /**
    * Using `bx` to add borders left and right with same size to your element.
@@ -283,7 +283,7 @@
    *
    * @location utilities.border.x Border x-axis
    * @example
-   * <div class="bx bg bg-white">X-axis borders</div>
+   * <div class="bx">X-axis borders</div>
    */
   .bxy,
   .by {

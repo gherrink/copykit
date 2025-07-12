@@ -1,6 +1,6 @@
 @property --accordion-border-color {
   inherits: true;
-  initial-value: 220 220 220;
+  initial-value: 40 40 40;
   syntax: "<number>+ | transparent";
 }
 
@@ -10,15 +10,21 @@
   syntax: "<number>+ | transparent";
 }
 
-@property --accordion-control-hover-bg-color {
+@property --accordion-control-font-color {
   inherits: true;
-  initial-value: 240 240 240;
+  initial-value: 0 0 0;
   syntax: "<number>+ | transparent";
 }
 
-@property --accordion-content-bg-color {
+@property --accordion-control-hover-bg-color {
   inherits: true;
-  initial-value: 255 255 255;
+  initial-value: 200 200 200;
+  syntax: "<number>+ | transparent";
+}
+
+@property --accordion-control-hover-font-color {
+  inherits: true;
+  initial-value: 0 0 0;
   syntax: "<number>+ | transparent";
 }
 
@@ -52,6 +58,11 @@
    * </div>
    */
   .accordion {
+    --accordion-border-color: var(--border-color);
+    --accordion-control-bg-color: var(--bg-color);
+    --accordion-control-font-color: var(--font-color);
+    --accordion-control-hover-bg-color: var(--accent-bg-color);
+    --accordion-control-hover-font-color: var(--accent-font-color);
     --accordion-border-width: 1px;
     --accordion-border-radius: 0;
     --accordion-font-size: var(--font-size);
@@ -71,9 +82,10 @@
   }
 
   .accordion > .item > .control {
-    --control-font-color: var(--font-color);
+    --control-font-color: var(--accordion-control-font-color);
     --control-bg-color: var(--accordion-control-bg-color);
     --control-hover-bg-color: var(--accordion-control-hover-bg-color);
+    --control-hover-font-color: var(--accordion-control-hover-font-color);
     --control-py-space: var(--space-sm);
     --control-px-space: var(--space-base);
     --control-font-size: var(--accordion-font-size);
@@ -140,7 +152,7 @@
     line-height: var(--line-height-relaxed);
     color: rgb(var(--font-color));
 
-    background: rgb(var(--accordion-content-bg-color));
+    background: rgb(var(--bg-color));
   }
 
   .accordion > .item > .content[hidden] {
@@ -148,7 +160,7 @@
   }
 
   /**
-   * Single-select accordion where only one item can be open at a time. Use `data-accordion="single"` 
+   * Single-select accordion where only one item can be open at a time. Use `data-accordion="single"`
    * on the accordion container to enable single-select behavior.
    *
    * @location components.accordion.single Single-select Accordion

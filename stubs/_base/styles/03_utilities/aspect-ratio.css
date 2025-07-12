@@ -14,9 +14,9 @@
    * <style>
    *   .aspect-ratio-16-9 { --aspect-ratio: 16 / 9; }
    * </style>
-   * <div class="aspect-ratio-16-9 bg bg-black" style="max-width: 260px;"><span>16:9</span></div>
+   * <div class="aspect-ratio-16-9 bg" style="max-width: 260px;"><span>16:9</span></div>
    * <hr>
-   * <div class="aspect-ratio bg bg-black" style="--aspect-ratio: 16 / 9; max-width: 260px;"><span>16:9</span></div>
+   * <div class="aspect-ratio bg" style="--aspect-ratio: 16 / 9; max-width: 260px;"><span>16:9</span></div>
    */
   .aspect-ratio,
   [class^="aspect-ratio-"],
@@ -60,7 +60,7 @@
    *
    * @location utilities.aspect-ratio.16x9 16:9
    * @example
-   * <div class="aspect-ratio-16-9 bg bg-black" style="max-width: 260px;"><span>16:9</span></div>
+   * <div class="aspect-ratio-16-9 bg" style="max-width: 260px;"><span>16:9</span></div>
    *
    */
   .aspect-ratio-16-9 {

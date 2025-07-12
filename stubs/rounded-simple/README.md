@@ -24,26 +24,26 @@ This copy-point has no additional dependencies beyond the core `_base` foundatio
 
 ```html
 <!-- Basic rounded corners -->
-<div class="rounded padding bg bg-black">Rounded corners</div>
+<div class="rounded padding bg">Rounded corners</div>
 
 <!-- Size variations -->
-<div class="rounded-sm padding bg bg-black">Small rounded</div>
-<div class="rounded-md padding bg bg-black">Medium rounded</div>
-<div class="rounded-lg padding bg bg-black">Large rounded</div>
-<div class="rounded-xl padding bg bg-black">Extra large rounded</div>
+<div class="rounded-sm padding bg">Small rounded</div>
+<div class="rounded-md padding bg">Medium rounded</div>
+<div class="rounded-lg padding bg">Large rounded</div>
+<div class="rounded-xl padding bg">Extra large rounded</div>
 ```
 
 ### Advanced Examples
 
 ```html
 <!-- Full circle for icons or avatars -->
-<div class="rounded-full padding bg bg-black" style="width: 3rem; height: 3rem; display: flex; align-items: center; justify-content: center;">●</div>
+<div class="rounded-full padding bg" style="width: 3rem; height: 3rem; display: flex; align-items: center; justify-content: center;">●</div>
 
 <!-- Remove rounding -->
-<div class="rounded-none padding bg bg-black">No rounded corners</div>
+<div class="rounded-none padding bg">No rounded corners</div>
 
 <!-- Custom per-corner rounding -->
-<div class="rounded padding bg bg-black" style="--rounded-size-tl: 0; --rounded-size-br: 0;">
+<div class="rounded padding bg" style="--rounded-size-tl: 0; --rounded-size-br: 0;">
   Diagonal corners only
 </div>
 ```
@@ -223,7 +223,7 @@ cp -r stubs/rounded-simple/ your-project/src/
 ### Card Components
 
 ```html
-<div class="rounded-lg padding bg bg-white" style="box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+<div class="rounded-lg padding" style="box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
   <h3>Card Title</h3>
   <p>Card content with rounded corners</p>
 </div>

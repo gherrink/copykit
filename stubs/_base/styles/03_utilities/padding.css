@@ -85,7 +85,7 @@
    *
    * @location utilities.padding Padding
    * @example
-   * <div class="padding bg bg-black"><div class="bg bg-white">text</div></div>
+   * <div class="padding bg"><div style="background: rgb(var(--bg-color)); color: rgb(var(--font-color));">text</div></div>
    */
   .padding,
   .pxy {
@@ -100,7 +100,7 @@
    *
    * @location utilities.padding.top Padding top
    * @example
-   * <div class="pt bg bg-black"><div class="bg bg-white">text</div></div>
+   * <div class="pt bg"><div style="background: rgb(var(--bg-color)); color: rgb(var(--font-color));">text</div></div>
    */
   .pt,
   .py {
@@ -120,7 +120,7 @@
    *
    * @location utilities.padding.right Padding right
    * @example
-   * <div class="pr bg bg-black"><div class="bg bg-white">text</div></div>
+   * <div class="pr bg"><div style="background: rgb(var(--bg-color)); color: rgb(var(--font-color));">text</div></div>
    */
   .pr,
   .px {
@@ -140,7 +140,7 @@
    *
    * @location utilities.padding.bottom Padding bottom
    * @example
-   * <div class="pb bg bg-black"><div class="bg bg-white">text</div></div>
+   * <div class="pb bg"><div style="background: rgb(var(--bg-color)); color: rgb(var(--font-color));">text</div></div>
    */
   .pb,
   .py {
@@ -160,7 +160,7 @@
    *
    * @location utilities.padding.left Padding left
    * @example
-   * <div class="pl bg bg-black"><div class="bg bg-white">text</div></div>
+   * <div class="pl bg"><div style="background: rgb(var(--bg-color)); color: rgb(var(--font-color));">text</div></div>
    */
   .pl,
   .px {
@@ -184,7 +184,7 @@
    *
    * @location utilities.padding.xy padding y-axis and x-axis
    * @example
-   * <div class="pxy bg bg-black"><div class="bg bg-white">text</div></div>
+   * <div class="pxy bg"><div style="background: rgb(var(--bg-color)); color: rgb(var(--font-color));">text</div></div>
    */
   /**
    * Using `py` to add paddings tob and bottom with same size to your element.
@@ -194,7 +194,7 @@
    *
    * @location utilities.padding.y Padding y-axis
    * @example
-   * <div class="py bg bg-black"><div class="bg bg-white">text</div></div>
+   * <div class="py bg"><div style="background: rgb(var(--bg-color)); color: rgb(var(--font-color));">text</div></div>
    */
   /**
    * Using `px` to add paddings left and right with same size to your element.
@@ -204,7 +204,7 @@
    *
    * @location utilities.padding.x Padding x-axis
    * @example
-   * <div class="px bg bg-black"><div class="bg bg-white">text</div></div>
+   * <div class="px bg"><div style="background: rgb(var(--bg-color)); color: rgb(var(--font-color));">text</div></div>
    */
   .pxy,
   .py {
@@ -221,10 +221,14 @@
   }
 
   /**
-   * If you nest padded element
+   * If you nest padded element, the settings will only apply to the current element.
    *
    * @location utilities.padding.nesting Padding nesting
    * @example
-   * <div class="pxy bg bg-black" style="--px-space: var(--space-xl); --py-space: var(--space-md);"><div class="padding bg bg-white"><div class="padding bg bg-black">text nested</div></div></div>
+   * <div class="pxy bg" style="--px-space: var(--space-xl); --py-space: var(--space-md);">
+   *   <div class="pxy" style="background: rgb(var(--bg-color)); color: rgb(var(--font-color));">
+   *     <div class="pxy bg">text nested</div>
+   *   </div>
+   * </div>
    */
 }

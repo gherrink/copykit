@@ -55,7 +55,7 @@
    *
    * @location utilities.border-radius Rounded
    * @example
-   * <div class="rounded padding bg bg-black">Rounded corners</div>
+   * <div class="rounded padding bg">Rounded corners</div>
    */
   .rounded,
   [class^="rounded-"],
@@ -80,7 +80,7 @@
    *
    * @location utilities.border-radius.full Rounded full
    * @example
-   * <div class="rounded-full paddding bg bg-black" style="width: 3rem; height: 3rem; display: flex; align-items: center; justify-content: center;">●</div>
+   * <div class="rounded-full paddding bg" style="width: 3rem; height: 3rem; display: flex; align-items: center; justify-content: center;">●</div>
    */
   .rounded-full {
     border-radius: 9999px;
@@ -91,7 +91,7 @@
    *
    * @location utilities.border-radius.none Rounded none
    * @example
-   * <div class="rounded-none padding bg bg-black">No rounded corners</div>
+   * <div class="rounded-none padding bg">No rounded corners</div>
    */
   .rounded-none {
     border-radius: 0;
@@ -102,10 +102,10 @@
    *
    * @location utilities.border-radius.sizes Rounded sizes
    * @example
-   * <div class="rounded-sm mt padding bg bg-black">Small rounded</div>
-   * <div class="rounded-md mt padding bg bg-black">Medium rounded</div>
-   * <div class="rounded-lg mt padding bg bg-black">Large rounded</div>
-   * <div class="rounded-xl mt padding bg bg-black">Extra large rounded</div>
+   * <div class="rounded-sm mt padding bg">Small rounded</div>
+   * <div class="rounded-md mt padding bg">Medium rounded</div>
+   * <div class="rounded-lg mt padding bg">Large rounded</div>
+   * <div class="rounded-xl mt padding bg">Extra large rounded</div>
    */
   .rounded-sm {
     --rounded-size: var(--rounded-sm);

@@ -1,0 +1,24 @@
+@layer utilities {
+  /**
+   * Colorset definition to change color in specific contexts. For example you can use colorset in combination
+   * with `.bg` or or `.btn` to change there coloring.
+   *
+   * @location utilities.colorset Colorsets
+   * @example
+   * <div class="bg cs-primary" style="min-height: 100px"></div>
+   */
+  .cs-primary {
+    --font-color: var(--color-white);
+    --bg-color: var(--color-black);
+    --border-color: var(--color-gray-600);
+    --shadow-color: 0 0 0;
+    --shadow-alpha: 0.3;
+    --accent-color: var(--color-gray-500);
+    --accent-font-color: var(--color-black);
+    --accent-bg-color: var(--accent-color);
+    --accent-hover-font-color: var(--color-black);
+    --accent-hover-bg-color: var(--color-gray-300);
+    --selection-color: var(--color-black);
+    --selection-bg-color: var(--color-white);
+  }
+}

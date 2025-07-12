@@ -52,7 +52,7 @@
     </style>
   </head>
   <body>
-    <header class="wrapper width-content py bg bg-black">
+    <header class="wrapper width-content py bg cs-primary">
       <nav class="flex items-center justify-between">
         <a href="../" class="control">← Back to Pages</a>
         <h1 class="headline no-space">Rounded Simple Utilities</h1>
@@ -72,19 +72,19 @@
             --font-weight: var(--font-weight-bold);
           "
         >
-          <div class="demo-square rounded-sm padding bg bg-black">
+          <div class="demo-square rounded-sm padding bg cs-primary">
             <span>rounded-sm</span>
           </div>
-          <div class="demo-square rounded padding bg bg-black">
+          <div class="demo-square rounded padding bg cs-primary">
             <span>rounded</span>
           </div>
-          <div class="demo-square rounded-md padding bg bg-black">
+          <div class="demo-square rounded-md padding bg cs-primary">
             <span>rounded-md</span>
           </div>
-          <div class="demo-square rounded-lg padding bg bg-black">
+          <div class="demo-square rounded-lg padding bg cs-primary">
             <span>rounded-lg</span>
           </div>
-          <div class="demo-square rounded-xl padding bg bg-black">
+          <div class="demo-square rounded-xl padding bg cs-primary">
             <span>rounded-xl</span>
           </div>
         </div>
@@ -95,13 +95,22 @@
         <p>Create perfect circles, pills, and remove rounding entirely:</p>
 
         <div class="flex flex-wrap items-center gap-md my">
-          <div class="demo-item rounded-full padding bg bg-black" style="width: 4rem; height: 4rem">
+          <div
+            class="demo-item rounded-full padding bg cs-primary"
+            style="width: 4rem; height: 4rem"
+          >
             <span>Circle</span>
           </div>
-          <div class="demo-item rounded-full padding bg bg-black" style="width: 8rem; height: 4rem">
+          <div
+            class="demo-item rounded-full padding bg cs-primary"
+            style="width: 8rem; height: 4rem"
+          >
             <span>Pill Shape</span>
           </div>
-          <div class="demo-item rounded-none padding bg bg-black" style="width: 6rem; height: 4rem">
+          <div
+            class="demo-item rounded-none padding bg cs-primary"
+            style="width: 6rem; height: 4rem"
+          >
             <span>No Rounding</span>
           </div>
         </div>
@@ -116,7 +125,7 @@
           style="grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr))"
         >
           <div
-            class="demo-square rounded padding bg bg-black"
+            class="demo-square rounded padding bg cs-primary"
             style="--rounded-size-tl: 0; --rounded-size-br: 0"
           >
             <span>
@@ -126,7 +135,7 @@
             </span>
           </div>
           <div
-            class="demo-square rounded padding bg bg-black"
+            class="demo-square rounded padding bg cs-primary"
             style="
               --rounded-size-tl: var(--rounded-lg);
               --rounded-size-tr: var(--rounded-lg);
@@ -141,7 +150,7 @@
             </span>
           </div>
           <div
-            class="demo-square rounded padding bg bg-black"
+            class="demo-square rounded padding bg cs-primary"
             style="
               --rounded-size-tl: 0;
               --rounded-size-tr: 0;
@@ -156,7 +165,7 @@
             </span>
           </div>
           <div
-            class="demo-square rounded padding bg bg-black"
+            class="demo-square rounded padding bg cs-primary"
             style="
               --rounded-size-tl: var(--rounded-xl);
               --rounded-size-tr: 0;
@@ -182,16 +191,16 @@
         </p>
 
         <div class="flex flex-wrap gap-md my">
-          <div class="demo-unit rounded-md padding bg bg-black" style="--rounded-size: 0.5">
+          <div class="demo-unit rounded-md padding bg cs-primary" style="--rounded-size: 0.5">
             <span>0.5</span>
           </div>
-          <div class="demo-unit rounded-md padding bg bg-black" style="--rounded-size: 1">
+          <div class="demo-unit rounded-md padding bg cs-primary" style="--rounded-size: 1">
             <span>1</span>
           </div>
-          <div class="demo-unit rounded-md padding bg bg-black" style="--rounded-size: 1.5">
+          <div class="demo-unit rounded-md padding bg cs-primary" style="--rounded-size: 1.5">
             <span>1.5</span>
           </div>
-          <div class="demo-unit rounded-md padding bg bg-black" style="--rounded-size: 2">
+          <div class="demo-unit rounded-md padding bg cs-primary" style="--rounded-size: 2">
             <span>2</span>
           </div>
         </div>
@@ -202,7 +211,7 @@
         <p>Adjust the base unit to make rounding depend on different units:</p>
 
         <div class="flex flex-wrap gap-md my">
-          <div class="demo-unit rounded-md padding bg bg-black" style="--rounded-unit: 1em">
+          <div class="demo-unit rounded-md padding bg cs-primary" style="--rounded-unit: 1em">
             <span>
               1em
               <br />
@@ -210,7 +219,7 @@
             </span>
           </div>
           <div
-            class="demo-unit rounded-md padding bg bg-black"
+            class="demo-unit rounded-md padding bg cs-primary"
             style="--rounded-unit: 1em; --font-size: 2rem"
           >
             <span>
@@ -219,7 +228,7 @@
               Unit
             </span>
           </div>
-          <div class="demo-unit rounded-md padding bg bg-black" style="--rounded-unit: 1rem">
+          <div class="demo-unit rounded-md padding bg cs-primary" style="--rounded-unit: 1rem">
             <span>
               1rem
               <br />
@@ -227,7 +236,7 @@
             </span>
           </div>
           <div
-            class="demo-unit rounded-md padding bg bg-black"
+            class="demo-unit rounded-md padding bg cs-primary"
             style="--rounded-unit: 1rem; --font-size: 2rem"
           >
             <span>
@@ -248,17 +257,17 @@
           style="grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr))"
         >
           <div
-            class="demo-item rounded-lg padding bg bg-white text-center"
+            class="demo-item rounded-lg padding text-center"
             style="box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1)"
           >
             <h3 class="headline h4 no-space">Card Component</h3>
             <p class="mt">Perfect for content cards with subtle rounding</p>
           </div>
-          <div class="demo-item rounded-xl padding bg bg-black">
+          <div class="demo-item rounded-xl padding bg cs-primary">
             <h3 class="headline h4 no-space">Feature Box</h3>
             <p class="mt">Larger rounding for emphasis and modern feel</p>
           </div>
-          <div class="demo-item rounded-sm padding bg bg-gray">
+          <div class="demo-item rounded-sm padding bg cs-primary">
             <h3 class="headline h4 no-space">Input Field</h3>
             <p class="mt">Small rounding for form elements</p>
           </div>
@@ -270,10 +279,10 @@
         <p>Different button styles using rounded utilities:</p>
 
         <div class="flex flex-wrap gap-md my">
-          <button class="btn rounded-md padding bg bg-black">Standard Button</button>
-          <button class="btn rounded-full padding bg bg-black">Pill Button</button>
-          <button class="btn rounded-none padding bg bg-black">Sharp Button</button>
-          <button class="btn rounded-xl padding bg bg-black">Rounded Button</button>
+          <button class="btn rounded-md padding bg cs-primary">Standard Button</button>
+          <button class="btn rounded-full padding bg cs-primary">Pill Button</button>
+          <button class="btn rounded-none padding bg cs-primary">Sharp Button</button>
+          <button class="btn rounded-xl padding bg cs-primary">Rounded Button</button>
         </div>
       </section>
 
@@ -306,22 +315,22 @@
           class="grid gap-md my"
           style="grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr))"
         >
-          <div class="demo-card rounded-lg padding bg bg-black">
+          <div class="demo-card rounded-lg padding bg cs-primary">
             <h3 class="headline h4 no-space">Dark Theme</h3>
             <p class="mt">Elegant with subtle shadows</p>
           </div>
           <div
-            class="demo-card rounded-lg padding bg bg-white"
+            class="demo-card rounded-lg padding"
             style="box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1)"
           >
             <h3 class="headline h4 no-space">Light Theme</h3>
             <p class="mt">Clean with soft shadows</p>
           </div>
-          <div class="demo-card rounded-lg padding bg bg-black">
+          <div class="demo-card rounded-lg padding bg cs-primary">
             <h3 class="headline h4 no-space">Accent Theme</h3>
             <p class="mt">Bold and vibrant</p>
           </div>
-          <div class="demo-card rounded-lg padding bg bg-black">
+          <div class="demo-card rounded-lg padding bg cs-primary">
             <h3 class="headline h4 no-space">Warm Theme</h3>
             <p class="mt">Friendly and approachable</p>
           </div>

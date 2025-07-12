@@ -6,28 +6,13 @@
    *
    * @location variables.colors Colors
    * @color {40 40 40|255 255 255} --color-black | Black
-   * @color {128 128 128} --color-gray | Gray
    * @color {255 255 255} --color-white | White
    */
   --color-black: 40 40 40;
-  --color-gray: 128 128 128;
   --color-white: 255 255 255;
-
-  /**
-   * Global usage of colors. Will be used across the project as a fallback to use.
-   *
-   * - `--font-color` - used font color
-   * - `--bg-color` - used background color
-   * - `--accent-color` - used accent color
-   * - `--selection-color` - used selection color
-   * - `--selection-bg-color` - used selection background color
-   *
-   * @location variables.colors.usage Color Usage
-   */
-  --bg-color: var(--color-white);
-  --accent-color: var(--color-gray);
-  --selection-color: var(--bg-color);
-  --selection-bg-color: var(--font-color);
+  --color-gray-300: 209 213 219;
+  --color-gray-500: 107 114 128;
+  --color-gray-600: 75 85 99;
 
   /**
    * Space are a set of predefined values that can be used to define the space of an element.
@@ -70,4 +55,49 @@
   --transition-fast: 150ms;
   --transition-base: 250ms;
   --transition-slow: 350ms;
+
+  /**
+   * A comprehensive color definition system that establishes a complete visual
+   * identity for UI components or sections. Each colorset provides all essential color
+   * variables needed for consistent theming across your entire application.
+   *
+   * Core Colors:
+   * - `--font-color` - Primary text color for readable content
+   * - `--bg-color` - Main background color for containers and surfaces
+   * - `--border-color` - Color for borders, dividers, and outlines
+   *
+   * Visual Enhancement:
+   * - `--shadow-color` - RGB values for drop shadows and depth effects
+   * - `--shadow-alpha` - Opacity level for shadow transparency (0.0-1.0)
+   *
+   * Interactive Elements:
+   * - `--accent-color` - Highlight color for UI elements and emphasis
+   * - `--accent-font-color` - Text color when displayed on accent backgrounds
+   * - `--accent-bg-color` - Background color for accent elements and highlights
+   *
+   * Hover States:
+   * - `--accent-hover-font-color` - Text color for interactive elements on hover
+   * - `--accent-hover-bg-color` - Background color for interactive elements on hover
+   *
+   * Text Selection:
+   * - `--selection-color` - Text color when selected by user
+   * - `--selection-bg-color` - Background color for selected text
+   *
+   * Usage: Apply colorsets to create consistent theming across components, enable
+   * easy theme switching, and maintain visual harmony throughout your application.
+   *
+   * @location variables.colorset Colorset
+   */
+  --font-color: var(--color-black);
+  --bg-color: var(--color-white);
+  --border-color: var(--color-gray-300);
+  --shadow-color: 0 0 0;
+  --shadow-alpha: 0.1;
+  --accent-color: var(--color-gray-500);
+  --accent-font-color: var(--color-white);
+  --accent-bg-color: var(--accent-color);
+  --accent-hover-font-color: var(--color-white);
+  --accent-hover-bg-color: var(--color-gray-600);
+  --selection-color: var(--bg-color);
+  --selection-bg-color: var(--font-color);
 }

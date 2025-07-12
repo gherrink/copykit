@@ -140,9 +140,42 @@ When contributing, follow these structural guidelines:
 
 ### CSS Architecture
 - Place styles in the appropriate layer (`01_defaults`, `02_components`, `03_utilities`, `04_layouts`)
+- **Always use colorset variables** instead of direct color values for consistency and theme switching
 - Use CSS custom properties for theming
 - Follow the existing naming conventions
 - Document new CSS variables with JSDoc comments
+
+### Colorset Usage Guidelines
+When working with colors in CSS, always use the colorset system:
+
+**✅ Correct - Use colorset variables:**
+```css
+.button {
+  color: var(--font-color);
+  background-color: var(--accent-bg-color);
+  border: 1px solid var(--border-color);
+}
+
+.button:hover {
+  color: var(--accent-hover-font-color);
+  background-color: var(--accent-hover-bg-color);
+}
+```
+
+**❌ Incorrect - Direct color values:**
+```css
+.button {
+  color: #000000;
+  background-color: #cccccc;
+  border: 1px solid #000000;
+}
+```
+
+**Colorset Benefits:**
+- Consistent theming across components
+- Easy theme switching (light/dark modes)
+- Systematic color relationships
+- Maintainable color management
 
 ### CSS Documentation Guidelines
 CSS documentation should only be added where it provides meaningful value for component showcases:

@@ -55,7 +55,7 @@
    * @location utilities.width.content Width base/content
    * @example
    * <div class="width-content">
-   *   <div class="bg bg-black" style="min-height: 1em"></div>
+   *   <div class="bg" style="min-height: 1em"></div>
    * </div>
    */
 
@@ -63,7 +63,7 @@
    * @location utilities.width.small Width small
    * @example
    * <div class="width-sm">
-   *   <div class="bg bg-black" style="min-height: 1em"></div>
+   *   <div class="bg" style="min-height: 1em"></div>
    * </div>
    */
   .width-sm {
@@ -74,7 +74,7 @@
    * @location utilities.width.large Width large
    * @example
    * <div class="width-lg">
-   *   <div class="bg bg-black" style="min-height: 1em"></div>
+   *   <div class="bg" style="min-height: 1em"></div>
    * </div>
    */
   .width-lg {
@@ -85,7 +85,7 @@
    * @location utilities.width.full Width full
    * @example
    * <div class="width-full">
-   *   <div class="bg bg-black" style="min-height: 1em"></div>
+   *   <div class="bg" style="min-height: 1em"></div>
    * </div>
    */
   .width-full {
@@ -96,7 +96,7 @@
    * @location utilities.width.auto Width auto
    * @example
    * <div class="width-auto">
-   *   <div class="bg bg-black" style="min-height: 1em"></div>
+   *   <div class="bg" style="min-height: 1em"></div>
    * </div>
    */
   .width-auto {
