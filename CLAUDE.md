@@ -54,21 +54,35 @@ This project maintains clear separation between different types of documentation
 
 ### Development
 - `pnpm install` - Install dependencies (uses pnpm, enforced by preinstall hook)
-- `pnpm run dev` - Start development server using Vite
-- `pnpm run build` - Build for production (TypeScript compilation + Vite build)
-- `pnpm run preview` - Preview production build
+- `pnpm run dev` - Start development server for both pages and UI documentation (uses concurrently)
+- `pnpm run dev:pages` - Start development server for pages only
+- `pnpm run dev:uidoc` - Start development server for UI documentation only
+- `pnpm run build` - Build for production (both pages and UI documentation)
+- `pnpm run build:pages` - Build pages for production (TypeScript compilation + Vite build)
+- `pnpm run build:uidoc` - Build UI documentation for production
+- `pnpm run preview` - Preview production build for both pages and UI documentation
+- `pnpm run preview:pages` - Preview pages production build only
+- `pnpm run preview:uidoc` - Preview UI documentation production build only
 
 ### Code Quality
 - `pnpm run lint` - Run all linters (CSS + JavaScript/TypeScript)
 - `pnpm run lint:fix` - Auto-fix all linting issues
 - `pnpm run lint:js` - ESLint for JavaScript/TypeScript files
+- `pnpm run lint:js:fix` - Auto-fix JavaScript/TypeScript linting issues
 - `pnpm run lint:css` - Stylelint for CSS files
+- `pnpm run lint:css:fix` - Auto-fix CSS linting issues
 - `pnpm run format` - Format code using Prettier
 - `pnpm run format:check` - Check code formatting
+- `pnpm run format:docs` - Format README.md and CHANGELOG.md files
+- `pnpm run format:json` - Format tsconfig.json files
+- `pnpm run format:package` - Format package.json file
 - `pnpm run security` - Run security audit
 
 ### Testing
 - `pnpm test` - Run the complete test suite using Vitest
+- `pnpm run test:coverage` - Run tests with coverage reporting
+- `pnpm run test:ui` - Run tests with Vitest UI interface
+- `pnpm run test:watch` - Run tests in watch mode
 - Tests use jsdom environment for DOM manipulation and browser API testing
 - Automated accessibility testing with axe-core integration
 - 178+ tests covering utilities, services, components, and accessibility
@@ -79,6 +93,10 @@ This project maintains clear separation between different types of documentation
 ### WebBase CLI Development
 - See [scripts/CLAUDE.md](scripts/CLAUDE.md) - CLI development, testing, and distribution guidance
 - `pnpm run build:cli` - Build TypeScript CLI files to JavaScript
+
+### Infrastructure
+- `pnpm run preinstall` - Automatically enforces pnpm usage (prevents npm/yarn)
+- `pnpm run prepare` - Sets up Husky git hooks
 
 ### Pre-commit Hooks
 - Husky + lint-staged automatically run linting and formatting on staged files
@@ -150,10 +168,13 @@ WebBase uses a **colorset** approach for systematic color management. A colorset
 
 ### Build System
 - **Vite** with TypeScript support
+- **Dual-build architecture**: Pages and UI documentation built separately but served concurrently
 - **Multi-page application** with dynamic HTML page discovery
 - **UI-Doc** plugin for component documentation generation
+- **Concurrent development**: Both pages and UI documentation run simultaneously via `concurrently`
 - **Alias**: `@/` points to `stubs/` directory
 - **Root**: `pages/` directory for development
+- **Documentation**: Separate Vite configuration for UI-Doc generation
 
 ### Key Features
 - **Expand/Collapse System**: Sophisticated ARIA-based expand/collapse functionality with:

@@ -52,9 +52,16 @@ Before submitting a pull request, ensure your code meets these standards:
 
 ### Linting and Formatting
 - Run `pnpm run lint` to check for linting issues
-- Run `pnpm run lint:fix` to automatically fix linting issues
+- Run `pnpm run lint:fix` to automatically fix all linting issues
+- Run `pnpm run lint:js` to check JavaScript/TypeScript files only
+- Run `pnpm run lint:js:fix` to automatically fix JavaScript/TypeScript linting issues
+- Run `pnpm run lint:css` to check CSS files only
+- Run `pnpm run lint:css:fix` to automatically fix CSS linting issues
 - Run `pnpm run format` to format code with Prettier
 - Run `pnpm run format:check` to verify formatting
+- Run `pnpm run format:docs` to format README.md and CHANGELOG.md files
+- Run `pnpm run format:json` to format tsconfig.json files
+- Run `pnpm run format:package` to format package.json file
 
 ### Code Style
 - Follow TypeScript strict mode conventions
@@ -65,6 +72,9 @@ Before submitting a pull request, ensure your code meets these standards:
 
 ### Testing
 - Run `pnpm test` to execute the full test suite
+- Run `pnpm run test:coverage` to generate coverage reports
+- Run `pnpm run test:ui` to use the interactive Vitest UI
+- Run `pnpm run test:watch` to run tests in watch mode during development
 - Ensure your changes don't break existing functionality
 - Add tests for new features following the naming conventions
 - Test across different browsers if making UI changes
