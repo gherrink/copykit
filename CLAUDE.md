@@ -11,7 +11,7 @@ This project maintains clear separation between different types of documentation
 **Content**:
 - Installation instructions (global npm install, npx usage)
 - CLI command reference with examples (`webbase init`, `webbase add`, `webbase list`, `webbase info`)
-- Copy-point overview and available options
+- Copy-point overview and available options with live demo links when example pages exist
 - Integration examples (CSS imports, JavaScript usage, HTML structure)
 - Getting started tutorials for end-users
 - Copy-point structure explanation for users
@@ -253,6 +253,29 @@ For complete copy-point development guidance, see [stubs/CLAUDE.md](stubs/CLAUDE
 - **Always use the automated script** - never create copy-points manually
 - **Standard structure**: README.md, copy-point.json, scripts/, styles/ with 4 CSS layers
 - **Commit format**: `feat(stub:[name]): create [name] copy point`
+
+### README.md Copy-Point Quick Reference Standards
+
+When documenting copy-points in the main README.md "Available Copy Points" section:
+
+**Required Documentation Format:**
+```markdown
+#### [`copy-point-name/`](stubs/copy-point-name/README.md) - Brief Title
+Short description of the copy-point's purpose and functionality.
+
+- **Feature 1** - Description of key feature
+- **Feature 2** - Description of key feature
+- **Feature 3** - Description of key feature
+
+> **🌐 [Live Demo](https://gherrink.github.io/webbase/copy-point-name.html)** | **📖 [View complete copy-point-name documentation](stubs/copy-point-name/README.md)**
+```
+
+**Live Demo Link Requirements:**
+- **Only add live demo links** if `/pages/[copy-point-name]/` directory exists with `index.html`
+- **Use flattened HTML structure**: `https://gherrink.github.io/webbase/[copy-point-name].html`
+- **NOT directory structure**: `https://gherrink.github.io/webbase/[copy-point-name]/`
+- **Format**: `🌐 [Live Demo](url) | 📖 [View complete documentation](readme)`
+- **No live demo**: Just use `📖 [View complete copy-point-name documentation](stubs/copy-point-name/README.md)`
 
 ### Conventional Commits
 This project uses [Conventional Commits](https://www.conventionalcommits.org/) with commitlint enforcement.

@@ -49,6 +49,7 @@ Each copy-point's `README.md` serves as **user documentation** for developers wh
 
 **Required Content:**
 - **Overview** - Purpose and features of the copy-point
+- **Live Example** - Direct link to GitHub Pages demo (if example page exists in `/pages/[copy-point-name]/`)
 - **Dependencies** - Additional copy-points required beyond `_base` (omit `_base` as it's implicit)
 - **Usage** - Basic usage examples and HTML structure
 - **CSS Architecture** - Custom properties and component structure
@@ -217,9 +218,35 @@ When developing copy-points, always use the colorset system for colors:
 
 ### Documentation Standards
 - Complete README.md with usage examples
+- **Live Example Links** - Include GitHub Pages demo link if example page exists
 - Accurate copy-point.json metadata
 - JSDoc comments for complex CSS patterns
 - Integration examples for common use cases
+
+### Live Example Documentation Requirements
+
+**When to Include Live Example Section:**
+- Check if `/pages/[copy-point-name]/` directory exists with `index.html`
+- If exists, add "Live Example" section immediately after "Overview"
+- If no example page exists, omit this section entirely
+
+**Live Example Section Format:**
+```markdown
+## Live Example
+
+**[🌐 View Live Example](https://gherrink.github.io/webbase/[copy-point-name].html)** - See this copy point in action with interactive demonstrations.
+```
+
+**GitHub Pages URL Structure:**
+- Use flattened HTML structure: `https://gherrink.github.io/webbase/[copy-point-name].html`
+- NOT directory structure: `https://gherrink.github.io/webbase/[copy-point-name]/`
+- Example: `accordion` copy point → `https://gherrink.github.io/webbase/accordion.html`
+
+**Examples of Copy Points with Live Demos:**
+- `accordion/` → `https://gherrink.github.io/webbase/accordion.html`
+- `border/` → `https://gherrink.github.io/webbase/border.html`
+- `rounded-simple/` → `https://gherrink.github.io/webbase/rounded-simple.html`
+- `shadow/` → `https://gherrink.github.io/webbase/shadow.html`
 
 ## Copy-Point Dependencies
 

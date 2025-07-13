@@ -6,6 +6,10 @@ Comprehensive border utility system with CSS custom properties for flexible styl
 
 The border copy-point provides a complete set of utility classes for applying borders to any element with fine-grained control over direction, width, style, and color. Built with CSS custom properties for maximum flexibility and theming support.
 
+## Live Example
+
+**[🌐 View Live Example](https://gherrink.github.io/webbase/border.html)** - See this copy point in action with interactive demonstrations.
+
 ## Features
 
 - **Directional Border Control** - Apply borders to specific sides (top, right, bottom, left)

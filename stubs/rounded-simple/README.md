@@ -6,6 +6,10 @@ Simple and flexible border radius utilities with CSS custom properties for creat
 
 The Rounded Simple copy-point provides a comprehensive set of utility classes for applying border radius to elements. It uses CSS custom properties to enable flexible customization and supports everything from subtle rounded corners to full circles and pill shapes.
 
+## Live Example
+
+**[🌐 View Live Example](https://gherrink.github.io/webbase/rounded-simple.html)** - See this copy point in action with interactive demonstrations.
+
 ## Features
 
 - Configurable border radius sizes (sm, base, md, lg, xl)

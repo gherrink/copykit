@@ -6,6 +6,11 @@ A foundational collection of scripts, styles, and components designed to be copi
 
 WebBase is a **copy-and-customize** component library that provides a starting point for web projects. Unlike traditional frameworks or libraries, WebBase components are meant to be copied directly into your project where you have full control to modify, extend, or adapt them to your specific needs. Once copied, the code becomes entirely yours to customize.
 
+> **🌐 Live Demo & Documentation**
+> 
+> - **[📱 Example Pages](https://gherrink.github.io/webbase/)** - See all components in action with interactive examples
+> - **[📚 Complete UI Documentation](https://gherrink.github.io/webbase/ui-doc/)** - Comprehensive component documentation and usage guides
+
 ## Features
 
 - **Copy-and-Customize** - Take what you need, modify everything to fit your project
@@ -183,8 +188,9 @@ If you prefer manual control, you can copy files directly:
 WebBase is designed as a **copy-and-customize** library organized in copy points. Here's how to use it:
 
 #### 1. Browse Copy Points
-- Clone or download this repository to explore available copy points
-- Visit the component showcase at `pages/index.html` to see components in action
+- **[🌐 Live Example Pages](https://gherrink.github.io/webbase/)** - See components in action with interactive demos
+- **[📚 Complete UI Documentation](https://gherrink.github.io/webbase/ui-doc/)** - Explore detailed component documentation and usage guides
+- Clone or download this repository to explore available copy points locally
 - Browse the `stubs/` directory to explore different copy points
 - Each copy point has the same structure, making integration predictable
 
@@ -284,7 +290,9 @@ By using colorsets, you ensure that all related colors work harmoniously togethe
 
 ## Available Copy Points
 
-Use `webbase list` to see all available copy-points with basic information, or `webbase info <copy-point>` for detailed information. Available copy-points:
+Use `webbase list` to see all available copy-points with basic information, or `webbase info <copy-point>` for detailed information. You can also explore the **[📚 Complete UI Documentation](https://gherrink.github.io/webbase/ui-doc/)** for interactive component examples and detailed usage guides.
+
+Available copy-points:
 
 ### Currently Available
 
@@ -305,7 +313,7 @@ Advanced accordion/collapsible component with full ARIA support and keyboard nav
 - **Animation support** with configurable timing
 - **Multiple instances** support
 
-> **📖 [View complete accordion documentation](stubs/accordion/README.md)**
+> **🌐 [Live Demo](https://gherrink.github.io/webbase/accordion.html)** | **📖 [View complete accordion documentation](stubs/accordion/README.md)**
 
 #### [`elevate/`](stubs/elevate/README.md) - Visual Enhancement Utilities
 Utility classes for adding visual depth and elevation to components using advanced CSS color-mixing.
@@ -316,6 +324,36 @@ Utility classes for adding visual depth and elevation to components using advanc
 - **Performance optimized** utility classes
 
 > **📖 [View complete elevate documentation](stubs/elevate/README.md)**
+
+#### [`border/`](stubs/border/README.md) - Comprehensive Border Utilities
+Flexible border utility system with directional controls and CSS custom properties.
+
+- **Directional Border Control** - Apply borders to specific sides (top, right, bottom, left)
+- **Axis-Based Utilities** - Control horizontal (x-axis) and vertical (y-axis) borders together
+- **CSS Custom Properties** - Flexible customization through CSS variables
+- **Predefined Styles** - Quick style application with solid, dashed, dotted, and none classes
+
+> **🌐 [Live Demo](https://gherrink.github.io/webbase/border.html)** | **📖 [View complete border documentation](stubs/border/README.md)**
+
+#### [`rounded-simple/`](stubs/rounded-simple/README.md) - Border Radius Utilities
+Simple and flexible border radius utilities for creating rounded corners on any element.
+
+- **Configurable border radius sizes** (sm, base, md, lg, xl)
+- **CSS custom properties** for per-corner customization
+- **Utility classes** for common rounding patterns
+- **Full circle and pill shapes** support
+
+> **🌐 [Live Demo](https://gherrink.github.io/webbase/rounded-simple.html)** | **📖 [View complete rounded-simple documentation](stubs/rounded-simple/README.md)**
+
+#### [`shadow/`](stubs/shadow/README.md) - Material Design Shadow System
+Material Design-inspired shadow utilities with 24 elevation levels and scientifically-accurate calculations.
+
+- **24-Level Shadow System** - Precise elevation control from 0-24
+- **Scientific Shadow Calculation** - Uses umbra, penumbra, and ambient shadow layers
+- **Customizable Shadow Colors** - Full control over shadow color and opacity
+- **Material Design Compliance** - Shadow calculations match Material Design guidelines
+
+> **🌐 [Live Demo](https://gherrink.github.io/webbase/shadow.html)** | **📖 [View complete shadow documentation](stubs/shadow/README.md)**
 
 ### Future Copy Points
 Additional copy points will follow the same structure:

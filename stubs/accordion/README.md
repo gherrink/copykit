@@ -6,6 +6,10 @@ Accessible, expandable accordion component with full keyboard navigation, ARIA c
 
 The accordion copy-point provides a fully-featured accordion component with sophisticated expand/collapse functionality. Built with accessibility-first principles, it includes proper ARIA attributes, keyboard navigation, and smooth animations while maintaining excellent performance.
 
+## Live Example
+
+**[🌐 View Live Example](https://gherrink.github.io/webbase/accordion.html)** - See this copy point in action with interactive demonstrations.
+
 ## Features
 
 - **Full Accessibility**: WCAG 2.1 AA compliant with proper ARIA attributes

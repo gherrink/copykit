@@ -6,6 +6,10 @@ Material Design-inspired shadow utilities with 24 elevation levels, scientifical
 
 The shadow copy-point provides a comprehensive shadow system based on Material Design principles. It offers 24 levels of elevation (0-24) with precise shadow calculations using the three-layer shadow system: umbra (direct shadow), penumbra (soft shadow), and ambient (environment shadow).
 
+## Live Example
+
+**[🌐 View Live Example](https://gherrink.github.io/webbase/shadow.html)** - See this copy point in action with interactive demonstrations.
+
 ## Features
 
 - **24-Level Shadow System**: Precise elevation control from 0-24 following Material Design specifications
