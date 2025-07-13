@@ -1,16 +1,49 @@
 {
-  "name": "gherrink-web-base",
-  "private": true,
+  "name": "webbase",
   "version": "0.0.1",
+  "description": "A flexible web component and utility library with CLI tools for rapid development",
   "type": "module",
+  "main": "scripts/webbase.js",
   "bin": {
     "webbase": "scripts/webbase.js"
   },
+  "files": [
+    "LICENSE.md",
+    "scripts/commands/*.js",
+    "scripts/webbase.js",
+    "!stubs/**/CLAUDE.md",
+    "stubs/*/copy-point.json",
+    "stubs/*/README.md",
+    "stubs/*/scripts/**/*.ts",
+    "stubs/*/styles/**/*.css",
+    "README.md"
+  ],
+  "keywords": [
+    "webbase",
+    "cli",
+    "components",
+    "utilities",
+    "css",
+    "typescript",
+    "web-development",
+    "copy-points",
+    "accessibility"
+  ],
+  "author": "WebBase",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gherrink/webbase.git"
+  },
+  "homepage": "https://gherrink.github.io/webbase/",
+  "bugs": {
+    "url": "https://github.com/gherrink/webbase/issues"
+  },
   "scripts": {
     "build": "pnpm build:pages && pnpm build:uidoc",
+    "build:cli": "tsc --project tsconfig.cli.json",
     "build:pages": "tsc --project tsconfig.app.json && vite build --config vite.config.pages.ts",
     "build:uidoc": "vite build --config vite.config.uidoc.ts",
-    "build:cli": "tsc --project tsconfig.cli.json",
     "create-copy-point": "node scripts/create-copy-point.js",
     "dev": "concurrently \"pnpm dev:pages\" \"pnpm dev:uidoc\"",
     "dev:pages": "vite --config vite.config.pages.ts",
