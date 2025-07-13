@@ -1,5 +1,5 @@
 /**
- * Command registry for webbase CLI
+ * Command registry for copykit CLI
  * Central registry for all available commands with metadata
  */
 
@@ -13,7 +13,7 @@ import { executeHelp, showGeneralHelp } from './help.js'
 /**
  * Registry implementation for managing CLI commands
  */
-class WebBaseCommandRegistry implements CommandRegistry {
+class CopyKitCommandRegistry implements CommandRegistry {
   commands = new Map<Command, CommandDefinition>()
 
   getCommand(name: Command): CommandDefinition | undefined {
@@ -33,14 +33,14 @@ class WebBaseCommandRegistry implements CommandRegistry {
  * Create and configure the command registry
  */
 function createCommandRegistry(): CommandRegistry {
-  const registry = new WebBaseCommandRegistry()
+  const registry = new CopyKitCommandRegistry()
 
   // Register init command
   registry.registerCommand({
     name: 'init',
     description: 'Initialize project with _base copy-point',
-    usage: 'webbase init [options]',
-    examples: ['webbase init', 'webbase init --overwrite', 'webbase init --skip-tests'],
+    usage: 'copykit init [options]',
+    examples: ['copykit init', 'copykit init --overwrite', 'copykit init --skip-tests'],
     options: [
       { flag: '--overwrite', description: 'Overwrite existing files' },
       { flag: '--skip-tests', description: 'Skip copying test files' },
@@ -54,11 +54,11 @@ function createCommandRegistry(): CommandRegistry {
   registry.registerCommand({
     name: 'add',
     description: 'Add a copy-point to existing project',
-    usage: 'webbase add <copy-point-name> [options]',
+    usage: 'copykit add <copy-point-name> [options]',
     examples: [
-      'webbase add accordion',
-      'webbase add elevate --overwrite',
-      'webbase add accordion --skip-tests',
+      'copykit add accordion',
+      'copykit add elevate --overwrite',
+      'copykit add accordion --skip-tests',
     ],
     options: [
       { flag: '--overwrite', description: 'Overwrite existing files' },
@@ -73,12 +73,12 @@ function createCommandRegistry(): CommandRegistry {
   registry.registerCommand({
     name: 'list',
     description: 'List available copy-points',
-    usage: 'webbase list',
-    examples: ['webbase list'],
+    usage: 'copykit list',
+    examples: ['copykit list'],
     options: [],
     executeFunction: executeList,
     showHelpFunction: () => {
-      console.log('Usage: webbase list')
+      console.log('Usage: copykit list')
       console.log('')
       console.log('List all available copy-points with basic information')
     },
@@ -88,8 +88,8 @@ function createCommandRegistry(): CommandRegistry {
   registry.registerCommand({
     name: 'info',
     description: 'Show detailed information about a copy-point',
-    usage: 'webbase info <copy-point-name>',
-    examples: ['webbase info _base', 'webbase info accordion', 'webbase info elevate'],
+    usage: 'copykit info <copy-point-name>',
+    examples: ['copykit info _base', 'copykit info accordion', 'copykit info elevate'],
     options: [{ flag: '--help', description: 'Show help for info command' }],
     executeFunction: executeInfo,
     showHelpFunction: showInfoHelp,
@@ -99,8 +99,8 @@ function createCommandRegistry(): CommandRegistry {
   registry.registerCommand({
     name: 'help',
     description: 'Show help information',
-    usage: 'webbase help',
-    examples: ['webbase help', 'webbase --help'],
+    usage: 'copykit help',
+    examples: ['copykit help', 'copykit --help'],
     options: [],
     executeFunction: executeHelp,
     showHelpFunction: showGeneralHelp,
@@ -156,9 +156,9 @@ export function generateCommandHelp(command: CommandDefinition): void {
  * Generate general help text showing all commands
  */
 export function generateGeneralHelp(): void {
-  console.log('WebBase CLI - Manage webbase copy-points')
+  console.log('CopyKit CLI - Manage copykit copy-points')
   console.log('')
-  console.log('Usage: webbase <command> [options]')
+  console.log('Usage: copykit <command> [options]')
   console.log('')
   console.log('Commands:')
 
@@ -168,11 +168,11 @@ export function generateGeneralHelp(): void {
 
   console.log('')
   console.log('Examples:')
-  console.log('  webbase init')
-  console.log('  webbase add accordion')
-  console.log('  webbase list')
-  console.log('  webbase info accordion')
+  console.log('  copykit init')
+  console.log('  copykit add accordion')
+  console.log('  copykit list')
+  console.log('  copykit info accordion')
   console.log('')
   console.log('For command-specific help:')
-  console.log('  webbase <command> --help')
+  console.log('  copykit <command> --help')
 }

@@ -1,5 +1,5 @@
 /**
- * Type definitions for the webbase CLI
+ * Type definitions for the copykit CLI
  */
 
 export interface CopyPointMetadata {

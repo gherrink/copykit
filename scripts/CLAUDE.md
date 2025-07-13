@@ -1,43 +1,43 @@
-# WebBase CLI Development Guide
+# CopyKit CLI Development Guide
 
-This file provides guidance for developing and maintaining the WebBase CLI tool that allows users to copy copy-points into their projects.
+This file provides guidance for developing and maintaining the CopyKit CLI tool that allows users to copy copy-points into their projects.
 
 ## CLI Commands
 
 ### Build & Development
 - `pnpm run build:cli` - Build TypeScript CLI files to JavaScript
-- `node scripts/webbase.js <command>` - Test CLI locally during development
+- `node scripts/copykit.js <command>` - Test CLI locally during development
 
 ### CLI Usage Commands
-- `webbase init` - Initialize project with _base copy-point
-- `webbase add <copy-point>` - Add specific copy-point to project
-- `webbase list` - List available copy-points with basic information
-- `webbase info <copy-point>` - Show detailed copy-point information (features, dependencies, etc.)
-- `webbase help` - Show CLI help information
+- `copykit init` - Initialize project with _base copy-point
+- `copykit add <copy-point>` - Add specific copy-point to project
+- `copykit list` - List available copy-points with basic information
+- `copykit info <copy-point>` - Show detailed copy-point information (features, dependencies, etc.)
+- `copykit help` - Show CLI help information
 
 ## CLI Architecture
 
 ### File Structure
 ```
 scripts/
-├── webbase.ts              # Main CLI entry point with command parsing
-├── webbase.js              # Compiled CLI executable (ignored by git)
+├── copykit.ts              # Main CLI entry point with command parsing
+├── copykit.js              # Compiled CLI executable (ignored by git)
 ├── create-copy-point.js    # Development script for creating new copy-points
 ├── CLAUDE.md               # This file - CLI development guidance
 └── commands/               # CLI command modules (TypeScript)
     ├── types.ts            # TypeScript interfaces and type definitions
     ├── utils.ts            # Shared utilities (file ops, validation, logging)
-    ├── init.ts             # Implementation of 'webbase init' command
-    ├── add.ts              # Implementation of 'webbase add' command
-    ├── list.ts             # Implementation of 'webbase list' command
-    ├── info.ts             # Implementation of 'webbase info' command
-    ├── help.ts             # Implementation of 'webbase help' command
+    ├── init.ts             # Implementation of 'copykit init' command
+    ├── add.ts              # Implementation of 'copykit add' command
+    ├── list.ts             # Implementation of 'copykit list' command
+    ├── info.ts             # Implementation of 'copykit info' command
+    ├── help.ts             # Implementation of 'copykit help' command
     ├── registry.ts         # Command registry and help generation
     └── *.js                # Compiled JavaScript files (ignored by git)
 ```
 
 ### Command Architecture
-- **Main Entry** (`webbase.ts`): Command parsing, help system, error handling
+- **Main Entry** (`copykit.ts`): Command parsing, help system, error handling
 - **Commands** (`commands/`): Individual command implementations with validation
 - **Utilities** (`commands/utils.ts`): File operations, path resolution, validation
 - **Types** (`commands/types.ts`): TypeScript interfaces for type safety
@@ -68,24 +68,24 @@ export function getSourceStubsPath(): string {
 pnpm run build:cli
 
 # This compiles:
-# scripts/webbase.ts → scripts/webbase.js
+# scripts/copykit.ts → scripts/copykit.js
 # scripts/commands/*.ts → scripts/commands/*.js
 ```
 
 ### 3. Local Testing
 ```bash
 # Test CLI commands locally
-node scripts/webbase.js --help
-node scripts/webbase.js list
-node scripts/webbase.js info accordion
-node scripts/webbase.js init
-node scripts/webbase.js add accordion
+node scripts/copykit.js --help
+node scripts/copykit.js list
+node scripts/copykit.js info accordion
+node scripts/copykit.js init
+node scripts/copykit.js add accordion
 ```
 
 ### 4. Validation Workflow
 1. **Edit TypeScript** - Make changes to .ts files
 2. **Build CLI** - Run `pnpm run build:cli`
-3. **Test Commands** - Verify functionality with `node scripts/webbase.js`
+3. **Test Commands** - Verify functionality with `node scripts/copykit.js`
 4. **Test Integration** - Create test directory and verify copy operations
 5. **Commit Changes** - Only commit .ts files (JS files are ignored)
 
@@ -94,7 +94,7 @@ node scripts/webbase.js add accordion
 Use the `scripts` scope for all CLI and development tool changes:
 
 **Examples:**
-- `feat(scripts): add new webbase command`
+- `feat(scripts): add new copykit command`
 - `fix(scripts): resolve CLI path resolution issue`
 - `refactor(scripts): move CLI commands to subdirectory`
 - `docs(scripts): update CLI development guide`
@@ -102,7 +102,7 @@ Use the `scripts` scope for all CLI and development tool changes:
 - `style(scripts): format TypeScript CLI code`
 
 **When to use `scripts` scope:**
-- Changes to `webbase.ts` or CLI command files in `commands/`
+- Changes to `copykit.ts` or CLI command files in `commands/`
 - Updates to build scripts or development tools
 - CLI-related documentation in `scripts/CLAUDE.md`
 - TypeScript compilation or configuration changes
@@ -119,19 +119,19 @@ See [../CLAUDE.md](../CLAUDE.md) for complete list of valid scopes and general c
 pnpm run build:cli
 
 # 2. Test command parsing
-node scripts/webbase.js --help
-node scripts/webbase.js list
-node scripts/webbase.js info accordion
+node scripts/copykit.js --help
+node scripts/copykit.js list
+node scripts/copykit.js info accordion
 
 # 3. Test copy operations in a temporary directory
 mkdir test-cli && cd test-cli
 
 # 4. Test init command
-node ../scripts/webbase.js init
+node ../scripts/copykit.js init
 ls -la stubs/  # Should show _base/ directory
 
 # 5. Test add command
-node ../scripts/webbase.js add accordion
+node ../scripts/copykit.js add accordion
 ls -la stubs/  # Should show _base/ and accordion/
 
 # 6. Clean up
@@ -139,12 +139,12 @@ cd .. && rm -rf test-cli
 ```
 
 ### Validation Checklist
-- [ ] `webbase --help` shows proper help text
-- [ ] `webbase list` displays all available copy-points with basic information
-- [ ] `webbase info <name>` shows detailed copy-point information
-- [ ] `webbase info nonexistent` shows helpful error with available options
-- [ ] `webbase init` copies _base copy-point successfully
-- [ ] `webbase add <name>` copies specific copy-point
+- [ ] `copykit --help` shows proper help text
+- [ ] `copykit list` displays all available copy-points with basic information
+- [ ] `copykit info <name>` shows detailed copy-point information
+- [ ] `copykit info nonexistent` shows helpful error with available options
+- [ ] `copykit init` copies _base copy-point successfully
+- [ ] `copykit add <name>` copies specific copy-point
 - [ ] File operations work with proper validation
 - [ ] Error messages are clear and helpful
 - [ ] CLI works from any directory (path resolution)
@@ -179,14 +179,14 @@ The CLI now uses a dynamic metadata loading system for rich copy point informati
   "version": "1.0.0",
   "features": ["ARIA compliant accessibility", "Keyboard navigation support"],
   "dependencies": [],
-  "author": "WebBase",
+  "author": "CopyKit",
   "keywords": ["accordion", "component", "accessible"]
 }
 ```
 
 **Command Behavior**:
-- `webbase list` - Shows name, title, and description only (clean overview)
-- `webbase info <name>` - Shows complete metadata including features, dependencies, version, etc.
+- `copykit list` - Shows name, title, and description only (clean overview)
+- `copykit info <name>` - Shows complete metadata including features, dependencies, version, etc.
 
 **Implementation**:
 - `utils.ts` - `loadCopyPointMetadata()` function reads JSON files
@@ -212,16 +212,16 @@ The CLI now uses a dynamic metadata loading system for rich copy point informati
 ```json
 {
   "bin": {
-    "webbase": "scripts/webbase.js"
+    "copykit": "scripts/copykit.js"
   },
   "scripts": {
-    "build:cli": "tsc scripts/webbase.ts scripts/commands/*.ts --outDir scripts --target es2020 --module node16 --moduleResolution node16 --esModuleInterop"
+    "build:cli": "tsc scripts/copykit.ts scripts/commands/*.ts --outDir scripts --target es2020 --module node16 --moduleResolution node16 --esModuleInterop"
   }
 }
 ```
 
 ### Build Output
-- TypeScript compiles to `scripts/webbase.js` (main executable)
+- TypeScript compiles to `scripts/copykit.js` (main executable)
 - Command modules compile to `scripts/commands/*.js`
 - All `.js` files are ignored by git but included in npm package
 - Main executable has `#!/usr/bin/env node` shebang
@@ -230,10 +230,10 @@ The CLI now uses a dynamic metadata loading system for rich copy point informati
 Users can install via:
 ```bash
 # Global installation
-npm install -g gherrink-web-base
+npm install -g copykit
 
 # Or use without installation
-npx gherrink-web-base <command>
+npx copykit <command>
 ```
 
 ## TypeScript Configuration
@@ -262,7 +262,7 @@ export function myFunction() { }
 
 ### Files Ignored
 All compiled JavaScript files are ignored by:
-- **Git** (`.gitignore`): `scripts/webbase.js`, `scripts/commands/*.js`
+- **Git** (`.gitignore`): `scripts/copykit.js`, `scripts/commands/*.js`
 - **ESLint** (`.eslintignore`): Same pattern
 - **Prettier** (`.prettierignore`): Same pattern
 
@@ -288,7 +288,7 @@ All compiled JavaScript files are ignored by:
 
 **CLI not working after changes:**
 - Run `pnpm run build:cli` after editing TypeScript
-- Check file permissions on `scripts/webbase.js`
+- Check file permissions on `scripts/copykit.js`
 - Verify shebang line is present in compiled file
 
 **Path resolution issues:**
@@ -303,7 +303,7 @@ console.log('Script path:', scriptPath)
 console.log('Source stubs path:', getSourceStubsPath())
 
 # Test CLI from different directories
-cd /tmp && node /path/to/project/scripts/webbase.js list
+cd /tmp && node /path/to/project/scripts/copykit.js list
 ```
 
 ## Adding New Commands
@@ -332,7 +332,7 @@ export interface NewCommandOptions {
 
 ### 3. Update Main CLI
 ```typescript
-// webbase.ts
+// copykit.ts
 import { executeNewCommand, showNewCommandHelp } from './commands/new-command.js'
 
 // Add case to switch statement
@@ -347,8 +347,8 @@ case 'new-command': {
 registry.registerCommand({
   name: 'new-command',
   description: 'Description of new command',
-  usage: 'webbase new-command [options]',
-  examples: ['webbase new-command'],
+  usage: 'copykit new-command [options]',
+  examples: ['copykit new-command'],
   options: [{ flag: '--help', description: 'Show help' }],
   executeFunction: executeNewCommand,
   showHelpFunction: showNewCommandHelp,
@@ -358,7 +358,7 @@ registry.registerCommand({
 ### 5. Build & Test
 ```bash
 pnpm run build:cli
-node scripts/webbase.js new-command --help
+node scripts/copykit.js new-command --help
 ```
 
 ## Code Standards

@@ -11,6 +11,6 @@
     "CSS @property declarations for type-safe shadow customization"
   ],
   "dependencies": [],
-  "author": "WebBase",
+  "author": "CopyKit",
   "keywords": ["shadow", "elevation", "material", "utilities", "design-system"]
 }

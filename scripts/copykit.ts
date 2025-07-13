@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 /**
- * WebBase CLI - Main entry point
- * Provides commands to initialize and manage webbase copy-points
+ * CopyKit CLI - Main entry point
+ * Provides commands to initialize and manage copykit copy-points
  */
 
 import { resolve } from 'path'

@@ -14,6 +14,6 @@
     "Theme integration support"
   ],
   "dependencies": [],
-  "author": "WebBase",
+  "author": "CopyKit",
   "keywords": ["elevation", "material-design", "utilities", "visual", "depth", "color-mixing"]
 }

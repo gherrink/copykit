@@ -7,10 +7,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 This project maintains clear separation between different types of documentation to serve different audiences:
 
 ### README.md - User Documentation
-**Audience**: Developers who installed the WebBase CLI package and want to use copy-points in their projects
+**Audience**: Developers who installed the CopyKit CLI package and want to use copy-points in their projects
 **Content**:
 - Installation instructions (global npm install, npx usage)
-- CLI command reference with examples (`webbase init`, `webbase add`, `webbase list`, `webbase info`)
+- CLI command reference with examples (`copykit init`, `copykit add`, `copykit list`, `copykit info`)
 - Copy-point overview and available options with live demo links when example pages exist
 - Integration examples (CSS imports, JavaScript usage, HTML structure)
 - Getting started tutorials for end-users
@@ -18,13 +18,13 @@ This project maintains clear separation between different types of documentation
 - Philosophy and features from user perspective
 
 ### CONTRIBUTING.md - Developer Documentation  
-**Audience**: Developers who want to contribute to the WebBase project itself
+**Audience**: Developers who want to contribute to the CopyKit project itself
 **Content**:
 - Development workflow and contribution process
 - Code quality standards and linting requirements
 - Testing framework and naming conventions
 - Creating new copy-points (structure, metadata, validation)
-- WebBase CLI development and testing procedures
+- CopyKit CLI development and testing procedures
 - Commit message formats and scopes
 - Pull request guidelines
 - Technical implementation details for contributors
@@ -90,7 +90,7 @@ This project maintains clear separation between different types of documentation
 ### Copy Point Management
 - `pnpm run create-copy-point [name]` - Generate new copy point with proper structure and templates
 
-### WebBase CLI Development
+### CopyKit CLI Development
 - See [scripts/CLAUDE.md](scripts/CLAUDE.md) - CLI development, testing, and distribution guidance
 - `pnpm run build:cli` - Build TypeScript CLI files to JavaScript
 
@@ -126,7 +126,7 @@ Uses CSS layers for organization:
 4. **Layouts** (`04_layouts/`) - Page-level structural styles
 
 ### Colorset System
-WebBase uses a **colorset** approach for systematic color management. A colorset is a comprehensive color definition system that establishes a complete visual identity for UI components or sections, providing all essential color variables needed for consistent theming across your entire application.
+CopyKit uses a **colorset** approach for systematic color management. A colorset is a comprehensive color definition system that establishes a complete visual identity for UI components or sections, providing all essential color variables needed for consistent theming across your entire application.
 
 **Colorset Variables** (defined in `stubs/_base/styles/01_defaults/variables.css`):
 
@@ -267,13 +267,13 @@ Short description of the copy-point's purpose and functionality.
 - **Feature 2** - Description of key feature
 - **Feature 3** - Description of key feature
 
-> **🌐 [Live Demo](https://gherrink.github.io/webbase/copy-point-name.html)** | **📖 [View complete copy-point-name documentation](stubs/copy-point-name/README.md)**
+> **🌐 [Live Demo](https://gherrink.github.io/copykit/copy-point-name.html)** | **📖 [View complete copy-point-name documentation](stubs/copy-point-name/README.md)**
 ```
 
 **Live Demo Link Requirements:**
 - **Only add live demo links** if `/pages/[copy-point-name]/` directory exists with `index.html`
-- **Use flattened HTML structure**: `https://gherrink.github.io/webbase/[copy-point-name].html`
-- **NOT directory structure**: `https://gherrink.github.io/webbase/[copy-point-name]/`
+- **Use flattened HTML structure**: `https://gherrink.github.io/copykit/[copy-point-name].html`
+- **NOT directory structure**: `https://gherrink.github.io/copykit/[copy-point-name]/`
 - **Format**: `🌐 [Live Demo](url) | 📖 [View complete documentation](readme)`
 - **No live demo**: Just use `📖 [View complete copy-point-name documentation](stubs/copy-point-name/README.md)`
 
@@ -308,7 +308,7 @@ git commit -m "fix(stub:animations): resolve transition timing issue"
 git commit -m "style(stub:base): format CSS utility classes"
 
 # CLI and development scripts
-git commit -m "feat(scripts): add webbase CLI with init and add commands"
+git commit -m "feat(scripts): add copykit CLI with init and add commands"
 git commit -m "fix(scripts): resolve TypeScript type errors in CLI"
 git commit -m "refactor(scripts): restructure CLI command modules"
 

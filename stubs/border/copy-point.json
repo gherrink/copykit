@@ -11,6 +11,6 @@
     "Flexible color system using RGB custom properties"
   ],
   "dependencies": [],
-  "author": "WebBase",
+  "author": "CopyKit",
   "keywords": ["border", "utilities", "css", "styling", "directional"]
 }

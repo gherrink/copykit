@@ -1,5 +1,5 @@
 /**
- * Info command for webbase CLI
+ * Info command for copykit CLI
  * Shows detailed information about a specific copy-point
  */
 
@@ -77,7 +77,7 @@ export async function executeInfo(options: InfoOptions): Promise<boolean> {
 
     console.log('')
     console.log('To add this copy-point to your project:')
-    console.log(`  webbase add ${copyPoint.name}`)
+    console.log(`  copykit add ${copyPoint.name}`)
     console.log('')
 
     return true
@@ -93,7 +93,7 @@ export async function executeInfo(options: InfoOptions): Promise<boolean> {
  * Show help for the info command
  */
 export function showInfoHelp(): void {
-  console.log('Usage: webbase info <copy-point-name>')
+  console.log('Usage: copykit info <copy-point-name>')
   console.log('')
   console.log('Show detailed information about a specific copy-point including features,')
   console.log('dependencies, and other metadata.')
@@ -102,6 +102,6 @@ export function showInfoHelp(): void {
   console.log('  copy-point-name   Name of the copy-point to show information for')
   console.log('')
   console.log('Examples:')
-  console.log('  webbase info accordion')
-  console.log('  webbase info elevate')
+  console.log('  copykit info accordion')
+  console.log('  copykit info elevate')
 }

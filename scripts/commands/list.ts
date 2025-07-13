@@ -1,5 +1,5 @@
 /**
- * List command for webbase CLI
+ * List command for copykit CLI
  * Lists all available copy-points with their features and dependencies
  */
 
@@ -26,7 +26,7 @@ export async function executeList(): Promise<boolean> {
     })
 
     console.log('For detailed information about a copy-point:')
-    console.log('  webbase info <copy-point-name>')
+    console.log('  copykit info <copy-point-name>')
     console.log('')
 
     return true

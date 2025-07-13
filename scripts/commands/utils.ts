@@ -1,5 +1,5 @@
 /**
- * Shared utilities for the webbase CLI
+ * Shared utilities for the copykit CLI
  */
 
 import { readdir, stat, access, mkdir, copyFile, readFile } from 'fs/promises'
@@ -123,7 +123,7 @@ async function analyzeCopyPoint(name: string, path: string): Promise<CopyPointIn
 }
 
 /**
- * Validate target directory for webbase operations
+ * Validate target directory for copykit operations
  */
 export async function validateTargetDirectory(targetPath: string): Promise<ValidationResult> {
   const errors: string[] = []

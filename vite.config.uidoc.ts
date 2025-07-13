@@ -39,10 +39,10 @@ export default defineConfig(async ({ command }) => {
         ],
         settings: {
           generate: {
-            logo: () => 'WebBase',
+            logo: () => 'CopyKit',
           },
           texts: {
-            title: 'WebBase',
+            title: 'CopyKit',
           },
         },
         assets: {

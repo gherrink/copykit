@@ -1,5 +1,5 @@
 /**
- * Initialize command for webbase CLI
+ * Initialize command for copykit CLI
  * Copies the _base copy-point to target directory
  */
 
@@ -20,7 +20,7 @@ import {
 export async function executeInit(options: InitOptions): Promise<boolean> {
   const { targetPath, overwrite = false, skipTests = false } = options
 
-  logInfo(`Initializing webbase in: ${targetPath}`)
+  logInfo(`Initializing copykit in: ${targetPath}`)
 
   try {
     // Validate target directory
@@ -58,7 +58,7 @@ export async function executeInit(options: InitOptions): Promise<boolean> {
     }
 
     // Show copy results
-    logSuccess('Successfully initialized webbase!')
+    logSuccess('Successfully initialized copykit!')
     logInfo(`Copied ${result.operations.length} files`)
 
     if (result.warnings.length > 0) {
@@ -76,8 +76,8 @@ export async function executeInit(options: InitOptions): Promise<boolean> {
     console.log('     import { selectParent } from "./scripts/utilities/select.js"')
     console.log('')
     console.log('  3. Add additional copy-points:')
-    console.log('     webbase add accordion')
-    console.log('     webbase add elevate')
+    console.log('     copykit add accordion')
+    console.log('     copykit add elevate')
     console.log('')
 
     return true
@@ -91,9 +91,9 @@ export async function executeInit(options: InitOptions): Promise<boolean> {
  * Show help for init command
  */
 export function showInitHelp(): void {
-  console.log('Usage: webbase init [options]')
+  console.log('Usage: copykit init [options]')
   console.log('')
-  console.log('Initialize a new webbase project by copying the _base copy-point')
+  console.log('Initialize a new copykit project by copying the _base copy-point')
   console.log('Files will be copied to scripts/ and styles/ directories in the current directory.')
   console.log('')
   console.log('Options:')
@@ -102,7 +102,7 @@ export function showInitHelp(): void {
   console.log('  --help          Show this help message')
   console.log('')
   console.log('Examples:')
-  console.log('  webbase init')
-  console.log('  webbase init --overwrite')
-  console.log('  webbase init --skip-tests')
+  console.log('  copykit init')
+  console.log('  copykit init --overwrite')
+  console.log('  copykit init --skip-tests')
 }

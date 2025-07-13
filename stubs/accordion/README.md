@@ -8,7 +8,7 @@ The accordion copy-point provides a fully-featured accordion component with soph
 
 ## Live Example
 
-**[🌐 View Live Example](https://gherrink.github.io/webbase/accordion.html)** - See this copy point in action with interactive demonstrations.
+**[🌐 View Live Example](https://gherrink.github.io/copykit/accordion.html)** - See this copy point in action with interactive demonstrations.
 
 ## Features
 
@@ -134,9 +134,9 @@ Key CSS classes and their purposes:
 
 ### Installation
 
-Use the WebBase CLI:
+Use the CopyKit CLI:
 ```bash
-webbase add accordion
+copykit add accordion
 ```
 
 Or copy manually:

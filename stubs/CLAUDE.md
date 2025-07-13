@@ -1,6 +1,6 @@
 # Copy-Point Development Guide
 
-This file provides guidance for working with copy-points in the WebBase project.
+This file provides guidance for working with copy-points in the CopyKit project.
 
 ## What Are Copy-Points?
 
@@ -58,11 +58,11 @@ Each copy-point's `README.md` serves as **user documentation** for developers wh
 - **Browser Support** - Compatibility requirements
 - **Best Practices** - Recommended usage patterns
 
-**Audience:** End-users of the WebBase CLI who want to understand how to use the copy-point in their projects.
+**Audience:** End-users of the CopyKit CLI who want to understand how to use the copy-point in their projects.
 
 ## copy-point.json Purpose
 
-The `copy-point.json` file provides structured metadata for the WebBase CLI and development tools.
+The `copy-point.json` file provides structured metadata for the CopyKit CLI and development tools.
 
 **Schema:**
 ```json
@@ -77,14 +77,14 @@ The `copy-point.json` file provides structured metadata for the WebBase CLI and 
     "Technical capabilities"
   ],
   "dependencies": [],  // Only list additional copy-points beyond _base
-  "author": "WebBase",
+  "author": "CopyKit",
   "keywords": ["relevant", "search", "terms"]
 }
 ```
 
 **CLI Integration:**
-- `webbase list` - Shows name, title, and description
-- `webbase info <name>` - Shows complete metadata
+- `copykit list` - Shows name, title, and description
+- `copykit info <name>` - Shows complete metadata
 - Automatic discovery and loading by CLI tools
 - Graceful fallback when metadata files are missing
 
@@ -234,19 +234,19 @@ When developing copy-points, always use the colorset system for colors:
 ```markdown
 ## Live Example
 
-**[🌐 View Live Example](https://gherrink.github.io/webbase/[copy-point-name].html)** - See this copy point in action with interactive demonstrations.
+**[🌐 View Live Example](https://gherrink.github.io/copykit/[copy-point-name].html)** - See this copy point in action with interactive demonstrations.
 ```
 
 **GitHub Pages URL Structure:**
-- Use flattened HTML structure: `https://gherrink.github.io/webbase/[copy-point-name].html`
-- NOT directory structure: `https://gherrink.github.io/webbase/[copy-point-name]/`
-- Example: `accordion` copy point → `https://gherrink.github.io/webbase/accordion.html`
+- Use flattened HTML structure: `https://gherrink.github.io/copykit/[copy-point-name].html`
+- NOT directory structure: `https://gherrink.github.io/copykit/[copy-point-name]/`
+- Example: `accordion` copy point → `https://gherrink.github.io/copykit/accordion.html`
 
 **Examples of Copy Points with Live Demos:**
-- `accordion/` → `https://gherrink.github.io/webbase/accordion.html`
-- `border/` → `https://gherrink.github.io/webbase/border.html`
-- `rounded-simple/` → `https://gherrink.github.io/webbase/rounded-simple.html`
-- `shadow/` → `https://gherrink.github.io/webbase/shadow.html`
+- `accordion/` → `https://gherrink.github.io/copykit/accordion.html`
+- `border/` → `https://gherrink.github.io/copykit/border.html`
+- `rounded-simple/` → `https://gherrink.github.io/copykit/rounded-simple.html`
+- `shadow/` → `https://gherrink.github.io/copykit/shadow.html`
 
 ## Copy-Point Dependencies
 

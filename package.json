@@ -1,16 +1,16 @@
 {
-  "name": "webbase",
+  "name": "copykit",
   "version": "0.0.1",
-  "description": "A flexible web component and utility library with CLI tools for rapid development",
+  "description": "A flexible web component and utility library with CLI tools for rapid development using copy-and-customize approach",
   "type": "module",
-  "main": "scripts/webbase.js",
+  "main": "scripts/copykit.js",
   "bin": {
-    "webbase": "scripts/webbase.js"
+    "copykit": "scripts/copykit.js"
   },
   "files": [
     "LICENSE.md",
     "scripts/commands/*.js",
-    "scripts/webbase.js",
+    "scripts/copykit.js",
     "!stubs/**/CLAUDE.md",
     "stubs/*/copy-point.json",
     "stubs/*/README.md",
@@ -19,7 +19,7 @@
     "README.md"
   ],
   "keywords": [
-    "webbase",
+    "copykit",
     "cli",
     "components",
     "utilities",
@@ -27,17 +27,18 @@
     "typescript",
     "web-development",
     "copy-points",
-    "accessibility"
+    "accessibility",
+    "copy-and-customize"
   ],
-  "author": "WebBase",
+  "author": "CopyKit",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/gherrink/webbase.git"
+    "url": "https://github.com/gherrink/copykit.git"
   },
-  "homepage": "https://gherrink.github.io/webbase/",
+  "homepage": "https://gherrink.github.io/copykit/",
   "bugs": {
-    "url": "https://github.com/gherrink/webbase/issues"
+    "url": "https://github.com/gherrink/copykit/issues"
   },
   "scripts": {
     "build": "pnpm build:pages && pnpm build:uidoc",

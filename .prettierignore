@@ -7,5 +7,5 @@ coverage/
 public/
 LICENSE.md
 pnpm-lock.yaml
-scripts/webbase.js
+scripts/copykit.js
 scripts/commands/*.js

@@ -8,7 +8,7 @@ The border copy-point provides a complete set of utility classes for applying bo
 
 ## Live Example
 
-**[🌐 View Live Example](https://gherrink.github.io/webbase/border.html)** - See this copy point in action with interactive demonstrations.
+**[🌐 View Live Example](https://gherrink.github.io/copykit/border.html)** - See this copy point in action with interactive demonstrations.
 
 ## Features
 
@@ -111,9 +111,9 @@ Each border direction has its own set of custom properties:
 
 ### Installation
 
-Use the WebBase CLI:
+Use the CopyKit CLI:
 ```bash
-webbase add border
+copykit add border
 ```
 
 Or copy manually:
@@ -341,4 +341,4 @@ Check computed styles in DevTools to verify custom property values:
 - [CSS Custom Properties Guide](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)
 - [CSS Border Property Reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border)
 - [CSS @property Specification](https://developer.mozilla.org/en-US/docs/Web/CSS/@property)
-- [WebBase CLI Documentation](../../../README.md)
+- [CopyKit CLI Documentation](../../../README.md)

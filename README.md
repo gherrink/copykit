@@ -1,15 +1,15 @@
-# WebBase
+# CopyKit
 
-A foundational collection of scripts, styles, and components designed to be copied into your projects. WebBase provides essential building blocks that you can customize and modify completely according to your project's specific requirements.
+A foundational collection of scripts, styles, and components designed to be copied into your projects. CopyKit provides essential building blocks that you can customize and modify completely according to your project's specific requirements.
 
 ## Overview
 
-WebBase is a **copy-and-customize** component library that provides a starting point for web projects. Unlike traditional frameworks or libraries, WebBase components are meant to be copied directly into your project where you have full control to modify, extend, or adapt them to your specific needs. Once copied, the code becomes entirely yours to customize.
+CopyKit is a **copy-and-customize** component library that provides a starting point for web projects. Unlike traditional frameworks or libraries, CopyKit components are meant to be copied directly into your project where you have full control to modify, extend, or adapt them to your specific needs. Once copied, the code becomes entirely yours to customize.
 
 > **🌐 Live Demo & Documentation**
 > 
-> - **[📱 Example Pages](https://gherrink.github.io/webbase/)** - See all components in action with interactive examples
-> - **[📚 Complete UI Documentation](https://gherrink.github.io/webbase/ui-doc/)** - Comprehensive component documentation and usage guides
+> - **[📱 Example Pages](https://gherrink.github.io/copykit/)** - See all components in action with interactive examples
+> - **[📚 Complete UI Documentation](https://gherrink.github.io/copykit/ui-doc/)** - Comprehensive component documentation and usage guides
 
 ## Features
 
@@ -68,78 +68,78 @@ The repository contains multiple copy points, each with a consistent structure f
 
 ## Getting Started
 
-### WebBase CLI (Recommended)
+### CopyKit CLI (Recommended)
 
-The easiest way to use WebBase is through the CLI tool, which automatically copies copy-points into your project with proper structure and integration.
+The easiest way to use CopyKit is through the CLI tool, which automatically copies copy-points into your project with proper structure and integration.
 
 #### Installation
 
 **Option A: Install globally**
 ```bash
-npm install -g gherrink-web-base
+npm install -g copykit
 # or
-pnpm add -g gherrink-web-base
+pnpm add -g copykit
 # or
-yarn global add gherrink-web-base
+yarn global add copykit
 ```
 
 **Option B: Use npx (no installation needed)**
 ```bash
-npx gherrink-web-base <command>
+npx copykit <command>
 ```
 
 #### Quick Start
 
 ```bash
 # 1. Initialize your project with the base copy-point
-webbase init
+copykit init
 
 # 2. Add additional copy-points as needed
-webbase add accordion
-webbase add elevate
+copykit add accordion
+copykit add elevate
 
 # 3. List available copy-points
-webbase list
+copykit list
 
 # 4. Get detailed information about a copy-point
-webbase info accordion
+copykit info accordion
 ```
 
 #### CLI Commands
 
-**`webbase init`** - Initialize project with \_base copy-point
+**`copykit init`** - Initialize project with \_base copy-point
 ```bash
-webbase init                   # Initialize in current directory
-webbase init --overwrite       # Overwrite existing files
-webbase init --skip-tests      # Skip copying test files
-webbase init --help            # Show help for init command
+copykit init                   # Initialize in current directory
+copykit init --overwrite       # Overwrite existing files
+copykit init --skip-tests      # Skip copying test files
+copykit init --help            # Show help for init command
 ```
 
-**`webbase add <copy-point>`** - Add specific copy-point
+**`copykit add <copy-point>`** - Add specific copy-point
 ```bash
-webbase add accordion              # Add accordion copy-point
-webbase add elevate                # Add elevate copy-point
-webbase add accordion --overwrite  # Overwrite existing files
-webbase add accordion --skip-tests # Skip copying test files
-webbase add --help                 # Show help for add command
+copykit add accordion              # Add accordion copy-point
+copykit add elevate                # Add elevate copy-point
+copykit add accordion --overwrite  # Overwrite existing files
+copykit add accordion --skip-tests # Skip copying test files
+copykit add --help                 # Show help for add command
 ```
 
-**`webbase list`** - List available copy-points
+**`copykit list`** - List available copy-points
 ```bash
-webbase list                   # Show all available copy-points with basic info
+copykit list                   # Show all available copy-points with basic info
 ```
 
-**`webbase info <copy-point>`** - Show detailed copy-point information
+**`copykit info <copy-point>`** - Show detailed copy-point information
 ```bash
-webbase info accordion        # Show detailed info about accordion copy-point
-webbase info _base           # Show detailed info about base copy-point
-webbase info elevate         # Show detailed info about elevate copy-point
+copykit info accordion        # Show detailed info about accordion copy-point
+copykit info _base           # Show detailed info about base copy-point
+copykit info elevate         # Show detailed info about elevate copy-point
 ```
 
-**`webbase help`** - Show general help
+**`copykit help`** - Show general help
 ```bash
-webbase --help                 # Show main help
-webbase <command> --help       # Show command-specific help
+copykit --help                 # Show main help
+copykit <command> --help       # Show command-specific help
 ```
 
 #### Integration After CLI Usage
@@ -183,13 +183,13 @@ const accordion = new Accordion()
 
 If you prefer manual control, you can copy files directly:
 
-#### Using WebBase Copy Points
+#### Using CopyKit Copy Points
 
-WebBase is designed as a **copy-and-customize** library organized in copy points. Here's how to use it:
+CopyKit is designed as a **copy-and-customize** library organized in copy points. Here's how to use it:
 
 #### 1. Browse Copy Points
-- **[🌐 Live Example Pages](https://gherrink.github.io/webbase/)** - See components in action with interactive demos
-- **[📚 Complete UI Documentation](https://gherrink.github.io/webbase/ui-doc/)** - Explore detailed component documentation and usage guides
+- **[🌐 Live Example Pages](https://gherrink.github.io/copykit/)** - See components in action with interactive demos
+- **[📚 Complete UI Documentation](https://gherrink.github.io/copykit/ui-doc/)** - Explore detailed component documentation and usage guides
 - Clone or download this repository to explore available copy points locally
 - Browse the `stubs/` directory to explore different copy points
 - Each copy point has the same structure, making integration predictable
@@ -239,14 +239,14 @@ Once copied, the code is entirely yours:
 - Remove features you don't need
 - Add new functionality
 
-### For WebBase Development
+### For CopyKit Development
 
-If you want to contribute to WebBase or run the development environment:
+If you want to contribute to CopyKit or run the development environment:
 
 ```bash
 # Prerequisites: Node.js (v18+) and pnpm
 git clone [repository-url]
-cd gherrink-web-base
+cd copykit
 pnpm install
 pnpm run dev  # Start development server
 ```
@@ -268,7 +268,7 @@ pnpm run security    # Run security audit
 
 ## Colorset System
 
-WebBase uses a **colorset** approach for systematic color management. A colorset is a comprehensive collection of coordinated colors that establishes a complete visual identity for UI components or sections.
+CopyKit uses a **colorset** approach for systematic color management. A colorset is a comprehensive collection of coordinated colors that establishes a complete visual identity for UI components or sections.
 
 ### What is a Colorset?
 
@@ -290,7 +290,7 @@ By using colorsets, you ensure that all related colors work harmoniously togethe
 
 ## Available Copy Points
 
-Use `webbase list` to see all available copy-points with basic information, or `webbase info <copy-point>` for detailed information. You can also explore the **[📚 Complete UI Documentation](https://gherrink.github.io/webbase/ui-doc/)** for interactive component examples and detailed usage guides.
+Use `copykit list` to see all available copy-points with basic information, or `copykit info <copy-point>` for detailed information. You can also explore the **[📚 Complete UI Documentation](https://gherrink.github.io/copykit/ui-doc/)** for interactive component examples and detailed usage guides.
 
 Available copy-points:
 
@@ -313,7 +313,7 @@ Advanced accordion/collapsible component with full ARIA support and keyboard nav
 - **Animation support** with configurable timing
 - **Multiple instances** support
 
-> **🌐 [Live Demo](https://gherrink.github.io/webbase/accordion.html)** | **📖 [View complete accordion documentation](stubs/accordion/README.md)**
+> **🌐 [Live Demo](https://gherrink.github.io/copykit/accordion.html)** | **📖 [View complete accordion documentation](stubs/accordion/README.md)**
 
 #### [`elevate/`](stubs/elevate/README.md) - Visual Enhancement Utilities
 Utility classes for adding visual depth and elevation to components using advanced CSS color-mixing.
@@ -333,7 +333,7 @@ Flexible border utility system with directional controls and CSS custom properti
 - **CSS Custom Properties** - Flexible customization through CSS variables
 - **Predefined Styles** - Quick style application with solid, dashed, dotted, and none classes
 
-> **🌐 [Live Demo](https://gherrink.github.io/webbase/border.html)** | **📖 [View complete border documentation](stubs/border/README.md)**
+> **🌐 [Live Demo](https://gherrink.github.io/copykit/border.html)** | **📖 [View complete border documentation](stubs/border/README.md)**
 
 #### [`rounded-simple/`](stubs/rounded-simple/README.md) - Border Radius Utilities
 Simple and flexible border radius utilities for creating rounded corners on any element.
@@ -343,7 +343,7 @@ Simple and flexible border radius utilities for creating rounded corners on any 
 - **Utility classes** for common rounding patterns
 - **Full circle and pill shapes** support
 
-> **🌐 [Live Demo](https://gherrink.github.io/webbase/rounded-simple.html)** | **📖 [View complete rounded-simple documentation](stubs/rounded-simple/README.md)**
+> **🌐 [Live Demo](https://gherrink.github.io/copykit/rounded-simple.html)** | **📖 [View complete rounded-simple documentation](stubs/rounded-simple/README.md)**
 
 #### [`shadow/`](stubs/shadow/README.md) - Material Design Shadow System
 Material Design-inspired shadow utilities with 24 elevation levels and scientifically-accurate calculations.
@@ -353,7 +353,7 @@ Material Design-inspired shadow utilities with 24 elevation levels and scientifi
 - **Customizable Shadow Colors** - Full control over shadow color and opacity
 - **Material Design Compliance** - Shadow calculations match Material Design guidelines
 
-> **🌐 [Live Demo](https://gherrink.github.io/webbase/shadow.html)** | **📖 [View complete shadow documentation](stubs/shadow/README.md)**
+> **🌐 [Live Demo](https://gherrink.github.io/copykit/shadow.html)** | **📖 [View complete shadow documentation](stubs/shadow/README.md)**
 
 ### Future Copy Points
 Additional copy points will follow the same structure:
@@ -446,4 +446,4 @@ See [CHANGELOG.md](CHANGELOG.md) for a list of changes and version history.
 
 ---
 
-**WebBase** - Building the web, one component at a time.
+**CopyKit** - Building the web, one component at a time.

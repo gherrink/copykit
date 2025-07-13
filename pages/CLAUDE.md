@@ -1,6 +1,6 @@
 # CLAUDE.md - Pages Directory
 
-This file provides guidance for creating new page examples in the WebBase project.
+This file provides guidance for creating new page examples in the CopyKit project.
 
 ## Page Creation Process
 
@@ -40,7 +40,7 @@ const pages = import.meta.glob('/[a-z0-9][a-z0-9-_]*/index.html')
     <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
     <link rel="shortcut icon" href="../favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>[Page Title] | WebBase</title>
+    <title>[Page Title] | CopyKit</title>
     <link rel="stylesheet" href="../style.css" />
     <!-- Optional: Custom styles -->
     <link rel="stylesheet" href="./style.css" />
@@ -75,7 +75,7 @@ const pages = import.meta.glob('/[a-z0-9][a-z0-9-_]*/index.html')
 
 #### 2. **Consistent Title Format**
 ```html
-<title>[Page Name] | WebBase</title>
+<title>[Page Name] | CopyKit</title>
 ```
 
 #### 3. **Base CSS Import**
@@ -286,7 +286,7 @@ Use CSS variables to customize spacing:
 
 ### Colorset System
 
-WebBase uses a comprehensive **colorset** approach for systematic color management. A colorset provides all essential color variables needed for consistent theming across your entire application.
+CopyKit uses a comprehensive **colorset** approach for systematic color management. A colorset provides all essential color variables needed for consistent theming across your entire application.
 
 #### Colorset Variables
 Every colorset defines these variables:
@@ -646,4 +646,4 @@ console.log(example)</code></pre>
 - [Base Styles Documentation](../stubs/_base/README.md)
 - [CSS Layer Architecture](../stubs/CLAUDE.md)
 - [Component Examples](../stubs/accordion/README.md)
-- [WebBase Documentation](../README.md)
+- [CopyKit Documentation](../README.md)

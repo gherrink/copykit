@@ -1,5 +1,5 @@
 /**
- * Add command for webbase CLI
+ * Add command for copykit CLI
  * Adds a specific copy-point to existing project
  */
 
@@ -36,7 +36,7 @@ export async function executeAdd(options: AddOptions): Promise<boolean> {
 
     // Check if _base exists (required for all other copy-points)
     if (copyPointName !== '_base' && !(await copyPointExists(targetPath, '_base'))) {
-      logError('_base copy-point is required. Run "webbase init" first.')
+      logError('_base copy-point is required. Run "copykit init" first.')
       return false
     }
 
@@ -127,9 +127,9 @@ export async function executeAdd(options: AddOptions): Promise<boolean> {
  * Show help for add command
  */
 export function showAddHelp(): void {
-  console.log('Usage: webbase add <copy-point-name> [options]')
+  console.log('Usage: copykit add <copy-point-name> [options]')
   console.log('')
-  console.log('Add a copy-point to an existing webbase project')
+  console.log('Add a copy-point to an existing copykit project')
   console.log('Files will be copied to scripts/ and styles/ directories in the current directory.')
   console.log('')
   console.log('Arguments:')
@@ -141,7 +141,7 @@ export function showAddHelp(): void {
   console.log('  --help          Show this help message')
   console.log('')
   console.log('Examples:')
-  console.log('  webbase add accordion')
-  console.log('  webbase add elevate --overwrite')
-  console.log('  webbase add accordion --skip-tests')
+  console.log('  copykit add accordion')
+  console.log('  copykit add elevate --overwrite')
+  console.log('  copykit add accordion --skip-tests')
 }

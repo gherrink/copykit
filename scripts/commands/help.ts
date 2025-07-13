@@ -1,5 +1,5 @@
 /**
- * Help command for webbase CLI
+ * Help command for copykit CLI
  * Shows general help information and command-specific help
  */
 

@@ -8,7 +8,7 @@ The Rounded Simple copy-point provides a comprehensive set of utility classes fo
 
 ## Live Example
 
-**[🌐 View Live Example](https://gherrink.github.io/webbase/rounded-simple.html)** - See this copy point in action with interactive demonstrations.
+**[🌐 View Live Example](https://gherrink.github.io/copykit/rounded-simple.html)** - See this copy point in action with interactive demonstrations.
 
 ## Features
 
@@ -98,9 +98,9 @@ Key CSS classes and their purposes:
 
 ### Installation
 
-Use the WebBase CLI:
+Use the CopyKit CLI:
 ```bash
-webbase add rounded-simple
+copykit add rounded-simple
 ```
 
 Or copy manually:
@@ -280,4 +280,4 @@ cp -r stubs/rounded-simple/ your-project/src/
 - [CSS Border Radius Documentation](https://developer.mozilla.org/en-US/docs/Web/CSS/border-radius)
 - [CSS Custom Properties Guide](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)
 - [CSS @property Documentation](https://developer.mozilla.org/en-US/docs/Web/CSS/@property)
-- [WebBase CLI Documentation](https://your-docs-url.com)
+- [CopyKit CLI Documentation](https://your-docs-url.com)

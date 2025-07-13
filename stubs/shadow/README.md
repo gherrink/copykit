@@ -8,7 +8,7 @@ The shadow copy-point provides a comprehensive shadow system based on Material D
 
 ## Live Example
 
-**[🌐 View Live Example](https://gherrink.github.io/webbase/shadow.html)** - See this copy point in action with interactive demonstrations.
+**[🌐 View Live Example](https://gherrink.github.io/copykit/shadow.html)** - See this copy point in action with interactive demonstrations.
 
 ## Features
 
@@ -97,9 +97,9 @@ Each layer has precise calculations for offset, blur, and spread based on Materi
 
 ### Installation
 
-Use the WebBase CLI:
+Use the CopyKit CLI:
 ```bash
-webbase add shadow
+copykit add shadow
 ```
 
 Or copy manually:

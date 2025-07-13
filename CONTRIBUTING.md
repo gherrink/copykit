@@ -1,4 +1,4 @@
-# Contributing to WebBase
+# Contributing to CopyKit
 
 We welcome contributions! Please follow these guidelines to ensure a smooth collaboration process.
 
@@ -27,7 +27,7 @@ This project uses [Conventional Commits](https://www.conventionalcommits.org/) w
 git commit -m "feat(pages): add new themed page template"
 git commit -m "fix(stub:base): resolve expand animation timing issue"
 git commit -m "feat(stub:advanced): add new advanced button variants"
-git commit -m "feat(scripts): add webbase CLI for copy-point distribution"
+git commit -m "feat(scripts): add copykit CLI for copy-point distribution"
 git commit -m "feat(scripts): add info command for detailed copy-point information"
 git commit -m "fix(scripts): resolve CLI TypeScript compilation errors"
 git commit -m "docs(scripts): add CLI development and testing guide"
@@ -263,7 +263,7 @@ CSS documentation should only be added where it provides meaningful value for co
 
 ## Creating New Copy Points
 
-WebBase is organized around copy points that users can copy into their projects. Here's how to create a new copy point:
+CopyKit is organized around copy points that users can copy into their projects. Here's how to create a new copy point:
 
 ### Copy Point Structure
 
@@ -316,7 +316,7 @@ stubs/
 
 ### Copy Point Metadata System
 
-Each copy point requires a `copy-point.json` file that provides structured metadata for the WebBase CLI and other tools. This enables dynamic discovery and rich information display.
+Each copy point requires a `copy-point.json` file that provides structured metadata for the CopyKit CLI and other tools. This enables dynamic discovery and rich information display.
 
 **Required Metadata Schema**:
 ```json
@@ -331,14 +331,14 @@ Each copy point requires a `copy-point.json` file that provides structured metad
     "Technical capabilities"
   ],
   "dependencies": [],
-  "author": "WebBase",
+  "author": "CopyKit",
   "keywords": ["relevant", "search", "terms"]
 }
 ```
 
 **CLI Integration**:
-- `webbase list` - Shows name, title, and description for quick overview
-- `webbase info <name>` - Shows complete metadata including features, version, keywords
+- `copykit list` - Shows name, title, and description for quick overview
+- `copykit info <name>` - Shows complete metadata including features, version, keywords
 - Automatic discovery by CLI tools for enhanced user experience
 
 **Metadata Guidelines**:
@@ -355,29 +355,29 @@ Each copy point requires a `copy-point.json` file that provides structured metad
 - Use consistent terminology across all copy points
 - Update metadata when adding or removing features
 
-### WebBase CLI Commands
+### CopyKit CLI Commands
 
 Contributors should be familiar with the CLI commands for testing and validation:
 
 **Core Commands**:
 ```bash
-webbase list                    # List all available copy-points with basic info
-webbase info <copy-point>       # Show detailed information about a specific copy-point
-webbase init                    # Initialize project with _base copy-point
-webbase add <copy-point>        # Add specific copy-point to project
-webbase help                    # Show general help and command overview
+copykit list                    # List all available copy-points with basic info
+copykit info <copy-point>       # Show detailed information about a specific copy-point
+copykit init                    # Initialize project with _base copy-point
+copykit add <copy-point>        # Add specific copy-point to project
+copykit help                    # Show general help and command overview
 ```
 
 **Testing Copy Points**:
 ```bash
 # Test copy point discovery and metadata loading
-webbase list
-webbase info your-copy-point
+copykit list
+copykit info your-copy-point
 
 # Test copy operations in temporary directory
 mkdir test-copy-point && cd test-copy-point
-webbase init
-webbase add your-copy-point
+copykit init
+copykit add your-copy-point
 cd .. && rm -rf test-copy-point
 ```
 
@@ -433,7 +433,7 @@ The `create-copy-point` script provides several advantages:
    - Test copying the entire copy point
    - Test mixing with `_base` and other copy points
    - Verify CSS layer cascading works properly
-   - Test CLI discovery: `webbase list` and `webbase info your-copy-point`
+   - Test CLI discovery: `copykit list` and `copykit info your-copy-point`
 
 6. **Create Examples**:
    - Add demonstration pages in `pages/`
@@ -471,7 +471,7 @@ Before submitting a new copy point:
 - [ ] JavaScript follows existing patterns
 - [ ] Components are accessible (ARIA compliant)
 - [ ] JSDoc comments are complete
-- [ ] CLI discovery works: `webbase list` and `webbase info <name>` function correctly
+- [ ] CLI discovery works: `copykit list` and `copykit info <name>` function correctly
 - [ ] Integration testing completed
 - [ ] Example pages created
 - [ ] Documentation updated
@@ -494,4 +494,4 @@ If you have questions about contributing:
 2. Review the project documentation
 3. Open an issue for discussion before starting major changes
 
-Thank you for contributing to WebBase! 🎉
+Thank you for contributing to CopyKit! 🎉

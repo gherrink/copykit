@@ -6,7 +6,7 @@ import { join } from 'path'
 import { createInterface } from 'readline'
 
 /**
- * Create a new copy point with the standard WebBase structure
+ * Create a new copy point with the standard CopyKit structure
  */
 async function createCopyPoint() {
   const args = process.argv.slice(2)
@@ -305,7 +305,7 @@ function createMetadataTemplate(name) {
     "Feature 3"
   ],
   "dependencies": [],
-  "author": "WebBase",
+  "author": "CopyKit",
   "keywords": ["${name}", "component"]
 }`
 }
@@ -532,9 +532,9 @@ Key CSS classes and their purposes:
 
 ### Installation
 
-Use the WebBase CLI:
+Use the CopyKit CLI:
 \`\`\`bash
-webbase add ${name}
+copykit add ${name}
 \`\`\`
 
 Or copy manually:
@@ -737,7 +737,7 @@ ${name}.init({
 - [CSS Custom Properties Guide](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)
 - [Modern CSS Layout Techniques](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout)
 - [Web Accessibility Guidelines](https://www.w3.org/WAI/ARIA/apg/)
-- [WebBase CLI Documentation](https://your-docs-url.com)
+- [CopyKit CLI Documentation](https://your-docs-url.com)
 - [Performance Best Practices](https://web.dev/performance/)
 `
 }

@@ -91,9 +91,9 @@ The elevation effect uses sophisticated color mixing calculations:
 
 ### Installation
 
-Use the WebBase CLI:
+Use the CopyKit CLI:
 ```bash
-webbase add elevate
+copykit add elevate
 ```
 
 Or copy manually:
