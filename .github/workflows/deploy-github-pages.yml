@@ -67,7 +67,7 @@ jobs:
           cp -r dist/pages/* deployment/
           # Copy UI documentation to ui-doc subdirectory
           mkdir -p deployment/ui-doc
-          cp -r dist/ui-doc/* deployment/ui-doc/
+          cp -r dist/ui-doc/ui-doc/* deployment/ui-doc/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
