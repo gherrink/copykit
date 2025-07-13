@@ -1,6 +1,6 @@
 {
   "name": "copykit",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A flexible web component and utility library with CLI tools for rapid development using copy-and-customize approach",
   "type": "module",
   "main": "scripts/copykit.js",
