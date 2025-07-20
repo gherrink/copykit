@@ -73,6 +73,10 @@
     appearance: none;
     background: rgb(var(--control-bg-color));
     outline: none;
+
+    transition:
+      background-color var(--control-transition-time) ease,
+      color var(--control-transition-time) ease;
   }
 
   .control.py,
