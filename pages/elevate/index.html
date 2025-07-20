@@ -1,0 +1,492 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+    <link rel="shortcut icon" href="../favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Elevate Utilities | CopyKit</title>
+    <link rel="stylesheet" href="../style.css" />
+    <style>
+      .elevation-grid > * {
+        width: 4rem;
+        height: 4rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 0.875rem;
+      }
+
+      .color-demo > * {
+        width: 5rem;
+        height: 5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        text-align: center;
+        font-size: 0.875rem;
+      }
+
+      .use-case-card {
+        min-height: 6rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+
+      .boost-demo > * {
+        width: 6rem;
+        height: 6rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        text-align: center;
+        font-size: 0.875rem;
+      }
+
+      .interactive-demo {
+        transition: all 0.3s ease;
+        cursor: pointer;
+        min-height: 5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-weight: bold;
+      }
+
+      .theme-demo {
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        margin-bottom: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="wrapper width-content py bg cs-primary">
+      <nav class="flex items-center justify-between">
+        <a href="../" class="control">← Back to Pages</a>
+        <h1 class="headline no-space">Elevate Utilities</h1>
+      </nav>
+    </header>
+    <main class="wrapper width-content py" style="--py-space: var(--space-xl)">
+      <section class="mt-lg">
+        <h2 class="headline h4">Elevation Levels (0-24)</h2>
+        <p>
+          The elevate system provides 25 Material Design-inspired elevation levels using advanced
+          CSS color-mixing techniques:
+        </p>
+
+        <div
+          class="grid cols gap-md elevation-grid"
+          style="--font-color: 0 0 0; --bg-color: 255 255 255"
+        >
+          <div class="col-span-1 elevate" style="--level: 0">
+            <span>0</span>
+          </div>
+          <div class="col-span-1 elevate" style="--level: 1">
+            <span>1</span>
+          </div>
+          <div class="col-span-1 elevate" style="--level: 2">
+            <span>2</span>
+          </div>
+          <div class="col-span-1 elevate" style="--level: 3">
+            <span>3</span>
+          </div>
+          <div class="col-span-1 elevate" style="--level: 4">
+            <span>4</span>
+          </div>
+          <div class="col-span-1 elevate" style="--level: 5">
+            <span>5</span>
+          </div>
+          <div class="col-span-1 elevate" style="--level: 6">
+            <span>6</span>
+          </div>
+          <div class="col-span-1 elevate" style="--level: 7">
+            <span>7</span>
+          </div>
+          <div class="col-span-1 elevate" style="--level: 8">
+            <span>8</span>
+          </div>
+          <div class="col-span-1 elevate" style="--level: 9">
+            <span>9</span>
+          </div>
+          <div class="col-span-1 elevate" style="--level: 10">
+            <span>10</span>
+          </div>
+          <div class="col-span-1 elevate" style="--level: 11">
+            <span>11</span>
+          </div>
+          <div class="col-span-1 elevate" style="--level: 12">
+            <span>12</span>
+          </div>
+          <div class="col-span-1 elevate" style="--level: 13">
+            <span>13</span>
+          </div>
+          <div class="col-span-1 elevate" style="--level: 14">
+            <span>14</span>
+          </div>
+          <div class="col-span-1 elevate" style="--level: 15">
+            <span>15</span>
+          </div>
+          <div class="col-span-1 elevate" style="--level: 16">
+            <span>16</span>
+          </div>
+          <div class="col-span-1 elevate" style="--level: 17">
+            <span>17</span>
+          </div>
+          <div class="col-span-1 elevate" style="--level: 18">
+            <span>18</span>
+          </div>
+          <div class="col-span-1 elevate" style="--level: 19">
+            <span>19</span>
+          </div>
+          <div class="col-span-1 elevate" style="--level: 20">
+            <span>20</span>
+          </div>
+          <div class="col-span-1 elevate" style="--level: 21">
+            <span>21</span>
+          </div>
+          <div class="col-span-1 elevate" style="--level: 22">
+            <span>22</span>
+          </div>
+          <div class="col-span-1 elevate" style="--level: 23">
+            <span>23</span>
+          </div>
+          <div class="col-span-1 elevate" style="--level: 24">
+            <span>24</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="mt-lg">
+        <h2 class="headline h4">Custom Elevation Colors</h2>
+        <p>
+          Customize elevation appearance using the
+          <code>--elevate-color</code>
+          CSS custom property:
+        </p>
+
+        <div class="flex row wrap gap-lg color-demo">
+          <div
+            class="elevate"
+            style="--level: 8; --bg-color: 255 255 255; --elevate-color: 17 24 39"
+          >
+            <span>Dark Gray</span>
+          </div>
+          <div
+            class="elevate"
+            style="--level: 8; --bg-color: 255 255 255; --elevate-color: 239 68 68"
+          >
+            <span>Red</span>
+          </div>
+          <div
+            class="elevate"
+            style="--level: 8; --bg-color: 255 255 255; --elevate-color: 59 130 246"
+          >
+            <span>Blue</span>
+          </div>
+          <div
+            class="elevate"
+            style="--level: 8; --bg-color: 255 255 255; --elevate-color: 34 197 94"
+          >
+            <span>Green</span>
+          </div>
+          <div
+            class="elevate"
+            style="--level: 8; --bg-color: 255 255 255; --elevate-color: 168 85 247"
+          >
+            <span>Purple</span>
+          </div>
+          <div
+            class="elevate"
+            style="--level: 8; --bg-color: 255 255 255; --elevate-color: 245 158 11"
+          >
+            <span>Orange</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="mt-lg">
+        <h2 class="headline h4">Material Design Use Cases</h2>
+        <p>
+          Different elevation levels are appropriate for different UI components following Material
+          Design guidelines:
+        </p>
+
+        <div class="grid cols gap-lg">
+          <div class="col-span-3 elevate use-case-card" style="--level: 2; --bg-color: 255 255 255">
+            <div>
+              <h3>Card (Level 2)</h3>
+              <p>Basic cards and content surfaces</p>
+            </div>
+          </div>
+          <div class="col-span-3 elevate use-case-card" style="--level: 4; --bg-color: 255 255 255">
+            <div>
+              <h3>Button (Level 4)</h3>
+              <p>Raised buttons and interactive elements</p>
+            </div>
+          </div>
+          <div class="col-span-3 elevate use-case-card" style="--level: 8; --bg-color: 255 255 255">
+            <div>
+              <h3>Menu (Level 8)</h3>
+              <p>Dropdown menus and floating panels</p>
+            </div>
+          </div>
+          <div
+            class="col-span-3 elevate use-case-card"
+            style="--level: 16; --bg-color: 255 255 255"
+          >
+            <div>
+              <h3>Dialog (Level 16)</h3>
+              <p>Modal dialogs and important overlays</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="mt-lg">
+        <h2 class="headline h4">Elevation Boost & Advanced Features</h2>
+        <p>
+          Fine-tune elevation intensity with the
+          <code>--elevate-boost</code>
+          parameter:
+        </p>
+
+        <div class="flex row wrap gap-lg boost-demo">
+          <div class="elevate" style="--level: 8; --bg-color: 255 255 255">
+            <span>
+              Default
+              <br />
+              Level 8
+            </span>
+          </div>
+          <div class="elevate" style="--level: 8; --bg-color: 255 255 255; --elevate-boost: 2%">
+            <span>
+              Boosted
+              <br />
+              +2%
+            </span>
+          </div>
+          <div class="elevate" style="--level: 8; --bg-color: 255 255 255; --elevate-boost: 5%">
+            <span>
+              Enhanced
+              <br />
+              +5%
+            </span>
+          </div>
+          <div class="elevate" style="--level: 8; --bg-color: 255 255 255; --elevate-boost: 8%">
+            <span>
+              Maximum
+              <br />
+              +8%
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <section class="mt-lg">
+        <h2 class="headline h4">Theme Integration</h2>
+        <p>Elevation works seamlessly with light and dark themes:</p>
+
+        <div class="grid cols gap">
+          <div class="col-span-6">
+            <h3 class="headline h5">Light Theme</h3>
+            <div class="theme-demo" style="background: #f8fafc; border: 1px solid #e2e8f0">
+              <div
+                class="elevate"
+                style="
+                  --level: 4;
+                  --bg-color: 255 255 255;
+                  --font-color: 17 24 39;
+                  padding: 1rem;
+                  text-align: center;
+                "
+              >
+                <strong>Light Theme Card</strong>
+                <br />
+                Elevation on white background
+              </div>
+            </div>
+          </div>
+          <div class="col-span-6">
+            <h3 class="headline h5">Dark Theme</h3>
+            <div class="theme-demo" style="background: #1e293b; border: 1px solid #334155">
+              <div
+                class="elevate"
+                style="
+                  --level: 4;
+                  --bg-color: 30 41 59;
+                  --elevate-color: 71 85 105;
+                  --font-color: 255 255 255;
+                  padding: 1rem;
+                  text-align: center;
+                "
+              >
+                <strong>Dark Theme Card</strong>
+                <br />
+                Elevation on dark background
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="mt-lg">
+        <h2 class="headline h4">Interactive Hover Effects</h2>
+        <p>Hover over these elements to see elevation transitions in action:</p>
+
+        <div class="grid cols gap">
+          <div
+            class="col-span-4 elevate interactive-demo"
+            style="--level: 2; --bg-color: 255 255 255"
+            onmouseover="this.style.setProperty('--level', '8')"
+            onmouseout="this.style.setProperty('--level', '2')"
+          >
+            <div>
+              <strong>Hover Card</strong>
+              <br />
+              Level 2 → 8
+            </div>
+          </div>
+          <div
+            class="col-span-4 elevate interactive-demo"
+            style="--level: 4; --bg-color: 255 255 255"
+            onmouseover="this.style.setProperty('--level', '12')"
+            onmouseout="this.style.setProperty('--level', '4')"
+          >
+            <div>
+              <strong>Button Effect</strong>
+              <br />
+              Level 4 → 12
+            </div>
+          </div>
+          <div
+            class="col-span-4 elevate interactive-demo"
+            style="--level: 6; --bg-color: 255 255 255; --elevate-color: 59 130 246"
+            onmouseover="this.style.setProperty('--level', '16'); this.style.setProperty('--elevate-boost', '3%')"
+            onmouseout="this.style.setProperty('--level', '6'); this.style.setProperty('--elevate-boost', '0%')"
+          >
+            <div>
+              <strong>Enhanced</strong>
+              <br />
+              Level + Boost
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="mt-lg">
+        <h2 class="headline h4">HTML Structure</h2>
+        <p>Basic HTML structure for using the elevate utility:</p>
+
+        <pre
+          class="p bg-gray"
+          style="border-radius: 4px; overflow-x: auto"
+        ><code>&lt;!-- Basic elevation --&gt;
+&lt;div class="elevate" style="--level: 4; --bg-color: 255 255 255;"&gt;
+  Elevated content
+&lt;/div&gt;
+
+&lt;!-- Custom elevation color --&gt;
+&lt;div class="elevate" style="--level: 8; --bg-color: 255 255 255; --elevate-color: 59 130 246;"&gt;
+  Blue elevation effect
+&lt;/div&gt;
+
+&lt;!-- Elevation with boost --&gt;
+&lt;div class="elevate" style="--level: 4; --bg-color: 255 255 255; --elevate-boost: 5%;"&gt;
+  Boosted elevation intensity
+&lt;/div&gt;</code></pre>
+      </section>
+
+      <section class="mt-lg">
+        <h2 class="headline h4">CSS Integration</h2>
+        <p>Import and customize the elevate utility in your project:</p>
+
+        <pre
+          class="p bg-gray"
+          style="border-radius: 4px; overflow-x: auto"
+        ><code>/* Import elevate utilities */
+@import "./stubs/elevate/styles/03_utilities/elevate.css";
+
+/* Custom elevation utility classes */
+.elevation-low { --level: 2; }
+.elevation-medium { --level: 8; }
+.elevation-high { --level: 16; }
+
+/* Hover elevation effects */
+.hover-elevate:hover {
+  --level: calc(var(--level, 0) + 4);
+  transition: background-color 0.2s ease;
+}
+
+/* Theme-specific elevation colors */
+:root {
+  --elevate-color: 255 255 255; /* Light theme */
+}
+
+[data-theme="dark"] {
+  --elevate-color: 17 24 39; /* Dark theme */
+}</code></pre>
+      </section>
+
+      <section class="mt-lg">
+        <h2 class="headline h4">Color Mixing Algorithm</h2>
+        <p>
+          The elevation effect uses sophisticated color mixing calculations optimized for Material
+          Design:
+        </p>
+
+        <div class="grid cols gap">
+          <div class="col-span-3">
+            <h3 class="headline h5">Level Ranges</h3>
+            <ul>
+              <li>
+                <strong>0-2:</strong>
+                0% to 7% (2% increments)
+              </li>
+              <li>
+                <strong>3-6:</strong>
+                8% to 11% (1% increments)
+              </li>
+              <li>
+                <strong>7-12:</strong>
+                11.5% to 14% (0.5% increments)
+              </li>
+              <li>
+                <strong>13-16:</strong>
+                14.25% to 15% (0.25% increments)
+              </li>
+              <li>
+                <strong>17-24:</strong>
+                15.125% to 16% (0.125% increments)
+              </li>
+            </ul>
+          </div>
+          <div class="col-span-9">
+            <h3 class="headline h5">CSS color-mix() Implementation</h3>
+            <p>
+              Uses modern CSS
+              <code>color-mix()</code>
+              function for sophisticated color blending. The algorithm creates precise elevation
+              steps that follow Material Design specifications while providing smooth visual
+              progression.
+            </p>
+            <p>
+              <strong>Browser Support:</strong>
+              Modern browsers with
+              <code>color-mix()</code>
+              support required. Provide appropriate fallbacks for older browsers using traditional
+              box-shadow techniques.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="wrapper width-content py bg cs-primary">Footer</footer>
+  </body>
+</html>
