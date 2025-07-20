@@ -210,11 +210,202 @@ When developing copy-points, always use the colorset system for colors:
 - Easy customization by overriding colorset variables
 - Future-proof for light/dark mode implementations
 
+### Accessibility Implementation Requirements
+
+Copy-points must follow CopyKit's comprehensive accessibility standards to ensure consistent, inclusive user experiences across all components.
+
+#### Component-Level Accessibility Rules
+When developing copy-points, components should handle their own specific accessibility behaviors:
+
+**Required Component Patterns:**
+- **ARIA Management**: Use `aria-expanded`, `aria-controls`, `aria-hidden`, `role` attributes appropriately
+- **Keyboard Navigation**: Implement arrow keys, Home/End navigation, focus management
+- **Semantic HTML**: Use proper HTML elements before adding ARIA attributes
+- **Progressive Enhancement**: Ensure functionality works without JavaScript first
+- **State Management**: Handle expanded/collapsed, active/inactive states accessibly
+
+**Example Component Implementation:**
+```typescript
+// Service should manage ARIA attributes and keyboard behavior
+class ComponentService {
+  private element: HTMLElement
+  
+  init() {
+    this.setupARIA()
+    this.setupKeyboardNavigation()
+    this.setupFocusManagement()
+  }
+  
+  private setupARIA() {
+    // Component manages its own ARIA attributes
+    const control = this.element.querySelector('.control')
+    const content = this.element.querySelector('.content')
+    
+    control.setAttribute('aria-expanded', 'false')
+    control.setAttribute('aria-controls', content.id)
+  }
+}
+```
+
+```css
+/* Component defines accessibility styles */
+.component .control {
+  /* Focus indicators that work with colorset system */
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+.component .control:focus {
+  /* Enhanced focus for accessibility */
+  outline-width: 3px;
+}
+
+.component .content[hidden] {
+  /* Proper hiding for screen readers */
+  display: none;
+}
+```
+
+#### Layout-Level Accessibility Rules
+Copy-points should include layout files (`04_layouts/`) only for global accessibility overrides:
+
+**User Preference Handling:**
+```css
+/* 04_layouts/prefers-contrast.css - Override colorset for high contrast */
+@media (prefers-contrast: more) {
+  .component {
+    --font-color: 0 0 0;
+    --bg-color: 255 255 255;
+    --border-color: 0 0 0;
+    --accent-color: 0 0 0;
+  }
+}
+
+/* 04_layouts/reduced-motion.css - Disable animations */
+@media (prefers-reduced-motion: reduce) {
+  .component {
+    --transition-fast: 0ms;
+    --transition-base: 0ms;
+    --transition-slow: 0ms;
+  }
+}
+```
+
+**When to Add Layout Accessibility Files:**
+- **Always add** if your copy-point introduces new interactive elements
+- **Include prefers-contrast overrides** if using custom colorset variations
+- **Include reduced-motion overrides** if adding animations or transitions
+- **Follow the _base pattern** for consistent implementation
+
+#### Accessibility Testing Requirements
+All copy-points with interactive elements must include comprehensive accessibility tests:
+
+**Required Test Files:**
+```
+scripts/services/
+├── [component].test.ts              # Unit functionality tests
+└── [component].accessibility.test.ts # Accessibility compliance tests
+```
+
+**Accessibility Test Coverage:**
+- **Keyboard Navigation**: Tab order, arrow keys, Home/End, Escape functionality
+- **ARIA Compliance**: Verify `aria-expanded`, `aria-controls`, role attributes
+- **Screen Reader Support**: Test with axe-core and manual screen reader testing
+- **Focus Management**: Ensure proper focus indicators and focus trapping
+- **User Preferences**: Test with `prefers-reduced-motion` and `prefers-contrast`
+
+**Example Accessibility Test:**
+```typescript
+import { describe, it, expect } from 'vitest'
+import { expectAccessible, expectExpanded } from '@test/utils'
+
+describe('Component Accessibility', () => {
+  it('should manage ARIA attributes correctly', async () => {
+    const component = createComponent()
+    const control = component.querySelector('.control')
+    
+    // Test initial ARIA state
+    expect(control.getAttribute('aria-expanded')).toBe('false')
+    
+    // Test interaction
+    control.click()
+    expect(control.getAttribute('aria-expanded')).toBe('true')
+    
+    // Test accessibility compliance
+    await expectAccessible(component)
+  })
+  
+  it('should support keyboard navigation', async () => {
+    const component = createComponent()
+    const controls = component.querySelectorAll('.control')
+    
+    controls[0].focus()
+    await keyboard.press('ArrowDown')
+    
+    expect(document.activeElement).toBe(controls[1])
+  })
+})
+```
+
+#### Colorset Accessibility Integration
+Always ensure copy-point colors work with accessibility overrides:
+
+**Required Colorset Patterns:**
+```css
+.component {
+  /* Use colorset variables for automatic accessibility support */
+  color: var(--font-color);
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
+}
+
+.component.accent {
+  /* Accent variants must use colorset accent variables */
+  color: var(--accent-font-color);
+  background-color: var(--accent-bg-color);
+}
+
+.component:hover {
+  /* Hover states use colorset hover variables */
+  color: var(--accent-hover-font-color);
+  background-color: var(--accent-hover-bg-color);
+}
+
+/* Selection states for accessibility */
+.component::selection {
+  color: var(--selection-color);
+  background-color: var(--selection-bg-color);
+}
+```
+
+#### Documentation Requirements for Accessibility
+Copy-point README.md files must document accessibility features:
+
+**Required Accessibility Documentation:**
+```markdown
+## Accessibility Features
+
+- **WCAG 2.1 AA Compliant** - Meets accessibility guidelines
+- **Keyboard Navigation** - Full keyboard support with arrow keys
+- **Screen Reader Support** - Proper ARIA attributes and semantic HTML
+- **High Contrast Support** - Automatic colorset adjustments
+- **Reduced Motion Support** - Respects user motion preferences
+- **Focus Management** - Clear focus indicators and logical tab order
+
+### Keyboard Shortcuts
+- **Arrow Keys** - Navigate between items
+- **Home/End** - Jump to first/last item
+- **Space/Enter** - Activate controls
+- **Escape** - Close expanded content
+```
+
 ### Testing Requirements
 - Unit tests for all public APIs
-- Accessibility tests for UI components
+- **Accessibility tests for UI components** (required for interactive elements)
 - Integration tests with `_base` dependencies
 - Cross-browser compatibility validation
+- **User preference testing** (reduced motion, high contrast)
+- **Keyboard-only navigation testing**
 
 ### Documentation Standards
 - Complete README.md with usage examples

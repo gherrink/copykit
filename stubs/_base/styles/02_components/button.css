@@ -106,7 +106,7 @@
   }
 
   .btn:focus {
-    outline: 2px solid rgb(var(--btn-focus-color));
+    outline: 1px solid rgb(var(--btn-focus-color));
     outline-offset: 1px;
   }
 
@@ -140,5 +140,16 @@
   .btn:hover:not([aria-disabled="true"], [disabled], .no-hover) {
     color: rgb(var(--btn-hover-font-color));
     background: rgb(var(--btn-hover-bg-color));
+  }
+
+  /* High contrast support */
+  @media (prefers-contrast: more) {
+    .btn:focus {
+      outline-width: 3px;
+      outline-offset: 2px;
+      box-shadow:
+        0 0 0 2px rgb(var(--bg-color)),
+        0 0 0 5px rgb(var(--btn-bg-color));
+    }
   }
 }

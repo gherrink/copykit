@@ -47,8 +47,10 @@ Single-purpose utility classes:
 - **`wrapper.css`** - Container wrapper utilities
 
 #### 4. Layouts (`04_layouts/`)
-Page-level structural styles:
+Page-level structural styles and accessibility overrides:
 - **`body.css`** - Base body styles and global layout
+- **`prefers-contrast.css`** - High contrast mode overrides for user preferences
+- **`reduced-motion.css`** - Motion reduction overrides for user preferences
 
 ### Main Entry Point
 
@@ -78,6 +80,8 @@ The `styles/index.css` file is the **only** file that imports all CSS layers:
 @import url("./03_utilities/wrapper.css");
 
 @import url("./04_layouts/body.css");
+@import url("./04_layouts/prefers-contrast.css");
+@import url("./04_layouts/reduced-motion.css");
 ```
 
 > **Note**: Only the `_base` copy-point includes `index.css`. Other copy-points contain individual layer files that extend the base.
@@ -270,6 +274,73 @@ Override CSS custom properties to customize components:
 }
 ```
 
+## Accessibility Features
+
+The `_base` copy-point implements a comprehensive accessibility system that respects user preferences while allowing component-specific customization.
+
+### User Preference Handling
+
+The accessibility system follows a layered approach:
+
+1. **Components define their own accessibility behaviors** in their individual stylesheets
+2. **Layout-level overrides** handle global user preference changes
+3. **User preferences take precedence** over default component styles
+
+### High Contrast Support (`prefers-contrast.css`)
+
+Automatically adjusts the entire colorset system when users prefer high contrast:
+
+```css
+@media (prefers-contrast: more) {
+  :root {
+    --font-color: 0 0 0;
+    --bg-color: 255 255 255;
+    --border-color: 0 0 0;
+    --accent-color: 0 0 0;
+    /* ... complete colorset overrides */
+  }
+  
+  .cs-primary {
+    /* Inverted colorset for primary elements */
+    --font-color: 255 255 255;
+    --bg-color: 0 0 0;
+    /* ... */
+  }
+}
+```
+
+**Benefits:**
+- **System-wide consistency**: All components automatically respect high contrast
+- **Colorset integration**: Works seamlessly with the existing colorset variables
+- **Accessibility compliance**: Provides maximum contrast ratios for better readability
+
+### Reduced Motion Support (`reduced-motion.css`)
+
+Disables all animations and transitions when users prefer reduced motion:
+
+```css
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --transition-fast: 0ms;
+    --transition-base: 0ms;
+    --transition-slow: 0ms;
+  }
+}
+```
+
+**Benefits:**
+- **Instant response**: All transitions are immediately disabled
+- **Vestibular safety**: Prevents motion-triggered accessibility issues
+- **Performance**: Eliminates unnecessary animations for users who don't want them
+
+### Architecture Pattern
+
+This approach ensures that:
+- **Components remain flexible**: Each component can define specific accessibility behaviors
+- **Global overrides work universally**: User preferences apply consistently across all components
+- **No conflicts**: Layout-level overrides use CSS specificity to take precedence
+- **Easy maintenance**: Accessibility changes are centralized in layout files
+
 ## Testing
 
 The `_base` copy-point includes comprehensive tests:
@@ -312,7 +383,9 @@ The `_base` copy-point has **no external dependencies**. It uses only:
 2. **Use CSS custom properties**: Customize through variables rather than overriding styles
 3. **Follow ARIA patterns**: Use the expand service for accessible interactions
 4. **Test accessibility**: Ensure keyboard navigation and screen reader support
-5. **Progressive enhancement**: Build features that work without JavaScript first
+5. **Respect user preferences**: Always test with high contrast and reduced motion settings
+6. **Component-level accessibility**: Define accessibility behaviors in individual components, let layouts handle global overrides
+7. **Progressive enhancement**: Build features that work without JavaScript first
 
 ## Next Steps
 

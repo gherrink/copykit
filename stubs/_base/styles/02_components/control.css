@@ -95,11 +95,18 @@
   }
 
   .control:focus {
-    outline: 2px solid rgb(var(--accent-color));
+    outline: 1px solid rgb(var(--accent-color));
   }
 
   .control:hover:not([aria-disabled="true"], [disabled], .btn[class*="bg-"], .no-hover) {
     color: rgb(var(--control-hover-font-color));
     background: rgb(var(--control-hover-bg-color));
+  }
+
+  /* High contrast support */
+  @media (prefers-contrast: more) {
+    .btn:focus {
+      outline-width: 3px;
+    }
   }
 }

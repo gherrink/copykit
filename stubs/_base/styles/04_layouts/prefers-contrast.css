@@ -1,0 +1,29 @@
+/* Respect high contrast preferences */
+@media (prefers-contrast: more) {
+  :root {
+    --font-color: 0 0 0;
+    --bg-color: 255 255 255;
+    --border-color: 0 0 0;
+    --shadow-color: 0 0 0;
+    --shadow-alpha: 1;
+    --accent-color: 0 0 0;
+    --accent-font-color: 255 255 255;
+    --accent-bg-color: var(--accent-color);
+    --accent-hover-font-color: 255 255 255;
+    --accent-hover-bg-color: 64 64 64;
+  }
+
+  /* override primary colorset */
+  .cs-primary {
+    --font-color: 255 255 255;
+    --bg-color: 0 0 0;
+    --border-color: 255 255 255;
+    --shadow-color: 255 255 255;
+    --shadow-alpha: 1;
+    --accent-color: 255 255 255;
+    --accent-font-color: 0 0 0;
+    --accent-bg-color: var(--accent-color);
+    --accent-hover-font-color: 0 0 0;
+    --accent-hover-bg-color: 186 186 186;
+  }
+}

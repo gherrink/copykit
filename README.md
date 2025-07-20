@@ -288,6 +288,132 @@ A colorset provides all essential color variables needed for consistent theming:
 
 By using colorsets, you ensure that all related colors work harmoniously together while maintaining flexibility to swap entire color schemes without touching individual component styles.
 
+## Accessibility Implementation Guidelines
+
+CopyKit follows a comprehensive accessibility-first approach that ensures all components and utilities work seamlessly for users with diverse needs. These guidelines establish consistent patterns for implementing accessibility across the entire system.
+
+### Core Accessibility Principles
+
+**1. Component-Level Responsibility**
+- Each component defines its own specific accessibility behaviors
+- Components manage their own ARIA attributes, keyboard navigation, and focus management
+- Interactive elements include proper semantic HTML and ARIA patterns
+- Components work without JavaScript (progressive enhancement)
+
+**2. Layout-Level Global Overrides**
+- Layout files (`04_layouts/`) handle user preference media queries
+- Global accessibility settings respect `prefers-contrast` and `prefers-reduced-motion`
+- User preferences automatically override component defaults
+- System-wide consistency through CSS custom property overrides
+
+**3. User Preference Respect**
+- All animations and transitions respect `prefers-reduced-motion: reduce`
+- High contrast mode automatically adjusts colorset variables
+- Focus indicators remain visible and accessible in all color schemes
+- No accessibility features are disabled or removed based on user preferences
+
+### Implementation Rules
+
+#### When Components Handle Accessibility
+Components should manage accessibility when:
+- **Interactive behavior**: Buttons, controls, forms, and navigation elements
+- **State management**: Expanded/collapsed states, active/inactive states
+- **Keyboard navigation**: Arrow keys, Home/End navigation, focus management
+- **ARIA attributes**: `aria-expanded`, `aria-controls`, `aria-hidden`, `role` attributes
+- **Content structure**: Semantic HTML, heading hierarchy, landmark regions
+
+**Example Pattern:**
+```html
+<!-- Component defines its own accessibility behavior -->
+<button class="control" aria-expanded="false" aria-controls="content-1">
+  Toggle Content
+</button>
+<div id="content-1" hidden data-animate="slide">
+  Content here
+</div>
+```
+
+#### When Layouts Handle Accessibility
+Layout files should handle accessibility when:
+- **User preferences**: `prefers-contrast`, `prefers-reduced-motion`, `prefers-color-scheme`
+- **Global overrides**: System-wide color or motion changes
+- **Universal patterns**: Focus outline styles, selection colors
+- **Performance optimizations**: Disabling unnecessary animations
+
+**Example Pattern:**
+```css
+/* Layout-level user preference override */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --transition-fast: 0ms;
+    --transition-base: 0ms;
+    --transition-slow: 0ms;
+  }
+}
+```
+
+### Required Testing Standards
+
+**1. Keyboard Navigation Testing**
+- All interactive elements accessible via keyboard only
+- Logical tab order and focus indicators
+- Arrow key navigation where appropriate (menus, accordions)
+- Escape key functionality for dismissible elements
+
+**2. Screen Reader Testing**
+- Semantic HTML structure with proper headings
+- ARIA attributes accurately describe element states
+- Dynamic content changes announced appropriately
+- Alternative text for images and icons
+
+**3. User Preference Testing**
+- Test with `prefers-reduced-motion: reduce` enabled
+- Test with `prefers-contrast: more` enabled
+- Verify functionality works in forced-colors mode
+- Test with different font sizes and zoom levels
+
+**4. Color and Contrast Testing**
+- Minimum 4.5:1 contrast ratio for normal text
+- Minimum 3:1 contrast ratio for large text and UI elements
+- Color is not the only means of conveying information
+- Focus indicators have sufficient contrast
+
+### Integration with CopyKit Architecture
+
+**CSS Layer Integration:**
+- `01_defaults/`: Accessibility variables and base focus styles
+- `02_components/`: Component-specific ARIA and keyboard behavior
+- `03_utilities/`: Accessibility utility classes (sr-only, focus management)
+- `04_layouts/`: User preference overrides and global accessibility settings
+
+**JavaScript Service Patterns:**
+- Services like `expand.ts` provide ARIA-compliant interactive functionality
+- Event listeners include proper cleanup and accessibility considerations
+- Focus management follows WCAG guidelines
+- Keyboard event handling respects user expectations
+
+**Colorset Accessibility:**
+- All colorsets include sufficient contrast ratios
+- High contrast mode provides automatic colorset overrides
+- Selection and focus colors work across all colorset variations
+- Color combinations remain accessible in forced-colors mode
+
+### Best Practices for Developers
+
+1. **Start with semantic HTML** - Use appropriate elements before adding ARIA
+2. **Test early and often** - Include accessibility testing in development workflow
+3. **Respect user preferences** - Never override user accessibility settings
+4. **Provide multiple interaction methods** - Support mouse, keyboard, and touch
+5. **Follow progressive enhancement** - Ensure basic functionality without JavaScript
+6. **Document accessibility features** - Include ARIA patterns and keyboard shortcuts in documentation
+
+### Accessibility Resources
+
+- **[WCAG 2.1 Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)** - Web Content Accessibility Guidelines
+- **[ARIA Authoring Practices](https://www.w3.org/WAI/ARIA/apg/)** - Comprehensive ARIA implementation patterns
+- **[WebAIM](https://webaim.org/)** - Practical accessibility guidance and testing tools
+- **[MDN Accessibility](https://developer.mozilla.org/en-US/docs/Web/Accessibility)** - Technical implementation guides
+
 ## Available Copy Points
 
 Use `copykit list` to see all available copy-points with basic information, or `copykit info <copy-point>` for detailed information. You can also explore the **[📚 Complete UI Documentation](https://gherrink.github.io/copykit/ui-doc/)** for interactive component examples and detailed usage guides.

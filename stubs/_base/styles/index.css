@@ -64,6 +64,8 @@
  * @order 50
  */
 @import url("04_layouts/body.css");
+@import url("04_layouts/reduced-motion.css");
+@import url("04_layouts/prefers-contrast.css");
 
 /**
  * Basic JavaScript functions to make your live easier.
