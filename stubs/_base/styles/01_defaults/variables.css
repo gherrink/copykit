@@ -100,4 +100,112 @@
   --accent-hover-bg-color: var(--color-gray-600);
   --selection-color: var(--bg-color);
   --selection-bg-color: var(--font-color);
+
+  /**
+   * Set of font families to be used in your project.
+   *
+   * - `--font-family-base`
+   *
+   * @location variables.font.weight Font weight
+   */
+  --font-family-base:
+    system-ui, "Segoe UI", roboto, helvetica, arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol";
+
+  /**
+   * Font weights are a set of predefined values that can be used to define the weight of a font:
+   *
+   * - `--font-weight-normal`
+   * - `--font-weight-bold`
+   *
+   * @location variables.font.weight Font weight
+   */
+  --font-weight-normal: 400;
+  --font-weight-bold: 700;
+
+  /**
+   * Font sizes are a set of predefined values that can be used to define the size of a font:
+   * - `--font-size-sm`
+   * - `--font-size-base`
+   * - `--font-size-md`
+   * - `--font-size-lg`
+   * - `--font-size-xl`
+   * - `--font-size-2xl`
+   *
+   * @location variables.font.size Font size
+   */
+  --font-size-sm: 0.875em;
+  --font-size-base: 1em;
+  --font-size-md: 1.125em;
+  --font-size-lg: 1.25em;
+  --font-size-xl: 1.25em;
+  --font-size-2xl: 1.5rem;
+
+  /**
+   * Line heit variables are a set of variables to switch between different line heights
+   *
+   * - `--line-height-tight`
+   * - `--line-height-base`
+   * - `--line-height-relaxed`
+   *
+   * @location variables.font.size Font size
+   */
+  --line-height-tight: 1.25;
+  --line-height-base: 1.4;
+  --line-height-relaxed: 1.6;
+
+  /**
+   * - `--font-space-unit` - The spacing unit when using font related spaces (see the spaces documentation for mor details).
+   * - `--font-size-html-base` - The font size base used on the html tag need to be a pixel value
+   * - `--font-color` - used font color.
+   * - `--font-family` - used font family.
+   * - `--font-weight` - used font weight.
+   * - `--font-size` - used font size.
+   * - `--font-line-height` - used font line height.
+   *
+   * @location variables.font Font
+   */
+  --font-space-unit: 1em;
+  --font-size-html-base: 16px;
+  --font-family: var(--font-family-base);
+  --font-weight: var(--font-weight-normal);
+  --font-size: var(--font-size-base);
+  --font-line-height: var(--line-height-base);
+
+  /**
+   * Headline variables are used to change the headline
+   *
+   * - `--headline-space` - space to upper element
+   * - `--headline-family`
+   * - `--headline-weight`
+   * - `--headline-line-height`
+   * - `--headline-color`
+   * - `--headline-scale`
+   *
+   * @location variables.headline Headline
+   */
+  --headline-space: var(--space-base);
+  --headline-family: var(--font-family-base);
+  --headline-weight: var(--font-weight-bold);
+  --headline-line-height: var(--line-height-base);
+  --headline-color: inherit;
+  --headline-scale: 1;
+
+  /**
+   * Variables to change link behavior.
+   *
+   * - `--headline-space` - space to upper element
+   * - `--headline-family`
+   * - `--headline-weight`
+   * - `--headline-line-height`
+   * - `--headline-color`
+   * - `--headline-scale`
+   *
+   * @location variables.headline Headline
+   */
+  --link-color: inherit;
+  --link-decoration: underline;
+  --link-hover-color: var(--accent-color);
+  --link-hover-decoration: none;
+  --link-transition-time: var(--transition-base);
 }
