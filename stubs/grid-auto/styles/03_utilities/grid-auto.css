@@ -1,0 +1,65 @@
+@property --grid-auto-item-min-width {
+  inherits: false;
+  initial-value: 1px;
+  syntax: "<length-percentage>";
+}
+
+@property --grid-auto-columns {
+  inherits: false;
+  initial-value: 1;
+  syntax: "<number>";
+}
+
+@layer utilities {
+  /**
+   * Auto-responsive grid system that automatically adjusts column count based on available space and minimum item widths.
+   * Uses type-safe CSS custom properties with @property declarations for better browser validation and performance.
+   * All columns maintain equal width while respecting minimum width constraints.
+   *
+   * Required CSS variables (type-safe with @property declarations):
+   * - `--grid-auto-columns` (number): Maximum number of columns the grid should attempt to create
+   * - `--grid-auto-item-min-width` (length-percentage): Minimum width for grid items - prevents items from becoming too small
+   *
+   * Example: With 4 columns and 200px minimum width, only 3 columns will be used if container is 650px wide,
+   * ensuring items never get smaller than 200px.
+   *
+   * Gap system integration (integrates with existing space system):
+   * - `--gap-x` (optional): Custom column (x-axis) gap value - e.g. 3rem
+   * - `--gap-y` (optional): Custom row (y-axis) gap value - e.g. 1.5rem
+   * - `--gap-space-x` (optional): Column gap using space scale - e.g. var(--space-lg)
+   * - `--gap-space-y` (optional): Row gap using space scale - e.g. var(--space-sm)
+   * - `--gap-space` (optional): Both axes gap using space scale - e.g. var(--space-md)
+   *
+   * For nested grids, use `unset` or `initial` as variable values to reset to defaults.
+   *
+   * @location utilities.grid-auto Auto-Responsive Grid
+   * @example
+   * <div class="grid-auto" style="--grid-auto-columns: 3; --grid-auto-item-min-width: 200px;">
+   *   <div class="bg pxy">Item 1</div>
+   *   <div class="bg pxy">Item 2</div>
+   *   <div class="bg pxy">Item 3</div>
+   *   <div class="bg pxy">Item 4</div>
+   *   <div class="bg pxy">Item 5</div>
+   * </div>
+   */
+  .grid-auto {
+    /* https://css-tricks.com/an-auto-filling-css-grid-with-max-columns/ */
+    --gap-space: var(--space-base);
+    --gap-space-x: var(--gap-space);
+    --gap-space-y: var(--gap-space);
+    --gap-x: calc(var(--space-unit) * var(--gap-space-x));
+    --gap-y: calc(var(--space-unit) * var(--gap-space-y));
+
+    --grid-auto-total-gap-width: calc((var(--grid-auto-columns) - 1) * var(--gap-x));
+    --grid-auto-item-max-width: calc(
+      (100% - var(--grid-auto-total-gap-width)) / var(--grid-auto-columns)
+    );
+
+    display: grid;
+    grid-gap: var(--gap-y) var(--gap-x);
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(max(var(--grid-auto-item-min-width), var(--grid-auto-item-max-width)), 1fr)
+    );
+  }
+}

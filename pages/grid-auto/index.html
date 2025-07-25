@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+    <link rel="shortcut icon" href="../favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Grid Auto Utilities | CopyKit</title>
+    <link rel="stylesheet" href="../style.css" />
+    <style>
+      .demo-item {
+        --font-weight: var(--font-weight-bold);
+        text-align: center;
+      }
+
+      .config-display {
+        font-family: monospace;
+        font-size: 0.875rem;
+        margin-bottom: 1rem;
+        padding: 0.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="wrapper width-content py bg cs-primary">
+      <nav class="flex items-center justify-between">
+        <a href="../" class="control">← Back to Pages</a>
+        <h1 class="headline no-space">Grid Auto Utilities</h1>
+      </nav>
+    </header>
+
+    <main class="wrapper width-content py" style="--py-space: var(--space-xl)">
+      <section class="mt-lg">
+        <h2 class="headline h4">Basic Auto-Responsive Grid</h2>
+        <p>
+          The grid automatically adjusts column count based on available space and minimum item
+          width:
+        </p>
+
+        <h3>3 Columns, 200px minimum width</h3>
+        <div class="config-display">
+          --grid-auto-columns: 3;
+          <br />
+          --grid-auto-item-min-width: 200px;
+        </div>
+        <div class="grid-auto" style="--grid-auto-columns: 3; --grid-auto-item-min-width: 200px">
+          <div class="demo-item padding bg cs-primary">Item 1</div>
+          <div class="demo-item padding bg cs-primary">Item 2</div>
+          <div class="demo-item padding bg cs-primary">Item 3</div>
+          <div class="demo-item padding bg cs-primary">Item 4</div>
+          <div class="demo-item padding bg cs-primary">Item 5</div>
+          <div class="demo-item padding bg cs-primary">Item 6</div>
+        </div>
+
+        <h3>4 Columns, 150px minimum width</h3>
+        <div class="config-display">
+          --grid-auto-columns: 4;
+          <br />
+          --grid-auto-item-min-width: 150px;
+        </div>
+        <div class="grid-auto" style="--grid-auto-columns: 4; --grid-auto-item-min-width: 150px">
+          <div class="demo-item padding bg cs-primary">A</div>
+          <div class="demo-item padding bg cs-primary">B</div>
+          <div class="demo-item padding bg cs-primary">C</div>
+          <div class="demo-item padding bg cs-primary">D</div>
+          <div class="demo-item padding bg cs-primary">E</div>
+          <div class="demo-item padding bg cs-primary">F</div>
+          <div class="demo-item padding bg cs-primary">G</div>
+          <div class="demo-item padding bg cs-primary">H</div>
+        </div>
+      </section>
+
+      <section class="mt-lg">
+        <h2 class="headline h4">Custom Gap System</h2>
+        <p>Integration with the existing space system for consistent gap management:</p>
+
+        <h3>Large Gap (using space variables)</h3>
+        <div class="config-display">
+          --grid-auto-columns: 3;
+          <br />
+          --grid-auto-item-min-width: 180px;
+          <br />
+          --gap-space: var(--space-lg);
+        </div>
+        <div
+          class="grid-auto"
+          style="
+            --grid-auto-columns: 3;
+            --grid-auto-item-min-width: 180px;
+            --gap-space: var(--space-lg);
+          "
+        >
+          <div class="demo-item padding bg cs-primary">Large Gap</div>
+          <div class="demo-item padding bg cs-primary">Between</div>
+          <div class="demo-item padding bg cs-primary">Items</div>
+          <div class="demo-item padding bg cs-primary">Fourth</div>
+          <div class="demo-item padding bg cs-primary">Fifth</div>
+        </div>
+
+        <h3>Asymmetric Gaps</h3>
+        <div class="config-display">
+          --grid-auto-columns: 3;
+          <br />
+          --grid-auto-item-min-width: 160px;
+          <br />
+          --gap-space-x: var(--space-xl);
+          <br />
+          --gap-space-y: var(--space-xs);
+        </div>
+        <div
+          class="grid-auto"
+          style="
+            --grid-auto-columns: 3;
+            --grid-auto-item-min-width: 160px;
+            --gap-space-x: var(--space-xl);
+            --gap-space-y: var(--space-xs);
+          "
+        >
+          <div class="demo-item padding bg cs-primary">Large X</div>
+          <div class="demo-item padding bg cs-primary">Small Y</div>
+          <div class="demo-item padding bg cs-primary">Gap Demo</div>
+          <div class="demo-item padding bg cs-primary">Row Two</div>
+          <div class="demo-item padding bg cs-primary">Item Five</div>
+          <div class="demo-item padding bg cs-primary">Item Six</div>
+        </div>
+
+        <h3>Custom Gap Values</h3>
+        <div class="config-display">
+          --grid-auto-columns: 2;
+          <br />
+          --grid-auto-item-min-width: 250px;
+          <br />
+          --gap-x: 3rem;
+          <br />
+          --gap-y: 0.5rem;
+        </div>
+        <div
+          class="grid-auto"
+          style="
+            --grid-auto-columns: 2;
+            --grid-auto-item-min-width: 250px;
+            --gap-x: 3rem;
+            --gap-y: 0.5rem;
+          "
+        >
+          <div class="demo-item padding bg cs-primary">Custom X: 3rem</div>
+          <div class="demo-item padding bg cs-primary">Custom Y: 0.5rem</div>
+          <div class="demo-item padding bg cs-primary">Wide horizontal gaps</div>
+          <div class="demo-item padding bg cs-primary">Narrow vertical gaps</div>
+        </div>
+      </section>
+
+      <section class="mt-lg">
+        <h2 class="headline h4">Responsive Behavior</h2>
+        <p>
+          The grid automatically adjusts when there isn't enough space for the specified column
+          count:
+        </p>
+
+        <h3>6 Columns with 300px minimum (will adapt to available space)</h3>
+        <div class="config-display">
+          --grid-auto-columns: 6;
+          <br />
+          --grid-auto-item-min-width: 300px;
+        </div>
+        <div class="grid-auto" style="--grid-auto-columns: 6; --grid-auto-item-min-width: 300px">
+          <div class="demo-item padding bg cs-primary">Auto-adapts</div>
+          <div class="demo-item padding bg cs-primary">To available</div>
+          <div class="demo-item padding bg cs-primary">Screen width</div>
+          <div class="demo-item padding bg cs-primary">Fourth item</div>
+          <div class="demo-item padding bg cs-primary">Fifth item</div>
+          <div class="demo-item padding bg cs-primary">Sixth item</div>
+        </div>
+        <p>
+          <small><em>Try resizing your browser window to see the responsive behavior!</em></small>
+        </p>
+      </section>
+
+      <section class="mt-lg">
+        <h2 class="headline h4">Real-World Use Cases</h2>
+        <p>Common patterns and applications for the auto-responsive grid:</p>
+
+        <h3>Card Grid Layout</h3>
+        <div class="config-display">
+          --grid-auto-columns: 3;
+          <br />
+          --grid-auto-item-min-width: 280px;
+          <br />
+          --gap-space: var(--space-md);
+        </div>
+        <div
+          class="grid-auto"
+          style="
+            --grid-auto-columns: 3;
+            --grid-auto-item-min-width: 280px;
+            --gap-space: var(--space-md);
+          "
+        >
+          <div class="demo-item padding bg cs-primary">
+            <div>
+              <strong>Product Card</strong>
+              <br />
+              <small>$29.99</small>
+            </div>
+          </div>
+          <div class="demo-item padding bg cs-primary">
+            <div>
+              <strong>Service Card</strong>
+              <br />
+              <small>Contact us</small>
+            </div>
+          </div>
+          <div class="demo-item padding bg cs-primary">
+            <div>
+              <strong>Feature Card</strong>
+              <br />
+              <small>Learn more</small>
+            </div>
+          </div>
+          <div class="demo-item padding bg cs-primary">
+            <div>
+              <strong>Team Member</strong>
+              <br />
+              <small>Developer</small>
+            </div>
+          </div>
+        </div>
+
+        <h3>Image Gallery</h3>
+        <div class="config-display">
+          --grid-auto-columns: 4;
+          <br />
+          --grid-auto-item-min-width: 150px;
+          <br />
+          --gap-space: var(--space-sm);
+        </div>
+        <div
+          class="grid-auto"
+          style="
+            --grid-auto-columns: 4;
+            --grid-auto-item-min-width: 150px;
+            --gap-space: var(--space-sm);
+          "
+        >
+          <div class="demo-item padding bg cs-primary" style="aspect-ratio: 1; min-height: 120px">
+            Photo 1
+          </div>
+          <div class="demo-item padding bg cs-primary" style="aspect-ratio: 1; min-height: 120px">
+            Photo 2
+          </div>
+          <div class="demo-item padding bg cs-primary" style="aspect-ratio: 1; min-height: 120px">
+            Photo 3
+          </div>
+          <div class="demo-item padding bg cs-primary" style="aspect-ratio: 1; min-height: 120px">
+            Photo 4
+          </div>
+          <div class="demo-item padding bg cs-primary" style="aspect-ratio: 1; min-height: 120px">
+            Photo 5
+          </div>
+          <div class="demo-item padding bg cs-primary" style="aspect-ratio: 1; min-height: 120px">
+            Photo 6
+          </div>
+          <div class="demo-item padding bg cs-primary" style="aspect-ratio: 1; min-height: 120px">
+            Photo 7
+          </div>
+          <div class="demo-item padding bg cs-primary" style="aspect-ratio: 1; min-height: 120px">
+            Photo 8
+          </div>
+        </div>
+
+        <h3>Dashboard Widgets</h3>
+        <div class="config-display">
+          --grid-auto-columns: 2;
+          <br />
+          --grid-auto-item-min-width: 350px;
+          <br />
+          --gap-space: var(--space-lg);
+        </div>
+        <div
+          class="grid-auto"
+          style="
+            --grid-auto-columns: 2;
+            --grid-auto-item-min-width: 350px;
+            --gap-space: var(--space-lg);
+          "
+        >
+          <div class="demo-item padding bg cs-primary" style="min-height: 120px">
+            <div>
+              <strong>Analytics Widget</strong>
+              <br />
+              <small>Chart and metrics</small>
+            </div>
+          </div>
+          <div class="demo-item padding bg cs-primary" style="min-height: 120px">
+            <div>
+              <strong>Activity Feed</strong>
+              <br />
+              <small>Recent updates</small>
+            </div>
+          </div>
+          <div class="demo-item padding bg cs-primary" style="min-height: 120px">
+            <div>
+              <strong>Quick Actions</strong>
+              <br />
+              <small>Common tasks</small>
+            </div>
+          </div>
+          <div class="demo-item padding bg cs-primary" style="min-height: 120px">
+            <div>
+              <strong>Status Monitor</strong>
+              <br />
+              <small>System health</small>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="mt-lg">
+        <h2 class="headline h4">CSS Variables Reference</h2>
+        <p>Complete reference of available CSS variables for customization:</p>
+
+        <h3>Required Variables</h3>
+        <div class="config-display">
+          --grid-auto-columns: [number] /* Maximum number of columns */
+          <br />
+          --grid-auto-item-min-width: [length] /* Minimum width for each item */
+        </div>
+
+        <h3>Gap Configuration (choose one approach)</h3>
+        <div class="config-display">
+          /* Using space variables (recommended) */
+          <br />
+          --gap-space: var(--space-md) /* Both axes using space scale */
+          <br />
+          --gap-space-x: var(--space-lg) /* X-axis using space scale */
+          <br />
+          --gap-space-y: var(--space-sm) /* Y-axis using space scale */
+          <br />
+          <br />
+          /* Using custom values */
+          <br />
+          --gap: 1.5rem /* Both axes custom value */
+          <br />
+          --gap-x: 2rem /* X-axis custom value */
+          <br />
+          --gap-y: 0.5rem /* Y-axis custom value */
+        </div>
+
+        <h3>Available Space Scale</h3>
+        <div class="config-display">
+          var(--space-xs) /* 0.5rem */
+          <br />
+          var(--space-sm) /* 0.7rem */
+          <br />
+          var(--space-base) /* 1rem */
+          <br />
+          var(--space-md) /* 1.3rem */
+          <br />
+          var(--space-lg) /* 1.8rem */
+          <br />
+          var(--space-xl) /* 3.2rem */
+          <br />
+          var(--space-2xl) /* 4.8rem */
+        </div>
+      </section>
+    </main>
+
+    <footer class="wrapper width-content py bg cs-primary">Footer</footer>
+  </body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "name": "grid-auto",
+  "title": "Auto-Responsive Grid System",
+  "description": "Advanced auto-responsive grid utility that automatically adjusts column count based on available space and minimum item widths. Features type-safe CSS custom properties with @property declarations for enhanced browser validation and performance. Integrates seamlessly with the existing gap and space system.",
+  "version": "1.0.0",
+  "features": [
+    "Auto-responsive column adjustment based on available space",
+    "Type-safe CSS custom properties with @property declarations",
+    "Minimum item width protection prevents items from becoming too small",
+    "Namespaced CSS variables prevent conflicts with other grid systems",
+    "Full integration with existing gap and space variable system",
+    "Support for asymmetric gaps with separate x/y axis control",
+    "Responsive behavior without media queries",
+    "Enhanced browser validation and performance optimization"
+  ],
+  "dependencies": [],
+  "author": "CopyKit",
+  "keywords": ["grid", "auto-responsive", "layout", "utilities", "type-safe", "css-properties", "flexible", "responsive"]
+}

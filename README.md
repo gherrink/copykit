@@ -461,6 +461,18 @@ Flexible border utility system with directional controls and CSS custom properti
 
 > **🌐 [Live Demo](https://gherrink.github.io/copykit/border.html)** | **📖 [View complete border documentation](stubs/border/README.md)**
 
+#### [`grid-auto/`](stubs/grid-auto/README.md) - Auto-Responsive Grid System
+Advanced auto-responsive grid system that automatically adjusts column count based on available space and minimum item widths.
+
+- **Auto-responsive column adjustment** based on available space
+- **Minimum item width protection** prevents items from becoming too small
+- **Full integration with existing gap and space variable system**
+- **Support for asymmetric gaps** with separate x/y axis control
+- **CSS custom properties** for flexible configuration
+- **Responsive behavior without media queries**
+
+> **🌐 [Live Demo](https://gherrink.github.io/copykit/grid-auto.html)** | **📖 [View complete grid-auto documentation](stubs/grid-auto/README.md)**
+
 #### [`rounded-simple/`](stubs/rounded-simple/README.md) - Border Radius Utilities
 Simple and flexible border radius utilities for creating rounded corners on any element.
 
