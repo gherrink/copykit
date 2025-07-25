@@ -36,7 +36,6 @@ Single-purpose utility classes:
 - **`aspect-ratio.css`** - Aspect ratio utilities
 - **`background.css`** - Background utilities
 - **`flex.css`** - Flexbox utilities
-- **`gap.css`** - Gap utilities for flexbox and grid
 - **`grid.css`** - CSS Grid utilities
 - **`height.css`** - Height utilities
 - **`hidden.css`** - Visibility utilities
@@ -47,41 +46,58 @@ Single-purpose utility classes:
 - **`wrapper.css`** - Container wrapper utilities
 
 #### 4. Layouts (`04_layouts/`)
-Page-level structural styles and accessibility overrides:
+Page-level structural styles and global overrides:
+- **`space.css`** - Global spacing system and layout constraints
+- **`colorset.css`** - Comprehensive colorset system for theming and component styling
 - **`body.css`** - Base body styles and global layout
-- **`prefers-contrast.css`** - High contrast mode overrides for user preferences
 - **`reduced-motion.css`** - Motion reduction overrides for user preferences
+- **`prefers-contrast.css`** - High contrast mode overrides for user preferences
+
+### Why Colorset and Space Are in Layouts
+
+The **colorset** and **space** systems are placed in the layouts layer (`04_layouts/`) to ensure they properly override component and utility defaults through the CSS cascade:
+
+1. **Components define default colors** in the components layer (`02_components/`)
+2. **Utilities provide basic spacing** in the utilities layer (`03_utilities/`)
+3. **Layouts apply global overrides** that take precedence over both components and utilities
+
+This architecture ensures that:
+- **Global theming works consistently** - The colorset system can override any component's default colors
+- **Layout-level spacing rules** take priority over individual utility classes
+- **User preferences** (high contrast, reduced motion) apply universally across all components
+- **Theme switching** works seamlessly without component-specific overrides
 
 ### Main Entry Point
 
 The `styles/index.css` file is the **only** file that imports all CSS layers:
 
 ```css
-@import url("./01_defaults/reset.css");
-@import url("./01_defaults/variables.css");
-@import url("./01_defaults/properties.css");
-@import url("./01_defaults/typography.css");
+@import url("01_defaults/properties.css");
+@import url("01_defaults/variables.css");
+@import url("01_defaults/reset.css");
+@import url("01_defaults/typography.css");
 
-@import url("./02_components/button.css");
-@import url("./02_components/control.css");
-@import url("./02_components/image.css");
+@import url("02_components/control.css");
+@import url("02_components/button.css");
+@import url("02_components/image.css");
 
-@import url("./03_utilities/aspect-ratio.css");
-@import url("./03_utilities/background.css");
-@import url("./03_utilities/flex.css");
-@import url("./03_utilities/gap.css");
-@import url("./03_utilities/grid.css");
-@import url("./03_utilities/height.css");
-@import url("./03_utilities/hidden.css");
-@import url("./03_utilities/margin.css");
-@import url("./03_utilities/padding.css");
-@import url("./03_utilities/text.css");
-@import url("./03_utilities/width.css");
-@import url("./03_utilities/wrapper.css");
+@import url("03_utilities/hidden.css");
+@import url("03_utilities/background.css");
+@import url("03_utilities/text.css");
+@import url("03_utilities/padding.css");
+@import url("03_utilities/margin.css");
+@import url("03_utilities/wrapper.css");
+@import url("03_utilities/width.css");
+@import url("03_utilities/height.css");
+@import url("03_utilities/aspect-ratio.css");
+@import url("03_utilities/flex.css");
+@import url("03_utilities/grid.css");
 
-@import url("./04_layouts/body.css");
-@import url("./04_layouts/prefers-contrast.css");
-@import url("./04_layouts/reduced-motion.css");
+@import url("04_layouts/space.css");
+@import url("04_layouts/colorset.css");
+@import url("04_layouts/body.css");
+@import url("04_layouts/reduced-motion.css");
+@import url("04_layouts/prefers-contrast.css");
 ```
 
 > **Note**: Only the `_base` copy-point includes `index.css`. Other copy-points contain individual layer files that extend the base.
@@ -197,6 +213,7 @@ Or import specific layers:
 @import "./stubs/_base/styles/01_defaults/variables.css";
 @import "./stubs/_base/styles/02_components/button.css";
 @import "./stubs/_base/styles/03_utilities/flex.css";
+@import "./stubs/_base/styles/04_layouts/colorset.css";
 ```
 
 ### JavaScript Integration
@@ -273,6 +290,65 @@ Override CSS custom properties to customize components:
   --control-hover-bg-color: var(--color-primary-dark);
 }
 ```
+
+### Colorset System
+
+CopyKit uses a **colorset** approach for systematic color management. A colorset is a comprehensive color definition system that establishes a complete visual identity for UI components or sections, providing all essential color variables needed for consistent theming across your entire application.
+
+**Default Colorset Variables** (defined in `stubs/_base/styles/01_defaults/variables.css`):
+
+**Core Colors:**
+- `--font-color` - Primary text color for readable content (default: `var(--color-black)`)
+- `--bg-color` - Main background color for containers and surfaces (default: `var(--color-white)`)
+- `--border-color` - Color for borders, dividers, and outlines (default: `var(--color-gray-300)`)
+
+**Visual Enhancement:**
+- `--shadow-color` - RGB values for drop shadows and depth effects (default: `0 0 0`)
+- `--shadow-alpha` - Opacity level for shadow transparency (default: `0.1`)
+
+**Interactive Elements:**
+- `--accent-color` - Highlight color for UI elements and emphasis (default: `var(--color-gray-500)`)
+- `--accent-font-color` - Text color when displayed on accent backgrounds (default: `var(--color-white)`)
+- `--accent-bg-color` - Background color for accent elements and highlights (default: `var(--accent-color)`)
+
+**Hover States:**
+- `--accent-hover-font-color` - Text color for interactive elements on hover (default: `var(--color-white)`)
+- `--accent-hover-bg-color` - Background color for interactive elements on hover (default: `var(--color-gray-600)`)
+
+**Text Selection:**
+- `--selection-color` - Text color when selected by user (default: `var(--bg-color)`)
+- `--selection-bg-color` - Background color for selected text (default: `var(--font-color)`)
+
+**Colorset Classes** (defined in `stubs/_base/styles/04_layouts/colorset.css`):
+
+The `cs-primary` colorset provides a dark theme variation:
+
+```css
+.cs-primary {
+  --font-color: var(--color-white);
+  --bg-color: var(--color-black);
+  --border-color: var(--color-gray-600);
+  --accent-color: var(--color-gray-500);
+  --accent-font-color: var(--color-black);
+  --accent-hover-bg-color: var(--color-gray-300);
+  /* ... additional colorset variables */
+}
+```
+
+**Usage Example:**
+```html
+<div class="bg cs-primary">
+  <!-- This section uses the primary colorset theme -->
+  <button class="btn">Button with primary colorset styling</button>
+</div>
+```
+
+**Benefits of Colorsets**:
+- **Component theming** - Apply consistent colors across buttons, cards, forms, and other UI elements
+- **Section-based styling** - Define distinct visual zones like headers, sidebars, or content areas
+- **Theme variations** - Create light/dark modes or brand-specific color schemes
+- **Layout-level overrides** - Colorsets in the layouts layer override component defaults
+- **Easy theme switching** - Swap entire color schemes without touching individual component styles
 
 ## Accessibility Features
 

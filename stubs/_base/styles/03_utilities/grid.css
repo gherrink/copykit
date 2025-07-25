@@ -52,8 +52,11 @@
    */
   .grid.gap,
   .grid[class*=" gap-"] {
-    --gap-x: calc(var(--space-unit) * var(--gap-space-x, var(--space-base)));
-    --gap-y: calc(var(--space-unit) * var(--gap-space-y, var(--space-base)));
+    --gap-space: var(--space-base);
+    --gap-space-x: var(--gap-space);
+    --gap-space-y: var(--gap-space);
+    --gap-x: calc(var(--space-unit) * var(--gap-space-x));
+    --gap-y: calc(var(--space-unit) * var(--gap-space-y));
 
     gap: var(--gap-x) var(--gap-y);
   }

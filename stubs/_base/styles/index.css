@@ -43,7 +43,6 @@
  * @order 40
  */
 
-@import url("03_utilities/colorset.css");
 @import url("03_utilities/hidden.css");
 @import url("03_utilities/background.css");
 @import url("03_utilities/text.css");
@@ -55,7 +54,6 @@
 @import url("03_utilities/aspect-ratio.css");
 @import url("03_utilities/flex.css");
 @import url("03_utilities/grid.css");
-@import url("03_utilities/gap.css");
 
 /**
  * Layouts are the outermost layer of the design. They define the structure of the page or define styles in specific contexts.
@@ -63,6 +61,8 @@
  * @page layout Layout
  * @order 50
  */
+@import url("04_layouts/space.css");
+@import url("04_layouts/colorset.css");
 @import url("04_layouts/body.css");
 @import url("04_layouts/reduced-motion.css");
 @import url("04_layouts/prefers-contrast.css");

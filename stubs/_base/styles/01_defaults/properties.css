@@ -10,6 +10,12 @@
   syntax: "<length-percentage>";
 }
 
+@property --gap-space {
+  inherits: false;
+  initial-value: 1;
+  syntax: "<number>";
+}
+
 @property --gap-space-x {
   inherits: false;
   initial-value: 1;

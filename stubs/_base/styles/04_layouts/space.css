@@ -1,8 +1,4 @@
-@layer utilities {
-  /**
-   * @page utilities
-   * @section gap Gap
-   */
+@layer layouts {
   .gap-xs,
   .gap-x-xs {
     --gap-space-x: var(--space-xs);

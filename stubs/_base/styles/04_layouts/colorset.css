@@ -1,4 +1,4 @@
-@layer utilities {
+@layer layouts {
   /**
    * Colorset definition to change color in specific contexts. For example you can use colorset in combination
    * with `.bg` or or `.btn` to change there coloring.
