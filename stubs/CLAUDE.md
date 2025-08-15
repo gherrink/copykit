@@ -133,10 +133,15 @@ The script (`scripts/create-copy-point.js`) automatically:
 ## Copy-Point Development Standards
 
 ### TypeScript Files
-- Use strict TypeScript configuration
-- Include comprehensive unit tests (`.test.ts`)
-- Add accessibility tests for UI components (`.accessibility.test.ts`)
-- Follow existing code patterns and conventions
+**For complete TypeScript development guidelines, see [CLAUDE_TS.md](CLAUDE_TS.md).**
+
+This covers:
+- Core architectural principles (HTML attributes, DOM storage, ARIA state)
+- Event-driven communication patterns
+- Service composition and initialization
+- Testing patterns (unit and accessibility)
+- Memory management and cleanup
+- Framework integration examples
 
 ### CSS Files
 - **Always use colorset variables** instead of direct color values for consistency and theme switching
@@ -161,28 +166,7 @@ When developing copy-points, components should handle their own specific accessi
 - **Progressive Enhancement**: Ensure functionality works without JavaScript first
 - **State Management**: Handle expanded/collapsed, active/inactive states accessibly
 
-**Example Component Implementation:**
-```typescript
-// Service should manage ARIA attributes and keyboard behavior
-class ComponentService {
-  private element: HTMLElement
-  
-  init() {
-    this.setupARIA()
-    this.setupKeyboardNavigation()
-    this.setupFocusManagement()
-  }
-  
-  private setupARIA() {
-    // Component manages its own ARIA attributes
-    const control = this.element.querySelector('.control')
-    const content = this.element.querySelector('.content')
-    
-    control.setAttribute('aria-expanded', 'false')
-    control.setAttribute('aria-controls', content.id)
-  }
-}
-```
+**For detailed TypeScript implementation patterns, see [CLAUDE_TS.md](CLAUDE_TS.md).**
 
 **For detailed CSS accessibility patterns, see [CLAUDE_CSS.md](CLAUDE_CSS.md)**
 
@@ -203,38 +187,7 @@ scripts/services/
 - **Focus Management**: Ensure proper focus indicators and focus trapping
 - **User Preferences**: Test with `prefers-reduced-motion` and `prefers-contrast`
 
-**Example Accessibility Test:**
-```typescript
-import { describe, it, expect } from 'vitest'
-import { expectAccessible, expectExpanded } from '@test/utils'
-
-describe('Component Accessibility', () => {
-  it('should manage ARIA attributes correctly', async () => {
-    const component = createComponent()
-    const control = component.querySelector('.control')
-    
-    // Test initial ARIA state
-    expect(control.getAttribute('aria-expanded')).toBe('false')
-    
-    // Test interaction
-    control.click()
-    expect(control.getAttribute('aria-expanded')).toBe('true')
-    
-    // Test accessibility compliance
-    await expectAccessible(component)
-  })
-  
-  it('should support keyboard navigation', async () => {
-    const component = createComponent()
-    const controls = component.querySelectorAll('.control')
-    
-    controls[0].focus()
-    await keyboard.press('ArrowDown')
-    
-    expect(document.activeElement).toBe(controls[1])
-  })
-})
-```
+**For complete accessibility testing patterns and examples, see [CLAUDE_TS.md](CLAUDE_TS.md).**
 
 
 #### Documentation Requirements for Accessibility
