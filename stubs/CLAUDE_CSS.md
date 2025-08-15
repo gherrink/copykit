@@ -94,6 +94,283 @@ CopyKit uses a **colorset** approach for systematic color management. A colorset
 - Ensure all colorset variables work harmoniously together
 - Test color combinations for accessibility and contrast requirements
 
+## CSS Variables Quick Reference
+
+The `_base` copy-point provides a comprehensive set of CSS variables that should be reused in new copy-points. Understanding these variables is essential for creating consistent, themeable components.
+
+### Base Color Variables (RGB Space-Separated)
+**Core palette colors used throughout the system:**
+```css
+--color-black: 40 40 40          /* Primary dark color */
+--color-white: 255 255 255       /* Primary light color */
+--color-gray-300: 209 213 219    /* Light gray */
+--color-gray-500: 107 114 128    /* Medium gray */
+--color-gray-600: 75 85 99       /* Dark gray */
+```
+
+**Usage Pattern:**
+```css
+.component {
+  color: rgb(var(--color-black));
+  background: rgb(var(--color-white) / 0.9); /* With alpha */
+}
+```
+
+### Spacing System Variables
+**Multiplier-based spacing system:**
+```css
+--space-unit: 1em                /* Base unit for all spacing calculations */
+--space-xxs: 0.35                /* Extra extra small (0.35em) */
+--space-xs: 0.5                  /* Extra small (0.5em) */
+--space-sm: 0.7                  /* Small (0.7em) */
+--space-base: 1                  /* Base/Medium (1em) */
+--space-md: 1.3                  /* Medium (1.3em) */
+--space-lg: 1.8                  /* Large (1.8em) */
+--space-xl: 3.2                  /* Extra large (3.2em) */
+--space-2xl: 4.8                 /* 2x extra large (4.8em) */
+```
+
+**Component Usage Pattern:**
+```css
+.component {
+  /* Define component-specific spacing that uses base variables */
+  --component-padding: calc(var(--space-unit) * var(--space-md));
+  --component-margin: calc(var(--space-unit) * var(--space-lg));
+  
+  padding: var(--component-padding);
+  margin: var(--component-margin);
+}
+```
+
+### Animation/Transition Variables
+**Standard timing values:**
+```css
+--transition-fast: 150ms         /* Quick transitions */
+--transition-base: 250ms         /* Standard transitions */
+--transition-slow: 350ms         /* Slow transitions */
+```
+
+**Component Usage Pattern:**
+```css
+.component {
+  --component-transition-time: var(--transition-base);
+  transition: all var(--component-transition-time) ease;
+}
+```
+
+### Typography Variables
+**Font families:**
+```css
+--font-family-base: system-ui, "Segoe UI", roboto, helvetica, arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"
+```
+
+**Font weights:**
+```css
+--font-weight-normal: 400
+--font-weight-bold: 700
+```
+
+**Font sizes:**
+```css
+--font-size-sm: 0.875em          /* Small text */
+--font-size-base: 1em            /* Standard body text */
+--font-size-md: 1.125em          /* Medium text */
+--font-size-lg: 1.25em           /* Large text */
+--font-size-xl: 1.25em           /* Extra large text */
+--font-size-2xl: 1.5rem          /* 2x extra large text */
+```
+
+**Line heights:**
+```css
+--line-height-tight: 1.25        /* Compact line spacing */
+--line-height-base: 1.4          /* Standard line spacing */
+--line-height-relaxed: 1.6       /* Loose line spacing */
+```
+
+**Active typography variables (applied to elements):**
+```css
+--font-family: var(--font-family-base)     /* Active font family */
+--font-weight: var(--font-weight-normal)   /* Active font weight */
+--font-size: var(--font-size-base)         /* Active font size */
+--font-line-height: var(--line-height-base) /* Active line height */
+```
+
+**Component Usage Pattern:**
+```css
+.component {
+  /* Component should define its own font variables */
+  --component-font-size: var(--font-size-sm);
+  --component-font-weight: var(--font-weight-bold);
+  --component-line-height: var(--line-height-tight);
+  
+  font-size: var(--component-font-size);
+  font-weight: var(--component-font-weight);
+  line-height: var(--component-line-height);
+}
+```
+
+### Colorset System Variables
+**Complete theming system for consistent UI colors:**
+
+**Core Colors:**
+```css
+--font-color: var(--color-black)           /* Primary text color */
+--bg-color: var(--color-white)             /* Main background color */
+--border-color: var(--color-gray-300)      /* Border and divider color */
+```
+
+**Visual Enhancement:**
+```css
+--shadow-color: 0 0 0                      /* RGB for shadows */
+--shadow-alpha: 0.1                        /* Shadow opacity (0.0-1.0) */
+```
+
+**Interactive Elements:**
+```css
+--accent-color: var(--color-gray-500)         /* Highlight/accent color */
+--accent-font-color: var(--color-white)       /* Text on accent backgrounds */
+--accent-bg-color: var(--accent-color)        /* Accent background color */
+```
+
+**Hover States:**
+```css
+--accent-hover-font-color: var(--color-white)  /* Hover text color */
+--accent-hover-bg-color: var(--color-gray-600) /* Hover background color */
+```
+
+**Text Selection:**
+```css
+--selection-color: var(--bg-color)          /* Selected text color */
+--selection-bg-color: var(--font-color)     /* Selected text background */
+```
+
+**Component Usage Pattern:**
+```css
+.component {
+  /* Components should define their own colorset variables */
+  --component-font-color: var(--font-color);
+  --component-bg-color: var(--bg-color);
+  --component-border-color: var(--border-color);
+  --component-accent-color: var(--accent-color);
+  
+  color: rgb(var(--component-font-color));
+  background: rgb(var(--component-bg-color));
+  border: 1px solid rgb(var(--component-border-color));
+}
+
+.component.accent {
+  --component-font-color: var(--accent-font-color);
+  --component-bg-color: var(--accent-bg-color);
+}
+
+.component:hover {
+  --component-font-color: var(--accent-hover-font-color);
+  --component-bg-color: var(--accent-hover-bg-color);
+}
+```
+
+### Layout Constraint Variables
+**Responsive width system:**
+```css
+--width-sm: 640px                /* Small breakpoint */
+--width-base: 1024px             /* Standard breakpoint */
+--width-lg: 1280px               /* Large breakpoint */
+--width-content: var(--width-base)  /* Active content width */
+--width-min-offset-x: 22px       /* Minimum horizontal offset */
+```
+
+**Component Usage Pattern:**
+```css
+.component {
+  --component-max-width: var(--width-content);
+  max-width: var(--component-max-width);
+}
+```
+
+### Headline Variables
+**Heading and title styling:**
+```css
+--headline-space: var(--space-base)        /* Space above headlines */
+--headline-family: var(--font-family-base) /* Headline font family */
+--headline-weight: var(--font-weight-bold) /* Headline font weight */
+--headline-line-height: var(--line-height-base) /* Headline line height */
+--headline-color: inherit                   /* Headline text color */
+--headline-scale: 1                        /* Headline size multiplier */
+```
+
+### Link Variables
+**Link styling and behavior:**
+```css
+--link-color: inherit                       /* Link text color */
+--link-decoration: underline                /* Link text decoration */
+--link-hover-color: var(--accent-color)    /* Link hover color */
+--link-hover-decoration: none               /* Link hover decoration */
+--link-transition-time: var(--transition-base) /* Link transition timing */
+```
+
+### Variable Usage Best Practices
+
+#### 1. Always Define Component Variables
+**✅ Correct Pattern:**
+```css
+.btn {
+  /* Component defines its own variables that reference base variables */
+  --btn-font-color: var(--accent-font-color);
+  --btn-bg-color: var(--accent-bg-color);
+  --btn-font-size: var(--font-size);
+  --btn-padding: calc(var(--space-unit) * var(--space-sm));
+  
+  color: rgb(var(--btn-font-color));
+  background: rgb(var(--btn-bg-color));
+  font-size: var(--btn-font-size);
+  padding: var(--btn-padding);
+}
+```
+
+**❌ Incorrect Pattern:**
+```css
+.btn {
+  /* Never use base variables directly in component styles */
+  color: rgb(var(--accent-font-color));
+  background: rgb(var(--accent-bg-color));
+  font-size: var(--font-size);
+}
+```
+
+#### 2. Component Variable Naming Convention
+```css
+/* Format: --[component-name]-[property] */
+--btn-font-color: var(--accent-font-color);
+--accordion-border-color: var(--border-color);
+--card-bg-color: var(--bg-color);
+--modal-shadow-color: var(--shadow-color);
+```
+
+#### 3. Predefined vs. Referenced Values
+**Predefined base variables** (contain actual values):
+```css
+--font-size-sm: 0.875em          /* Use when you need the specific small size */
+--space-lg: 1.8                  /* Use when you need the specific large spacing */
+--color-gray-500: 107 114 128    /* Use when you need the specific gray color */
+```
+
+**Referenced variables** (point to other variables):
+```css
+--font-size: var(--font-size-base)  /* Use when you want the "current" font size */
+--accent-color: var(--color-gray-500) /* Use when you want the "current" accent color */
+```
+
+**Component Usage Example:**
+```css
+.component {
+  /* Sometimes you need the specific predefined value */
+  --component-small-text: var(--font-size-sm);
+  
+  /* Sometimes you need the current/active value */
+  --component-font-size: var(--font-size);
+}
+```
+
 ## Available Classes from `_base` Copy-Point
 
 The `_base` copy-point provides a comprehensive foundation that should be reused in new copy-points rather than recreated. Here's a quick reference of what's available:
