@@ -246,36 +246,13 @@ Only add JSDoc documentation to CSS where it provides meaningful showcase value:
 
 ## Copy-Point Development
 
-For complete copy-point development guidance, see [stubs/CLAUDE.md](stubs/CLAUDE.md).
+For complete copy-point creation and development guidance, see [stubs/CLAUDE_COPY_POINT.md](stubs/CLAUDE_COPY_POINT.md).
 
 ### Quick Reference
 - **Create new copy-point**: `pnpm run create-copy-point [name]`
 - **Always use the automated script** - never create copy-points manually
-- **Standard structure**: README.md, copy-point.json, scripts/, styles/ with 4 CSS layers
+- **Complete creation guide**: See [stubs/CLAUDE_COPY_POINT.md](stubs/CLAUDE_COPY_POINT.md)
 - **Commit format**: `feat(stub:[name]): create [name] copy point`
-
-### README.md Copy-Point Quick Reference Standards
-
-When documenting copy-points in the main README.md "Available Copy Points" section:
-
-**Required Documentation Format:**
-```markdown
-#### [`copy-point-name/`](stubs/copy-point-name/README.md) - Brief Title
-Short description of the copy-point's purpose and functionality.
-
-- **Feature 1** - Description of key feature
-- **Feature 2** - Description of key feature
-- **Feature 3** - Description of key feature
-
-> **🌐 [Live Demo](https://gherrink.github.io/copykit/copy-point-name.html)** | **📖 [View complete copy-point-name documentation](stubs/copy-point-name/README.md)**
-```
-
-**Live Demo Link Requirements:**
-- **Only add live demo links** if `/pages/[copy-point-name]/` directory exists with `index.html`
-- **Use flattened HTML structure**: `https://gherrink.github.io/copykit/[copy-point-name].html`
-- **NOT directory structure**: `https://gherrink.github.io/copykit/[copy-point-name]/`
-- **Format**: `🌐 [Live Demo](url) | 📖 [View complete documentation](readme)`
-- **No live demo**: Just use `📖 [View complete copy-point-name documentation](stubs/copy-point-name/README.md)`
 
 ### Conventional Commits
 This project uses [Conventional Commits](https://www.conventionalcommits.org/) with commitlint enforcement.

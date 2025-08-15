@@ -1,18 +1,49 @@
-# Copy-Point Development Guide
+# Copy-Point Creation Complete Guide
 
-This file provides guidance for working with copy-points in the CopyKit project.
+This file provides comprehensive guidance for creating new copy-points in the CopyKit project. Use this as your definitive reference for all copy-point creation workflows, standards, and requirements.
 
-## What Are Copy-Points?
+## Quick Start
 
-Copy-points are reusable component and utility collections that can be selectively added to projects. Each copy-point is a self-contained directory with its own documentation, metadata, and implementation files.
+### IMPORTANT: Always Use the Automated Script
+**Never create copy-points manually.** Always use the automated script to ensure consistency and proper structure.
 
-## Copy-Point Organization
+```bash
+# REQUIRED: Use this script for all new copy-points
+pnpm run create-copy-point [name]
 
-The `stubs/` directory contains all copy-points:
+# Examples:
+pnpm run create-copy-point advanced
+pnpm run create-copy-point components-extended
+pnpm run create-copy-point dark-theme
+pnpm run create-copy-point animations
+```
 
-- **`_base/`** - Core foundation components (required by most copy-points)
-- **Component copy-points** - Self-contained UI components (e.g., `accordion/`)
-- **Utility copy-points** - Single-purpose utilities (e.g., `elevate/`, `shadow/`)
+## Copy-Point Creation Process
+
+### 1. Script Features and Validation
+The script (`scripts/create-copy-point.js`) automatically:
+
+- **Validates naming**: Ensures kebab-case, no underscores (except `_base`), lowercase only
+- **Prevents conflicts**: Checks if copy-point already exists
+- **Creates structure**: Standard directories (`scripts/`, `styles/` with all 4 layers)
+- **Generates templates**: Starter files with proper JSDoc comments and layer organization
+- **Provides guidance**: Shows next steps and commit message format
+
+### 2. Copy-Point Naming Rules
+- **Lowercase only**: `advanced`, `dark-theme`, `components-extended`
+- **Kebab-case**: Use hyphens for multi-word names
+- **No underscores**: Only `_base` uses underscore prefix
+- **Descriptive**: Name should indicate purpose (`animations`, `advanced`, `dark-theme`)
+
+### 3. Post-Script Workflow
+1. **Script generates**: Complete structure in `stubs/[name]/` including metadata and README.md templates
+2. **Complete metadata**: Update `copy-point.json` with accurate title, description, features, and keywords
+3. **Complete documentation**: Fill out the generated README.md template with copy-point-specific information
+4. **Update commitlint**: Add `stub:[name]` scope to `.commitlintrc.cjs`
+5. **Develop components**: Replace template files with actual components
+6. **Test integration**: Ensure compatibility with `_base` and other copy-points
+7. **Create examples**: Add demonstration pages in `pages/`
+8. **Commit changes**: Use `feat(stub:[name]): create [name] copy point`
 
 ## Standard Copy-Point Structure
 
@@ -43,25 +74,9 @@ stubs/[name]/
 - Not all copy-points require JavaScript (some are CSS-only)
 - Layer directories are created even if empty to maintain consistency
 
-## README.md Purpose
+## Metadata Configuration
 
-Each copy-point's `README.md` serves as **user documentation** for developers who want to use the copy-point in their projects.
-
-**Required Content:**
-- **Overview** - Purpose and features of the copy-point
-- **Live Example** - Direct link to GitHub Pages demo (if example page exists in `/pages/[copy-point-name]/`)
-- **Dependencies** - Additional copy-points required beyond `_base` (omit `_base` as it's implicit)
-- **Usage** - Basic usage examples and HTML structure
-- **CSS Architecture** - Custom properties and component structure
-- **Integration Guide** - How to import and use in projects
-- **Customization** - Examples of theming and modifications
-- **Browser Support** - Compatibility requirements
-- **Best Practices** - Recommended usage patterns
-
-**Audience:** End-users of the CopyKit CLI who want to understand how to use the copy-point in their projects.
-
-## copy-point.json Purpose
-
+### copy-point.json Purpose
 The `copy-point.json` file provides structured metadata for the CopyKit CLI and development tools.
 
 **Schema:**
@@ -88,26 +103,97 @@ The `copy-point.json` file provides structured metadata for the CopyKit CLI and 
 - Automatic discovery and loading by CLI tools
 - Graceful fallback when metadata files are missing
 
+## README.md Documentation Standards
 
-## Copy-Point Creation
+### README.md Purpose
+Each copy-point's `README.md` serves as **user documentation** for developers who want to use the copy-point in their projects.
 
-**For complete copy-point creation guidance, see [CLAUDE_COPY_POINT.md](CLAUDE_COPY_POINT.md).**
+**Required Content:**
+- **Overview** - Purpose and features of the copy-point
+- **Live Example** - Direct link to GitHub Pages demo (if example page exists in `/pages/[copy-point-name]/`)
+- **Dependencies** - Additional copy-points required beyond `_base` (omit `_base` as it's implicit)
+- **Usage** - Basic usage examples and HTML structure
+- **CSS Architecture** - Custom properties and component structure
+- **Integration Guide** - How to import and use in projects
+- **Customization** - Examples of theming and modifications
+- **Browser Support** - Compatibility requirements
+- **Best Practices** - Recommended usage patterns
 
-### Quick Reference
-```bash
-# Create new copy-point (always use this script)
-pnpm run create-copy-point [name]
+**Audience:** End-users of the CopyKit CLI who want to understand how to use the copy-point in their projects.
+
+### Live Example Documentation Requirements
+
+**When to Include Live Example Section:**
+- Check if `/pages/[copy-point-name]/` directory exists with `index.html`
+- If exists, add "Live Example" section immediately after "Overview"
+- If no example page exists, omit this section entirely
+
+**Live Example Section Format:**
+```markdown
+## Live Example
+
+**[🌐 View Live Example](https://gherrink.github.io/copykit/[copy-point-name].html)** - See this copy point in action with interactive demonstrations.
 ```
 
-The complete creation guide covers:
-- Automated script usage and validation
-- Copy-point naming rules and standards
-- Post-script workflow and development process
-- Metadata configuration and documentation requirements
-- Testing and accessibility implementation
-- Conventional commit formats
+**GitHub Pages URL Structure:**
+- Use flattened HTML structure: `https://gherrink.github.io/copykit/[copy-point-name].html`
+- NOT directory structure: `https://gherrink.github.io/copykit/[copy-point-name]/`
+- Example: `accordion` copy point → `https://gherrink.github.io/copykit/accordion.html`
 
-## Copy-Point Development Standards
+**Examples of Copy Points with Live Demos:**
+- `accordion/` → `https://gherrink.github.io/copykit/accordion.html`
+- `border/` → `https://gherrink.github.io/copykit/border.html`
+- `rounded-simple/` → `https://gherrink.github.io/copykit/rounded-simple.html`
+- `shadow/` → `https://gherrink.github.io/copykit/shadow.html`
+
+### Main README.md Copy-Point Quick Reference Standards
+
+When documenting copy-points in the main README.md "Available Copy Points" section:
+
+**Required Documentation Format:**
+```markdown
+#### [`copy-point-name/`](stubs/copy-point-name/README.md) - Brief Title
+Short description of the copy-point's purpose and functionality.
+
+- **Feature 1** - Description of key feature
+- **Feature 2** - Description of key feature
+- **Feature 3** - Description of key feature
+
+> **🌐 [Live Demo](https://gherrink.github.io/copykit/copy-point-name.html)** | **📖 [View complete copy-point-name documentation](stubs/copy-point-name/README.md)**
+```
+
+**Live Demo Link Requirements:**
+- **Only add live demo links** if `/pages/[copy-point-name]/` directory exists with `index.html`
+- **Use flattened HTML structure**: `https://gherrink.github.io/copykit/[copy-point-name].html`
+- **NOT directory structure**: `https://gherrink.github.io/copykit/[copy-point-name]/`
+- **Format**: `🌐 [Live Demo](url) | 📖 [View complete documentation](readme)`
+- **No live demo**: Just use `📖 [View complete copy-point-name documentation](stubs/copy-point-name/README.md)`
+
+## Copy-Point Dependencies
+
+### Base Dependency (_base)
+**IMPORTANT**: Do not list `_base` as a dependency in README.md or copy-point.json files.
+
+`_base` is an implicit foundation dependency that provides:
+- CSS reset and normalization
+- Core utility classes
+- Base component styles
+- JavaScript utilities (DOM, events, etc.)
+
+### Inter-Copy-Point Dependencies
+- **Only list additional copy-points** beyond `_base` in `copy-point.json`
+- **Only document non-base dependencies** in README.md
+- Ensure compatibility with existing copy-points
+- Test integration scenarios
+- Provide fallback behavior when dependencies are missing
+
+### Dependency Documentation Rules
+- `dependencies: []` - For copy-points that only need `_base`
+- `dependencies: ["other-copy-point"]` - For copy-points that need additional ones
+- Never include `"_base"` in the dependencies array
+- In README.md, only mention additional dependencies beyond `_base`
+
+## Development Standards
 
 ### TypeScript Files
 **For complete TypeScript development guidelines, see [CLAUDE_TS.md](CLAUDE_TS.md).**
@@ -129,11 +215,11 @@ This covers:
 
 **For complete CSS guidelines, see [CLAUDE_CSS.md](CLAUDE_CSS.md)**
 
-### Accessibility Implementation Requirements
+## Accessibility Implementation Requirements
 
 Copy-points must follow CopyKit's comprehensive accessibility standards to ensure consistent, inclusive user experiences across all components.
 
-#### Component-Level Accessibility Rules
+### Component-Level Accessibility Rules
 When developing copy-points, components should handle their own specific accessibility behaviors:
 
 **Required Component Patterns:**
@@ -147,7 +233,7 @@ When developing copy-points, components should handle their own specific accessi
 
 **For detailed CSS accessibility patterns, see [CLAUDE_CSS.md](CLAUDE_CSS.md)**
 
-#### Accessibility Testing Requirements
+### Accessibility Testing Requirements
 All copy-points with interactive elements must include comprehensive accessibility tests:
 
 **Required Test Files:**
@@ -166,8 +252,7 @@ scripts/services/
 
 **For complete accessibility testing patterns and examples, see [CLAUDE_TS.md](CLAUDE_TS.md).**
 
-
-#### Documentation Requirements for Accessibility
+### Documentation Requirements for Accessibility
 Copy-point README.md files must document accessibility features:
 
 **Required Accessibility Documentation:**
@@ -188,7 +273,9 @@ Copy-point README.md files must document accessibility features:
 - **Escape** - Close expanded content
 ```
 
-### Testing Requirements
+## Testing Requirements
+
+### Testing Standards
 - Unit tests for all public APIs
 - **Accessibility tests for UI components** (required for interactive elements)
 - Integration tests with `_base` dependencies
@@ -202,8 +289,6 @@ Copy-point README.md files must document accessibility features:
 - Accurate copy-point.json metadata
 - JSDoc comments for complex CSS patterns
 - Integration examples for common use cases
-
-### Live Example and Documentation Requirements
 
 ## Conventional Commits for Copy-Points
 
