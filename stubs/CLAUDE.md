@@ -88,33 +88,6 @@ The `copy-point.json` file provides structured metadata for the CopyKit CLI and 
 - Automatic discovery and loading by CLI tools
 - Graceful fallback when metadata files are missing
 
-## CSS Layer Organization
-
-Copy-points use a 4-layer CSS architecture:
-
-### 1. Defaults (`01_defaults/`)
-- Browser resets and normalizations
-- CSS custom properties and variables
-- Typography base styles
-- Global configuration
-
-### 2. Components (`02_components/`)
-- Reusable UI components
-- Self-contained component styles
-- Component variants and states
-- Interactive element styling
-
-### 3. Utilities (`03_utilities/`)
-- Single-purpose utility classes
-- Spacing, layout, and positioning
-- Text and color utilities
-- Responsive helpers
-
-### 4. Layouts (`04_layouts/`)
-- Page-level structural styles
-- Grid and flexbox layouts
-- Container and wrapper styles
-- Layout-specific component arrangements
 
 ## Copy-Point Creation
 
@@ -172,43 +145,7 @@ The script (`scripts/create-copy-point.js`) automatically:
 - Follow the 4-layer architecture
 - Ensure accessibility compliance (WCAG 2.1 AA)
 
-### Colorset Usage Requirements
-When developing copy-points, always use the colorset system for colors:
-
-**✅ Required - Use colorset variables:**
-```css
-.component {
-  color: var(--font-color);
-  background-color: var(--bg-color);
-  border: 1px solid var(--border-color);
-  box-shadow: 0 2px 4px rgb(var(--shadow-color) / var(--shadow-alpha));
-}
-
-.component.accent {
-  color: var(--accent-font-color);
-  background-color: var(--accent-bg-color);
-}
-
-.component:hover {
-  color: var(--accent-hover-font-color);
-  background-color: var(--accent-hover-bg-color);
-}
-```
-
-**❌ Forbidden - Direct color values:**
-```css
-.component {
-  color: #000000;
-  background-color: #ffffff;
-  border: 1px solid #cccccc;
-}
-```
-
-**Colorset Benefits for Copy-Points:**
-- Automatic theme compatibility across all copy-points
-- Consistent visual identity when mixing copy-points
-- Easy customization by overriding colorset variables
-- Future-proof for light/dark mode implementations
+**For complete CSS guidelines, see [CLAUDE_CSS.md](CLAUDE_CSS.md)**
 
 ### Accessibility Implementation Requirements
 
@@ -247,55 +184,7 @@ class ComponentService {
 }
 ```
 
-```css
-/* Component defines accessibility styles */
-.component .control {
-  /* Focus indicators that work with colorset system */
-  outline: 2px solid var(--accent-color);
-  outline-offset: 2px;
-}
-
-.component .control:focus {
-  /* Enhanced focus for accessibility */
-  outline-width: 3px;
-}
-
-.component .content[hidden] {
-  /* Proper hiding for screen readers */
-  display: none;
-}
-```
-
-#### Layout-Level Accessibility Rules
-Copy-points should include layout files (`04_layouts/`) only for global accessibility overrides:
-
-**User Preference Handling:**
-```css
-/* 04_layouts/prefers-contrast.css - Override colorset for high contrast */
-@media (prefers-contrast: more) {
-  .component {
-    --font-color: 0 0 0;
-    --bg-color: 255 255 255;
-    --border-color: 0 0 0;
-    --accent-color: 0 0 0;
-  }
-}
-
-/* 04_layouts/reduced-motion.css - Disable animations */
-@media (prefers-reduced-motion: reduce) {
-  .component {
-    --transition-fast: 0ms;
-    --transition-base: 0ms;
-    --transition-slow: 0ms;
-  }
-}
-```
-
-**When to Add Layout Accessibility Files:**
-- **Always add** if your copy-point introduces new interactive elements
-- **Include prefers-contrast overrides** if using custom colorset variations
-- **Include reduced-motion overrides** if adding animations or transitions
-- **Follow the _base pattern** for consistent implementation
+**For detailed CSS accessibility patterns, see [CLAUDE_CSS.md](CLAUDE_CSS.md)**
 
 #### Accessibility Testing Requirements
 All copy-points with interactive elements must include comprehensive accessibility tests:
@@ -347,36 +236,6 @@ describe('Component Accessibility', () => {
 })
 ```
 
-#### Colorset Accessibility Integration
-Always ensure copy-point colors work with accessibility overrides:
-
-**Required Colorset Patterns:**
-```css
-.component {
-  /* Use colorset variables for automatic accessibility support */
-  color: var(--font-color);
-  background-color: var(--bg-color);
-  border: 1px solid var(--border-color);
-}
-
-.component.accent {
-  /* Accent variants must use colorset accent variables */
-  color: var(--accent-font-color);
-  background-color: var(--accent-bg-color);
-}
-
-.component:hover {
-  /* Hover states use colorset hover variables */
-  color: var(--accent-hover-font-color);
-  background-color: var(--accent-hover-bg-color);
-}
-
-/* Selection states for accessibility */
-.component::selection {
-  color: var(--selection-color);
-  background-color: var(--selection-bg-color);
-}
-```
 
 #### Documentation Requirements for Accessibility
 Copy-point README.md files must document accessibility features:
@@ -478,3 +337,34 @@ git commit -m "style(stub:[name]): format CSS utility classes"
 ```
 
 **Important**: After creating a new copy-point, you must manually add its scope to `.commitlintrc.cjs` in the `scope-enum` array.
+
+## CSS Writing Standards
+
+**For complete CSS writing guidelines and patterns, see [CLAUDE_CSS.md](CLAUDE_CSS.md).**
+
+This dedicated CSS reference provides comprehensive guidance on:
+
+### Core Standards
+- **Colorset system** - Complete color variable usage and RGB space-separated format
+- **CSS layer organization** - 4-layer architecture (defaults, components, utilities, layouts)
+- **Pattern guidelines** - Component vs utility decision framework
+- **Child selector strategy** - Clean HTML structure without verbose class names
+
+### Implementation Details
+- **Component patterns** - Prefix-based variations with examples
+- **Utility patterns** - Compound class composition
+- **Integration patterns** - Combining components, utilities, and layouts
+- **Accessibility CSS** - Focus management, user preferences, colorset integration
+
+### Documentation & Performance
+- **JSDoc standards** - When and how to document CSS
+- **@location key rules** - Unique naming for CSS documentation
+- **Performance best practices** - Selector efficiency and optimization
+- **Common pitfalls** - What to avoid when writing CSS
+
+**Key Reminders:**
+- Always use `rgb(var(--colorset-variable))` format
+- Never use direct color values like `#000000` or `blue`
+- Follow 4-layer organization for predictable cascade
+- Use child selectors for clean component structure
+- Include accessibility CSS for interactive elements
