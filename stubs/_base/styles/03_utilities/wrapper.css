@@ -1,10 +1,15 @@
 @layer utilities {
   /**
-   * You can use the wrapper class to put content inside.
+   * Wrapper utility for content containers. Removes margins from first and last children
+   * to prevent spacing issues when content is placed inside containers.
    *
    * @location utilities.wrapper Wrapper
-   * @code
-   * <div class="wrapper"></div>
+   * @example
+   * <div class="wrapper px py border">
+   *   <h2>First child - no top margin</h2>
+   *   <p>Middle content maintains normal margins</p>
+   *   <p>Last child - no bottom margin</p>
+   * </div>
    */
   .wrapper {
     > *:first-child {

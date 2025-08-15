@@ -1,17 +1,51 @@
 @layer utilities {
   /**
-   * Set element height.
+   * Height utilities for controlling element height
    *
    * @location utilities.height Height
+   * @example
+   * <div class="height-full bg border" style="max-height: 100px;">
+   *   Full height element
+   * </div>
+   */
+
+  /**
+   * Full height - takes 100% of parent height
+   *
+   * @location utilities.height.full Height Full
+   * @example
+   * <div style="height: 200px; border: 1px solid rgb(var(--border-color));">
+   *   <div class="height-full bg px py">
+   *     Takes full height of parent (200px)
+   *   </div>
+   * </div>
    */
   .height-full {
     height: 100%;
   }
 
+  /**
+   * Auto height - height determined by content
+   *
+   * @location utilities.height.auto Height Auto
+   * @example
+   * <div class="height-auto bg px py border">
+   *   Height adjusts to content automatically
+   * </div>
+   */
   .height-auto {
     height: auto;
   }
 
+  /**
+   * Fit-content height - height fits content with intrinsic sizing
+   *
+   * @location utilities.height.fit Height Fit Content
+   * @example
+   * <div class="height-fit bg px py border" style="min-height: 100px;">
+   *   Height fits content, respects min-height
+   * </div>
+   */
   .height-fit {
     height: fit-content;
   }

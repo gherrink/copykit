@@ -1,3 +1,16 @@
+/**
+ * Body layout for pages with main element. Creates a flex column layout where the main
+ * element expands to fill available space, pushing footer to bottom of viewport.
+ * Only applies when body contains a main element.
+ *
+ * @location layouts.body Body Layout
+ * @example
+ * <body>
+ *   <header>Header content</header>
+ *   <main>Main content that expands to fill space</main>
+ *   <footer>Footer pushed to bottom</footer>
+ * </body>
+ */
 html > body:has(main) {
   display: flex;
   flex-direction: column;

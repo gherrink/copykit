@@ -1,4 +1,15 @@
-/* Respect reduced motion preferences */
+/**
+ * Accessibility support for users who prefer reduced motion. Disables all CSS transitions
+ * and animations when user has set prefers-reduced-motion: reduce in their system settings.
+ * This helps users with vestibular disorders or motion sensitivity.
+ *
+ * @location layouts.accessibility.motion Reduced Motion Support
+ * @example
+ * <!-- This CSS automatically applies when user has reduced motion preference -->
+ * <div class="btn" style="transition: background-color var(--transition-base) ease;">
+ *   Button transitions disabled for reduced motion users
+ * </div>
+ */
 @media (prefers-reduced-motion: reduce) {
   :root {
     --transition-fast: 0ms;

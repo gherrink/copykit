@@ -1,4 +1,18 @@
-/* Respect high contrast preferences */
+/**
+ * Accessibility support for users who prefer higher contrast. Overrides colorset variables
+ * to provide high contrast black/white colors when user has set prefers-contrast: more
+ * in their system settings. Ensures better visibility for users with vision impairments.
+ *
+ * @location layouts.accessibility.contrast High Contrast Support
+ * @example
+ * <!-- This CSS automatically applies when user has high contrast preference -->
+ * <div class="bg border px py">
+ *   High contrast: black text on white background with black border
+ * </div>
+ * <div class="bg cs-primary px py">
+ *   High contrast primary: white text on black background
+ * </div>
+ */
 @media (prefers-contrast: more) {
   :root {
     --font-color: 0 0 0;
@@ -13,7 +27,7 @@
     --accent-hover-bg-color: 64 64 64;
   }
 
-  /* override primary colorset */
+  /* Override primary colorset for high contrast */
   .cs-primary {
     --font-color: 255 255 255;
     --bg-color: 0 0 0;

@@ -1,11 +1,12 @@
 @layer utilities {
   /**
-   * @page utilities
-   * @section flex Flex
+   * Base flex utility for creating flexible layouts
+   *
+   * @location utilities.flex Flex
    * @example
    * <div class="flex">
-   *   <div class="bg px py"></div>
-   *   <div class="bg px py"></div>
+   *   <div class="bg px py">Item 1</div>
+   *   <div class="bg px py">Item 2</div>
    * </div>
    */
   .flex {
@@ -13,17 +14,18 @@
   }
 
   /**
-   * Use gap utility to define gaps.
-   * @page utilities
-   * @section flex.gap gap
+   * Flex with gap spacing between items. Use gap utility to define gaps.
+   * Gap size can be customized with gap-xs, gap-sm, gap-base, gap-lg, gap-xl modifiers.
+   *
+   * @location utilities.flex.gap Flex with Gap
    * @example
    * <div class="flex gap">
-   *   <div class="bg px py"></div>
-   *   <div class="bg px py"></div>
+   *   <div class="bg px py">Item 1</div>
+   *   <div class="bg px py">Item 2</div>
    * </div>
    * <div class="flex gap-xl">
-   *   <div class="bg px py"></div>
-   *   <div class="bg px py"></div>
+   *   <div class="bg px py">Large gap</div>
+   *   <div class="bg px py">Large gap</div>
    * </div>
    */
   .flex.gap,
@@ -38,17 +40,18 @@
   }
 
   /**
-   * @page utilities
-   * @section flex.row row
+   * Flex with row direction (horizontal layout). Includes pull-right utility for right alignment.
+   *
+   * @location utilities.flex.row Flex Row
    * @example
    * <div class="flex row gap">
-   *   <div class="bg px py"></div>
-   *   <div class="bg px py"></div>
+   *   <div class="bg px py">Left</div>
+   *   <div class="bg px py">Right</div>
    * </div>
    * <div class="flex row gap mt">
-   *   <div class="bg px py"></div>
-   *   <div class="pull-right bg px py"></div>
-   *   <div class="pull-right bg px py"></div>
+   *   <div class="bg px py">Left</div>
+   *   <div class="pull-right bg px py">Right 1</div>
+   *   <div class="pull-right bg px py">Right 2</div>
    * </div>
    */
   .flex.row {
@@ -60,12 +63,13 @@
   }
 
   /**
-   * @page utilities
-   * @section flex.column column
+   * Flex with column direction (vertical layout)
+   *
+   * @location utilities.flex.column Flex Column
    * @example
    * <div class="flex column">
-   *   <div class="bg px py"></div>
-   *   <div class="bg px py"></div>
+   *   <div class="bg px py">Top</div>
+   *   <div class="bg px py">Bottom</div>
    * </div>
    */
   .flex.column {
@@ -73,12 +77,14 @@
   }
 
   /**
-   * @page utilities
-   * @section flex.wrap wrap
+   * Flex with wrap enabled - items wrap to new lines when needed
+   *
+   * @location utilities.flex.wrap Flex Wrap
    * @example
-   * <div class="flex row wrap">
-   *   <div class="bg px py" style="width: 700px"></div>
-   *   <div class="bg px py" style="width: 800px"></div>
+   * <div class="flex row wrap gap">
+   *   <div class="bg px py" style="width: 300px">Wide Item 1</div>
+   *   <div class="bg px py" style="width: 300px">Wide Item 2</div>
+   *   <div class="bg px py" style="width: 300px">Wide Item 3</div>
    * </div>
    */
   .flex.wrap {
@@ -86,30 +92,34 @@
   }
 
   /**
- * @page utilities
- * @section flex.nowrap no wrap
- * @example
- * <div class="flex row nowrap">
- *   <div class="bg px py" style="width: 700px"></div>
- *   <div class="bg px py" style="width: 800px"></div>
- * </div>
- */
+   * Flex with no wrap - items stay on single line
+   *
+   * @location utilities.flex.nowrap Flex No Wrap
+   * @example
+   * <div class="flex row nowrap gap">
+   *   <div class="bg px py" style="min-width: 200px">No wrap 1</div>
+   *   <div class="bg px py" style="min-width: 200px">No wrap 2</div>
+   *   <div class="bg px py" style="min-width: 200px">No wrap 3</div>
+   * </div>
+   */
   .flex.nowrap {
     flex-wrap: nowrap;
   }
 
   /**
-   * @page utilities
-   * @section flex.justify justify
+   * Flex justify-content utilities for horizontal alignment
+   *
+   * @location utilities.flex.justify Flex Justify Content
    */
 
   /**
-   * @page utilities
-   * @section flex.justify.start start
+   * Flex justify-content: flex-start - align items to start
+   *
+   * @location utilities.flex.justify.start Justify Start
    * @example
-   * <div class="flex row gap justify-start">
-   *   <div class="bg px py"></div>
-   *   <div class="bg px py"></div>
+   * <div class="flex row gap justify-start" style="background: rgb(var(--border-color) / 0.3); padding: var(--space-xs);">
+   *   <div class="bg px py">Start 1</div>
+   *   <div class="bg px py">Start 2</div>
    * </div>
    */
   .flex.justify-start {
@@ -117,12 +127,13 @@
   }
 
   /**
-   * @page utilities
-   * @section flex.justify.between space between
+   * Flex justify-content: space-between - space items with equal space between
+   *
+   * @location utilities.flex.justify.between Justify Space Between
    * @example
-   * <div class="flex row gap justify-between">
-   *   <div class="bg px py"></div>
-   *   <div class="bg px py"></div>
+   * <div class="flex row justify-between" style="background: rgb(var(--border-color) / 0.3); padding: var(--space-xs);">
+   *   <div class="bg px py">Left</div>
+   *   <div class="bg px py">Right</div>
    * </div>
    */
   .flex.justify-between {
@@ -130,12 +141,13 @@
   }
 
   /**
-   * @page utilities
-   * @section flex.justify.around space around
+   * Flex justify-content: space-around - space items with equal space around each
+   *
+   * @location utilities.flex.justify.around Justify Space Around
    * @example
-   * <div class="flex row gap justify-around">
-   *   <div class="bg px py"></div>
-   *   <div class="bg px py"></div>
+   * <div class="flex row justify-around" style="background: rgb(var(--border-color) / 0.3); padding: var(--space-xs);">
+   *   <div class="bg px py">Item 1</div>
+   *   <div class="bg px py">Item 2</div>
    * </div>
    */
   .flex.justify-around {
@@ -143,12 +155,13 @@
   }
 
   /**
-   * @page utilities
-   * @section flex.justify.evenly space evenly
+   * Flex justify-content: space-evenly - space items with equal space everywhere
+   *
+   * @location utilities.flex.justify.evenly Justify Space Evenly
    * @example
-   * <div class="flex row gap justify-evenly">
-   *   <div class="bg px py"></div>
-   *   <div class="bg px py"></div>
+   * <div class="flex row justify-evenly" style="background: rgb(var(--border-color) / 0.3); padding: var(--space-xs);">
+   *   <div class="bg px py">Item 1</div>
+   *   <div class="bg px py">Item 2</div>
    * </div>
    */
   .flex.justify-evenly {
@@ -156,12 +169,13 @@
   }
 
   /**
-   * @page utilities
-   * @section flex.justify.end end
+   * Flex justify-content: flex-end - align items to end
+   *
+   * @location utilities.flex.justify.end Justify End
    * @example
-   * <div class="flex row gap justify-end">
-   *   <div class="bg px py"></div>
-   *   <div class="bg px py"></div>
+   * <div class="flex row gap justify-end" style="background: rgb(var(--border-color) / 0.3); padding: var(--space-xs);">
+   *   <div class="bg px py">End 1</div>
+   *   <div class="bg px py">End 2</div>
    * </div>
    */
   .flex.justify-end {
@@ -169,16 +183,19 @@
   }
 
   /**
-   * @page utilities
-   * @section flex.items align items
+   * Flex align-items utilities for vertical alignment
+   *
+   * @location utilities.flex.items Flex Align Items
    */
 
   /**
-   * @page utilities
-   * @section flex.items.start align start
+   * Flex align-items: flex-start - align items to top
+   *
+   * @location utilities.flex.items.start Align Items Start
    * @example
-   * <div class="flex row gap items-start bg" style="height: 100px">
-   *   <div class="px py" style="background: rgb(var(--bg-color)); color: rgb(var(--font-color));"></div>
+   * <div class="flex row gap items-start" style="background: rgb(var(--border-color) / 0.3); height: 100px; padding: var(--space-xs);">
+   *   <div class="bg px py">Top aligned</div>
+   *   <div class="bg px py">Also top</div>
    * </div>
    */
   .flex.items-start {
@@ -186,11 +203,13 @@
   }
 
   /**
-   * @page utilities
-   * @section flex.items.center align center
+   * Flex align-items: center - align items to center vertically
+   *
+   * @location utilities.flex.items.center Align Items Center
    * @example
-   * <div class="flex row gap items-center bg" style="height: 100px">
-   *   <div class="px py" style="background: rgb(var(--bg-color)); color: rgb(var(--font-color));"></div>
+   * <div class="flex row gap items-center" style="background: rgb(var(--border-color) / 0.3); height: 100px; padding: var(--space-xs);">
+   *   <div class="bg px py">Centered</div>
+   *   <div class="bg px py">Also centered</div>
    * </div>
    */
   .flex.items-center {
@@ -198,11 +217,13 @@
   }
 
   /**
-   * @page utilities
-   * @section flex.items.end align end
+   * Flex align-items: flex-end - align items to bottom
+   *
+   * @location utilities.flex.items.end Align Items End
    * @example
-   * <div class="flex row gap items-end bg" style="height: 100px">
-   *   <div class="px py" style="background: rgb(var(--bg-color)); color: rgb(var(--font-color));"></div>
+   * <div class="flex row gap items-end" style="background: rgb(var(--border-color) / 0.3); height: 100px; padding: var(--space-xs);">
+   *   <div class="bg px py">Bottom aligned</div>
+   *   <div class="bg px py">Also bottom</div>
    * </div>
    */
   .flex.items-end {
@@ -210,12 +231,13 @@
   }
 
   /**
-   * @page utilities
-   * @section flex.items.stretch align stretch
+   * Flex align-items: stretch - stretch items to fill container height
+   *
+   * @location utilities.flex.items.stretch Align Items Stretch
    * @example
-   * <div class="flex row gap items-stretch bg" style="height: 100px">
-   *   <div class="px py" style="background: rgb(var(--bg-color)); color: rgb(var(--font-color));"></div>
-   *   <div class="px py" style="background: rgb(var(--bg-color)); color: rgb(var(--font-color));"></div>
+   * <div class="flex row gap items-stretch" style="background: rgb(var(--border-color) / 0.3); height: 100px; padding: var(--space-xs);">
+   *   <div class="bg px py">Stretched</div>
+   *   <div class="bg px py">Also stretched</div>
    * </div>
    */
   .flex.items-stretch {
@@ -223,12 +245,13 @@
   }
 
   /**
-   * @page utilities
-   * @section flex.items.baseline align baseline
+   * Flex align-items: baseline - align items along text baseline
+   *
+   * @location utilities.flex.items.baseline Align Items Baseline
    * @example
-   * <div class="flex row gap items-baseline bg" style="height: 100px">
-   *   <div class="px py" style="background: rgb(var(--bg-color)); color: rgb(var(--font-color));"></div>
-   *   <div class="px py" style="background: rgb(var(--bg-color)); color: rgb(var(--font-color));"></div>
+   * <div class="flex row gap items-baseline" style="background: rgb(var(--border-color) / 0.3); height: 100px; padding: var(--space-xs);">
+   *   <div class="bg px py" style="font-size: var(--font-size-lg);">Large text</div>
+   *   <div class="bg px py" style="font-size: var(--font-size-sm);">Small text</div>
    * </div>
    */
   .flex.items-baseline {

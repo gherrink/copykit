@@ -24,12 +24,13 @@
 
 @layer utilities {
   /**
-   * @page utilities
-   * @section grid Grid
+   * Base grid utility for creating grid layouts
+   *
+   * @location utilities.grid Grid
    * @example
    * <div class="grid">
-   *   <div class="bg px py"></div>
-   *   <div class="bg px py"></div>
+   *   <div class="bg px py">Grid Item 1</div>
+   *   <div class="bg px py">Grid Item 2</div>
    * </div>
    */
   .grid {
@@ -37,17 +38,18 @@
   }
 
   /**
-   * Use gap utility to define gaps.
-   * @page utilities
-   * @section grid.gap Gap
+   * Grid with gap spacing between items. Use gap utility to define gaps.
+   * Gap size can be customized with gap-xs, gap-sm, gap-base, gap-lg, gap-xl modifiers.
+   *
+   * @location utilities.grid.gap Grid with Gap
    * @example
    * <div class="grid gap">
-   *   <div class="bg px py"></div>
-   *   <div class="bg px py"></div>
+   *   <div class="bg px py">Item 1</div>
+   *   <div class="bg px py">Item 2</div>
    * </div>
    * <div class="grid gap-xl">
-   *   <div class="bg px py"></div>
-   *   <div class="bg px py"></div>
+   *   <div class="bg px py">Large gap</div>
+   *   <div class="bg px py">Large gap</div>
    * </div>
    */
   .grid.gap,
@@ -62,32 +64,21 @@
   }
 
   /**
-   * Per default the grid cols has 12 columns. This can be changed with `--grid-cols` variable (valid is a value from 1 to 12).
-   * As addition you get `.col-span-[1 to 12]` you can use to define the column span of you element. If not set all elements
-   * will span to full with. You also can use `.col-start-[1 to 12]` and `.col-end-[1 to 12]` to define the staring and
-   * end point of your item.
+   * Grid with column system. By default has 12 columns (customizable with --grid-cols variable).
+   * Use col-span-[1-12] classes to define column spans. Use col-start-[1-12] and col-end-[1-12] 
+   * for precise positioning. Note: col-end-3 includes the 3rd column (translates to grid-column-end: 4).
    *
-   * Please not that `.col-end-3` will include the tiered column and not end at the tiered column. In css `.col-end-3` will be
-   * translated to `grid-column-end: 4;`.
-   *
-   * @page utilities
-   * @section grid.cols Grid with Columns
+   * @location utilities.grid.cols Grid with Columns
    * @example
-   * <div class="grid cols gap-x-base gap-y-lg">
-   *   <div class="bg pxy"></div>
-   *   <div class="bg pxy"></div>
-   *   <div class="bg pxy col-span-6"></div>
-   *   <div class="bg pxy col-span-6"></div>
-   *   <div class="bg pxy col-span-3"></div>
-   *   <div class="bg pxy col-span-3"></div>
-   *   <div class="bg pxy col-span-3"></div>
-   *   <div class="bg pxy col-span-3"></div>
-   *   <div class="bg pxy col-start-10 col-span-3"></div>
-   *   <div class="bg pxy col-start-1 col-end-6"></div>
-   *   <div class="bg pxy col-start-7 col-end-12"></div>
-   *   <div class="bg pxy col-start-1 col-end-3"></div>
-   *   <div class="bg pxy col-start-4 col-end-8"></div>
-   *   <div class="bg pxy col-start-9 col-end-12"></div>
+   * <div class="grid cols gap">
+   *   <div class="bg px py col-span-12">Full width (12 columns)</div>
+   *   <div class="bg px py col-span-6">Half width (6 columns)</div>
+   *   <div class="bg px py col-span-6">Half width (6 columns)</div>
+   *   <div class="bg px py col-span-4">Third (4 columns)</div>
+   *   <div class="bg px py col-span-4">Third (4 columns)</div>
+   *   <div class="bg px py col-span-4">Third (4 columns)</div>
+   *   <div class="bg px py col-start-2 col-span-3">Start at column 2</div>
+   *   <div class="bg px py col-start-6 col-end-11">From column 6 to 11</div>
    * </div>
    */
   .grid.cols {

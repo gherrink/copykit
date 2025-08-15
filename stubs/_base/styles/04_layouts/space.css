@@ -1,4 +1,37 @@
+/**
+ * Gap spacing utilities for defining custom gap sizes in flex and grid layouts.
+ * These utilities work with the space system to provide consistent spacing.
+ * Use with .flex.gap or .grid.gap base utilities.
+ *
+ * @location layouts.space Gap Spacing System
+ * @example
+ * <div class="flex gap gap-sm">
+ *   <div class="bg px py">Small gap</div>
+ *   <div class="bg px py">Small gap</div>
+ * </div>
+ * <div class="flex gap gap-lg mt">
+ *   <div class="bg px py">Large gap</div>
+ *   <div class="bg px py">Large gap</div>
+ * </div>
+ */
+
 @layer layouts {
+  /**
+   * X-axis gap spacing (horizontal gaps)
+   *
+   * @location layouts.space.x Gap X-axis Spacing
+   * @example
+   * <div class="flex column gap-x-lg">
+   *   <div class="flex gap">
+   *     <div class="bg px py">Normal gap</div>
+   *     <div class="bg px py">Normal gap</div>
+   *   </div>
+   *   <div class="flex gap gap-x-lg">
+   *     <div class="bg px py">Large X gap</div>
+   *     <div class="bg px py">Large X gap</div>
+   *   </div>
+   * </div>
+   */
   .gap-xs,
   .gap-x-xs {
     --gap-space-x: var(--space-xs);
@@ -34,6 +67,22 @@
     --gap-space-x: var(--space-2xl);
   }
 
+  /**
+   * Y-axis gap spacing (vertical gaps)
+   *
+   * @location layouts.space.y Gap Y-axis Spacing
+   * @example
+   * <div class="flex row gap-y-lg">
+   *   <div class="flex column gap">
+   *     <div class="bg px py">Normal gap</div>
+   *     <div class="bg px py">Normal gap</div>
+   *   </div>
+   *   <div class="flex column gap gap-y-lg">
+   *     <div class="bg px py">Large Y gap</div>
+   *     <div class="bg px py">Large Y gap</div>
+   *   </div>
+   * </div>
+   */
   .gap-xs,
   .gap-y-xs {
     --gap-space-y: var(--space-xs);

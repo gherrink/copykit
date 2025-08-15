@@ -1,3 +1,20 @@
+/**
+ * CSS @property declarations for type-safe custom properties. These provide enhanced
+ * performance, animation support, and type checking for CSS custom properties used
+ * throughout the design system.
+ *
+ * @location defaults.properties CSS Custom Properties
+ * @example
+ * <!-- These properties enable type-safe CSS variables -->
+ * <div style="--space-unit: 8px; --gap-space: 2;">
+ *   Type-safe spacing: gap is 2 * 8px = 16px
+ * </div>
+ * <div style="--bg-color: 59 130 246;">
+ *   RGB color: blue background (space-separated values)
+ * </div>
+ */
+
+/* Spacing System Properties */
 @property --space-unit {
   inherits: true;
   initial-value: 1px;
@@ -28,6 +45,7 @@
   syntax: "<number>";
 }
 
+/* Color System Properties (RGB space-separated format) */
 @property --bg-color {
   inherits: true;
   initial-value: 0 0 0;
@@ -52,6 +70,7 @@
   syntax: "<number>+";
 }
 
+/* Layout Properties */
 @property --level {
   inherits: true;
   initial-value: 0;

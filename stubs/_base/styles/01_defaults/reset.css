@@ -1,31 +1,49 @@
+/**
+ * Browser reset and normalization styles. Provides consistent baseline styles
+ * across different browsers and establishes sensible defaults for common elements.
+ * Uses modern CSS best practices for responsive design and accessibility.
+ *
+ * @location defaults.reset Browser Reset & Normalization
+ * @example
+ * <!-- These styles apply automatically to all elements -->
+ * <div>All elements use border-box sizing by default</div>
+ * <img src="example.jpg" alt="Images are responsive by default" />
+ * <a href="#section">Links have smooth scroll behavior</a>
+ */
+
 @layer defaults {
+  /* Use border-box sizing for all elements and pseudo-elements */
   *,
   *::after,
   *::before {
     box-sizing: border-box;
   }
 
+  /* Style text selection using colorset variables */
   ::selection {
     color: rgb(var(--selection-color));
     background: rgb(var(--selection-bg-color));
   }
 
+  /* Full height layout support */
   html,
   body {
     height: 100%;
   }
 
+  /* Smooth scrolling and padding for fixed headers */
   html {
     scroll-behavior: smooth;
     scroll-padding-top: var(--scroll-padding-top, 0);
   }
 
+  /* Remove default margins and set background color */
   body {
     margin: 0;
     background: rgb(var(--bg-color));
   }
 
-  /* Make images easier to work with */
+  /* Make media elements responsive by default */
   img,
   picture,
   video,
@@ -35,7 +53,7 @@
     max-width: 100%;
   }
 
-  /* Anything that has been anchored to should have extra scroll margin */
+  /* Add scroll margin to anchor targets for better UX */
   :target {
     scroll-margin-block: 5ex;
   }
