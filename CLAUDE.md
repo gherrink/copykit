@@ -246,11 +246,14 @@ Only add JSDoc documentation to CSS where it provides meaningful showcase value:
 
 ## Copy-Point Development
 
+**CRITICAL**: Always read [stubs/CLAUDE.md](stubs/CLAUDE.md) when creating new copy points. This file contains essential development standards, structure requirements, accessibility guidelines, and testing patterns that must be followed.
+
 For complete copy-point creation and development guidance, see [stubs/CLAUDE_COPY_POINT.md](stubs/CLAUDE_COPY_POINT.md).
 
 ### Quick Reference
 - **Create new copy-point**: `pnpm run create-copy-point [name]`
 - **Always use the automated script** - never create copy-points manually
+- **Always read stubs/CLAUDE.md first when working with copy-points** - contains critical development standards
 - **Complete creation guide**: See [stubs/CLAUDE_COPY_POINT.md](stubs/CLAUDE_COPY_POINT.md)
 - **Commit format**: `feat(stub:[name]): create [name] copy point`
 
