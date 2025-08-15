@@ -29,6 +29,173 @@ The script (`scripts/create-copy-point.js`) automatically:
 - **Generates templates**: Starter files with proper JSDoc comments and layer organization
 - **Provides guidance**: Shows next steps and commit message format
 
+## Script Options and Usage
+
+### Command-Line Flags
+
+The create-copy-point script supports several flags for quick setup without interactive prompts:
+
+#### Basic Usage
+```bash
+pnpm run create-copy-point [name] [options]
+```
+
+#### Available Flags
+
+**`--styles-only`** - Creates CSS-only copy point
+```bash
+pnpm run create-copy-point dark-theme --styles-only
+```
+Creates:
+- ✅ `styles/01_defaults/variables.css`
+- ✅ `styles/02_components/[name].css`
+- ✅ `styles/03_utilities/[name].css`
+- ✅ `styles/04_layouts/[name].css`
+- ❌ No scripts directory
+
+**`--scripts-only`** - Creates TypeScript-only copy point
+```bash
+pnpm run create-copy-point utils --scripts-only
+```
+Creates:
+- ✅ `scripts/services/[name].ts`
+- ✅ `scripts/utilities/[name].ts`
+- ❌ No styles directory
+
+**`--minimal`** - Creates minimal structure
+```bash
+pnpm run create-copy-point minimal --minimal
+```
+Creates:
+- ✅ `README.md`
+- ✅ `copy-point.json`
+- ❌ No scripts or styles directories
+
+### Interactive Mode
+
+When no flags are provided, the script prompts for customization:
+
+```bash
+pnpm run create-copy-point advanced
+# Enters interactive mode with the following prompts:
+```
+
+#### Interactive Prompts
+
+**1. Scripts Templates**
+```
+? Include scripts templates? (y/N)
+```
+- Default: No
+- If yes, enables TypeScript functionality
+
+**1a. Services Templates** (if scripts enabled)
+```
+? Include scripts/services templates? (Y/n)
+```
+- Default: Yes
+- Creates `scripts/services/[name].ts` with service template
+
+**1b. Utilities Templates** (if scripts enabled)
+```
+? Include scripts/utilities templates? (y/N)
+```
+- Default: No
+- Creates `scripts/utilities/[name].ts` with utility template
+
+**2. Styles Templates**
+```
+? Include styles templates? (Y/n)
+```
+- Default: Yes
+- If yes, enables CSS functionality
+
+**2a. Defaults Templates** (if styles enabled)
+```
+? Include styles/01_defaults templates? (y/N)
+```
+- Default: No
+- Creates `styles/01_defaults/variables.css` with CSS variables template
+
+**2b. Components Templates** (if styles enabled)
+```
+? Include styles/02_components templates? (Y/n)
+```
+- Default: Yes
+- Creates `styles/02_components/[name].css` with component template
+
+**2c. Utilities Templates** (if styles enabled)
+```
+? Include styles/03_utilities templates? (y/N)
+```
+- Default: No
+- Creates `styles/03_utilities/[name].css` with utility classes template
+
+**2d. Layouts Templates** (if styles enabled)
+```
+? Include styles/04_layouts templates? (y/N)
+```
+- Default: No
+- Creates `styles/04_layouts/[name].css` with layout template
+
+### Naming Validation Rules
+
+The script enforces strict naming conventions:
+
+**✅ Valid Names:**
+- `advanced` - Single word, lowercase
+- `dark-theme` - Kebab-case with hyphens
+- `components-extended` - Multiple words with hyphens
+- `animations` - Descriptive purpose
+
+**❌ Invalid Names:**
+- `_advanced` - Cannot start with underscore (only `_base` allowed)
+- `Advanced` - Cannot contain uppercase letters
+- `dark_theme` - Cannot contain underscores
+- `123advanced` - Cannot start with numbers
+- `dark theme` - Cannot contain spaces
+
+**Error Messages:**
+```bash
+❌ Error: Copy point names should not start with underscore (only _base has underscore)
+❌ Error: Copy point name must be lowercase, start with a letter, and use only letters, numbers, and hyphens
+❌ Error: Copy point "name" already exists
+```
+
+### Template Files Generated
+
+Each option creates specific template files with boilerplate content:
+
+#### Always Created
+- `README.md` - Comprehensive documentation template
+- `copy-point.json` - Metadata for CLI integration
+
+#### CSS Templates (when styles enabled)
+- `01_defaults/variables.css` - CSS custom properties and overrides
+- `02_components/[name].css` - Component styling with JSDoc
+- `03_utilities/[name].css` - Utility classes
+- `04_layouts/[name].css` - Layout patterns
+
+#### TypeScript Templates (when scripts enabled)
+- `services/[name].ts` - Service implementation with init function
+- `utilities/[name].ts` - Utility functions with examples
+
+### Post-Creation Workflow
+
+After running the script, it displays:
+
+1. **Structure Created** - Visual tree of generated files
+2. **Next Steps** - 8-step checklist including:
+   - Complete metadata in `copy-point.json`
+   - Complete documentation in `README.md`
+   - Add scope to `.commitlintrc.cjs`
+   - Develop actual components
+   - Add UI-Doc comments
+   - Create example pages
+   - Register styles in `pages/style.css`
+   - Test integration with `_base`
+3. **Commit Command** - Proper conventional commit format
+
 ### 2. Copy-Point Naming Rules
 - **Lowercase only**: `advanced`, `dark-theme`, `components-extended`
 - **Kebab-case**: Use hyphens for multi-word names
