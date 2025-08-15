@@ -622,6 +622,176 @@ describe('Component Accessibility', () => {
 - **User preference testing** (reduced motion, high contrast)
 - **Keyboard-only navigation testing**
 
+## Base Utilities Quick Reference
+
+The `@stubs/_base/scripts/` directory provides essential utilities that can be imported and used in copy-point development. These utilities follow CopyKit's architectural principles and provide type-safe, tested functionality.
+
+### Available Base Utilities
+
+#### EventEmitter (`utilities/event-emitter.ts`)
+**Purpose**: Type-safe event system for component communication.
+
+**Usage**:
+```typescript
+import { EventEmitter } from '@/_base/scripts/utilities/event-emitter'
+
+interface ComponentEvents {
+  stateChange: (data: { state: string; element: HTMLElement }) => void
+}
+
+class MyComponent extends EventEmitter<ComponentEvents> {
+  constructor(element: HTMLElement) {
+    super()
+    this.emit('stateChange', { state: 'initialized', element })
+  }
+}
+
+// Type-safe listening
+const component = new MyComponent(element)
+component.on('stateChange', (data) => {
+  console.log(`State: ${data.state}`)
+})
+```
+
+#### DOM Utilities (`utilities/dom.ts`)
+**Purpose**: DOM readiness and CSS animation management.
+
+**`ready(callback: () => void): void`** - DOM initialization:
+```typescript
+import { ready } from '@/_base/scripts/utilities/dom'
+
+ready(() => {
+  document.querySelectorAll('[data-my-component]').forEach(element => {
+    new MyComponent(element as HTMLElement)
+  })
+})
+```
+
+**`animate(target: HTMLElement, animationName: string, entering: boolean, callback?: () => void): void`** - Vue.js-style animations:
+```typescript
+import { animate } from '@/_base/scripts/utilities/dom'
+
+// Show with fade-enter-active, fade-enter-from, fade-enter-to classes
+animate(element, 'fade', true)
+
+// Hide with fade-leave-active, fade-leave-from, fade-leave-to classes
+animate(element, 'fade', false, () => element.hidden = true)
+```
+
+#### Cookie Utilities (`utilities/cookie.ts`)
+**Purpose**: Secure browser cookie management.
+
+**Usage**:
+```typescript
+import { cookieRead, cookieWrite } from '@/_base/scripts/utilities/cookie'
+
+// Read cookie (returns null if not found)
+const theme = cookieRead('user-theme') || 'light'
+
+// Write session cookie
+cookieWrite('user-prefs', JSON.stringify(prefs))
+
+// Write persistent cookie (365 days)
+cookieWrite('user-theme', 'dark', 365 * 24 * 60 * 60)
+```
+
+#### Select Utilities (`utilities/select.ts`)
+**Purpose**: Type-safe parent element traversal.
+
+**Usage**:
+```typescript
+import { queryParentSelector } from '@/_base/scripts/utilities/select'
+
+// Find parent form (with type safety)
+const form = queryParentSelector<HTMLFormElement>(element, 'form', 5)
+
+// Find parent accordion
+const accordion = queryParentSelector(element, '[data-accordion]')
+
+// Context-aware component behavior
+if (form) {
+  form.addEventListener('submit', this.handleFormSubmit.bind(this))
+}
+```
+
+#### Expand Service (`services/expand.ts`)
+**Purpose**: ARIA-based expand/collapse with animation and accessibility.
+
+**Usage**:
+```typescript
+import { Expand, initExpand } from '@/_base/scripts/services/expand'
+
+// Auto-initialize all [aria-expanded] elements
+initExpand()
+
+// Manual initialization with events
+const expandInstance = new Expand(button)
+expandInstance.on('beforeToggle', (data) => {
+  console.log(`Will ${data.expanded ? 'collapse' : 'expand'}`)
+})
+
+// Programmatic control
+expandInstance.toggle()
+```
+
+**HTML**:
+```html
+<!-- Basic: aria-expanded + aria-controls -->
+<button aria-expanded="false" aria-controls="content">Toggle</button>
+<div id="content" hidden>Content</div>
+
+<!-- With animation -->
+<div id="content" hidden data-animate="fade">Animated content</div>
+
+<!-- Modal with inert -->
+<div id="modal" hidden data-inert="body > *:not(#modal)">Modal</div>
+```
+
+### Common Integration Patterns
+
+**Combining Utilities**:
+```typescript
+import { EventEmitter } from '@/_base/scripts/utilities/event-emitter'
+import { ready, animate } from '@/_base/scripts/utilities/dom'
+import { cookieRead } from '@/_base/scripts/utilities/cookie'
+import { queryParentSelector } from '@/_base/scripts/utilities/select'
+
+class AdvancedComponent extends EventEmitter<ComponentEvents> {
+  constructor(element: HTMLElement) {
+    super()
+    ready(() => this.init())
+  }
+  
+  private init(): void {
+    const theme = cookieRead('theme') || 'light'
+    const form = queryParentSelector<HTMLFormElement>(this.element, 'form')
+    
+    this.element.addEventListener('click', () => {
+      animate(this.element, 'highlight', true)
+      this.emit('userInteraction', { element: this.element })
+    })
+  }
+}
+```
+
+**Auto-Discovery Pattern**:
+```typescript
+import { ready } from '@/_base/scripts/utilities/dom'
+import { initExpand } from '@/_base/scripts/services/expand'
+
+export function initMyComponents(): void {
+  ready(() => {
+    initExpand() // Initialize dependencies first
+    
+    document.querySelectorAll('[data-my-component]').forEach(element => {
+      if (!element.__myComponent) {
+        new MyComponent(element as HTMLElement)
+      }
+    })
+  })
+}
+```
+
 ## Key Development Rules
 
 1. **Always use HTML attributes** for discovery and configuration
