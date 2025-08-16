@@ -1,0 +1,20 @@
+{
+  "name": "modal",
+  "title": "HTML Dialog Modal",
+  "description": "Accessible modal component using native HTML dialog element with focus management, keyboard navigation, and proper scrolling container support.",
+  "version": "1.0.0",
+  "features": [
+    "Native HTML dialog element integration",
+    "Focus management and restoration",
+    "Keyboard navigation (ESC, Tab cycling)",
+    "Backdrop and button close options",
+    "Multiple size and position variants",
+    "Proper scrolling container with fixed header/footer",
+    "Event-driven communication system",
+    "Utility functions for common patterns",
+    "WCAG 2.1 AA compliant"
+  ],
+  "dependencies": [],
+  "author": "CopyKit",
+  "keywords": ["modal", "dialog", "popup", "overlay", "accessibility", "native", "html5"]
+}

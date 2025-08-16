@@ -1,0 +1,302 @@
+@property --modal-bg-color {
+  inherits: true;
+  initial-value: undefined;
+  syntax: "<number>+ | undefined";
+}
+
+@property --modal-font-color {
+  inherits: true;
+  initial-value: undefined;
+  syntax: "<number>+ | undefined";
+}
+
+@property --modal-border-color {
+  inherits: true;
+  initial-value: undefined;
+  syntax: "<number>+ | undefined";
+}
+
+@property --modal-shadow-color {
+  inherits: true;
+  initial-value: undefined;
+  syntax: "<number>+ | undefined";
+}
+
+@property --modal-shadow-alpha {
+  inherits: true;
+  initial-value: undefined;
+  syntax: "<number>+ | undefined";
+}
+
+@property --modal-border-width {
+  inherits: true;
+  initial-value: undefined;
+  syntax: "<length> | undefined";
+}
+
+@property --modal-separator-width {
+  inherits: true;
+  initial-value: undefined;
+  syntax: "<length> | undefined";
+}
+
+@layer components {
+  /* Ensure dialog elements are hidden by default */
+  dialog:not([open]) {
+    display: none;
+  }
+
+  /**
+   * Modal dialog component using native HTML dialog element with proper scrolling container.
+   * Includes fixed header, scrollable content area, and fixed footer. Supports both CSS class
+   * and data attribute discovery - data attributes are for JavaScript functionality only,
+   * while CSS classes provide styling.
+   *
+   * @location components.modal Modal Dialog
+   * @example
+   * <!-- Standard usage with CSS class for styling -->
+   * <dialog class="modal" data-modal-auto-open="true">
+   *   <header class="header">
+   *     <h2 class="headline">Modal Title</h2>
+   *     <button class="control close" aria-label="Close">×</button>
+   *   </header>
+   *   <div class="content">
+   *     <p>Scrollable content goes here</p>
+   *   </div>
+   *   <footer class="footer">
+   *     <button class="btn">Cancel</button>
+   *     <button class="btn primary">Confirm</button>
+   *   </footer>
+   * </dialog>
+   */
+  .modal {
+    /* Modal variables referencing base colorset */
+    --modal-bg-color: var(--bg-color);
+    --modal-font-color: var(--font-color);
+    --modal-border-color: var(--border-color);
+    --modal-shadow-color: var(--shadow-color);
+    --modal-shadow-alpha: var(--shadow-alpha);
+
+    /* Selection colors using modal colorset */
+    --selection-color: var(--modal-bg-color);
+    --selection-bg-color: var(--modal-font-color);
+
+    /* Modal sizing and positioning */
+    --modal-max-width: 600px;
+    --modal-max-height: 90vh;
+    --modal-padding: var(--space-md);
+    --modal-border-radius: 8px;
+    --modal-border-width: 1px;
+    --modal-separator-width: 1px;
+
+    display: flex;
+    flex-direction: column;
+
+    width: 90vw;
+    max-width: var(--modal-max-width);
+    max-height: var(--modal-max-height);
+    padding: 0;
+    border: var(--modal-border-width) solid rgb(var(--modal-border-color));
+    border-radius: var(--modal-border-radius);
+
+    color: rgb(var(--modal-font-color));
+
+    background: rgb(var(--modal-bg-color));
+
+    /* Box-shadow for drop shadow only */
+    box-shadow: 0 4px 12px rgb(var(--modal-shadow-color) / var(--modal-shadow-alpha));
+  }
+
+  .modal:has(.content) {
+    overflow: hidden;
+  }
+
+  .modal > .header {
+    position: relative;
+    /* Fixed header - always visible */
+    flex-shrink: 0;
+    padding: calc(var(--space-unit) * var(--modal-padding));
+    border-bottom: var(--modal-separator-width) solid rgb(var(--modal-border-color));
+  }
+
+  .modal > .header > .headline {
+    /* Header title using existing headline styles */
+    margin: 0;
+    padding-right: calc(var(--space-unit) * var(--space-xl));
+  }
+
+  .modal > .header > .control.close {
+    /* Close button positioned within header */
+    position: absolute;
+    top: calc(var(--space-unit) * var(--space-sm));
+    right: calc(var(--space-unit) * var(--space-sm));
+  }
+
+  .modal > .content {
+    overflow-y: auto;
+    flex: 1;
+    min-height: 0; /* Important for flex child scrolling */
+    padding: calc(var(--space-unit) * var(--modal-padding));
+  }
+
+  .modal > .footer {
+    /* Footer button layout using existing flex utilities */
+    display: flex;
+    /* Fixed footer - always visible */
+    flex-shrink: 0;
+    gap: calc(var(--space-unit) * var(--space-sm));
+    justify-content: flex-end;
+
+    padding: calc(var(--space-unit) * var(--modal-padding));
+    border-top: var(--modal-separator-width) solid rgb(var(--modal-border-color));
+  }
+
+  .modal::backdrop {
+    background: rgb(var(--modal-shadow-color, 0 0 0) / var(--modal-shadow-alpha, 0.5));
+  }
+
+  /* Fallback for browsers with limited ::backdrop support */
+  @supports not (background: rgb(var(--modal-shadow-color) / var(--modal-shadow-alpha))) {
+    .modal::backdrop {
+      background: rgb(0 0 0 / 50%);
+    }
+  }
+
+  .modal:not([open]) {
+    display: none !important;
+  }
+
+  /**
+   * Small modal variant for simple confirmations and alerts.
+   *
+   * @location components.modal.small Small Modal
+   * @example
+   * <dialog class="modal modal-small" data-modal-auto-open="true">
+   *   <header class="header">
+   *     <h3 class="headline">Confirm</h3>
+   *     <button class="control close" aria-label="Close">×</button>
+   *   </header>
+   *   <div class="content">
+   *     <p>Are you sure?</p>
+   *   </div>
+   *   <footer class="footer">
+   *     <button class="btn">No</button>
+   *     <button class="btn primary">Yes</button>
+   *   </footer>
+   * </dialog>
+   */
+  .modal.modal-small {
+    --modal-max-width: 400px;
+    --modal-max-height: 60vh;
+  }
+
+  /**
+   * Large modal variant for complex forms and detailed content.
+   *
+   * @location components.modal.large Large Modal
+   * @example
+   * <dialog class="modal modal-large" data-modal-auto-open="true">
+   *   <header class="header">
+   *     <h2 class="headline">Settings</h2>
+   *     <button class="control close" aria-label="Close">×</button>
+   *   </header>
+   *   <div class="content">
+   *     <p>Large amount of content that may need scrolling...</p>
+   *   </div>
+   *   <footer class="footer">
+   *     <button class="btn">Cancel</button>
+   *     <button class="btn primary">Save</button>
+   *   </footer>
+   * </dialog>
+   */
+  .modal.modal-large {
+    --modal-max-width: 800px;
+    --modal-max-height: 95vh;
+  }
+
+  /**
+   * Fullscreen modal variant that fills the entire viewport.
+   *
+   * @location components.modal.fullscreen Fullscreen Modal
+   * @example
+   * <dialog class="modal modal-fullscreen" data-modal-auto-open="true">
+   *   <header class="header">
+   *     <h1 class="headline">Fullscreen Modal</h1>
+   *     <button class="control close" aria-label="Close">×</button>
+   *   </header>
+   *   <div class="content">
+   *     <p>This modal fills the entire screen</p>
+   *   </div>
+   * </dialog>
+   */
+  .modal.modal-fullscreen {
+    --modal-max-width: 100vw;
+    --modal-max-height: 100vh;
+    --modal-border-radius: 0;
+
+    width: 100vw;
+    height: 100vh;
+  }
+
+  /**
+   * Simple modal without header/footer structure for basic content.
+   *
+   * @location components.modal.simple Simple Modal
+   * @example
+   * <dialog class="modal modal-simple" data-modal-auto-open="true">
+   *   <button class="control close" aria-label="Close">×</button>
+   *   <h3 class="headline">Quick Message</h3>
+   *   <p>Short content that doesn't need scrolling.</p>
+   *   <button class="btn primary mt">Got it</button>
+   * </dialog>
+   */
+  .modal.modal-simple {
+    padding: calc(var(--space-unit) * var(--modal-padding));
+  }
+
+  .modal.modal-simple > .content {
+    padding: 0;
+  }
+
+  /* Accessibility: Focus management for modal controls */
+  .modal > .header > .control.close:focus {
+    outline: 2px solid rgb(var(--modal-border-color));
+    outline-offset: 2px;
+  }
+}
+
+/* Box-shadow alternative for browsers with ::backdrop issues */
+@supports not selector(::backdrop) {
+  /* For browsers that don't support ::backdrop at all */
+  .modal[open] {
+    box-shadow: 0 0 0 100vmax rgb(0 0 0 / 50%);
+  }
+
+  .modal:not([open]) {
+    display: none !important;
+    box-shadow: none !important;
+  }
+}
+
+/* Accessibility: User preference support */
+@media (prefers-reduced-motion: reduce) {
+  .modal {
+    /* Disable any transitions that may be added in the future */
+    transition: none;
+  }
+
+  .modal::backdrop {
+    transition: none;
+  }
+}
+
+@media (prefers-contrast: more) {
+  .modal {
+    /* High contrast mode overrides for better visibility */
+    --modal-font-color: 0 0 0;
+    --modal-bg-color: 255 255 255;
+    --modal-border-color: 0 0 0;
+    --modal-shadow-color: 0 0 0;
+    --modal-shadow-alpha: 1;
+  }
+}

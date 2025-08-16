@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+    <link rel="shortcut icon" href="../favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modal Component | CopyKit</title>
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header class="wrapper width-content py bg cs-primary">
+      <nav class="flex items-center justify-between py">
+        <a href="../" class="control">← Back to Pages</a>
+        <h1 class="headline h3 no-space">Modal Component</h1>
+      </nav>
+    </header>
+
+    <main class="wrapper width-content">
+      <section class="mt-lg">
+        <h2 class="headline h4">Basic Modal</h2>
+        <p>A basic modal dialog with proper backdrop styling and accessibility features.</p>
+
+        <div class="flex gap items-center mb">
+          <button class="btn bg-black" onclick="openBasicModal()">Open Basic Modal</button>
+        </div>
+
+        <dialog class="modal" id="basic-modal">
+          <header class="header">
+            <h3 class="headline">Basic Modal</h3>
+            <button class="control close" aria-label="Close" onclick="closeBasicModal()">×</button>
+          </header>
+          <div class="content">
+            <p>This is a basic modal dialog. The backdrop should be visible behind this modal.</p>
+            <p>
+              Notice how the backdrop darkens the background content and provides a visual
+              separation.
+            </p>
+          </div>
+          <footer class="footer">
+            <button class="btn" onclick="closeBasicModal()">Cancel</button>
+            <button class="btn primary" onclick="closeBasicModal()">OK</button>
+          </footer>
+        </dialog>
+      </section>
+
+      <section class="mt-lg">
+        <h2 class="headline h4">Small Modal</h2>
+        <p>A smaller modal variant for simple confirmations and alerts.</p>
+
+        <div class="flex gap items-center mb">
+          <button class="btn bg-black" onclick="openSmallModal()">Open Small Modal</button>
+        </div>
+
+        <dialog class="modal modal-small" id="small-modal">
+          <header class="header">
+            <h3 class="headline">Confirm Action</h3>
+            <button class="control close" aria-label="Close" onclick="closeSmallModal()">×</button>
+          </header>
+          <div class="content">
+            <p>Are you sure you want to proceed?</p>
+          </div>
+          <footer class="footer">
+            <button class="btn" onclick="closeSmallModal()">No</button>
+            <button class="btn primary" onclick="closeSmallModal()">Yes</button>
+          </footer>
+        </dialog>
+      </section>
+
+      <section class="mt-lg">
+        <h2 class="headline h4">Large Modal</h2>
+        <p>A larger modal for more complex content and forms.</p>
+
+        <div class="flex gap items-center mb">
+          <button class="btn bg-black" onclick="openLargeModal()">Open Large Modal</button>
+        </div>
+
+        <dialog class="modal modal-large" id="large-modal">
+          <header class="header">
+            <h3 class="headline">Large Modal</h3>
+            <button class="control close" aria-label="Close" onclick="closeLargeModal()">×</button>
+          </header>
+          <div class="content">
+            <p>This is a large modal with more space for complex content.</p>
+            <div
+              style="
+                height: 200px;
+                background: rgb(var(--bg-color));
+                border: 1px solid rgb(var(--border-color));
+                border-radius: 4px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 1em 0;
+              "
+            >
+              <span>Placeholder content area</span>
+            </div>
+            <p>You can include forms, images, or other complex layouts in this larger space.</p>
+          </div>
+          <footer class="footer">
+            <button class="btn" onclick="closeLargeModal()">Cancel</button>
+            <button class="btn primary" onclick="closeLargeModal()">Save</button>
+          </footer>
+        </dialog>
+      </section>
+
+      <section class="mt-lg">
+        <h2 class="headline h4">Fullscreen Modal</h2>
+        <p>A fullscreen modal that takes up the entire viewport.</p>
+
+        <div class="flex gap items-center mb">
+          <button class="btn bg-black" onclick="openFullscreenModal()">
+            Open Fullscreen Modal
+          </button>
+        </div>
+
+        <dialog class="modal modal-fullscreen" id="fullscreen-modal">
+          <header class="header">
+            <h3 class="headline">Fullscreen Modal</h3>
+            <button class="control close" aria-label="Close" onclick="closeFullscreenModal()">
+              ×
+            </button>
+          </header>
+          <div class="content">
+            <p>
+              This modal takes up the entire viewport, useful for detailed forms or image galleries.
+            </p>
+            <div
+              style="
+                height: 300px;
+                background: rgb(var(--bg-color));
+                border: 1px solid rgb(var(--border-color));
+                border-radius: 4px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 1em 0;
+              "
+            >
+              <span>Full-size content area</span>
+            </div>
+            <p>
+              Fullscreen modals are great for immersive experiences or when you need maximum space.
+            </p>
+          </div>
+          <footer class="footer">
+            <button class="btn" onclick="closeFullscreenModal()">Close</button>
+          </footer>
+        </dialog>
+      </section>
+
+      <section class="mt-lg">
+        <h2 class="headline h4">Simple Modal</h2>
+        <p>A minimal modal without header or footer sections.</p>
+
+        <div class="flex gap items-center mb">
+          <button class="btn bg-black" onclick="openSimpleModal()">Open Simple Modal</button>
+        </div>
+
+        <dialog class="modal modal-simple" id="simple-modal">
+          <div class="content">
+            <button
+              class="control close"
+              aria-label="Close"
+              onclick="closeSimpleModal()"
+              style="position: absolute; top: 1em; right: 1em"
+            >
+              ×
+            </button>
+            <h3 class="headline">Simple Notification</h3>
+            <p>This is a simple modal with just content and a close button.</p>
+            <p>Perfect for notifications, alerts, or minimal content display.</p>
+          </div>
+        </dialog>
+      </section>
+
+      <section class="mt-lg">
+        <h2 class="headline h4">Backdrop Testing</h2>
+        <p>Test the modal backdrop behavior and styling across different browsers.</p>
+
+        <div class="flex gap items-center mb">
+          <button class="btn bg-black" onclick="openBackdropTestModal()">Test Backdrop</button>
+        </div>
+
+        <p><strong>What to test:</strong></p>
+        <ul>
+          <li>Backdrop should be semi-transparent and darken background content</li>
+          <li>Clicking the backdrop should close the modal</li>
+          <li>ESC key should close the modal</li>
+          <li>Content behind the modal should be hidden from screen readers</li>
+          <li>Focus should be trapped within the modal</li>
+        </ul>
+
+        <dialog class="modal" id="backdrop-test-modal">
+          <header class="header">
+            <h3 class="headline">Backdrop Test</h3>
+            <button class="control close" aria-label="Close" onclick="closeBackdropTestModal()">
+              ×
+            </button>
+          </header>
+          <div class="content">
+            <p>Try these tests:</p>
+            <ol>
+              <li>Click outside this modal (on the backdrop) - it should close</li>
+              <li>Press the ESC key - it should close</li>
+              <li>Tab through the modal - focus should stay within</li>
+              <li>Check that the backdrop is semi-transparent</li>
+            </ol>
+            <p>If any of these don't work, there may be browser compatibility issues.</p>
+          </div>
+          <footer class="footer">
+            <button class="btn primary" onclick="closeBackdropTestModal()">Test Passed</button>
+          </footer>
+        </dialog>
+      </section>
+
+      <section class="mt-lg">
+        <h2 class="headline h4">HTML Structure</h2>
+        <p>Here's the basic HTML structure for modals:</p>
+
+        <pre
+          class="p bg-gray"
+          style="border-radius: 4px; overflow-x: auto"
+        ><code>&lt;dialog class="modal"&gt;
+  &lt;header class="header"&gt;
+    &lt;h3 class="headline"&gt;Modal Title&lt;/h3&gt;
+    &lt;button class="control close" aria-label="Close"&gt;×&lt;/button&gt;
+  &lt;/header&gt;
+  &lt;div class="content"&gt;
+    Modal content goes here
+  &lt;/div&gt;
+  &lt;footer class="footer"&gt;
+    &lt;button class="btn"&gt;Cancel&lt;/button&gt;
+    &lt;button class="btn primary"&gt;OK&lt;/button&gt;
+  &lt;/footer&gt;
+&lt;/dialog&gt;</code></pre>
+      </section>
+
+      <section class="mt-lg">
+        <h2 class="headline h4">Auto-Opening Modals</h2>
+        <p>Modals can automatically open when the page loads using data attributes.</p>
+
+        <div class="flex gap items-center mb">
+          <button class="btn bg-black" onclick="testAutoOpenModal()">Test Auto-Open Modal</button>
+          <button class="btn" onclick="testDelayedModal()">Test Delayed Auto-Open</button>
+        </div>
+
+        <h3 class="headline h5">Examples</h3>
+        <p><strong>Immediate auto-open:</strong></p>
+        <pre
+          class="p bg-gray"
+          style="border-radius: 4px; overflow-x: auto"
+        ><code>&lt;dialog class="modal" data-modal-auto-open="true"&gt;
+  &lt;div class="content"&gt;This opens immediately&lt;/div&gt;
+&lt;/dialog&gt;</code></pre>
+
+        <p><strong>Delayed auto-open:</strong></p>
+        <pre
+          class="p bg-gray"
+          style="border-radius: 4px; overflow-x: auto"
+        ><code>&lt;dialog class="modal" data-modal-auto-open="true" data-modal-auto-open-delay="3000"&gt;
+  &lt;div class="content"&gt;This opens after 3 seconds&lt;/div&gt;
+&lt;/dialog&gt;</code></pre>
+
+        <!-- Auto-open test modal -->
+        <dialog class="modal modal-small" id="auto-open-test-modal">
+          <header class="header">
+            <h3 class="headline">Auto-Open Test</h3>
+            <button class="control close" aria-label="Close" onclick="closeAutoOpenTestModal()">
+              ×
+            </button>
+          </header>
+          <div class="content">
+            <p>This modal was opened automatically for testing purposes.</p>
+            <p>In a real application, auto-open modals are useful for:</p>
+            <ul>
+              <li>Welcome messages</li>
+              <li>Important announcements</li>
+              <li>Cookie consent notices</li>
+              <li>Newsletter signups</li>
+            </ul>
+          </div>
+          <footer class="footer">
+            <button class="btn primary" onclick="closeAutoOpenTestModal()">Got it!</button>
+          </footer>
+        </dialog>
+
+        <!-- Delayed auto-open test modal -->
+        <dialog class="modal modal-small" id="delayed-test-modal">
+          <header class="header">
+            <h3 class="headline">Delayed Auto-Open</h3>
+            <button class="control close" aria-label="Close" onclick="closeDelayedTestModal()">
+              ×
+            </button>
+          </header>
+          <div class="content">
+            <p>This modal opens after a 2-second delay.</p>
+            <p>Delayed auto-open is useful for:</p>
+            <ul>
+              <li>Exit-intent messages</li>
+              <li>Time-based offers</li>
+              <li>Onboarding hints</li>
+              <li>Help tooltips</li>
+            </ul>
+          </div>
+          <footer class="footer">
+            <button class="btn primary" onclick="closeDelayedTestModal()">Close</button>
+          </footer>
+        </dialog>
+      </section>
+
+      <section class="mt-lg">
+        <h2 class="headline h4">JavaScript Usage</h2>
+        <p>Initialize modals with the service:</p>
+
+        <pre
+          class="p bg-gray"
+          style="border-radius: 4px; overflow-x: auto"
+        ><code>import { initModals, createModal } from '@/modal/scripts/services/modal'
+
+// Initialize all modals on the page (includes auto-open functionality)
+initModals()
+
+// Create a modal with auto-open programmatically
+const modal = createModal('#my-modal', {
+  backdropClose: true,
+  escapeClose: true,
+  autoOpen: true,          // Auto-open on initialization
+  autoOpenDelay: 3000,     // Delay in milliseconds (optional)
+  onOpen: (element) =&gt; console.log('Modal opened'),
+  onClose: (element) =&gt; console.log('Modal closed')
+})
+
+// Programmatic control
+modal.openModal()
+modal.close()</code></pre>
+      </section>
+    </main>
+
+    <script type="module" src="./modal.ts"></script>
+  </body>
+</html>
