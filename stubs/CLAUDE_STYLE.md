@@ -2,6 +2,28 @@
 
 This document provides specific CSS writing guidelines and patterns to follow when developing copy-points in the CopyKit project.
 
+## ⚠️ CRITICAL: Pre-Implementation Compliance Checklist
+
+**Before writing ANY CSS, verify ALL of these requirements:**
+
+### ✅ Selector Pattern Compliance
+- [ ] **MANDATORY**: Use child selectors (`.component > .child`) instead of class proliferation (`.component-child`)
+- [ ] **MANDATORY**: Keep selectors shallow (max 3 levels deep)
+- [ ] **MANDATORY**: Use direct child selectors (>) for performance
+
+### ✅ Variable Pattern Compliance  
+- [ ] **MANDATORY**: Define component variables in component selector, NOT in `:root`
+- [ ] **MANDATORY**: Component variables must reference base variables (`--component-color: var(--font-color)`)
+- [ ] **MANDATORY**: Use colorset variables, NEVER hardcoded colors (`#000`, `blue`, `rgba()`)
+
+### ✅ Architecture Compliance
+- [ ] **MANDATORY**: Follow 4-layer organization (defaults, components, utilities, layouts)
+- [ ] **MANDATORY**: Use RGB space-separated format for colors (`rgb(var(--color) / 0.5)`)
+
+**❌ STOP: If any checklist item fails, fix it before proceeding**
+
+---
+
 ## Core CSS Principles
 
 ### 1. Hybrid Pattern Architecture
@@ -44,25 +66,32 @@ CopyKit uses a **colorset** approach for systematic color management. A colorset
 **✅ Required Pattern:**
 ```css
 .component {
-  color: rgb(var(--font-color));
-  background: rgb(var(--bg-color));
-  border: 1px solid rgb(var(--border-color));
-  box-shadow: 0 2px 4px rgb(var(--shadow-color) / var(--shadow-alpha));
+  /* Components should define their own variables that reference base variables */
+  --component-font-color: var(--font-color);
+  --component-bg-color: var(--bg-color);
+  --component-border-color: var(--border-color);
+  --component-shadow-color: var(--shadow-color);
+  --component-shadow-alpha: var(--shadow-alpha);
+  
+  color: rgb(var(--component-font-color));
+  background: rgb(var(--component-bg-color));
+  border: 1px solid rgb(var(--component-border-color));
+  box-shadow: 0 2px 4px rgb(var(--component-shadow-color) / var(--component-shadow-alpha));
 }
 
 .component.accent {
-  color: rgb(var(--accent-font-color));
-  background: rgb(var(--accent-bg-color));
+  --component-font-color: var(--accent-font-color);
+  --component-bg-color: var(--accent-bg-color);
 }
 
 .component:hover {
-  color: rgb(var(--accent-hover-font-color));
-  background: rgb(var(--accent-hover-bg-color));
+  --component-font-color: var(--accent-hover-font-color);
+  --component-bg-color: var(--accent-hover-bg-color);
 }
 
 .component::selection {
-  color: rgb(var(--selection-color));
-  background: rgb(var(--selection-bg-color));
+  --component-font-color: var(--selection-color);
+  --component-bg-color: var(--selection-bg-color);
 }
 ```
 
@@ -112,7 +141,7 @@ The `_base` copy-point provides a comprehensive set of CSS variables that should
 ```css
 .component {
   color: rgb(var(--color-black));
-  background: rgb(var(--color-white) / 0.9); /* With alpha */
+  background: rgba(var(--color-white) / 0.9); /* With alpha */
 }
 ```
 
@@ -133,12 +162,12 @@ The `_base` copy-point provides a comprehensive set of CSS variables that should
 **Component Usage Pattern:**
 ```css
 .component {
-  /* Define component-specific spacing that uses base variables */
-  --component-padding: calc(var(--space-unit) * var(--space-md));
-  --component-margin: calc(var(--space-unit) * var(--space-lg));
+  /* Define component-specific spacing variables that reference base variables */
+  --component-padding: var(--space-md);
+  --component-margin: var(--space-lg);
   
-  padding: var(--component-padding);
-  margin: var(--component-margin);
+  padding: calc(var(--space-unit) * var(--component-padding));
+  margin: calc(var(--space-unit) * var(--component-margin));
 }
 ```
 
@@ -318,12 +347,12 @@ The `_base` copy-point provides a comprehensive set of CSS variables that should
   --btn-font-color: var(--accent-font-color);
   --btn-bg-color: var(--accent-bg-color);
   --btn-font-size: var(--font-size);
-  --btn-padding: calc(var(--space-unit) * var(--space-sm));
+  --btn-padding: var(--space-sm);
   
   color: rgb(var(--btn-font-color));
   background: rgb(var(--btn-bg-color));
   font-size: var(--btn-font-size);
-  padding: var(--btn-padding);
+  padding: calc(var(--space-unit) * var(--btn-padding));
 }
 ```
 
@@ -530,24 +559,29 @@ Use RGB format with space-separated values for alpha transparency support:
 ```css
 /* Base component */
 .btn {
+  /* Component defines its own variables */
+  --btn-font-color: var(--accent-font-color);
+  --btn-bg-color: var(--accent-bg-color);
+  --btn-border-color: var(--accent-color);
+  
   cursor: pointer;
-  color: rgb(var(--accent-font-color));
-  background: rgb(var(--accent-bg-color));
+  color: rgb(var(--btn-font-color));
+  background: rgb(var(--btn-bg-color));
 }
 
 /* Prefix-based variations */
 .btn-primary { 
-  background: rgb(var(--accent-bg-color)); 
+  --btn-bg-color: var(--accent-bg-color);
 }
 
 .btn-outline { 
-  background: transparent;
-  border: 1px solid rgb(var(--accent-color));
+  --btn-bg-color: transparent;
+  border: 1px solid rgb(var(--btn-border-color));
 }
 ```
 
 ### Child Selector Strategy
-Use child selectors to avoid verbose class names:
+**🚨 CRITICAL REQUIREMENT**: Use child selectors to avoid verbose class names - this is MANDATORY per the compliance checklist above.
 
 **✅ Clean Structure:**
 ```html
@@ -705,13 +739,13 @@ When developing copy-points, components should handle their own specific accessi
 
 #### Focus Management
 ```css
-.component .control {
+.component > .control {
   /* Focus indicators that work with colorset system */
   outline: 2px solid rgb(var(--accent-color));
   outline-offset: 2px;
 }
 
-.component .control:focus {
+.component > .control:focus {
   /* Enhanced focus for accessibility */
   outline-width: 3px;
 }
@@ -719,12 +753,12 @@ When developing copy-points, components should handle their own specific accessi
 
 #### Proper Content Hiding
 ```css
-.component .content[hidden] {
+.component > .content[hidden] {
   /* Proper hiding for screen readers */
   display: none;
 }
 
-.component .content[aria-hidden="true"] {
+.component > .content[aria-hidden="true"] {
   /* Alternative hiding method */
   visibility: hidden;
 }
@@ -769,22 +803,26 @@ Always ensure copy-point colors work with accessibility overrides:
 #### Required Colorset Patterns
 ```css
 .component {
-  /* Use colorset variables for automatic accessibility support */
-  color: rgb(var(--font-color));
-  background-color: rgb(var(--bg-color));
-  border: 1px solid rgb(var(--border-color));
+  /* Component defines its own variables that reference colorset variables */
+  --component-font-color: var(--font-color);
+  --component-bg-color: var(--bg-color);
+  --component-border-color: var(--border-color);
+  
+  color: rgb(var(--component-font-color));
+  background-color: rgb(var(--component-bg-color));
+  border: 1px solid rgb(var(--component-border-color));
 }
 
 .component.accent {
-  /* Accent variants must use colorset accent variables */
-  color: rgb(var(--accent-font-color));
-  background-color: rgb(var(--accent-bg-color));
+  /* Accent variants override component variables */
+  --component-font-color: var(--accent-font-color);
+  --component-bg-color: var(--accent-bg-color);
 }
 
 .component:hover {
-  /* Hover states use colorset hover variables */
-  color: rgb(var(--accent-hover-font-color));
-  background-color: rgb(var(--accent-hover-bg-color));
+  /* Hover states override component variables */
+  --component-font-color: var(--accent-hover-font-color);
+  --component-bg-color: var(--accent-hover-bg-color);
 }
 
 /* Selection states for accessibility */
@@ -825,11 +863,16 @@ Copy-point README.md files must document accessibility features with required se
 
 ## Common Pitfalls to Avoid
 
-1. **Mixing Patterns**: Don't use compound classes for component variations
-2. **Deep Nesting**: Keep child selectors shallow (max 3 levels)
-3. **Utility Components**: Don't create utilities that behave like components
-4. **Direct Colors**: Always use colorset variables, never direct color values
-5. **Class Proliferation**: Use child selectors instead of verbose class names
+**❌ THESE VIOLATIONS FAIL THE COMPLIANCE CHECKLIST:**
+
+1. **Class Proliferation**: Using `.component-child` instead of `.component > .child` (**FAILS SELECTOR PATTERN COMPLIANCE**)
+2. **Direct Colors**: Using `#000`, `blue`, `rgba()` instead of colorset variables (**FAILS VARIABLE PATTERN COMPLIANCE**)
+3. **Root Variables**: Defining component variables in `:root` instead of component selector (**FAILS VARIABLE PATTERN COMPLIANCE**)
+4. **Deep Nesting**: Selectors deeper than 3 levels (**FAILS SELECTOR PATTERN COMPLIANCE**)
+5. **Mixing Patterns**: Using compound classes for component variations (**FAILS ARCHITECTURE COMPLIANCE**)
+6. **Utility Components**: Creating utilities that behave like components (**FAILS ARCHITECTURE COMPLIANCE**)
+
+**🚨 Always check the compliance checklist at the top of this document before writing CSS**
 
 ## CSS Documentation Standards
 
@@ -855,12 +898,16 @@ Only document CSS where it provides meaningful showcase value:
  * @location components.component-name.variant Component Variant Name
  * @example
  * <!-- Complete, minimal example showing full functional structure -->
- * <div class="component variant">
+ * <div class="component component-variant">
  *   <div class="child">Complete example</div>
  * </div>
  */
-.component.variant {
+.component.component-variant {
   /* CSS implementation */
+}
+
+.component.component-variant > .child {
+  /* Child element styling using proper child selectors */
 }
 ```
 
