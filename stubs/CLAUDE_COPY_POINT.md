@@ -264,7 +264,7 @@ Short description of the copy-point's purpose and functionality.
 ## Development Standards
 
 ### TypeScript Files
-**For complete TypeScript development guidelines, see [CLAUDE_TS.md](CLAUDE_TS.md).**
+**For complete TypeScript development guidelines, see [CLAUDE_SCRIPTS.md](CLAUDE_SCRIPTS.md).**
 
 This covers:
 - Core architectural principles (HTML attributes, DOM storage, ARIA state)
@@ -281,7 +281,7 @@ This covers:
 - Follow the 4-layer architecture
 - Ensure accessibility compliance (WCAG 2.1 AA)
 
-**For complete CSS guidelines, see [CLAUDE_CSS.md](CLAUDE_CSS.md)**
+**For complete CSS guidelines, see [CLAUDE_STYLE.md](CLAUDE_STYLE.md)**
 
 ## Accessibility Implementation Requirements
 
@@ -297,9 +297,9 @@ When developing copy-points, components should handle their own specific accessi
 - **Progressive Enhancement**: Ensure functionality works without JavaScript first
 - **State Management**: Handle expanded/collapsed, active/inactive states accessibly
 
-**For detailed TypeScript implementation patterns, see [CLAUDE_TS.md](CLAUDE_TS.md).**
+**For detailed TypeScript implementation patterns, see [CLAUDE_SCRIPTS.md](CLAUDE_SCRIPTS.md).**
 
-**For detailed CSS accessibility patterns, see [CLAUDE_CSS.md](CLAUDE_CSS.md)**
+**For detailed CSS accessibility patterns, see [CLAUDE_STYLE.md](CLAUDE_STYLE.md)**
 
 ### Accessibility Testing Requirements
 All copy-points with interactive elements must include comprehensive accessibility tests:
@@ -318,7 +318,7 @@ scripts/services/
 - **Focus Management**: Ensure proper focus indicators and focus trapping
 - **User Preferences**: Test with `prefers-reduced-motion` and `prefers-contrast`
 
-**For complete accessibility testing patterns and examples, see [CLAUDE_TS.md](CLAUDE_TS.md).**
+**For complete accessibility testing patterns and examples, see [CLAUDE_SCRIPTS.md](CLAUDE_SCRIPTS.md).**
 
 ### Documentation Requirements for Accessibility
 Copy-point README.md files must document accessibility features:
@@ -376,7 +376,7 @@ git commit -m "style(stub:[name]): format CSS utility classes"
 
 ## CSS Writing Standards
 
-**For complete CSS writing guidelines and patterns, see [CLAUDE_CSS.md](CLAUDE_CSS.md).**
+**For complete CSS writing guidelines and patterns, see [CLAUDE_STYLE.md](CLAUDE_STYLE.md).**
 
 This dedicated CSS reference provides comprehensive guidance on:
 

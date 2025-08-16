@@ -503,7 +503,7 @@ When creating copy-points with TypeScript functionality:
 6. **Document accessibility features**: Include keyboard shortcuts and ARIA usage
 
 ### CSS and TypeScript Integration
-For CSS integration patterns, see [CLAUDE_CSS.md](CLAUDE_CSS.md) which covers:
+For CSS integration patterns, see [CLAUDE_STYLE.md](CLAUDE_STYLE.md) which covers:
 - How TypeScript services coordinate with CSS classes
 - Data attribute patterns for configuration
 - Animation and transition management
