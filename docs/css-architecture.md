@@ -581,7 +581,7 @@ The colorset system automatically supports accessibility requirements:
 .component {
   color: #000000;                    /* No hex colors */
   background: blue;                  /* No named colors */
-  border: 1px solid rgba(0,0,0,0.1); /* No rgba() values */
+  border: 1px solid rgb(0 0 0 / 0.1); /* No space-separated RGB values */
 }
 
 /* Never use colorset variables directly in properties */

@@ -227,7 +227,7 @@ cp -r stubs/rounded-simple/ your-project/src/
 ### Card Components
 
 ```html
-<div class="rounded-lg padding" style="box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+<div class="rounded-lg padding" style="box-shadow: 0 2px 4px rgb(0 0 0 / 0.1);">
   <h3>Card Title</h3>
   <p>Card content with rounded corners</p>
 </div>

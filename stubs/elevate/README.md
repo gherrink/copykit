@@ -264,7 +264,7 @@ The elevation levels correspond to Material Design specifications:
 /* Fallback for browsers without color-mix() support */
 .elevate {
   background: rgb(var(--bg-color));
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgb(0 0 0 / 0.1);
 }
 
 /* Enhanced styles for modern browsers */

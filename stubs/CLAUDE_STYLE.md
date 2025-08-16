@@ -101,7 +101,7 @@ CopyKit uses a **colorset** approach for systematic color management. A colorset
   color: #000000;
   background: blue;
   border: 1px solid #cccccc;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
 }
 ```
 
@@ -141,7 +141,7 @@ The `_base` copy-point provides a comprehensive set of CSS variables that should
 ```css
 .component {
   color: rgb(var(--color-black));
-  background: rgba(var(--color-white) / 0.9); /* With alpha */
+  background: rgb(var(--color-white) / 0.9); /* With alpha */
 }
 ```
 

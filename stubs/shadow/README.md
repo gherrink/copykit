@@ -320,7 +320,7 @@ The shadow levels correspond to Material Design elevation specifications:
 ```css
 /* Fallback for browsers without custom properties */
 .shadow {
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgb(0 0 0 / 0.1);
 }
 
 /* Enhanced styles for modern browsers */

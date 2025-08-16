@@ -293,7 +293,7 @@ cp -r stubs/accordion/ your-project/src/
 .accordion-bordered { --accordion-border-width: 2px; }
 .accordion-borderless { --accordion-border-width: 0; }
 .accordion-rounded { --accordion-border-radius: 8px; }
-.accordion-shadow { box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+.accordion-shadow { box-shadow: 0 2px 4px rgb(0 0 0 / 0.1); }
 ```
 
 ### State Management

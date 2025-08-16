@@ -303,7 +303,7 @@ For nested grid-auto containers, use `unset` or `initial` to reset gap inheritan
 
 .grid-auto.debug > * {
   outline: 1px solid red;
-  background: rgba(255, 0, 0, 0.1);
+  background: rgb(255 0 0 / 0.1);
 }
 ```
 
