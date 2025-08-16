@@ -9,13 +9,19 @@ This file provides comprehensive guidance for creating new copy-points in the Co
 
 ```bash
 # REQUIRED: Use this script for all new copy-points
-pnpm run create-copy-point [name]
+pnpm run create-copy-point [name] [options]
 
-# Examples:
+# Basic usage (creates component CSS by default)
 pnpm run create-copy-point advanced
-pnpm run create-copy-point components-extended
-pnpm run create-copy-point dark-theme
-pnpm run create-copy-point animations
+
+# Custom file names
+pnpm run create-copy-point theme --style-default=variables --style-component=buttons
+
+# Service only
+pnpm run create-copy-point utils --script-service=helpers --without-copy-point
+
+# Multiple options
+pnpm run create-copy-point complete --style-default --style-component --script-service
 ```
 
 ## Copy-Point Creation Process
@@ -29,114 +35,27 @@ The script (`scripts/create-copy-point.js`) automatically:
 - **Generates templates**: Starter files with proper JSDoc comments and layer organization
 - **Provides guidance**: Shows next steps and commit message format
 
-## Script Options and Usage
+## Script Options
 
-### Command-Line Flags
+### Available Flags
 
-The create-copy-point script supports several flags for quick setup without interactive prompts:
+**Style Options:**
+- `--style-default[=name]` - Create styles/01_defaults/[name].css
+- `--style-component[=name]` - Create styles/02_components/[name].css
+- `--style-utility[=name]` - Create styles/03_utilities/[name].css
+- `--style-layout[=name]` - Create styles/04_layouts/[name].css
 
-#### Basic Usage
-```bash
-pnpm run create-copy-point [name] [options]
-```
+**Script Options:**
+- `--script-service[=name]` - Create scripts/services/[name].ts
 
-#### Available Flags
+**Control Options:**
+- `--without-copy-point` - Skip creating copy-point.json
+- `--without-readme` - Skip creating README.md
 
-**`--styles-only`** - Creates CSS-only copy point
-```bash
-pnpm run create-copy-point dark-theme --styles-only
-```
-Creates:
-- ✅ `styles/01_defaults/variables.css`
-- ✅ `styles/02_components/[name].css`
-- ✅ `styles/03_utilities/[name].css`
-- ✅ `styles/04_layouts/[name].css`
-- ❌ No scripts directory
-
-**`--scripts-only`** - Creates TypeScript-only copy point
-```bash
-pnpm run create-copy-point utils --scripts-only
-```
-Creates:
-- ✅ `scripts/services/[name].ts`
-- ✅ `scripts/utilities/[name].ts`
-- ❌ No styles directory
-
-**`--minimal`** - Creates minimal structure
-```bash
-pnpm run create-copy-point minimal --minimal
-```
-Creates:
-- ✅ `README.md`
-- ✅ `copy-point.json`
-- ❌ No scripts or styles directories
-
-### Interactive Mode
-
-When no flags are provided, the script prompts for customization:
-
-```bash
-pnpm run create-copy-point advanced
-# Enters interactive mode with the following prompts:
-```
-
-#### Interactive Prompts
-
-**1. Scripts Templates**
-```
-? Include scripts templates? (y/N)
-```
-- Default: No
-- If yes, enables TypeScript functionality
-
-**1a. Services Templates** (if scripts enabled)
-```
-? Include scripts/services templates? (Y/n)
-```
-- Default: Yes
-- Creates `scripts/services/[name].ts` with service template
-
-**1b. Utilities Templates** (if scripts enabled)
-```
-? Include scripts/utilities templates? (y/N)
-```
-- Default: No
-- Creates `scripts/utilities/[name].ts` with utility template
-
-**2. Styles Templates**
-```
-? Include styles templates? (Y/n)
-```
-- Default: Yes
-- If yes, enables CSS functionality
-
-**2a. Defaults Templates** (if styles enabled)
-```
-? Include styles/01_defaults templates? (y/N)
-```
-- Default: No
-- Creates `styles/01_defaults/variables.css` with CSS variables template
-
-**2b. Components Templates** (if styles enabled)
-```
-? Include styles/02_components templates? (Y/n)
-```
-- Default: Yes
-- Creates `styles/02_components/[name].css` with component template
-
-**2c. Utilities Templates** (if styles enabled)
-```
-? Include styles/03_utilities templates? (y/N)
-```
-- Default: No
-- Creates `styles/03_utilities/[name].css` with utility classes template
-
-**2d. Layouts Templates** (if styles enabled)
-```
-? Include styles/04_layouts templates? (y/N)
-```
-- Default: No
-- Creates `styles/04_layouts/[name].css` with layout template
+### Usage
+- **Default behavior**: If no style flags provided, creates `--style-component` automatically
+- **Optional naming**: `--flag=name` uses custom name, `--flag` uses copy-point name
+- **Combinable**: All flags can be used together in any combination
 
 ### Naming Validation Rules
 
@@ -162,55 +81,37 @@ The script enforces strict naming conventions:
 ❌ Error: Copy point "name" already exists
 ```
 
-### Template Files Generated
+### Generated Files
 
-Each option creates specific template files with boilerplate content:
+**Standard Files** (created unless excluded):
+- `README.md` - Documentation template
+- `copy-point.json` - CLI metadata
 
-#### Always Created
-- `README.md` - Comprehensive documentation template
-- `copy-point.json` - Metadata for CLI integration
-
-#### CSS Templates (when styles enabled)
-- `01_defaults/variables.css` - CSS custom properties and overrides
-- `02_components/[name].css` - Component styling with JSDoc
+**CSS Templates** (based on style flags):
+- `01_defaults/[name].css` - Variables and overrides
+- `02_components/[name].css` - Component styles with JSDoc
 - `03_utilities/[name].css` - Utility classes
 - `04_layouts/[name].css` - Layout patterns
 
-#### TypeScript Templates (when scripts enabled)
-- `services/[name].ts` - Service implementation with init function
-- `utilities/[name].ts` - Utility functions with examples
+**TypeScript Templates** (based on script flags):
+- `services/[name].ts` - Service implementation
 
 ### Post-Creation Workflow
 
-After running the script, it displays:
-
-1. **Structure Created** - Visual tree of generated files
-2. **Next Steps** - 8-step checklist including:
-   - Complete metadata in `copy-point.json`
-   - Complete documentation in `README.md`
-   - Add scope to `.commitlintrc.cjs`
-   - Develop actual components
-   - Add UI-Doc comments
-   - Create example pages
-   - Register styles in `pages/style.css`
-   - Test integration with `_base`
-3. **Commit Command** - Proper conventional commit format
+After running the script:
+1. **Complete metadata** in `copy-point.json`
+2. **Complete documentation** in `README.md`
+3. **Add scope** to `.commitlintrc.cjs`
+4. **Develop components** replacing template files
+5. **Test integration** with `_base` copy-point
+6. **Create example pages** in `pages/`
+7. **Commit changes** using `feat(stub:[name]): create [name] copy point`
 
 ### 2. Copy-Point Naming Rules
 - **Lowercase only**: `advanced`, `dark-theme`, `components-extended`
 - **Kebab-case**: Use hyphens for multi-word names
 - **No underscores**: Only `_base` uses underscore prefix
-- **Descriptive**: Name should indicate purpose (`animations`, `advanced`, `dark-theme`)
-
-### 3. Post-Script Workflow
-1. **Script generates**: Complete structure in `stubs/[name]/` including metadata and README.md templates
-2. **Complete metadata**: Update `copy-point.json` with accurate title, description, features, and keywords
-3. **Complete documentation**: Fill out the generated README.md template with copy-point-specific information
-4. **Update commitlint**: Add `stub:[name]` scope to `.commitlintrc.cjs`
-5. **Develop components**: Replace template files with actual components
-6. **Test integration**: Ensure compatibility with `_base` and other copy-points
-7. **Create examples**: Add demonstration pages in `pages/`
-8. **Commit changes**: Use `feat(stub:[name]): create [name] copy point`
+- **Descriptive**: Name should indicate purpose
 
 ## Standard Copy-Point Structure
 

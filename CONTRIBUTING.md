@@ -401,15 +401,37 @@ The `create-copy-point` script provides several advantages:
 2. **Generate with Script** (Recommended):
    ```bash
    # Create a new copy point with proper structure and templates
-   pnpm run create-copy-point [copy-point-name]
+   pnpm run create-copy-point [copy-point-name] [options]
    
-   # Examples:
+   # Basic usage (creates component CSS by default)
    pnpm run create-copy-point advanced
-   pnpm run create-copy-point dark-theme
-   pnpm run create-copy-point components-extended
+   
+   # Custom file names
+   pnpm run create-copy-point theme --style-default=variables --style-component=buttons
+   
+   # Service only
+   pnpm run create-copy-point utils --script-service=helpers --without-copy-point
+   
+   # Multiple options
+   pnpm run create-copy-point complete --style-default --style-component --script-service
    ```
    
-   **Alternative: Manual Creation**:
+   **Style Options:**
+   - `--style-default[=name]` - Create styles/01_defaults/[name].css
+   - `--style-component[=name]` - Create styles/02_components/[name].css
+   - `--style-utility[=name]` - Create styles/03_utilities/[name].css
+   - `--style-layout[=name]` - Create styles/04_layouts/[name].css
+   
+   **Script Options:**
+   - `--script-service[=name]` - Create scripts/services/[name].ts
+   
+   **Control Options:**
+   - `--without-copy-point` - Skip creating copy-point.json
+   - `--without-readme` - Skip creating README.md
+   
+   **Note:** If no style flags are provided, `--style-component` is created by default. Optional values default to the copy-point name.
+   
+   **Alternative: Manual Creation** (Not Recommended):
    ```bash
    mkdir -p stubs/[copy-point-name]/scripts/{services,utilities}
    mkdir -p stubs/[copy-point-name]/styles/{01_defaults,02_components,03_utilities,04_layouts}

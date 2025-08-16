@@ -3,7 +3,6 @@
 import { mkdir, writeFile } from 'fs/promises'
 import { existsSync } from 'fs'
 import { join } from 'path'
-import { createInterface } from 'readline'
 
 /**
  * Create a new copy point with the standard CopyKit structure
@@ -15,11 +14,22 @@ async function createCopyPoint() {
   if (!name) {
     console.error('❌ Error: Copy point name is required')
     console.log('Usage: pnpm run create-copy-point [name] [options]')
-    console.log('Examples:')
+    console.log('\nStyle Options:')
+    console.log('  --style-default[=name]     Create styles/01_defaults/[name].css')
+    console.log('  --style-component[=name]   Create styles/02_components/[name].css')
+    console.log('  --style-utility[=name]     Create styles/03_utilities/[name].css')
+    console.log('  --style-layout[=name]      Create styles/04_layouts/[name].css')
+    console.log('\nScript Options:')
+    console.log('  --script-service[=name]    Create scripts/services/[name].ts')
+    console.log('\nControl Options:')
+    console.log('  --without-copy-point       Skip creating copy-point.json')
+    console.log('  --without-readme           Skip creating README.md')
+    console.log('\nExamples:')
     console.log('  pnpm run create-copy-point advanced')
-    console.log('  pnpm run create-copy-point dark-theme --styles-only')
-    console.log('  pnpm run create-copy-point utils --scripts-only')
-    console.log('  pnpm run create-copy-point minimal --minimal')
+    console.log('  pnpm run create-copy-point theme --style-default=variables --style-component=theme')
+    console.log('  pnpm run create-copy-point utils --script-service=helpers --without-copy-point')
+    console.log('  pnpm run create-copy-point complete --style-default --style-component --script-service')
+    console.log('\nNote: If no style flags are provided, --style-component is created by default')
     process.exit(1)
   }
 
@@ -50,8 +60,8 @@ async function createCopyPoint() {
   // Parse command line flags
   const flags = parseFlags(args.slice(1))
 
-  // Determine what to create based on flags or user input
-  const options = await determineOptions(flags)
+  // Determine what to create based on flags
+  const options = determineOptions(flags, name)
 
   console.log(`🚀 Creating copy point "${name}"...`)
 
@@ -86,14 +96,19 @@ async function createCopyPoint() {
 
     console.log('')
     console.log('📝 Next steps:')
-    console.log(`   1. Complete the metadata in stubs/${name}/copy-point.json`)
-    console.log(`   2. Complete the documentation in stubs/${name}/README.md`)
-    console.log(`   3. Add "stub:${name}" scope to .commitlintrc.cjs`)
-    console.log(`   4. Develop components in stubs/${name}/`)
-    console.log('   5. Add UI-Doc block comments')
-    console.log('   6. May create example pages demonstrating the components')
-    console.log('   7. Do not forget to register your styles in pages/style.css')
-    console.log('   8. Test integration with _base copy point')
+    let stepNum = 1
+    if (!options.withoutCopyPoint) {
+      console.log(`   ${stepNum++}. Complete the metadata in stubs/${name}/copy-point.json`)
+    }
+    if (!options.withoutReadme) {
+      console.log(`   ${stepNum++}. Complete the documentation in stubs/${name}/README.md`)
+    }
+    console.log(`   ${stepNum++}. Add "stub:${name}" scope to .commitlintrc.cjs`)
+    console.log(`   ${stepNum++}. Develop components in stubs/${name}/`)
+    console.log(`   ${stepNum++}. Add UI-Doc block comments`)
+    console.log(`   ${stepNum++}. May create example pages demonstrating the components`)
+    console.log(`   ${stepNum++}. Do not forget to register your styles in pages/style.css`)
+    console.log(`   ${stepNum++}. Test integration with _base copy point`)
     console.log('')
     console.log('💡 Commit your changes:')
     console.log(`   git commit -m "feat(stub:${name}): init"`)
@@ -139,144 +154,123 @@ function showCreatedStructure(name, options) {
 }
 
 /**
- * Parse command line flags
+ * Parse command line flags with optional values
  */
 function parseFlags(args) {
-  return {
-    stylesOnly: args.includes('--styles-only'),
-    scriptsOnly: args.includes('--scripts-only'),
-    minimal: args.includes('--minimal'),
+  const flags = {
+    styleDefault: null,
+    styleComponent: null,
+    styleUtility: null,
+    styleLayout: null,
+    scriptService: null,
+    withoutCopyPoint: false,
+    withoutReadme: false,
   }
+
+  for (const arg of args) {
+    if (arg.startsWith('--style-default')) {
+      flags.styleDefault = parseOptionalValue(arg, 'style-default')
+    } else if (arg.startsWith('--style-component')) {
+      flags.styleComponent = parseOptionalValue(arg, 'style-component')
+    } else if (arg.startsWith('--style-utility')) {
+      flags.styleUtility = parseOptionalValue(arg, 'style-utility')
+    } else if (arg.startsWith('--style-layout')) {
+      flags.styleLayout = parseOptionalValue(arg, 'style-layout')
+    } else if (arg.startsWith('--script-service')) {
+      flags.scriptService = parseOptionalValue(arg, 'script-service')
+    } else if (arg === '--without-copy-point') {
+      flags.withoutCopyPoint = true
+    } else if (arg === '--without-readme') {
+      flags.withoutReadme = true
+    }
+  }
+
+  return flags
 }
 
 /**
- * Determine what to create based on flags or user input
+ * Parse optional value from flag (--flag or --flag=value)
  */
-async function determineOptions(flags) {
-  // Quick mode flags
-  if (flags.minimal) {
-    return {
-      includeScripts: false,
-      includeServices: false,
-      includeUtilities: false,
-      includeStyles: false,
-      includeDefaults: false,
-      includeComponents: false,
-      includeStyleUtilities: false,
-      includeLayouts: false,
-    }
+function parseOptionalValue(arg, flagName) {
+  const prefix = `--${flagName}`
+  if (arg === prefix) {
+    return true // Flag present without value
   }
-
-  if (flags.stylesOnly) {
-    return {
-      includeScripts: false,
-      includeServices: false,
-      includeUtilities: false,
-      includeStyles: true,
-      includeDefaults: true,
-      includeComponents: true,
-      includeStyleUtilities: true,
-      includeLayouts: true,
-    }
+  if (arg.startsWith(`${prefix}=`)) {
+    return arg.substring(prefix.length + 1) || true // Extract value or true if empty
   }
-
-  if (flags.scriptsOnly) {
-    return {
-      includeScripts: true,
-      includeServices: true,
-      includeUtilities: true,
-      includeStyles: false,
-      includeDefaults: false,
-      includeComponents: false,
-      includeStyleUtilities: false,
-      includeLayouts: false,
-    }
-  }
-
-  // Interactive mode
-  return await promptForOptions()
+  return null
 }
 
 /**
- * Prompt user for what to include
+ * Determine what to create based on flags
  */
-async function promptForOptions() {
-  const rl = createInterface({
-    input: process.stdin,
-    output: process.stdout,
-  })
+function determineOptions(flags, copyPointName) {
+  const hasAnyStyleFlag = flags.styleDefault !== null || flags.styleComponent !== null || 
+                         flags.styleUtility !== null || flags.styleLayout !== null
+  const hasAnyScriptFlag = flags.scriptService !== null
 
-  const question = prompt =>
-    new Promise(resolve => {
-      rl.question(prompt, resolve)
-    })
-
-  console.log('\n📝 What templates would you like to include?')
-
-  const includeScripts = (await question('? Include scripts templates? (y/N) ')) === 'y'
-  let includeServices = false
-  let includeUtilities = false
-
-  if (includeScripts) {
-    includeServices = (await question('? Include scripts/services templates? (Y/n) ')) !== 'n'
-    includeUtilities = (await question('? Include scripts/utilities templates? (y/N) ')) === 'y'
-  }
-
-  const includeStyles = (await question('? Include styles templates? (Y/n) ')) !== 'n'
-  let includeDefaults = false
-  let includeComponents = false
-  let includeStyleUtilities = false
-  let includeLayouts = false
-
-  if (includeStyles) {
-    includeDefaults = (await question('? Include styles/01_defaults templates? (y/N) ')) === 'y'
-    includeComponents = (await question('? Include styles/02_components templates? (Y/n) ')) !== 'n'
-    includeStyleUtilities =
-      (await question('? Include styles/03_utilities templates? (y/N) ')) === 'y'
-    includeLayouts = (await question('? Include styles/04_layouts templates? (y/N) ')) === 'y'
-  }
-
-  rl.close()
+  // If no style flags provided, default to component style
+  const shouldCreateDefaultComponent = !hasAnyStyleFlag
 
   return {
-    includeScripts,
-    includeServices,
-    includeUtilities,
-    includeStyles,
-    includeDefaults,
-    includeComponents,
-    includeStyleUtilities,
-    includeLayouts,
+    // Style options with filenames
+    styleDefault: flags.styleDefault === true ? copyPointName : flags.styleDefault,
+    styleComponent: flags.styleComponent === true ? copyPointName : flags.styleComponent || (shouldCreateDefaultComponent ? copyPointName : null),
+    styleUtility: flags.styleUtility === true ? copyPointName : flags.styleUtility,
+    styleLayout: flags.styleLayout === true ? copyPointName : flags.styleLayout,
+    
+    // Script options with filenames
+    scriptService: flags.scriptService === true ? copyPointName : flags.scriptService,
+    
+    // Control flags
+    withoutCopyPoint: flags.withoutCopyPoint,
+    withoutReadme: flags.withoutReadme,
+    
+    // Legacy compatibility for template creation
+    includeScripts: hasAnyScriptFlag,
+    includeServices: flags.scriptService !== null,
+    includeUtilities: false, // No longer supported via flags
+    includeStyles: hasAnyStyleFlag || shouldCreateDefaultComponent,
+    includeDefaults: flags.styleDefault !== null,
+    includeComponents: flags.styleComponent !== null || shouldCreateDefaultComponent,
+    includeStyleUtilities: flags.styleUtility !== null,
+    includeLayouts: flags.styleLayout !== null,
   }
 }
+
 
 /**
  * Create template files for the copy point
  */
 async function createTemplateFiles(copyPointPath, name, options) {
-  // Create copy-point.json metadata file
-  const metadataContent = createMetadataTemplate(name)
-  await writeFile(join(copyPointPath, 'copy-point.json'), metadataContent)
+  // Create copy-point.json metadata file (unless excluded)
+  if (!options.withoutCopyPoint) {
+    const metadataContent = createMetadataTemplate(name)
+    await writeFile(join(copyPointPath, 'copy-point.json'), metadataContent)
+  }
 
-  // Create README.md file
-  const readmeContent = createReadmeTemplate(name)
-  await writeFile(join(copyPointPath, 'README.md'), readmeContent)
+  // Create README.md file (unless excluded)
+  if (!options.withoutReadme) {
+    const readmeContent = createReadmeTemplate(name)
+    await writeFile(join(copyPointPath, 'README.md'), readmeContent)
+  }
 
-  // CSS template files
+  // CSS template files with custom names
   const cssTemplates = {}
-  if (options.includeDefaults)
-    cssTemplates['01_defaults/variables.css'] = createDefaultsTemplate(name)
-  if (options.includeComponents)
-    cssTemplates[`02_components/${name}.css`] = createComponentTemplate(name)
-  if (options.includeStyleUtilities)
-    cssTemplates[`03_utilities/${name}.css`] = createUtilityTemplate(name)
-  if (options.includeLayouts) cssTemplates[`04_layouts/${name}.css`] = createLayoutTemplate(name)
+  if (options.styleDefault)
+    cssTemplates[`01_defaults/${options.styleDefault}.css`] = createDefaultsTemplate(options.styleDefault, name)
+  if (options.styleComponent)
+    cssTemplates[`02_components/${options.styleComponent}.css`] = createComponentTemplate(options.styleComponent, name)
+  if (options.styleUtility)
+    cssTemplates[`03_utilities/${options.styleUtility}.css`] = createUtilityTemplate(options.styleUtility, name)
+  if (options.styleLayout)
+    cssTemplates[`04_layouts/${options.styleLayout}.css`] = createLayoutTemplate(options.styleLayout, name)
 
-  // JavaScript template files
+  // JavaScript template files with custom names
   const jsTemplates = {}
-  if (options.includeServices) jsTemplates[`services/${name}.ts`] = createServiceTemplate(name)
-  if (options.includeUtilities)
-    jsTemplates[`utilities/${name}.ts`] = createUtilityScriptTemplate(name)
+  if (options.scriptService)
+    jsTemplates[`services/${options.scriptService}.ts`] = createServiceTemplate(options.scriptService, name)
 
   // Write CSS files
   for (const [path, content] of Object.entries(cssTemplates)) {
@@ -310,14 +304,14 @@ function createMetadataTemplate(name) {
 }`
 }
 
-function createDefaultsTemplate(name) {
+function createDefaultsTemplate(filename, copyPointName) {
   return `/**
- * Default variables and overrides for ${name} copy point
+ * Default variables and overrides for ${copyPointName} copy point
  *
  * Extend or override variables from _base copy point here.
  * These should build upon the foundation provided by _base.
  *
- * @location defaults.${name} ${name.charAt(0).toUpperCase() + name.slice(1)} Defaults
+ * @location defaults.${filename} ${filename.charAt(0).toUpperCase() + filename.slice(1)} Defaults
  * @order 10
  */
 
@@ -325,131 +319,107 @@ function createDefaultsTemplate(name) {
   /* Override or extend base variables */
   /* --example-color: 120 50 50; */
 
-  /* Add new variables specific to ${name} */
-  /* --${name}-primary: var(--color-blue); */
-  /* --${name}-secondary: var(--color-gray); */
+  /* Add new variables specific to ${copyPointName} */
+  /* --${copyPointName}-primary: var(--color-blue); */
+  /* --${copyPointName}-secondary: var(--color-gray); */
 }
 `
 }
 
-function createComponentTemplate(name) {
+function createComponentTemplate(filename, copyPointName) {
   return `/**
- * Example component for ${name} copy point
+ * Example component for ${copyPointName} copy point
  *
  * This is a template component. Replace with actual components
  * that extend or enhance the base components.
  *
- * @location components.${name} ${name.charAt(0).toUpperCase() + name.slice(1)}
+ * @location components.${filename} ${filename.charAt(0).toUpperCase() + filename.slice(1)}
  * @order 10
  * @example
- * <div class="${name}">Example component</div>
+ * <div class="${filename}">Example component</div>
  */
 
 @layer components {
-  .${name} {
+  .${filename} {
     /* Base styles building on _base foundation */
     padding: calc(var(--space-unit) * var(--space-md));
     border-radius: var(--border-radius-base);
 
-    /* ${name}-specific styling */
+    /* ${filename}-specific styling */
     /* Add your component styles here */
   }
 }
 `
 }
 
-function createUtilityTemplate(name) {
+function createUtilityTemplate(filename, copyPointName) {
   return `/**
- * Example utilities for ${name} copy point
+ * Example utilities for ${copyPointName} copy point
  *
  * Additional utility classes that extend the base utilities.
  *
- * @location utilities.${name} ${name.charAt(0).toUpperCase() + name.slice(1)}
+ * @location utilities.${filename} ${filename.charAt(0).toUpperCase() + filename.slice(1)}
  * @order 10
  */
 
 @layer utilities {
-  /* Example utility classes for ${name} */
-  .${name}-spacing {
-    /* Add spacing utilities specific to ${name} */
+  /* Example utility classes for ${filename} */
+  .${filename}-spacing {
+    /* Add spacing utilities specific to ${filename} */
   }
 
-  .${name}-layout {
-    /* Add layout utilities specific to ${name} */
+  .${filename}-layout {
+    /* Add layout utilities specific to ${filename} */
   }
 }
 `
 }
 
-function createLayoutTemplate(name) {
+function createLayoutTemplate(filename, copyPointName) {
   return `/**
- * Example layouts for ${name} copy point
+ * Example layouts for ${copyPointName} copy point
  *
  * Layout patterns and page-level styles that build upon base layouts.
  *
- * @location layouts.${name} ${name.charAt(0).toUpperCase() + name.slice(1)}
+ * @location layouts.${filename} ${filename.charAt(0).toUpperCase() + filename.slice(1)}
  * @order 10
  */
 
 @layer layouts {
-  /* Example layout for ${name} */
-  .${name} {
-    /* Add layout styles specific to ${name} */
+  /* Example layout for ${filename} */
+  .${filename} {
+    /* Add layout styles specific to ${filename} */
   }
 }
 `
 }
 
-function createServiceTemplate(name) {
+function createServiceTemplate(filename, copyPointName) {
+  const capitalizedFilename = filename.charAt(0).toUpperCase() + filename.slice(1)
   return `/**
- * Example service for ${name} copy point
+ * Example service for ${copyPointName} copy point
  *
  * Interactive functionality that extends base services.
  *
- * @location functions.${name} ${name.charAt(0).toUpperCase() + name.slice(1)}
+ * @location functions.${filename} ${capitalizedFilename}
  * @order 10
  */
 
 /**
- * Example service function for ${name}
+ * Example service function for ${filename}
  * Replace this with actual service functionality.
  */
-export function init${name.charAt(0).toUpperCase() + name.slice(1)}(): void {
-  // Initialize ${name} functionality
-  console.log('${name} service initialized')
+export function init${capitalizedFilename}(): void {
+  // Initialize ${filename} functionality
+  console.log('${filename} service initialized')
 
   // Add your service logic here
 }
 `
 }
 
-function createUtilityScriptTemplate(name) {
-  return `/**
- * Example utilities for ${name} copy point
- *
- * Helper functions that extend base utilities.
- */
-
-/**
- * Example utility function for ${name}
- * Replace this with actual utility functions.
- */
-export function ${name}Helper(): void {
-  // Add utility function logic here
-}
-
-/**
- * Another example utility
- */
-export function format${name.charAt(0).toUpperCase() + name.slice(1)}(value: string): string {
-  // Add formatting logic specific to ${name}
-  return value
-}
-`
-}
 
 function createReadmeTemplate(name) {
-  const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1)
   return `# ${name} Copy Point
 
 A concise description of what this copy point provides and its main features.
