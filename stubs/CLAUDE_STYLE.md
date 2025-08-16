@@ -27,16 +27,67 @@ This document provides specific CSS writing guidelines and patterns to follow wh
 
 **❌ STOP: If any checklist item fails, fix it before proceeding**
 
+## 🚨 URGENT: Component vs Utility Pattern Warning
+
+**🔴 MOST COMMON ERROR: Component Pattern Confusion**
+
+Components use **STANDALONE** prefix-based classes:
+- ✅ `<button class="btn-primary">` 
+- ❌ `<button class="btn btn-primary">`
+
+Utilities use **COMPOUND** classes that stack:
+- ✅ `<div class="flex gap column">`
+- ❌ `<div class="flex-column-gap">`
+
+**If you're unsure which pattern to use, ask yourself:**
+- Is this a distinct UI element? → Component pattern (standalone classes)
+- Is this single-purpose styling? → Utility pattern (compound classes)
+
 ---
 
 ## Core CSS Principles
 
-### 1. Hybrid Pattern Architecture
-Use different CSS patterns for different purposes:
+### 1. Component vs Utility Decision Framework
 
-- **Components**: Prefix-based variations (`.btn`, `.btn-primary`)
-- **Utilities**: Compound classes (`.flex.gap.column`) 
-- **Structure**: Child selectors (`.accordion > .item > .control`)
+🚨 **CRITICAL: Choose the correct pattern based on PURPOSE, not syntax:**
+
+#### Component Pattern - Use For:
+- **Distinct UI elements** (buttons, cards, modals, accordions)
+- **Complete interface components** with multiple variations
+- **Standalone elements** that represent a complete functional unit
+- **Elements requiring consistent behavior** across all variations
+
+**Implementation**: Standalone prefix-based classes
+```css
+/* Component base + variations as separate classes */
+.btn { /* base styles */ }
+.btn-primary { /* replaces .btn entirely */ }
+.btn-outline { /* replaces .btn entirely */ }
+```
+
+#### Utility Pattern - Use For:
+- **Single-purpose styling** (spacing, layout, colors)
+- **Composable functionality** that chains together
+- **Styling that applies** to many different elements
+- **Flexible layout systems** that combine behaviors
+
+**Implementation**: Compound classes that stack
+```css
+/* Utilities combine together */
+.flex { display: flex; }
+.flex.gap { gap: var(--gap-space); }
+.flex.column { flex-direction: column; }
+```
+
+#### Structure Pattern - Use For:
+- **Parent-child relationships** within components
+- **Clean HTML** without verbose class names
+
+**Implementation**: Child selectors
+```css
+/* Structure uses child selectors */
+.accordion > .item > .control { /* styles */ }
+```
 
 ### 2. Always Use Colorset Variables
 **REQUIRED**: Never use direct color values. Always use colorset variables for consistent theming.
@@ -78,25 +129,30 @@ CopyKit uses a **colorset** approach for systematic color management. A colorset
   --component-shadow-color: var(--shadow-color);
   --component-shadow-alpha: var(--shadow-alpha);
   
+  /* Selection colors using component colorset - inverted for better contrast */
+  --selection-color: var(--component-bg-color);
+  --selection-bg-color: var(--component-font-color);
+  
   color: rgb(var(--component-font-color));
   background: rgb(var(--component-bg-color));
   border: 1px solid rgb(var(--component-border-color));
   box-shadow: 0 2px 4px rgb(var(--component-shadow-color) / var(--component-shadow-alpha));
 }
 
-.component.accent {
+.component-accent {
+  /* Standalone component variation */
   --component-font-color: var(--accent-font-color);
   --component-bg-color: var(--accent-bg-color);
+  
+  /* Inherits all base component styles */
+  color: rgb(var(--component-font-color));
+  background: rgb(var(--component-bg-color));
+  border: 1px solid rgb(var(--component-border-color));
 }
 
 .component:hover {
   --component-font-color: var(--accent-hover-font-color);
   --component-bg-color: var(--accent-hover-bg-color);
-}
-
-.component::selection {
-  --component-font-color: var(--selection-color);
-  --component-bg-color: var(--selection-bg-color);
 }
 ```
 
@@ -292,9 +348,15 @@ The `_base` copy-point provides a comprehensive set of CSS variables that should
   border: 1px solid rgb(var(--component-border-color));
 }
 
-.component.accent {
+.component-accent {
+  /* Standalone component variation */
   --component-font-color: var(--accent-font-color);
   --component-bg-color: var(--accent-bg-color);
+  
+  /* Inherits all base component styles */
+  color: rgb(var(--component-font-color));
+  background: rgb(var(--component-bg-color));
+  border: 1px solid rgb(var(--component-border-color));
 }
 
 .component:hover {
@@ -554,17 +616,33 @@ Use RGB format with space-separated values for alpha transparency support:
 
 ## Component Pattern Guidelines
 
-### When to Use Component Pattern
-- Creating distinct UI elements (buttons, cards, accordions)
-- Element has multiple visual or functional variations
-- Need consistent behavior across all variations
-- Element represents a complete interface component
+⚠️ **WARNING: Components use STANDALONE prefix-based classes, NOT compound classes**
 
-### Component Implementation
+### Component Pattern Rules
+
+#### ✅ CORRECT Component Usage:
+```html
+<!-- Components: Use ONE class that replaces the base -->
+<button class="btn-primary">Primary Button</button>
+<button class="btn-outline">Outline Button</button>
+<div class="modal-large">Large Modal</div>
+<div class="modal-fullscreen">Fullscreen Modal</div>
+```
+
+#### ❌ INCORRECT Component Usage:
+```html
+<!-- NEVER use compound classes for components -->
+<button class="btn btn-primary">Wrong!</button>
+<button class="btn.primary">Wrong!</button>
+<div class="modal modal-large">Wrong!</div>
+<div class="modal.large">Wrong!</div>
+```
+
+### Component Implementation Pattern
 ```css
-/* Base component */
+/* Base component (standalone, complete implementation) */
 .btn {
-  /* Component defines its own variables */
+  /* Complete base button implementation */
   --btn-font-color: var(--accent-font-color);
   --btn-bg-color: var(--accent-bg-color);
   --btn-border-color: var(--accent-color);
@@ -574,13 +652,28 @@ Use RGB format with space-separated values for alpha transparency support:
   background: rgb(var(--btn-bg-color));
 }
 
-/* Prefix-based variations */
+/* Standalone variations (each replaces the base completely) */
 .btn-primary { 
+  /* Inherits ALL .btn styles, then overrides specific properties */
+  --btn-font-color: var(--accent-font-color);
   --btn-bg-color: var(--accent-bg-color);
+  --btn-border-color: var(--accent-color);
+  
+  cursor: pointer;
+  color: rgb(var(--btn-font-color));
+  background: rgb(var(--btn-bg-color));
+  /* Additional primary-specific styles */
 }
 
 .btn-outline { 
+  /* Inherits ALL .btn styles, then overrides specific properties */
+  --btn-font-color: var(--accent-color);
   --btn-bg-color: transparent;
+  --btn-border-color: var(--accent-color);
+  
+  cursor: pointer;
+  color: rgb(var(--btn-font-color));
+  background: rgb(var(--btn-bg-color));
   border: 1px solid rgb(var(--btn-border-color));
 }
 
@@ -590,10 +683,6 @@ Use RGB format with space-separated values for alpha transparency support:
   outline-offset: 2px;
 }
 
-.btn ::selection {
-  color: rgb(var(--selection-color));
-  background-color: rgb(var(--selection-bg-color));
-}
 
 /* REQUIRED: User preference support for interactive components */
 @media (prefers-reduced-motion: reduce) {
@@ -646,28 +735,46 @@ Use RGB format with space-separated values for alpha transparency support:
 
 ## Utility Pattern Guidelines
 
-### When to Use Utility Pattern
-- Creating single-purpose styling (spacing, layout, colors)
-- Want composable, chainable functionality
-- Styling applies to many different elements
-- Building flexible layout systems
+⚠️ **WARNING: Utilities use COMPOUND classes that stack together**
 
-### Utility Implementation
+### Utility Pattern Rules
+
+#### ✅ CORRECT Utility Usage:
+```html
+<!-- Utilities: Stack multiple classes together -->
+<div class="flex gap column items-center">Flexible Container</div>
+<div class="grid cols gap">Grid Container</div>
+<button class="btn-primary px py mt">Button with utilities</button>
+<div class="width-content mx my bg">Content width with spacing</div>
+```
+
+#### ❌ INCORRECT Utility Usage:
+```html
+<!-- NEVER use standalone utility variations -->
+<div class="flex-column-gap">Wrong!</div>
+<div class="grid-cols-gap">Wrong!</div>
+<div class="spacing-px-py-mt">Wrong!</div>
+```
+
+### Utility Implementation Pattern
 ```css
-/* Compound class pattern */
+/* Base utility classes that combine */
 .flex { display: flex; }
 .flex.gap { gap: var(--gap-space); }
 .flex.column { flex-direction: column; }
 .flex.items-center { align-items: center; }
 
-/* Smart grid system */
+/* Utilities are designed to work together */
+.grid { display: grid; }
 .grid.cols { 
   grid-template-columns: repeat(var(--grid-cols, 12), minmax(0, 1fr));
 }
+.grid.gap { gap: var(--gap-space); }
 
-.grid.cols > .col-span-6 {
-  grid-column: span 6;
-}
+/* Spacing utilities that stack */
+.px { padding-left: calc(var(--space-unit) * var(--px-space)); padding-right: calc(var(--space-unit) * var(--px-space)); }
+.py { padding-top: calc(var(--space-unit) * var(--py-space)); padding-bottom: calc(var(--space-unit) * var(--py-space)); }
+.mt { margin-top: calc(var(--space-unit) * var(--mt-space)); }
 ```
 
 ## CSS Layer Organization
@@ -735,29 +842,42 @@ Copy-points use a 4-layer CSS architecture that provides clear separation of con
 - Not all copy-points require JavaScript (some are CSS-only)
 - Layer directories are created even if empty to maintain consistency
 
-## Integration Patterns
+## Pattern Integration and Examples
 
-### Components + Utilities
+### ✅ CORRECT: Components + Utilities
 ```html
-<!-- Natural composition -->
-<button class="btn btn-primary px py mt">Enhanced Button</button>
+<!-- Component (standalone) + Utilities (compound) -->
+<button class="btn-primary px py mt">Primary button with spacing</button>
+<div class="modal-large mx my">Large modal with margins</div>
 
+<!-- Component structure + Utilities -->
 <div class="accordion mt mb">
   <div class="item">
-    <button class="control chevron px py">Padded Control</button>
+    <button class="control chevron px py">Padded control in accordion</button>
   </div>
 </div>
 ```
 
-### Layout + Components
+### ✅ CORRECT: Layout + Components
 ```html
 <div class="flex gap justify-between items-center">
-  <h1>Title</h1>
+  <h1 class="headline h2">Page Title</h1>
   <div class="flex gap">
-    <button class="btn btn-text">Cancel</button>
-    <button class="btn btn-primary">Save</button>
+    <button class="btn-outline">Cancel</button>
+    <button class="btn-primary">Save</button>
   </div>
 </div>
+```
+
+### ❌ INCORRECT: Common Mistakes
+```html
+<!-- WRONG: Using compound classes for components -->
+<button class="btn btn-primary">Wrong!</button>
+<div class="modal modal-large">Wrong!</div>
+
+<!-- WRONG: Using standalone classes for utilities -->
+<div class="flex-column-gap">Wrong!</div>
+<button class="spacing-px-py-mt">Wrong!</button>
 ```
 
 ## Accessibility CSS Requirements
@@ -792,6 +912,10 @@ When developing copy-points, components should handle their own specific accessi
   --component-bg-color: var(--bg-color);
   --component-border-color: var(--border-color);
   
+  /* Selection colors using component colorset - automatically handled by base system */
+  --selection-color: var(--component-bg-color);
+  --selection-bg-color: var(--component-font-color);
+  
   /* Component implementation */
 }
 
@@ -802,11 +926,6 @@ When developing copy-points, components should handle their own specific accessi
   outline-offset: 2px;
 }
 
-/* REQUIRED: Text selection support */
-.component ::selection {
-  color: rgb(var(--selection-color));
-  background-color: rgb(var(--selection-bg-color));
-}
 
 /* REQUIRED: Content hiding for accessibility */
 .component > .content[hidden] {
@@ -956,14 +1075,22 @@ Copy-point README.md files must document accessibility features with required se
 
 ## Common Pitfalls to Avoid
 
+## 🚨 CRITICAL: Quick Reference Table
+
+| Pattern | Purpose | CSS Classes | HTML Usage | Example |
+|---------|---------|-------------|------------|----------|
+| **Component** | Distinct UI elements | Standalone prefix-based | ONE class replaces base | `<button class="btn-primary">` |
+| **Utility** | Single-purpose styling | Compound classes | MULTIPLE classes stack | `<div class="flex gap column">` |
+| **Structure** | Parent-child relationships | Child selectors | Clean HTML structure | `.accordion > .item > .control` |
+
 **❌ THESE VIOLATIONS FAIL THE COMPLIANCE CHECKLIST:**
 
 1. **Class Proliferation**: Using `.component-child` instead of `.component > .child` (**FAILS SELECTOR PATTERN COMPLIANCE**)
 2. **Direct Colors**: Using `#000`, `blue`, `rgba()` instead of colorset variables (**FAILS VARIABLE PATTERN COMPLIANCE**)
 3. **Root Variables**: Defining component variables in `:root` instead of component selector (**FAILS VARIABLE PATTERN COMPLIANCE**)
 4. **Deep Nesting**: Selectors deeper than 3 levels (**FAILS SELECTOR PATTERN COMPLIANCE**)
-5. **Mixing Patterns**: Using compound classes for component variations (**FAILS ARCHITECTURE COMPLIANCE**)
-6. **Utility Components**: Creating utilities that behave like components (**FAILS ARCHITECTURE COMPLIANCE**)
+5. **❌ COMPONENT COMPOUND CLASSES**: Using `.btn.primary` or `.modal.large` instead of `.btn-primary` or `.modal-large` (**FAILS ARCHITECTURE COMPLIANCE**)
+6. **❌ UTILITY STANDALONE CLASSES**: Creating `.flex-column-gap` instead of `.flex.gap.column` (**FAILS ARCHITECTURE COMPLIANCE**)
 7. **Missing Accessibility CSS**: Forgetting to include focus management, selection styles, and user preference support for interactive components (**FAILS ACCESSIBILITY COMPLIANCE**)
 
 **🚨 Always check the compliance checklist at the top of this document before writing CSS**

@@ -263,6 +263,69 @@ Short description of the copy-point's purpose and functionality.
 
 ## Development Standards
 
+### Separation of Concerns: CSS Classes vs Data Attributes
+
+**CRITICAL PRINCIPLE**: Maintain strict separation between functionality and styling.
+
+#### CSS Classes for Styling
+- **Use CSS classes** for all visual styling, layout, and appearance
+- CSS selectors should target classes: `.modal`, `.btn`, `.control`
+- Classes define how components look and behave visually
+- Classes enable component variants: `.modal-small`, `.btn-primary`
+
+#### Data Attributes for JavaScript Functionality
+- **Use data attributes** for JavaScript discovery and configuration
+- Data attributes define component behavior and functionality
+- JavaScript selectors should target attributes: `[data-modal]`, `[aria-expanded]`
+- Configuration via attributes: `data-modal-backdrop="false"`, `data-animate="fade"`
+
+#### Correct Implementation Example
+```html
+<!-- ✅ CORRECT: CSS class for styling, data attribute for JS functionality -->
+<dialog class="modal modal-small" data-modal="center" data-modal-backdrop="true">
+  <header class="header">
+    <h2 class="headline">Title</h2>
+    <button class="control close" aria-label="Close">×</button>
+  </header>
+  <div class="content">Content here</div>
+</dialog>
+```
+
+```css
+/* ✅ CORRECT: Style using CSS classes only */
+.modal { /* base modal styles */ }
+.modal.modal-small { /* small variant styles */ }
+.modal > .header { /* header styles */ }
+```
+
+```typescript
+// ✅ CORRECT: JavaScript discovery using data attributes
+document.querySelectorAll('[data-modal]').forEach(element => {
+  new Modal(element)
+})
+```
+
+#### Incorrect Implementation Examples
+```css
+/* ❌ WRONG: Never use data attributes for styling */
+dialog[data-modal] { /* styling */ }
+.modal, dialog[data-modal] { /* mixed selectors */ }
+```
+
+```typescript
+// ❌ WRONG: Never use CSS classes for JS discovery
+document.querySelectorAll('.modal').forEach(element => {
+  new Modal(element)
+})
+```
+
+#### Benefits of This Separation
+- **Clean architecture**: Clear distinction between presentation and behavior
+- **Maintainable code**: Changes to styling don't affect functionality
+- **Flexible styling**: Multiple CSS themes without touching JavaScript
+- **Framework compatibility**: Works with any CSS framework or design system
+- **Testing clarity**: Style tests separate from functionality tests
+
 ### TypeScript Files
 **For complete TypeScript development guidelines, see [CLAUDE_SCRIPTS.md](CLAUDE_SCRIPTS.md).**
 
@@ -276,6 +339,7 @@ This covers:
 
 ### CSS Files
 - **Always use colorset variables** instead of direct color values for consistency and theme switching
+- **Never use data attributes as CSS selectors** - maintain separation of concerns
 - Use CSS custom properties for theming
 - Include JSDoc documentation for user-facing components
 - Follow the 4-layer architecture

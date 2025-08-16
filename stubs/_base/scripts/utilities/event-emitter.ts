@@ -58,4 +58,11 @@ export class EventEmitter<T extends Record<keyof T, (...args: any[]) => void>> {
     }
     this.on(event, onceListener as T[K])
   }
+
+  /**
+   * Remove all event listeners
+   */
+  removeAllListeners(): void {
+    this.events.clear()
+  }
 }
