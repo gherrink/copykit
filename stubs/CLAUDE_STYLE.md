@@ -20,6 +20,11 @@ This document provides specific CSS writing guidelines and patterns to follow wh
 - [ ] **MANDATORY**: Follow 4-layer organization (defaults, components, utilities, layouts)
 - [ ] **MANDATORY**: Use RGB space-separated format for colors (`rgb(var(--color) / 0.5)`)
 
+### ✅ Accessibility Compliance
+- [ ] **MANDATORY**: Include component-level accessibility CSS for interactive elements
+- [ ] **MANDATORY**: Add user preference support (`prefers-reduced-motion`, `prefers-contrast`)
+- [ ] **MANDATORY**: Include focus management and selection styles when component has interactive elements
+
 **❌ STOP: If any checklist item fails, fix it before proceeding**
 
 ---
@@ -578,6 +583,32 @@ Use RGB format with space-separated values for alpha transparency support:
   --btn-bg-color: transparent;
   border: 1px solid rgb(var(--btn-border-color));
 }
+
+/* REQUIRED: Accessibility CSS for interactive components */
+.btn:focus {
+  outline: 2px solid rgb(var(--btn-border-color));
+  outline-offset: 2px;
+}
+
+.btn ::selection {
+  color: rgb(var(--selection-color));
+  background-color: rgb(var(--selection-bg-color));
+}
+
+/* REQUIRED: User preference support for interactive components */
+@media (prefers-reduced-motion: reduce) {
+  .btn {
+    transition: none;
+  }
+}
+
+@media (prefers-contrast: more) {
+  .btn {
+    --btn-font-color: 0 0 0;
+    --btn-bg-color: 255 255 255;
+    --btn-border-color: 0 0 0;
+  }
+}
 ```
 
 ### Child Selector Strategy
@@ -733,9 +764,74 @@ Copy-points use a 4-layer CSS architecture that provides clear separation of con
 
 Copy-points must follow comprehensive accessibility standards to ensure consistent, inclusive user experiences across all components.
 
+### 🚨 CRITICAL: When Component-Level Accessibility CSS is Required
+
+**ALWAYS include accessibility CSS when your component has:**
+- **Interactive elements** (buttons, controls, inputs, links)
+- **Focus states** (any element that can receive keyboard focus)
+- **Hover interactions** (elements that respond to mouse hover)
+- **State changes** (show/hide content, expanded/collapsed states)
+- **User input** (form elements, contenteditable areas)
+- **Visual feedback** (loading states, progress indicators)
+
+**Components that require accessibility CSS include:**
+- Modals, accordions, tabs, dropdowns
+- Buttons, controls, form inputs
+- Cards with interactive areas
+- Any component with `cursor: pointer`
+
 ### Component-Level Accessibility CSS
 
 When developing copy-points, components should handle their own specific accessibility behaviors through CSS:
+
+#### Required Accessibility Template for Interactive Components
+```css
+/* Component base styles */
+.component {
+  --component-font-color: var(--font-color);
+  --component-bg-color: var(--bg-color);
+  --component-border-color: var(--border-color);
+  
+  /* Component implementation */
+}
+
+/* REQUIRED: Focus management for interactive elements */
+.component:focus,
+.component > .control:focus {
+  outline: 2px solid rgb(var(--component-border-color));
+  outline-offset: 2px;
+}
+
+/* REQUIRED: Text selection support */
+.component ::selection {
+  color: rgb(var(--selection-color));
+  background-color: rgb(var(--selection-bg-color));
+}
+
+/* REQUIRED: Content hiding for accessibility */
+.component > .content[hidden] {
+  display: none;
+}
+
+.component > .content[aria-hidden="true"] {
+  visibility: hidden;
+}
+
+/* REQUIRED: User preference support */
+@media (prefers-reduced-motion: reduce) {
+  .component {
+    transition: none;
+  }
+}
+
+@media (prefers-contrast: more) {
+  .component {
+    --component-font-color: 0 0 0;
+    --component-bg-color: 255 255 255;
+    --component-border-color: 0 0 0;
+  }
+}
+```
 
 #### Focus Management
 ```css
@@ -824,21 +920,18 @@ Always ensure copy-point colors work with accessibility overrides:
   --component-font-color: var(--accent-hover-font-color);
   --component-bg-color: var(--accent-hover-bg-color);
 }
-
-/* Selection states for accessibility */
-.component::selection {
-  color: rgb(var(--selection-color));
-  background-color: rgb(var(--selection-bg-color));
-}
 ```
 
 ### Accessibility Requirements Summary
 
-**Component CSS Must Include:**
+**🚨 CRITICAL: Component CSS Must Include (directly in component file):**
 - Focus indicators using colorset system
-- Proper content hiding for screen readers
+- Proper content hiding for screen readers  
 - ARIA state styling support
 - Keyboard navigation visual feedback
+- User preference media queries (`prefers-reduced-motion`, `prefers-contrast`)
+
+**✅ Include accessibility CSS directly in component files, not separate layout files**
 
 **Layout CSS Should Include:**
 - User preference media queries (prefers-contrast, prefers-reduced-motion)
@@ -871,6 +964,7 @@ Copy-point README.md files must document accessibility features with required se
 4. **Deep Nesting**: Selectors deeper than 3 levels (**FAILS SELECTOR PATTERN COMPLIANCE**)
 5. **Mixing Patterns**: Using compound classes for component variations (**FAILS ARCHITECTURE COMPLIANCE**)
 6. **Utility Components**: Creating utilities that behave like components (**FAILS ARCHITECTURE COMPLIANCE**)
+7. **Missing Accessibility CSS**: Forgetting to include focus management, selection styles, and user preference support for interactive components (**FAILS ACCESSIBILITY COMPLIANCE**)
 
 **🚨 Always check the compliance checklist at the top of this document before writing CSS**
 
