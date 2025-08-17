@@ -41,7 +41,12 @@ This copy-point has no additional dependencies beyond the core `_base` foundatio
 
 ```html
 <!-- Full circle for icons or avatars -->
-<div class="rounded-full padding bg" style="width: 3rem; height: 3rem; display: flex; align-items: center; justify-content: center;">●</div>
+<div
+  class="rounded-full padding bg"
+  style="width: 3rem; height: 3rem; display: flex; align-items: center; justify-content: center;"
+>
+  ●
+</div>
 
 <!-- Remove rounding -->
 <div class="rounded-none padding bg">No rounded corners</div>
@@ -56,7 +61,7 @@ This copy-point has no additional dependencies beyond the core `_base` foundatio
 
 ```css
 /* Import the rounded utilities */
-@import "./stubs/rounded-simple/styles/03_utilities/rounded.css";
+@import './stubs/rounded-simple/styles/03_utilities/rounded.css';
 ```
 
 ## CSS Architecture
@@ -69,14 +74,14 @@ The rounded utilities use CSS custom properties for flexible customization:
 :root {
   /* Base unit for all rounded calculations */
   --rounded-unit: 1em;
-  
+
   /* Size multipliers for different scales */
   --rounded-sm: 0.125;
   --rounded-base: 0.25;
   --rounded-md: 0.375;
   --rounded-lg: 0.5;
   --rounded-xl: 0.75;
-  
+
   /* Per-corner size controls */
   --rounded-size-tl: 0.25; /* top-left */
   --rounded-size-tr: 0.25; /* top-right */
@@ -99,11 +104,13 @@ Key CSS classes and their purposes:
 ### Installation
 
 Use the CopyKit CLI:
+
 ```bash
 copykit add rounded-simple
 ```
 
 Or copy manually:
+
 ```bash
 cp -r stubs/rounded-simple/ your-project/src/
 ```
@@ -245,7 +252,7 @@ cp -r stubs/rounded-simple/ your-project/src/
 
 ```html
 <div class="rounded-full" style="width: 4rem; height: 4rem; overflow: hidden;">
-  <img src="avatar.jpg" alt="User avatar" style="width: 100%; height: 100%; object-fit: cover;">
+  <img src="avatar.jpg" alt="User avatar" style="width: 100%; height: 100%; object-fit: cover;" />
 </div>
 ```
 
@@ -268,7 +275,7 @@ cp -r stubs/rounded-simple/ your-project/src/
 }
 
 .rounded.debug::before {
-  content: "TL: " attr(style);
+  content: 'TL: ' attr(style);
   position: absolute;
   background: yellow;
   font-size: 0.75rem;

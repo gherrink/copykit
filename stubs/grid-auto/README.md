@@ -11,6 +11,7 @@ Advanced auto-responsive grid system that automatically adjusts column count bas
 The Grid-Auto copy point provides a sophisticated grid utility that intelligently manages column layout based on available container width and minimum item size requirements. Unlike traditional fixed-column grids, this system automatically reduces column count when items would become too small, ensuring optimal readability and usability across all screen sizes.
 
 Key benefits:
+
 - **Intelligent column adjustment** - Automatically reduces columns when space is limited
 - **Type-safe CSS properties** - Uses `@property` declarations for better browser validation
 - **Minimum width protection** - Prevents items from becoming unreadably small
@@ -47,7 +48,10 @@ Key benefits:
 
 ```html
 <!-- 4-column grid with custom gaps using space variables -->
-<div class="grid-auto" style="--grid-auto-columns: 4; --grid-auto-item-min-width: 150px; --gap-space: var(--space-lg);">
+<div
+  class="grid-auto"
+  style="--grid-auto-columns: 4; --grid-auto-item-min-width: 150px; --gap-space: var(--space-lg);"
+>
   <div class="bg pxy">Card A</div>
   <div class="bg pxy">Card B</div>
   <div class="bg pxy">Card C</div>
@@ -55,7 +59,10 @@ Key benefits:
 </div>
 
 <!-- Asymmetric gaps with custom values -->
-<div class="grid-auto" style="--grid-auto-columns: 2; --grid-auto-item-min-width: 300px; --gap-x: 3rem; --gap-y: 1rem;">
+<div
+  class="grid-auto"
+  style="--grid-auto-columns: 2; --grid-auto-item-min-width: 300px; --gap-x: 3rem; --gap-y: 1rem;"
+>
   <div class="bg pxy">Wide spacing horizontally</div>
   <div class="bg pxy">Narrow spacing vertically</div>
 </div>
@@ -65,7 +72,7 @@ Key benefits:
 
 ```css
 /* Import the grid-auto utility */
-@import "./stubs/grid-auto/styles/03_utilities/grid-auto.css";
+@import './stubs/grid-auto/styles/03_utilities/grid-auto.css';
 ```
 
 ## CSS Architecture
@@ -78,13 +85,13 @@ The grid-auto system uses `@property` declarations for enhanced type safety and 
 @property --grid-auto-item-min-width {
   inherits: false;
   initial-value: 1px;
-  syntax: "<length-percentage>";
+  syntax: '<length-percentage>';
 }
 
 @property --grid-auto-columns {
   inherits: false;
   initial-value: 1;
-  syntax: "<number>";
+  syntax: '<number>';
 }
 ```
 
@@ -94,7 +101,7 @@ The grid-auto system uses `@property` declarations for enhanced type safety and 
 :root {
   /* Required: Maximum number of columns to attempt */
   --grid-auto-columns: 3;
-  
+
   /* Required: Minimum width for each grid item */
   --grid-auto-item-min-width: 200px;
 }
@@ -107,13 +114,13 @@ Integration with the existing space system for consistent spacing:
 ```css
 :root {
   /* Using space variables (recommended) */
-  --gap-space: var(--space-md);      /* Both axes */
-  --gap-space-x: var(--space-lg);    /* X-axis only */
-  --gap-space-y: var(--space-sm);    /* Y-axis only */
-  
+  --gap-space: var(--space-md); /* Both axes */
+  --gap-space-x: var(--space-lg); /* X-axis only */
+  --gap-space-y: var(--space-sm); /* Y-axis only */
+
   /* Using custom values */
-  --gap-x: 2rem;                     /* X-axis custom */
-  --gap-y: 1rem;                     /* Y-axis custom */
+  --gap-x: 2rem; /* X-axis custom */
+  --gap-y: 1rem; /* Y-axis custom */
 }
 ```
 
@@ -133,11 +140,13 @@ This ensures items never get smaller than the minimum width while maximizing the
 ### Installation
 
 Use the CopyKit CLI:
+
 ```bash
 copykit add grid-auto
 ```
 
 Or copy manually:
+
 ```bash
 cp -r stubs/grid-auto/ your-project/src/
 ```
@@ -145,8 +154,12 @@ cp -r stubs/grid-auto/ your-project/src/
 ### Real-World Examples
 
 #### Card Grid Layout
+
 ```html
-<div class="grid-auto" style="--grid-auto-columns: 3; --grid-auto-item-min-width: 280px; --gap-space: var(--space-md);">
+<div
+  class="grid-auto"
+  style="--grid-auto-columns: 3; --grid-auto-item-min-width: 280px; --gap-space: var(--space-md);"
+>
   <div class="bg pxy">
     <h3>Product Card</h3>
     <p>Description</p>
@@ -157,17 +170,25 @@ cp -r stubs/grid-auto/ your-project/src/
 ```
 
 #### Image Gallery
+
 ```html
-<div class="grid-auto" style="--grid-auto-columns: 4; --grid-auto-item-min-width: 150px; --gap-space: var(--space-sm);">
-  <img src="photo1.jpg" alt="Photo 1" class="width-full">
-  <img src="photo2.jpg" alt="Photo 2" class="width-full">
+<div
+  class="grid-auto"
+  style="--grid-auto-columns: 4; --grid-auto-item-min-width: 150px; --gap-space: var(--space-sm);"
+>
+  <img src="photo1.jpg" alt="Photo 1" class="width-full" />
+  <img src="photo2.jpg" alt="Photo 2" class="width-full" />
   <!-- More images... -->
 </div>
 ```
 
 #### Dashboard Widgets
+
 ```html
-<div class="grid-auto" style="--grid-auto-columns: 2; --grid-auto-item-min-width: 350px; --gap-space: var(--space-lg);">
+<div
+  class="grid-auto"
+  style="--grid-auto-columns: 2; --grid-auto-item-min-width: 350px; --gap-space: var(--space-lg);"
+>
   <div class="bg pxy">
     <h4>Analytics</h4>
     <div class="dashboard-chart">Chart content</div>
@@ -242,7 +263,8 @@ For nested grid-auto containers, use `unset` or `initial` to reset gap inheritan
 }
 
 /* Enhanced version for modern browsers */
-@supports (display: grid) and (grid-template-columns: repeat(auto-fill, minmax(max(200px, 25%), 1fr))) {
+@supports (display: grid) and
+  (grid-template-columns: repeat(auto-fill, minmax(max(200px, 25%), 1fr))) {
   .grid-auto {
     /* Full grid-auto implementation */
   }
@@ -267,17 +289,20 @@ For nested grid-auto containers, use `unset` or `initial` to reset gap inheritan
 ## Variable Reference
 
 ### Required Variables
+
 - `--grid-auto-columns` (number): Maximum columns to attempt
 - `--grid-auto-item-min-width` (length-percentage): Minimum item width
 
 ### Gap Variables (choose one approach)
+
 - `--gap-space` (space variable): Both axes using space scale
 - `--gap-space-x` / `--gap-space-y` (space variables): Separate axes using space scale
 - `--gap-x` / `--gap-y` (length): Custom gap values
 
 ### Available Space Scale
+
 - `var(--space-xs)` - 0.5rem
-- `var(--space-sm)` - 0.7rem  
+- `var(--space-sm)` - 0.7rem
 - `var(--space-base)` - 1rem
 - `var(--space-md)` - 1.3rem
 - `var(--space-lg)` - 1.8rem

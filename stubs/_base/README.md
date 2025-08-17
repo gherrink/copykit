@@ -1,10 +1,11 @@
-# _base Copy Point - Core Foundation
+# \_base Copy Point - Core Foundation
 
 The `_base` copy-point is the **essential foundation** that must be copied first. All other copy-points build upon this base. It provides the core styles, utilities, and services that create a consistent foundation for web projects.
 
 ## Overview
 
 The `_base` copy-point contains:
+
 - **CSS Layers**: Organized foundation styles following the cascade
 - **JavaScript Services**: Interactive functionality with ARIA support
 - **JavaScript Utilities**: Common helpers for DOM manipulation and data handling
@@ -19,20 +20,26 @@ The `_base` copy-point contains:
 The CSS is organized into 4 layers that follow the natural cascade:
 
 #### 1. Defaults (`01_defaults/`)
+
 Foundation layer with browser resets and global settings:
+
 - **`reset.css`** - Modern CSS reset with sensible defaults
 - **`variables.css`** - Global CSS custom properties (colors, spacing, typography)
 - **`properties.css`** - Core design token definitions
 - **`typography.css`** - Base typography styles and font settings
 
 #### 2. Components (`02_components/`)
+
 Reusable UI components:
+
 - **`button.css`** - Button styles with variants and states
 - **`control.css`** - Interactive control elements (with expand/collapse support)
 - **`image.css`** - Responsive image handling and aspect ratios
 
 #### 3. Utilities (`03_utilities/`)
+
 Single-purpose utility classes:
+
 - **`aspect-ratio.css`** - Aspect ratio utilities
 - **`background.css`** - Background utilities
 - **`flex.css`** - Flexbox utilities
@@ -46,7 +53,9 @@ Single-purpose utility classes:
 - **`wrapper.css`** - Container wrapper utilities
 
 #### 4. Layouts (`04_layouts/`)
+
 Page-level structural styles and global overrides:
+
 - **`space.css`** - Global spacing system and layout constraints
 - **`colorset.css`** - Comprehensive colorset system for theming and component styling
 - **`body.css`** - Base body styles and global layout
@@ -62,6 +71,7 @@ The **colorset** and **space** systems are placed in the layouts layer (`04_layo
 3. **Layouts apply global overrides** that take precedence over both components and utilities
 
 This architecture ensures that:
+
 - **Global theming works consistently** - The colorset system can override any component's default colors
 - **Layout-level spacing rules** take priority over individual utility classes
 - **User preferences** (high contrast, reduced motion) apply universally across all components
@@ -72,32 +82,32 @@ This architecture ensures that:
 The `styles/index.css` file is the **only** file that imports all CSS layers:
 
 ```css
-@import url("01_defaults/properties.css");
-@import url("01_defaults/variables.css");
-@import url("01_defaults/reset.css");
-@import url("01_defaults/typography.css");
+@import url('01_defaults/properties.css');
+@import url('01_defaults/variables.css');
+@import url('01_defaults/reset.css');
+@import url('01_defaults/typography.css');
 
-@import url("02_components/control.css");
-@import url("02_components/button.css");
-@import url("02_components/image.css");
+@import url('02_components/control.css');
+@import url('02_components/button.css');
+@import url('02_components/image.css');
 
-@import url("03_utilities/hidden.css");
-@import url("03_utilities/background.css");
-@import url("03_utilities/text.css");
-@import url("03_utilities/padding.css");
-@import url("03_utilities/margin.css");
-@import url("03_utilities/wrapper.css");
-@import url("03_utilities/width.css");
-@import url("03_utilities/height.css");
-@import url("03_utilities/aspect-ratio.css");
-@import url("03_utilities/flex.css");
-@import url("03_utilities/grid.css");
+@import url('03_utilities/hidden.css');
+@import url('03_utilities/background.css');
+@import url('03_utilities/text.css');
+@import url('03_utilities/padding.css');
+@import url('03_utilities/margin.css');
+@import url('03_utilities/wrapper.css');
+@import url('03_utilities/width.css');
+@import url('03_utilities/height.css');
+@import url('03_utilities/aspect-ratio.css');
+@import url('03_utilities/flex.css');
+@import url('03_utilities/grid.css');
 
-@import url("04_layouts/space.css");
-@import url("04_layouts/colorset.css");
-@import url("04_layouts/body.css");
-@import url("04_layouts/reduced-motion.css");
-@import url("04_layouts/prefers-contrast.css");
+@import url('04_layouts/space.css');
+@import url('04_layouts/colorset.css');
+@import url('04_layouts/body.css');
+@import url('04_layouts/reduced-motion.css');
+@import url('04_layouts/prefers-contrast.css');
 ```
 
 > **Note**: Only the `_base` copy-point includes `index.css`. Other copy-points contain individual layer files that extend the base.
@@ -107,9 +117,11 @@ The `styles/index.css` file is the **only** file that imports all CSS layers:
 ### Services (`scripts/services/`)
 
 #### Expand Service (`expand.ts`)
+
 Sophisticated expand/collapse functionality with full accessibility support:
 
 **Features:**
+
 - **ARIA Compliance**: Proper `aria-expanded` and `aria-controls` attributes
 - **Animation Support**: CSS-based animations via `data-animate` attribute
 - **Inert Management**: Manages `inert` attribute for accessibility
@@ -117,6 +129,7 @@ Sophisticated expand/collapse functionality with full accessibility support:
 - **Flexible Triggers**: Support for external triggers and multiple control patterns
 
 **Usage:**
+
 ```javascript
 import { expand } from './stubs/_base/scripts/services/expand.js'
 
@@ -128,18 +141,16 @@ expand.init(document.querySelector('.my-container'))
 ```
 
 **HTML Structure:**
+
 ```html
-<button class="control" aria-expanded="false" aria-controls="content-1">
-  Toggle Content
-</button>
-<div id="content-1" hidden data-animate="slide">
-  Content to expand/collapse
-</div>
+<button class="control" aria-expanded="false" aria-controls="content-1">Toggle Content</button>
+<div id="content-1" hidden data-animate="slide">Content to expand/collapse</div>
 ```
 
 ### Utilities (`scripts/utilities/`)
 
 #### Cookie Utility (`cookie.ts`)
+
 Simple cookie read/write functionality:
 
 ```javascript
@@ -153,6 +164,7 @@ cookie.write('cookieName', 'value', { days: 30 })
 ```
 
 #### DOM Utility (`dom.ts`)
+
 Common DOM manipulation helpers:
 
 ```javascript
@@ -169,6 +181,7 @@ dom.toggleClass(element, 'toggle-class')
 ```
 
 #### Event Emitter (`event-emitter.ts`)
+
 Type-safe event emitter for component communication:
 
 ```javascript
@@ -186,6 +199,7 @@ emitter.emit('change', 'new value')
 ```
 
 #### Select Utility (`select.ts`)
+
 Parent element selection helper:
 
 ```javascript
@@ -203,17 +217,17 @@ Import the main CSS file in your project:
 
 ```css
 /* Import all _base styles */
-@import "./stubs/_base/styles/index.css";
+@import './stubs/_base/styles/index.css';
 ```
 
 Or import specific layers:
 
 ```css
 /* Import specific parts */
-@import "./stubs/_base/styles/01_defaults/variables.css";
-@import "./stubs/_base/styles/02_components/button.css";
-@import "./stubs/_base/styles/03_utilities/flex.css";
-@import "./stubs/_base/styles/04_layouts/colorset.css";
+@import './stubs/_base/styles/01_defaults/variables.css';
+@import './stubs/_base/styles/02_components/button.css';
+@import './stubs/_base/styles/03_utilities/flex.css';
+@import './stubs/_base/styles/04_layouts/colorset.css';
 ```
 
 ### JavaScript Integration
@@ -222,13 +236,13 @@ Import and initialize services and utilities:
 
 ```javascript
 // Import services
-import { expand } from "./stubs/_base/scripts/services/expand.js"
+import { expand } from './stubs/_base/scripts/services/expand.js'
 
 // Import utilities
-import { cookie } from "./stubs/_base/scripts/utilities/cookie.js"
-import { dom } from "./stubs/_base/scripts/utilities/dom.js"
-import { EventEmitter } from "./stubs/_base/scripts/utilities/event-emitter.js"
-import { selectParent } from "./stubs/_base/scripts/utilities/select.js"
+import { cookie } from './stubs/_base/scripts/utilities/cookie.js'
+import { dom } from './stubs/_base/scripts/utilities/dom.js'
+import { EventEmitter } from './stubs/_base/scripts/utilities/event-emitter.js'
+import { selectParent } from './stubs/_base/scripts/utilities/select.js'
 
 // Initialize expand functionality
 expand.init()
@@ -250,20 +264,20 @@ The `_base` copy-point provides extensive CSS custom properties for theming:
   --color-primary: 59 130 246;
   --color-secondary: 156 163 175;
   --color-accent: 239 68 68;
-  
+
   /* Spacing */
   --space-xs: 0.25rem;
   --space-sm: 0.5rem;
   --space-base: 1rem;
   --space-lg: 1.5rem;
   --space-xl: 2rem;
-  
+
   /* Typography */
   --font-size-sm: 0.875rem;
   --font-size-base: 1rem;
   --font-size-lg: 1.125rem;
   --font-size-xl: 1.25rem;
-  
+
   /* Transitions */
   --transition-fast: 150ms;
   --transition-base: 250ms;
@@ -298,24 +312,29 @@ CopyKit uses a **colorset** approach for systematic color management. A colorset
 **Default Colorset Variables** (defined in `stubs/_base/styles/01_defaults/variables.css`):
 
 **Core Colors:**
+
 - `--font-color` - Primary text color for readable content (default: `var(--color-black)`)
 - `--bg-color` - Main background color for containers and surfaces (default: `var(--color-white)`)
 - `--border-color` - Color for borders, dividers, and outlines (default: `var(--color-gray-300)`)
 
 **Visual Enhancement:**
+
 - `--shadow-color` - RGB values for drop shadows and depth effects (default: `0 0 0`)
 - `--shadow-alpha` - Opacity level for shadow transparency (default: `0.1`)
 
 **Interactive Elements:**
+
 - `--accent-color` - Highlight color for UI elements and emphasis (default: `var(--color-gray-500)`)
 - `--accent-font-color` - Text color when displayed on accent backgrounds (default: `var(--color-white)`)
 - `--accent-bg-color` - Background color for accent elements and highlights (default: `var(--accent-color)`)
 
 **Hover States:**
+
 - `--accent-hover-font-color` - Text color for interactive elements on hover (default: `var(--color-white)`)
 - `--accent-hover-bg-color` - Background color for interactive elements on hover (default: `var(--color-gray-600)`)
 
 **Text Selection:**
+
 - `--selection-color` - Text color when selected by user (default: `var(--bg-color)`)
 - `--selection-bg-color` - Background color for selected text (default: `var(--font-color)`)
 
@@ -336,6 +355,7 @@ The `cs-primary` colorset provides a dark theme variation:
 ```
 
 **Usage Example:**
+
 ```html
 <div class="bg cs-primary">
   <!-- This section uses the primary colorset theme -->
@@ -344,6 +364,7 @@ The `cs-primary` colorset provides a dark theme variation:
 ```
 
 **Benefits of Colorsets**:
+
 - **Component theming** - Apply consistent colors across buttons, cards, forms, and other UI elements
 - **Section-based styling** - Define distinct visual zones like headers, sidebars, or content areas
 - **Theme variations** - Create light/dark modes or brand-specific color schemes
@@ -375,7 +396,7 @@ Automatically adjusts the entire colorset system when users prefer high contrast
     --accent-color: 0 0 0;
     /* ... complete colorset overrides */
   }
-  
+
   .cs-primary {
     /* Inverted colorset for primary elements */
     --font-color: 255 255 255;
@@ -386,6 +407,7 @@ Automatically adjusts the entire colorset system when users prefer high contrast
 ```
 
 **Benefits:**
+
 - **System-wide consistency**: All components automatically respect high contrast
 - **Colorset integration**: Works seamlessly with the existing colorset variables
 - **Accessibility compliance**: Provides maximum contrast ratios for better readability
@@ -405,6 +427,7 @@ Disables all animations and transitions when users prefer reduced motion:
 ```
 
 **Benefits:**
+
 - **Instant response**: All transitions are immediately disabled
 - **Vestibular safety**: Prevents motion-triggered accessibility issues
 - **Performance**: Eliminates unnecessary animations for users who don't want them
@@ -412,6 +435,7 @@ Disables all animations and transitions when users prefer reduced motion:
 ### Architecture Pattern
 
 This approach ensures that:
+
 - **Components remain flexible**: Each component can define specific accessibility behaviors
 - **Global overrides work universally**: User preferences apply consistently across all components
 - **No conflicts**: Layout-level overrides use CSS specificity to take precedence
@@ -426,6 +450,7 @@ The `_base` copy-point includes comprehensive tests:
 - **Integration Tests**: Test component interactions
 
 Run tests with:
+
 ```bash
 pnpm test
 ```
@@ -433,6 +458,7 @@ pnpm test
 ## Dependencies
 
 The `_base` copy-point has **no external dependencies**. It uses only:
+
 - Modern CSS features (custom properties, CSS Grid, Flexbox)
 - Modern JavaScript (ES2020+, TypeScript)
 - Web Standards (ARIA, semantic HTML)
@@ -455,7 +481,7 @@ The `_base` copy-point has **no external dependencies**. It uses only:
 
 ## Best Practices
 
-1. **Always start with _base**: Copy this foundation before any other copy-point
+1. **Always start with \_base**: Copy this foundation before any other copy-point
 2. **Use CSS custom properties**: Customize through variables rather than overriding styles
 3. **Follow ARIA patterns**: Use the expand service for accessible interactions
 4. **Test accessibility**: Ensure keyboard navigation and screen reader support

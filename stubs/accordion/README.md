@@ -34,7 +34,7 @@ The accordion copy-point provides a fully-featured accordion component with soph
       <p>Accordion content goes here. This content is collapsible and accessible.</p>
     </div>
   </div>
-  
+
   <div class="item">
     <button class="control" aria-expanded="false" aria-controls="content-2">
       Accordion Header 2
@@ -52,16 +52,26 @@ The accordion copy-point provides a fully-featured accordion component with soph
 <!-- Single-select accordion with chevron indicators -->
 <div class="accordion single-select">
   <div class="item">
-    <button class="control chevron" aria-expanded="false" aria-controls="content-1" data-hide-same-level>
+    <button
+      class="control chevron"
+      aria-expanded="false"
+      aria-controls="content-1"
+      data-hide-same-level
+    >
       Feature Overview
     </button>
     <div class="content" id="content-1" hidden data-animate="accordion">
       <p>Detailed feature information...</p>
     </div>
   </div>
-  
+
   <div class="item">
-    <button class="control chevron" aria-expanded="false" aria-controls="content-2" data-hide-same-level>
+    <button
+      class="control chevron"
+      aria-expanded="false"
+      aria-controls="content-2"
+      data-hide-same-level
+    >
       Technical Details
     </button>
     <div class="content" id="content-2" hidden data-animate="accordion">
@@ -75,14 +85,14 @@ The accordion copy-point provides a fully-featured accordion component with soph
 
 ```css
 /* Import accordion styles */
-@import "./stubs/accordion/styles/02_components/accordion.css";
+@import './stubs/accordion/styles/02_components/accordion.css';
 ```
 
 ### JavaScript Integration
 
 ```javascript
 // Import and initialize accordion functionality
-import { expand } from "./stubs/_base/scripts/services/expand.js"
+import { expand } from './stubs/_base/scripts/services/expand.js'
 
 // Initialize accordion expand/collapse behavior
 expand.init()
@@ -103,17 +113,17 @@ The accordion component uses CSS custom properties for flexible customization:
   --accordion-border-color: 220 220 220;
   --accordion-border-width: 1px;
   --accordion-border-radius: 0;
-  
+
   /* Control styling */
   --accordion-control-bg-color: 248 248 248;
   --accordion-control-hover-bg-color: 240 240 240;
-  
+
   /* Content styling */
   --accordion-content-bg-color: 255 255 255;
-  
+
   /* Typography */
   --accordion-font-size: var(--font-size);
-  
+
   /* Animation */
   --accordion-transition-time: var(--transition-base);
 }
@@ -135,11 +145,13 @@ Key CSS classes and their purposes:
 ### Installation
 
 Use the CopyKit CLI:
+
 ```bash
 copykit add accordion
 ```
 
 Or copy manually:
+
 ```bash
 cp -r stubs/accordion/ your-project/src/
 ```
@@ -155,7 +167,7 @@ cp -r stubs/accordion/ your-project/src/
 }
 
 /* Dark theme */
-[data-theme="dark"] {
+[data-theme='dark'] {
   --accordion-border-color: 64 64 64;
   --accordion-control-bg-color: 32 32 32;
   --accordion-content-bg-color: 24 24 24;
@@ -290,10 +302,18 @@ cp -r stubs/accordion/ your-project/src/
 
 ```css
 /* Quick styling utilities */
-.accordion-bordered { --accordion-border-width: 2px; }
-.accordion-borderless { --accordion-border-width: 0; }
-.accordion-rounded { --accordion-border-radius: 8px; }
-.accordion-shadow { box-shadow: 0 2px 4px rgb(0 0 0 / 0.1); }
+.accordion-bordered {
+  --accordion-border-width: 2px;
+}
+.accordion-borderless {
+  --accordion-border-width: 0;
+}
+.accordion-rounded {
+  --accordion-border-radius: 8px;
+}
+.accordion-shadow {
+  box-shadow: 0 2px 4px rgb(0 0 0 / 0.1);
+}
 ```
 
 ### State Management
@@ -302,9 +322,7 @@ cp -r stubs/accordion/ your-project/src/
 <!-- Accordion with initial open state -->
 <div class="accordion">
   <div class="item">
-    <button class="control" aria-expanded="true" aria-controls="content-1">
-      Initially Open
-    </button>
+    <button class="control" aria-expanded="true" aria-controls="content-1">Initially Open</button>
     <div class="content" id="content-1" data-animate="accordion">
       This content is open by default.
     </div>

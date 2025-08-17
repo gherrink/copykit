@@ -7,7 +7,7 @@ A foundational collection of scripts, styles, and components designed to be copi
 CopyKit is a **copy-and-customize** component library that provides a starting point for web projects. Unlike traditional frameworks or libraries, CopyKit components are meant to be copied directly into your project where you have full control to modify, extend, or adapt them to your specific needs. Once copied, the code becomes entirely yours to customize.
 
 > **🌐 Live Demo & Documentation**
-> 
+>
 > - **[📱 Example Pages](https://gherrink.github.io/copykit/)** - See all components in action with interactive examples
 > - **[📚 Complete UI Documentation](https://gherrink.github.io/copykit/ui-doc/)** - Comprehensive component documentation and usage guides
 
@@ -61,6 +61,7 @@ The repository contains multiple copy points, each with a consistent structure f
 > **Important**: Start with `_base` as it provides the foundation. The `index.css` file is only included in `_base` and imports all the CSS layers.
 
 **This consistent structure means you can:**
+
 - Copy entire copy points and they'll integrate the same way
 - Mix and match between copy points easily
 - Know exactly where to find specific types of code
@@ -75,6 +76,7 @@ The easiest way to use CopyKit is through the CLI tool, which automatically copi
 #### Installation
 
 **Option A: Install globally**
+
 ```bash
 npm install -g copykit
 # or
@@ -84,6 +86,7 @@ yarn global add copykit
 ```
 
 **Option B: Use npx (no installation needed)**
+
 ```bash
 npx copykit <command>
 ```
@@ -108,6 +111,7 @@ copykit info accordion
 #### CLI Commands
 
 **`copykit init`** - Initialize project with \_base copy-point
+
 ```bash
 copykit init                   # Initialize in current directory
 copykit init --overwrite       # Overwrite existing files
@@ -116,6 +120,7 @@ copykit init --help            # Show help for init command
 ```
 
 **`copykit add <copy-point>`** - Add specific copy-point
+
 ```bash
 copykit add accordion              # Add accordion copy-point
 copykit add elevate                # Add elevate copy-point
@@ -125,11 +130,13 @@ copykit add --help                 # Show help for add command
 ```
 
 **`copykit list`** - List available copy-points
+
 ```bash
 copykit list                   # Show all available copy-points with basic info
 ```
 
 **`copykit info <copy-point>`** - Show detailed copy-point information
+
 ```bash
 copykit info accordion        # Show detailed info about accordion copy-point
 copykit info _base           # Show detailed info about base copy-point
@@ -137,6 +144,7 @@ copykit info elevate         # Show detailed info about elevate copy-point
 ```
 
 **`copykit help`** - Show general help
+
 ```bash
 copykit --help                 # Show main help
 copykit <command> --help       # Show command-specific help
@@ -147,21 +155,23 @@ copykit <command> --help       # Show command-specific help
 After using the CLI, integrate the copied files into your project:
 
 **CSS Integration:**
+
 ```css
 /* Import base styles in your main CSS file */
-@import "./stubs/_base/styles/index.css";
+@import './stubs/_base/styles/index.css';
 
 /* Or import specific copy-point styles */
-@import "./stubs/accordion/styles/02_components/accordion.css";
-@import "./stubs/elevate/styles/03_utilities/elevate.css";
+@import './stubs/accordion/styles/02_components/accordion.css';
+@import './stubs/elevate/styles/03_utilities/elevate.css';
 ```
 
 **JavaScript Integration:**
+
 ```javascript
 // Import services and utilities
-import { expand } from "./stubs/_base/scripts/services/expand.js"
-import { selectParent } from "./stubs/_base/scripts/utilities/select.js"
-import { Accordion } from "./stubs/accordion/scripts/services/accordion.js"
+import { expand } from './stubs/_base/scripts/services/expand.js'
+import { selectParent } from './stubs/_base/scripts/utilities/select.js'
+import { Accordion } from './stubs/accordion/scripts/services/accordion.js'
 
 // Initialize functionality
 expand.init()
@@ -169,6 +179,7 @@ const accordion = new Accordion()
 ```
 
 **HTML Usage:**
+
 ```html
 <!-- Use copied components with their classes -->
 <div class="accordion" data-animate>
@@ -188,6 +199,7 @@ If you prefer manual control, you can copy files directly:
 CopyKit is designed as a **copy-and-customize** library organized in copy points. Here's how to use it:
 
 #### 1. Browse Copy Points
+
 - **[🌐 Live Example Pages](https://gherrink.github.io/copykit/)** - See components in action with interactive demos
 - **[📚 Complete UI Documentation](https://gherrink.github.io/copykit/ui-doc/)** - Explore detailed component documentation and usage guides
 - Clone or download this repository to explore available copy points locally
@@ -199,6 +211,7 @@ CopyKit is designed as a **copy-and-customize** library organized in copy points
 > **⚠️ Important**: Always start by copying `_base` first, as it contains the foundational styles and utilities that other copy points depend on.
 
 **Option A: Copy an entire copy point**
+
 ```bash
 # STEP 1: Always copy _base first (required foundation)
 cp -r stubs/_base/ your-project/src/
@@ -208,6 +221,7 @@ cp -r stubs/[copy-point]/ your-project/src/components/
 ```
 
 **Option B: Copy specific parts**
+
 ```bash
 # Copy specific components from any copy point
 cp -r stubs/_base/styles/02_components/ your-project/styles/components/
@@ -219,6 +233,7 @@ cp stubs/_base/scripts/utilities/dom.ts your-project/scripts/
 ```
 
 **Option C: Mix and match between copy points**
+
 ```bash
 # Take utilities from _base and components from another copy point
 cp -r stubs/_base/scripts/utilities/ your-project/scripts/
@@ -226,13 +241,17 @@ cp -r stubs/advanced/styles/02_components/ your-project/styles/components/
 ```
 
 #### 3. Integrate with Consistent Structure
+
 Thanks to the consistent structure, integration is predictable:
+
 - CSS layers will organize properly (`01_defaults` → `02_components` → `03_utilities` → `04_layouts`)
 - JavaScript modules will have expected folder organization
 - You can import the main CSS with `@import "path/to/index.css"`
 
 #### 4. Customize and Adapt
+
 Once copied, the code is entirely yours:
+
 - Modify CSS variables to match your design system
 - Adapt JavaScript functions to your project's needs
 - Rename classes, functions, or variables as needed
@@ -273,6 +292,7 @@ CopyKit uses a **colorset** approach for systematic color management. A colorset
 ### What is a Colorset?
 
 A colorset provides all essential color variables needed for consistent theming:
+
 - Primary text and background colors
 - Borders and shadows
 - Accent colors and interactive states
@@ -280,11 +300,8 @@ A colorset provides all essential color variables needed for consistent theming:
 
 ### Why Use Colorsets?
 
-**Component theming** - Apply consistent colors across buttons, cards, forms, and other UI elements
-**Section-based styling** - Define distinct visual zones like headers, sidebars, or content areas  
-**Theme variations** - Create light/dark modes or brand-specific color schemes
-**Contextual styling** - Differentiate between states like default, success, warning, or error
-**Systematic design** - Maintain visual consistency across your entire application with predefined color relationships
+**Component theming** - Apply consistent colors across buttons, cards, forms, and other UI elements **Section-based styling** - Define distinct visual zones like headers, sidebars, or content areas  
+**Theme variations** - Create light/dark modes or brand-specific color schemes **Contextual styling** - Differentiate between states like default, success, warning, or error **Systematic design** - Maintain visual consistency across your entire application with predefined color relationships
 
 By using colorsets, you ensure that all related colors work harmoniously together while maintaining flexibility to swap entire color schemes without touching individual component styles.
 
@@ -295,18 +312,21 @@ CopyKit follows a comprehensive accessibility-first approach that ensures all co
 ### Core Accessibility Principles
 
 **1. Component-Level Responsibility**
+
 - Each component defines its own specific accessibility behaviors
 - Components manage their own ARIA attributes, keyboard navigation, and focus management
 - Interactive elements include proper semantic HTML and ARIA patterns
 - Components work without JavaScript (progressive enhancement)
 
 **2. Layout-Level Global Overrides**
+
 - Layout files (`04_layouts/`) handle user preference media queries
 - Global accessibility settings respect `prefers-contrast` and `prefers-reduced-motion`
 - User preferences automatically override component defaults
 - System-wide consistency through CSS custom property overrides
 
 **3. User Preference Respect**
+
 - All animations and transitions respect `prefers-reduced-motion: reduce`
 - High contrast mode automatically adjusts colorset variables
 - Focus indicators remain visible and accessible in all color schemes
@@ -315,7 +335,9 @@ CopyKit follows a comprehensive accessibility-first approach that ensures all co
 ### Implementation Rules
 
 #### When Components Handle Accessibility
+
 Components should manage accessibility when:
+
 - **Interactive behavior**: Buttons, controls, forms, and navigation elements
 - **State management**: Expanded/collapsed states, active/inactive states
 - **Keyboard navigation**: Arrow keys, Home/End navigation, focus management
@@ -323,24 +345,24 @@ Components should manage accessibility when:
 - **Content structure**: Semantic HTML, heading hierarchy, landmark regions
 
 **Example Pattern:**
+
 ```html
 <!-- Component defines its own accessibility behavior -->
-<button class="control" aria-expanded="false" aria-controls="content-1">
-  Toggle Content
-</button>
-<div id="content-1" hidden data-animate="slide">
-  Content here
-</div>
+<button class="control" aria-expanded="false" aria-controls="content-1">Toggle Content</button>
+<div id="content-1" hidden data-animate="slide">Content here</div>
 ```
 
 #### When Layouts Handle Accessibility
+
 Layout files should handle accessibility when:
+
 - **User preferences**: `prefers-contrast`, `prefers-reduced-motion`, `prefers-color-scheme`
 - **Global overrides**: System-wide color or motion changes
 - **Universal patterns**: Focus outline styles, selection colors
 - **Performance optimizations**: Disabling unnecessary animations
 
 **Example Pattern:**
+
 ```css
 /* Layout-level user preference override */
 @media (prefers-reduced-motion: reduce) {
@@ -355,24 +377,28 @@ Layout files should handle accessibility when:
 ### Required Testing Standards
 
 **1. Keyboard Navigation Testing**
+
 - All interactive elements accessible via keyboard only
 - Logical tab order and focus indicators
 - Arrow key navigation where appropriate (menus, accordions)
 - Escape key functionality for dismissible elements
 
 **2. Screen Reader Testing**
+
 - Semantic HTML structure with proper headings
 - ARIA attributes accurately describe element states
 - Dynamic content changes announced appropriately
 - Alternative text for images and icons
 
 **3. User Preference Testing**
+
 - Test with `prefers-reduced-motion: reduce` enabled
 - Test with `prefers-contrast: more` enabled
 - Verify functionality works in forced-colors mode
 - Test with different font sizes and zoom levels
 
 **4. Color and Contrast Testing**
+
 - Minimum 4.5:1 contrast ratio for normal text
 - Minimum 3:1 contrast ratio for large text and UI elements
 - Color is not the only means of conveying information
@@ -381,18 +407,21 @@ Layout files should handle accessibility when:
 ### Integration with CopyKit Architecture
 
 **CSS Layer Integration:**
+
 - `01_defaults/`: Accessibility variables and base focus styles
 - `02_components/`: Component-specific ARIA and keyboard behavior
 - `03_utilities/`: Accessibility utility classes (sr-only, focus management)
 - `04_layouts/`: User preference overrides and global accessibility settings
 
 **JavaScript Service Patterns:**
+
 - Services like `expand.ts` provide ARIA-compliant interactive functionality
 - Event listeners include proper cleanup and accessibility considerations
 - Focus management follows WCAG guidelines
 - Keyboard event handling respects user expectations
 
 **Colorset Accessibility:**
+
 - All colorsets include sufficient contrast ratios
 - High contrast mode provides automatic colorset overrides
 - Selection and focus colors work across all colorset variations
@@ -423,15 +452,17 @@ Available copy-points:
 ### Currently Available
 
 #### [`_base/`](stubs/_base/README.md) - Core Foundation Copy Point ⭐ **REQUIRED STARTING POINT**
+
 The essential foundation that **must be copied first**. All other copy points build upon this base.
 
 - **CSS Layers**: Browser resets, variables, components, utilities, and layouts
 - **JavaScript**: Expand/collapse services and DOM utilities
 - **Foundation**: Complete base styles and interactive functionality
 
-> **📖 [View complete _base documentation](stubs/_base/README.md)**
+> **📖 [View complete \_base documentation](stubs/_base/README.md)**
 
 #### [`accordion/`](stubs/accordion/README.md) - Accessible Accordion Component
+
 Advanced accordion/collapsible component with full ARIA support and keyboard navigation.
 
 - **WCAG 2.1 AA compliant** with keyboard navigation support
@@ -442,6 +473,7 @@ Advanced accordion/collapsible component with full ARIA support and keyboard nav
 > **🌐 [Live Demo](https://gherrink.github.io/copykit/accordion.html)** | **📖 [View complete accordion documentation](stubs/accordion/README.md)**
 
 #### [`elevate/`](stubs/elevate/README.md) - Visual Enhancement Utilities
+
 Utility classes for adding visual depth and elevation to components using advanced CSS color-mixing.
 
 - **Material Design inspired** elevation levels (0-24)
@@ -452,6 +484,7 @@ Utility classes for adding visual depth and elevation to components using advanc
 > **📖 [View complete elevate documentation](stubs/elevate/README.md)**
 
 #### [`border/`](stubs/border/README.md) - Comprehensive Border Utilities
+
 Flexible border utility system with directional controls and CSS custom properties.
 
 - **Directional Border Control** - Apply borders to specific sides (top, right, bottom, left)
@@ -462,6 +495,7 @@ Flexible border utility system with directional controls and CSS custom properti
 > **🌐 [Live Demo](https://gherrink.github.io/copykit/border.html)** | **📖 [View complete border documentation](stubs/border/README.md)**
 
 #### [`grid-auto/`](stubs/grid-auto/README.md) - Auto-Responsive Grid System
+
 Advanced auto-responsive grid system that automatically adjusts column count based on available space and minimum item widths.
 
 - **Auto-responsive column adjustment** based on available space
@@ -474,6 +508,7 @@ Advanced auto-responsive grid system that automatically adjusts column count bas
 > **🌐 [Live Demo](https://gherrink.github.io/copykit/grid-auto.html)** | **📖 [View complete grid-auto documentation](stubs/grid-auto/README.md)**
 
 #### [`rounded-simple/`](stubs/rounded-simple/README.md) - Border Radius Utilities
+
 Simple and flexible border radius utilities for creating rounded corners on any element.
 
 - **Configurable border radius sizes** (sm, base, md, lg, xl)
@@ -484,6 +519,7 @@ Simple and flexible border radius utilities for creating rounded corners on any 
 > **🌐 [Live Demo](https://gherrink.github.io/copykit/rounded-simple.html)** | **📖 [View complete rounded-simple documentation](stubs/rounded-simple/README.md)**
 
 #### [`shadow/`](stubs/shadow/README.md) - Material Design Shadow System
+
 Material Design-inspired shadow utilities with 24 elevation levels and scientifically-accurate calculations.
 
 - **24-Level Shadow System** - Precise elevation control from 0-24
@@ -494,7 +530,9 @@ Material Design-inspired shadow utilities with 24 elevation levels and scientifi
 > **🌐 [Live Demo](https://gherrink.github.io/copykit/shadow.html)** | **📖 [View complete shadow documentation](stubs/shadow/README.md)**
 
 ### Future Copy Points
+
 Additional copy points will follow the same structure:
+
 - `advanced/` - Extended components and advanced features
 - `animations/` - Enhanced animation utilities
 - `forms/` - Advanced form components
@@ -512,7 +550,7 @@ Every copy point follows the same organized structure:
 │   └── utilities/          # Helper functions
 └── styles/
     ├── 01_defaults/        # Foundation layer
-    ├── 02_components/      # Component layer  
+    ├── 02_components/      # Component layer
     ├── 03_utilities/       # Utility layer
     ├── 04_layouts/         # Layout layer
     └── index.css           # Main entry point (only in _base copy point)

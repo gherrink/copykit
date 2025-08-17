@@ -51,7 +51,7 @@
     "dev:uidoc": "vite --config vite.config.uidoc.ts",
     "format": "prettier --write \"(stubs|pages)/**/*.{ts,tsx,css,scss,json}\"",
     "format:check": "prettier --check \"(stubs|pages)/**/*.{ts,tsx,css,scss,json}\"",
-    "format:docs": "prettier --write **/README.md **/CHANGELOG.md",
+    "format:docs": "prettier --write **/README.md **/CHANGELOG.md **/CLAUDE*.md docs/*.md",
     "format:json": "prettier --write **/tsconfig.json tsconfig.*.json",
     "format:package": "prettier --write package.json",
     "lint": "pnpm lint:css && pnpm lint:js",
@@ -128,7 +128,10 @@
     "tsconfig(.*).json": [
       "prettier --write"
     ],
-    "((README|CHANGELOG|CONTRIBUTING)|(**/(README|CHANGELOG|CONTRIBUTING))).md": [
+    "docs/*.md": [
+      "prettier --write"
+    ],
+    "((README|CHANGELOG|CONTRIBUTING|CLAUDE)|(**/(README|CHANGELOG|CONTRIBUTING|CLAUDE))).md": [
       "prettier --write"
     ]
   }

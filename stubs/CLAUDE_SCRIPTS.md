@@ -20,6 +20,7 @@ stubs/[name]/scripts/
 ### Service vs Utility Guidelines
 
 **Services** (`scripts/services/`):
+
 - Component behavior and state management
 - Event handling and user interaction
 - DOM manipulation and ARIA management
@@ -27,6 +28,7 @@ stubs/[name]/scripts/
 - Example: `accordion.ts`, `expand.ts`, `modal.ts`
 
 **Utilities** (`scripts/utilities/`):
+
 - Pure functions and helper methods
 - Data transformation and validation
 - Reusable algorithms
@@ -53,6 +55,7 @@ const hasKeyboard = element.hasAttribute('data-keyboard')
 ```
 
 **Benefits**:
+
 - Self-documenting HTML
 - Accessibility-first approach
 - Framework-agnostic compatibility
@@ -86,6 +89,7 @@ declare global {
 ```
 
 **Benefits**:
+
 - No memory leaks (garbage collected with DOM)
 - Instant access without lookups
 - Natural lifecycle management
@@ -110,7 +114,7 @@ class Expand {
   private updateContent(): void {
     const contentId = this.element.getAttribute('aria-controls')
     const content = contentId ? document.getElementById(contentId) : null
-    
+
     if (content) {
       content.hidden = !this.isExpanded
     }
@@ -119,6 +123,7 @@ class Expand {
 ```
 
 **Benefits**:
+
 - Single source of truth in DOM
 - Screen reader compatibility
 - Server-side rendering support
@@ -171,20 +176,20 @@ interface ExpandEvents {
 class Expand extends EventEmitter<ExpandEvents> {
   toggle(): void {
     const willExpand = !this.isExpanded
-    
+
     // Emit before event
-    this.emit('beforeToggle', { 
-      element: this.element, 
-      willExpand 
+    this.emit('beforeToggle', {
+      element: this.element,
+      willExpand,
     })
 
     // Perform action
     this.isExpanded = willExpand
 
     // Emit after event
-    this.emit('afterToggle', { 
-      element: this.element, 
-      isExpanded: this.isExpanded 
+    this.emit('afterToggle', {
+      element: this.element,
+      isExpanded: this.isExpanded,
     })
   }
 }
@@ -205,10 +210,9 @@ class Accordion extends EventEmitter<AccordionEvents> {
 
   private initExpandInstances(): void {
     const controls = this.element.querySelectorAll('[aria-expanded]')
-    
+
     this.expandInstances = Array.from(controls).map(control => {
-      return Expand.getInstance(control as HTMLElement) || 
-             new Expand(control as HTMLElement)
+      return Expand.getInstance(control as HTMLElement) || new Expand(control as HTMLElement)
     })
   }
 
@@ -220,7 +224,7 @@ class Accordion extends EventEmitter<AccordionEvents> {
 
   private handleAccordionLogic(data: { willExpand: boolean; element: HTMLElement }): void {
     const mode = this.element.getAttribute('data-accordion')
-    
+
     if (mode === 'single' && data.willExpand) {
       // Close other items in single mode
       this.expandInstances.forEach(instance => {
@@ -275,10 +279,10 @@ class Component {
 
   private parseConfig(): ComponentConfig {
     return {
-      mode: this.element.getAttribute('data-accordion') as 'single' | 'multi' || 'single',
+      mode: (this.element.getAttribute('data-accordion') as 'single' | 'multi') || 'single',
       keyboard: this.element.hasAttribute('data-keyboard'),
       animate: this.element.getAttribute('data-animate') || null,
-      inertSelector: this.element.getAttribute('data-inert') || null
+      inertSelector: this.element.getAttribute('data-inert') || null,
     }
   }
 }
@@ -302,14 +306,14 @@ import { createElement } from '@test/utils'
 
 describe('Expand', () => {
   it('should toggle aria-expanded when clicked', () => {
-    const button = createElement('button', { 
+    const button = createElement('button', {
       'aria-expanded': 'false',
-      'aria-controls': 'content-1'
+      'aria-controls': 'content-1',
     })
     const expand = new Expand(button)
-    
+
     button.click()
-    
+
     expect(button.getAttribute('aria-expanded')).toBe('true')
   })
 
@@ -317,13 +321,13 @@ describe('Expand', () => {
     const button = createElement('button', { 'aria-expanded': 'false' })
     const expand = new Expand(button)
     const listener = vi.fn()
-    
+
     expand.on('beforeToggle', listener)
     expand.toggle()
-    
+
     expect(listener).toHaveBeenCalledWith({
       element: button,
-      willExpand: true
+      willExpand: true,
     })
   })
 })
@@ -333,32 +337,32 @@ describe('Expand', () => {
 
 ```typescript
 import { describe, it, expect } from 'vitest'
-import { 
-  createAccordionElement, 
+import {
+  createAccordionElement,
   expectAccessible,
   getAccordionControls,
-  navigateAccordion 
+  navigateAccordion,
 } from '@test/utils'
 
 describe('Accordion Accessibility', () => {
   it('should support keyboard navigation', async () => {
     const accordion = createAccordionElement({ itemCount: 3 })
     const controls = getAccordionControls(accordion)
-    
+
     controls[0].focus()
     await navigateAccordion(controls[0], 'ArrowDown')
-    
+
     expect(document.activeElement).toBe(controls[1])
     await expectAccessible(accordion)
   })
-  
+
   it('should handle user preferences', async () => {
     const component = createComponent()
-    
+
     // Test reduced motion
     document.documentElement.style.setProperty('--prefers-reduced-motion', '1')
     await testReducedMotionBehavior(component)
-    
+
     // Test high contrast
     document.documentElement.style.setProperty('--prefers-contrast', 'high')
     await testHighContrastBehavior(component)
@@ -393,10 +397,10 @@ class Component extends EventEmitter {
     // Run all cleanup functions
     this.cleanupFunctions.forEach(cleanup => cleanup())
     this.cleanupFunctions = []
-    
+
     // Remove instance from DOM element
     delete this.element.__component
-    
+
     // Remove all event listeners
     this.removeAllListeners()
   }
@@ -459,7 +463,7 @@ class Component {
 // Use generics for reusable patterns
 abstract class BaseComponent<TEvents = {}> extends EventEmitter<TEvents> {
   abstract readonly componentName: string
-  
+
   protected abstract init(): void
   protected abstract destroy(): void
 }
@@ -493,6 +497,7 @@ function useExpand(ref: React.RefObject<HTMLElement>) {
 ## Integration with Copy-Point Workflow
 
 ### Creating TypeScript Components
+
 When creating copy-points with TypeScript functionality:
 
 1. **Use the automated script**: `pnpm run create-copy-point [name]`
@@ -503,7 +508,9 @@ When creating copy-points with TypeScript functionality:
 6. **Document accessibility features**: Include keyboard shortcuts and ARIA usage
 
 ### CSS and TypeScript Integration
+
 For CSS integration patterns, see [CLAUDE_STYLE.md](CLAUDE_STYLE.md) which covers:
+
 - How TypeScript services coordinate with CSS classes
 - Data attribute patterns for configuration
 - Animation and transition management
@@ -512,9 +519,11 @@ For CSS integration patterns, see [CLAUDE_STYLE.md](CLAUDE_STYLE.md) which cover
 ## Accessibility Implementation Requirements
 
 ### Component-Level Accessibility Rules
+
 When developing copy-points, components should handle their own specific accessibility behaviors:
 
 **Required Component Patterns:**
+
 - **ARIA Management**: Use `aria-expanded`, `aria-controls`, `aria-hidden`, `role` attributes appropriately
 - **Keyboard Navigation**: Implement arrow keys, Home/End navigation, focus management
 - **Semantic HTML**: Use proper HTML elements before adding ARIA attributes
@@ -522,31 +531,32 @@ When developing copy-points, components should handle their own specific accessi
 - **State Management**: Handle expanded/collapsed, active/inactive states accessibly
 
 **Example Component Implementation:**
+
 ```typescript
 // Service should manage ARIA attributes and keyboard behavior
 class ComponentService {
   private element: HTMLElement
-  
+
   init() {
     this.setupARIA()
     this.setupKeyboardNavigation()
     this.setupFocusManagement()
   }
-  
+
   private setupARIA() {
     // Component manages its own ARIA attributes
     const control = this.element.querySelector('.control')
     const content = this.element.querySelector('.content')
-    
+
     control.setAttribute('aria-expanded', 'false')
     control.setAttribute('aria-controls', content.id)
   }
-  
+
   private setupKeyboardNavigation() {
     // Implement keyboard support
     this.element.addEventListener('keydown', this.handleKeydown.bind(this))
   }
-  
+
   private handleKeydown(event: KeyboardEvent) {
     switch (event.key) {
       case 'ArrowDown':
@@ -565,9 +575,11 @@ class ComponentService {
 ```
 
 ### Accessibility Testing Requirements
+
 All copy-points with interactive elements must include comprehensive accessibility tests:
 
 **Required Test Files:**
+
 ```
 scripts/services/
 ├── [component].test.ts              # Unit functionality tests
@@ -575,6 +587,7 @@ scripts/services/
 ```
 
 **Accessibility Test Coverage:**
+
 - **Keyboard Navigation**: Tab order, arrow keys, Home/End, Escape functionality
 - **ARIA Compliance**: Verify `aria-expanded`, `aria-controls`, role attributes
 - **Screen Reader Support**: Test with axe-core and manual screen reader testing
@@ -582,6 +595,7 @@ scripts/services/
 - **User Preferences**: Test with `prefers-reduced-motion` and `prefers-contrast`
 
 **Example Accessibility Test:**
+
 ```typescript
 import { describe, it, expect } from 'vitest'
 import { expectAccessible, expectExpanded } from '@test/utils'
@@ -590,31 +604,32 @@ describe('Component Accessibility', () => {
   it('should manage ARIA attributes correctly', async () => {
     const component = createComponent()
     const control = component.querySelector('.control')
-    
+
     // Test initial ARIA state
     expect(control.getAttribute('aria-expanded')).toBe('false')
-    
+
     // Test interaction
     control.click()
     expect(control.getAttribute('aria-expanded')).toBe('true')
-    
+
     // Test accessibility compliance
     await expectAccessible(component)
   })
-  
+
   it('should support keyboard navigation', async () => {
     const component = createComponent()
     const controls = component.querySelectorAll('.control')
-    
+
     controls[0].focus()
     await keyboard.press('ArrowDown')
-    
+
     expect(document.activeElement).toBe(controls[1])
   })
 })
 ```
 
 ### Testing Requirements
+
 - Unit tests for all public APIs
 - **Accessibility tests for UI components** (required for interactive elements)
 - Integration tests with `_base` dependencies
@@ -629,9 +644,11 @@ The `@stubs/_base/scripts/` directory provides essential utilities that can be i
 ### Available Base Utilities
 
 #### EventEmitter (`utilities/event-emitter.ts`)
+
 **Purpose**: Type-safe event system for component communication.
 
 **Usage**:
+
 ```typescript
 import { EventEmitter } from '@/_base/scripts/utilities/event-emitter'
 
@@ -648,15 +665,17 @@ class MyComponent extends EventEmitter<ComponentEvents> {
 
 // Type-safe listening
 const component = new MyComponent(element)
-component.on('stateChange', (data) => {
+component.on('stateChange', data => {
   console.log(`State: ${data.state}`)
 })
 ```
 
 #### DOM Utilities (`utilities/dom.ts`)
+
 **Purpose**: DOM readiness and CSS animation management.
 
 **`ready(callback: () => void): void`** - DOM initialization:
+
 ```typescript
 import { ready } from '@/_base/scripts/utilities/dom'
 
@@ -668,6 +687,7 @@ ready(() => {
 ```
 
 **`animate(target: HTMLElement, animationName: string, entering: boolean, callback?: () => void): void`** - Vue.js-style animations:
+
 ```typescript
 import { animate } from '@/_base/scripts/utilities/dom'
 
@@ -675,13 +695,15 @@ import { animate } from '@/_base/scripts/utilities/dom'
 animate(element, 'fade', true)
 
 // Hide with fade-leave-active, fade-leave-from, fade-leave-to classes
-animate(element, 'fade', false, () => element.hidden = true)
+animate(element, 'fade', false, () => (element.hidden = true))
 ```
 
 #### Cookie Utilities (`utilities/cookie.ts`)
+
 **Purpose**: Secure browser cookie management.
 
 **Usage**:
+
 ```typescript
 import { cookieRead, cookieWrite } from '@/_base/scripts/utilities/cookie'
 
@@ -696,9 +718,11 @@ cookieWrite('user-theme', 'dark', 365 * 24 * 60 * 60)
 ```
 
 #### Select Utilities (`utilities/select.ts`)
+
 **Purpose**: Type-safe parent element traversal.
 
 **Usage**:
+
 ```typescript
 import { queryParentSelector } from '@/_base/scripts/utilities/select'
 
@@ -715,9 +739,11 @@ if (form) {
 ```
 
 #### Expand Service (`services/expand.ts`)
+
 **Purpose**: ARIA-based expand/collapse with animation and accessibility.
 
 **Usage**:
+
 ```typescript
 import { Expand, initExpand } from '@/_base/scripts/services/expand'
 
@@ -726,7 +752,7 @@ initExpand()
 
 // Manual initialization with events
 const expandInstance = new Expand(button)
-expandInstance.on('beforeToggle', (data) => {
+expandInstance.on('beforeToggle', data => {
   console.log(`Will ${data.expanded ? 'collapse' : 'expand'}`)
 })
 
@@ -735,6 +761,7 @@ expandInstance.toggle()
 ```
 
 **HTML**:
+
 ```html
 <!-- Basic: aria-expanded + aria-controls -->
 <button aria-expanded="false" aria-controls="content">Toggle</button>
@@ -750,6 +777,7 @@ expandInstance.toggle()
 ### Common Integration Patterns
 
 **Combining Utilities**:
+
 ```typescript
 import { EventEmitter } from '@/_base/scripts/utilities/event-emitter'
 import { ready, animate } from '@/_base/scripts/utilities/dom'
@@ -761,11 +789,11 @@ class AdvancedComponent extends EventEmitter<ComponentEvents> {
     super()
     ready(() => this.init())
   }
-  
+
   private init(): void {
     const theme = cookieRead('theme') || 'light'
     const form = queryParentSelector<HTMLFormElement>(this.element, 'form')
-    
+
     this.element.addEventListener('click', () => {
       animate(this.element, 'highlight', true)
       this.emit('userInteraction', { element: this.element })
@@ -775,6 +803,7 @@ class AdvancedComponent extends EventEmitter<ComponentEvents> {
 ```
 
 **Auto-Discovery Pattern**:
+
 ```typescript
 import { ready } from '@/_base/scripts/utilities/dom'
 import { initExpand } from '@/_base/scripts/services/expand'
@@ -782,7 +811,7 @@ import { initExpand } from '@/_base/scripts/services/expand'
 export function initMyComponents(): void {
   ready(() => {
     initExpand() // Initialize dependencies first
-    
+
     document.querySelectorAll('[data-my-component]').forEach(element => {
       if (!element.__myComponent) {
         new MyComponent(element as HTMLElement)
@@ -808,6 +837,7 @@ export function initMyComponents(): void {
 ## Copy-Point Development Standards
 
 ### TypeScript File Requirements
+
 - Use strict TypeScript configuration
 - Include comprehensive unit tests (`.test.ts`)
 - Add accessibility tests for UI components (`.accessibility.test.ts`)
@@ -817,6 +847,7 @@ export function initMyComponents(): void {
 - Store instances on DOM elements for lifecycle management
 
 ### Service Implementation Pattern
+
 ```typescript
 export class ComponentService extends EventEmitter<ComponentEvents> {
   readonly element: HTMLElement
@@ -827,10 +858,10 @@ export class ComponentService extends EventEmitter<ComponentEvents> {
     super()
     this.element = element
     this.config = this.parseConfig()
-    
+
     // Store instance on DOM element
     element.__component = this
-    
+
     this.init()
   }
 
@@ -840,7 +871,7 @@ export class ComponentService extends EventEmitter<ComponentEvents> {
 
   private init(): void {
     if (!this.validateElement()) return
-    
+
     this.setupARIA()
     this.setupEventListeners()
     this.setupKeyboardNavigation()

@@ -100,14 +100,14 @@ The modal copy-point provides a fully-featured modal dialog component built on t
 
 ```css
 /* Import modal styles */
-@import "./stubs/modal/styles/02_components/modal.css";
+@import './stubs/modal/styles/02_components/modal.css';
 ```
 
 ### JavaScript Integration
 
 ```typescript
 // Import modal functionality
-import { createModal, initModals } from "./stubs/modal/scripts/services/modal"
+import { createModal, initModals } from './stubs/modal/scripts/services/modal'
 
 // Auto-initialize all modals on page
 initModals()
@@ -116,8 +116,8 @@ initModals()
 const modal = createModal('#my-modal', {
   backdropClose: true,
   escapeClose: true,
-  onOpen: (element) => console.log('Modal opened'),
-  onClose: (element, returnValue) => console.log('Modal closed:', returnValue)
+  onOpen: element => console.log('Modal opened'),
+  onClose: (element, returnValue) => console.log('Modal closed:', returnValue),
 })
 
 // Open as modal
@@ -130,7 +130,7 @@ modal.openNonModal()
 modal.close('confirmed')
 
 // Event listening
-modal.on('afterClose', (data) => {
+modal.on('afterClose', data => {
   console.log('Modal closed with value:', data.returnValue)
 })
 ```
@@ -138,11 +138,13 @@ modal.on('afterClose', (data) => {
 ### Configuration via Data Attributes
 
 ```html
-<dialog class="modal" 
-        data-modal="center"
-        data-modal-backdrop="true"
-        data-modal-escape="true"
-        data-modal-focus=".btn.primary">
+<dialog
+  class="modal"
+  data-modal="center"
+  data-modal-backdrop="true"
+  data-modal-escape="true"
+  data-modal-focus=".btn.primary"
+>
   <!-- Modal content -->
 </dialog>
 ```
@@ -162,14 +164,14 @@ The modal component uses CSS custom properties for flexible customization:
   --modal-border-radius: 8px;
   --modal-border-width: 1px;
   --modal-separator-width: 1px;
-  
+
   /* Modal colors (inherit from colorset) */
   --modal-bg-color: var(--bg-color);
   --modal-font-color: var(--font-color);
   --modal-border-color: var(--border-color);
   --modal-shadow-color: var(--shadow-color);
   --modal-shadow-alpha: var(--shadow-alpha);
-  
+
   /* Selection colors using modal colorset */
   --selection-color: var(--modal-bg-color);
   --selection-bg-color: var(--modal-font-color);
@@ -200,11 +202,13 @@ Key CSS classes and their purposes:
 ### Installation
 
 Use the CopyKit CLI:
+
 ```bash
 copykit add modal
 ```
 
 Or copy manually:
+
 ```bash
 cp -r stubs/modal/ your-project/src/
 ```
@@ -237,17 +241,16 @@ The modal automatically inherits colorset variables from the base theme:
 
 ```typescript
 interface ModalOptions {
-  backdropClose?: boolean      // Enable backdrop click to close (default: true)
-  escapeClose?: boolean        // Enable ESC key to close (default: true)
-  restoreFocus?: boolean       // Restore focus on close (default: true)
-  focusTarget?: string         // Selector for initial focus target
+  backdropClose?: boolean // Enable backdrop click to close (default: true)
+  escapeClose?: boolean // Enable ESC key to close (default: true)
+  restoreFocus?: boolean // Restore focus on close (default: true)
+  focusTarget?: string // Selector for initial focus target
   onOpen?: (element: HTMLDialogElement) => void
   onClose?: (element: HTMLDialogElement, returnValue?: string) => void
 }
 
 const modal = new Modal(dialogElement, options)
 ```
-
 
 ## Accessibility Features
 
@@ -323,7 +326,9 @@ const modal = new Modal(dialogElement, options)
 .modal {
   opacity: 0;
   transform: scale(0.9);
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
 }
 
 .modal[open] {
@@ -437,11 +442,11 @@ The `::backdrop` pseudo-element has evolving support:
   <div class="content">
     <form id="contact-form">
       <label for="name">Name:</label>
-      <input type="text" id="name" required>
-      
+      <input type="text" id="name" required />
+
       <label for="email">Email:</label>
-      <input type="email" id="email" required>
-      
+      <input type="email" id="email" required />
+
       <label for="message">Message:</label>
       <textarea id="message" required></textarea>
     </form>
@@ -461,7 +466,7 @@ const modal = createModal('#dynamic-modal')
 modal.on('beforeOpen', async () => {
   const content = modal.element.querySelector('.content')
   content.innerHTML = '<p>Loading...</p>'
-  
+
   try {
     const data = await fetch('/api/content').then(r => r.json())
     content.innerHTML = `<p>${data.message}</p>`
@@ -509,15 +514,15 @@ modal.on('beforeOpen', async () => {
 ```typescript
 // Enable debug logging
 const modal = createModal('#debug-modal', {
-  onOpen: (element) => console.log('Modal opened:', element),
-  onClose: (element, returnValue) => console.log('Modal closed:', element, returnValue)
+  onOpen: element => console.log('Modal opened:', element),
+  onClose: (element, returnValue) => console.log('Modal closed:', element, returnValue),
 })
 
 // Listen to all events
-modal.on('beforeOpen', (data) => console.log('Before open:', data))
-modal.on('afterOpen', (data) => console.log('After open:', data))
-modal.on('beforeClose', (data) => console.log('Before close:', data))
-modal.on('afterClose', (data) => console.log('After close:', data))
+modal.on('beforeOpen', data => console.log('Before open:', data))
+modal.on('afterOpen', data => console.log('After open:', data))
+modal.on('beforeClose', data => console.log('Before close:', data))
+modal.on('afterClose', data => console.log('After close:', data))
 ```
 
 ## Resources

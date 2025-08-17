@@ -25,9 +25,7 @@ The shadow copy-point provides a comprehensive shadow system based on Material D
 
 ```html
 <!-- Basic shadow with level 4 -->
-<div class="shadow" style="--level: 4;">
-  Elevated content with shadow
-</div>
+<div class="shadow" style="--level: 4;">Elevated content with shadow</div>
 
 <!-- Multiple shadow levels -->
 <div class="shadow" style="--level: 0;">No shadow</div>
@@ -41,14 +39,10 @@ The shadow copy-point provides a comprehensive shadow system based on Material D
 
 ```html
 <!-- Custom shadow color -->
-<div class="shadow" style="--level: 8; --shadow-color: 255 0 0;">
-  Red shadow effect
-</div>
+<div class="shadow" style="--level: 8; --shadow-color: 255 0 0;">Red shadow effect</div>
 
 <!-- Intensified shadow -->
-<div class="shadow" style="--level: 4; --shadow-boost: 0.2;">
-  Boosted shadow intensity
-</div>
+<div class="shadow" style="--level: 4; --shadow-boost: 0.2;">Boosted shadow intensity</div>
 
 <!-- Custom opacity controls -->
 <div class="shadow" style="--level: 6; --shadow-umbra: 0.3; --shadow-penumbra: 0.2;">
@@ -60,7 +54,7 @@ The shadow copy-point provides a comprehensive shadow system based on Material D
 
 ```css
 /* Import shadow utilities */
-@import "./stubs/shadow/styles/03_utilities/shadow.css";
+@import './stubs/shadow/styles/03_utilities/shadow.css';
 ```
 
 ## CSS Architecture
@@ -72,14 +66,14 @@ The shadow system uses CSS custom properties for flexible customization:
 ```css
 :root {
   /* Core shadow properties */
-  --level: 0;                /* Shadow level (0-24) */
-  --shadow-color: 0 0 0;     /* RGB shadow color */
-  
+  --level: 0; /* Shadow level (0-24) */
+  --shadow-color: 0 0 0; /* RGB shadow color */
+
   /* Shadow layer opacity controls */
-  --shadow-umbra: 0.2;       /* Direct shadow opacity */
-  --shadow-penumbra: 0.14;   /* Soft shadow opacity */
-  --shadow-ambient: 0.12;    /* Ambient shadow opacity */
-  --shadow-boost: 0;         /* Additional opacity boost */
+  --shadow-umbra: 0.2; /* Direct shadow opacity */
+  --shadow-penumbra: 0.14; /* Soft shadow opacity */
+  --shadow-ambient: 0.12; /* Ambient shadow opacity */
+  --shadow-boost: 0; /* Additional opacity boost */
 }
 ```
 
@@ -98,11 +92,13 @@ Each layer has precise calculations for offset, blur, and spread based on Materi
 ### Installation
 
 Use the CopyKit CLI:
+
 ```bash
 copykit add shadow
 ```
 
 Or copy manually:
+
 ```bash
 cp -r stubs/shadow/ your-project/src/
 ```
@@ -119,7 +115,7 @@ cp -r stubs/shadow/ your-project/src/
 }
 
 /* Dark theme shadows */
-[data-theme="dark"] {
+[data-theme='dark'] {
   --shadow-color: 0 0 0;
   --shadow-umbra: 0.3;
   --shadow-penumbra: 0.2;
@@ -127,7 +123,7 @@ cp -r stubs/shadow/ your-project/src/
 }
 
 /* High contrast theme */
-[data-theme="high-contrast"] {
+[data-theme='high-contrast'] {
   --shadow-color: 0 0 0;
   --shadow-umbra: 0.4;
   --shadow-penumbra: 0.3;
@@ -171,18 +167,38 @@ cp -r stubs/shadow/ your-project/src/
 
 ```css
 /* Shadow utility classes */
-.shadow-none { --level: 0; }
-.shadow-sm { --level: 2; }
-.shadow-md { --level: 4; }
-.shadow-lg { --level: 8; }
-.shadow-xl { --level: 16; }
-.shadow-2xl { --level: 24; }
+.shadow-none {
+  --level: 0;
+}
+.shadow-sm {
+  --level: 2;
+}
+.shadow-md {
+  --level: 4;
+}
+.shadow-lg {
+  --level: 8;
+}
+.shadow-xl {
+  --level: 16;
+}
+.shadow-2xl {
+  --level: 24;
+}
 
 /* Colored shadows */
-.shadow-blue { --shadow-color: 59 130 246; }
-.shadow-green { --shadow-color: 34 197 94; }
-.shadow-red { --shadow-color: 239 68 68; }
-.shadow-purple { --shadow-color: 147 51 234; }
+.shadow-blue {
+  --shadow-color: 59 130 246;
+}
+.shadow-green {
+  --shadow-color: 34 197 94;
+}
+.shadow-red {
+  --shadow-color: 239 68 68;
+}
+.shadow-purple {
+  --shadow-color: 147 51 234;
+}
 
 /* Shadow intensity variants */
 .shadow-subtle {
@@ -268,14 +284,14 @@ cp -r stubs/shadow/ your-project/src/
 The shadow levels correspond to Material Design elevation specifications:
 
 | Level | Material Design Use Case | Shadow Description |
-|-------|-------------------------|-------------------|
-| 0     | No elevation | No shadow |
-| 1-2   | Switch, text button | Very subtle shadow |
-| 3-4   | Raised button, card | Light shadow |
-| 6-8   | Floating action button | Medium shadow |
-| 9-12  | Navigation drawer | Prominent shadow |
-| 16    | Modal surfaces | Strong shadow |
-| 24    | Dialog surfaces | Maximum shadow |
+| ----- | ------------------------ | ------------------ |
+| 0     | No elevation             | No shadow          |
+| 1-2   | Switch, text button      | Very subtle shadow |
+| 3-4   | Raised button, card      | Light shadow       |
+| 6-8   | Floating action button   | Medium shadow      |
+| 9-12  | Navigation drawer        | Prominent shadow   |
+| 16    | Modal surfaces           | Strong shadow      |
+| 24    | Dialog surfaces          | Maximum shadow     |
 
 ### Design System Tokens
 
@@ -326,10 +342,8 @@ The shadow levels correspond to Material Design elevation specifications:
 /* Enhanced styles for modern browsers */
 @supports (--level: 0) {
   .shadow {
-    box-shadow: 
-      var(--shadow-umbra-layer),
-      var(--shadow-penumbra-layer),
-      var(--shadow-ambient-layer);
+    box-shadow:
+      var(--shadow-umbra-layer), var(--shadow-penumbra-layer), var(--shadow-ambient-layer);
   }
 }
 
@@ -408,22 +422,16 @@ The shadow levels correspond to Material Design elevation specifications:
 
 ```html
 <!-- Shadow based on component state -->
-<div class="shadow" data-state="elevated" style="--level: 8;">
-  Elevated state content
-</div>
+<div class="shadow" data-state="elevated" style="--level: 8;">Elevated state content</div>
 
-<div class="shadow" data-state="normal" style="--level: 2;">
-  Normal state content
-</div>
+<div class="shadow" data-state="normal" style="--level: 2;">Normal state content</div>
 ```
 
 ### Integration with Other Copy-Points
 
 ```html
 <!-- Combining shadow with elevate -->
-<div class="shadow elevate" style="--level: 8;">
-  Content with both shadow and elevation effects
-</div>
+<div class="shadow elevate" style="--level: 8;">Content with both shadow and elevation effects</div>
 ```
 
 ## Troubleshooting
@@ -440,7 +448,7 @@ The shadow levels correspond to Material Design elevation specifications:
 ```css
 /* Debug shadow calculations */
 .shadow.debug::before {
-  content: "Level: " var(--level);
+  content: 'Level: ' var(--level);
   position: absolute;
   top: -20px;
   left: 0;

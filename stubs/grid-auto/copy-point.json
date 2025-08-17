@@ -15,5 +15,14 @@
   ],
   "dependencies": [],
   "author": "CopyKit",
-  "keywords": ["grid", "auto-responsive", "layout", "utilities", "type-safe", "css-properties", "flexible", "responsive"]
+  "keywords": [
+    "grid",
+    "auto-responsive",
+    "layout",
+    "utilities",
+    "type-safe",
+    "css-properties",
+    "flexible",
+    "responsive"
+  ]
 }

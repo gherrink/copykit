@@ -13,8 +13,9 @@ This project uses [UI-Doc](https://github.com/gherrink/ui-doc/) for generating c
 ### 1. All CSS Must Be Documented
 
 Every CSS class that provides user-facing functionality must include proper JSDoc documentation with:
+
 - **Purpose description**: What the class does and when to use it
-- **@location key**: Unique identifier for documentation organization  
+- **@location key**: Unique identifier for documentation organization
 - **@example block**: Complete, functional HTML example
 - **Usage notes**: Any special considerations or requirements
 
@@ -23,6 +24,7 @@ Every CSS class that provides user-facing functionality must include proper JSDo
 All CSS documentation **must** use `@location` for organizing content within UI-Doc pages.
 
 #### ✅ Required: @location Pattern
+
 ```css
 /**
  * Button component that uses colorset variables for theming
@@ -39,14 +41,17 @@ All CSS documentation **must** use `@location` for organizing content within UI-
 ```
 
 #### ✅ @page Pattern (For UI-Doc Pages)
+
 ```css
 /**
  * @page components Components
  */
 ```
+
 Use `@page` to define new pages in UI-Doc. Each `@page` creates a separate documentation page.
 
 #### ❌ Deprecated: @page + @section Pattern
+
 ```css
 /**
  * @page components
@@ -64,18 +69,22 @@ Use `@page` to define new pages in UI-Doc. Each `@page` creates a separate docum
 **Critical**: `@location` keys must be **globally unique** across the entire project.
 
 #### Naming Convention
+
 Use **dot notation** for hierarchical organization:
+
 ```
 category.component.variant
 ```
 
 #### Key Categories
+
 - **`components.*`**: Self-contained UI components
-- **`utilities.*`**: Single-purpose utility classes  
+- **`utilities.*`**: Single-purpose utility classes
 - **`variables.*`**: CSS custom properties and color systems
 - **`functions.*`**: JavaScript functions and services
 
 #### Examples of Good @location Keys
+
 ```css
 /* Components */
 @location components.button Button
@@ -100,7 +109,7 @@ category.component.variant
 
 /* Functions */
 @location functions.expand Expand Service
-@location functions.accordion Accordion Service
+@location functions.accordion Accordion Service;
 ```
 
 #### @location Key Uniqueness Check
@@ -235,12 +244,12 @@ Document CSS custom properties and their purpose:
   --font-color: 0 0 0;
   --bg-color: 255 255 255;
   --border-color: 200 200 200;
-  
+
   /* Interactive Elements */
   --accent-color: 59 130 246;
   --accent-font-color: 255 255 255;
   --accent-bg-color: 59 130 246;
-  
+
   /* Hover States */
   --accent-hover-font-color: 255 255 255;
   --accent-hover-bg-color: 37 99 235;
@@ -254,6 +263,7 @@ Document CSS custom properties and their purpose:
 All `@example` blocks must show **complete, functional HTML** that can be copied and used immediately:
 
 #### ✅ Good: Complete Example
+
 ```css
 /**
  * @location components.button.colors Button Colors
@@ -265,6 +275,7 @@ All `@example` blocks must show **complete, functional HTML** that can be copied
 ```
 
 #### ❌ Incomplete: Fragment Example
+
 ```css
 /**
  * @location components.button.colors Button Colors  
@@ -278,6 +289,7 @@ All `@example` blocks must show **complete, functional HTML** that can be copied
 Examples should show realistic usage, not abstract demos:
 
 #### ✅ Good: Realistic Context
+
 ```css
 /**
  * @location utilities.flex.layout Flex Layout
@@ -294,6 +306,7 @@ Examples should show realistic usage, not abstract demos:
 ```
 
 #### ❌ Poor: Abstract Demo
+
 ```css
 /**
  * @location utilities.flex.layout Flex Layout
@@ -310,23 +323,29 @@ Examples should show realistic usage, not abstract demos:
 Based on codebase analysis, these files need `@page` + `@section` to `@location` conversion:
 
 ### 1. Flex Utilities
+
 **File**: `stubs/_base/styles/03_utilities/flex.css`
 
 Current issues:
+
 - Uses deprecated `@page` + `@section` pattern
 - Needs conversion to `@location utilities.flex.*` pattern
 - Missing documentation for some utility combinations
 
-### 2. Grid Utilities  
+### 2. Grid Utilities
+
 **File**: `stubs/_base/styles/03_utilities/grid.css`
 
 Current issues:
+
 - Uses deprecated `@page` + `@section` pattern
 - Needs conversion to `@location utilities.grid.*` pattern
 - Column utilities need better documentation
 
 ### 3. Missing Documentation
+
 Files lacking JSDoc documentation entirely:
+
 - `stubs/_base/styles/03_utilities/background.css` (partially documented)
 - `stubs/_base/styles/03_utilities/width.css` (no documentation)
 - `stubs/_base/styles/03_utilities/height.css` (no documentation)
@@ -336,6 +355,7 @@ Files lacking JSDoc documentation entirely:
 ## Documentation Update Process
 
 ### Step 1: Identify Files to Update
+
 ```bash
 # Find files using deprecated @page pattern
 grep -r "@page" stubs/ --include="*.css"
@@ -345,6 +365,7 @@ find stubs/ -name "*.css" -exec grep -L "@location\|@page" {} \;
 ```
 
 ### Step 2: Convert @page + @section to @location
+
 ```css
 /* Before */
 /**
@@ -352,13 +373,14 @@ find stubs/ -name "*.css" -exec grep -L "@location\|@page" {} \;
  * @section flex Flex
  */
 
-/* After */  
+/* After */
 /**
  * @location utilities.flex Flex
  */
 ```
 
 ### Step 3: Add Missing Documentation
+
 For undocumented utilities, add complete JSDoc blocks:
 
 ```css
@@ -375,6 +397,7 @@ For undocumented utilities, add complete JSDoc blocks:
 ```
 
 ### Step 4: Verify Uniqueness
+
 After adding new `@location` keys, verify no duplicates exist:
 
 ```bash
@@ -387,16 +410,16 @@ grep -r "@location" stubs/ docs/ --include="*.css" --include="*.ts" --include="*
 
 For TypeScript services and utilities, use similar patterns:
 
-```typescript
+````typescript
 /**
  * Expand service manages ARIA-based expand/collapse functionality for components.
  * Handles aria-expanded, aria-controls, inert attributes, and keyboard navigation.
- * 
+ *
  * @location functions.expand Expand Service
  * @example
  * ```typescript
  * import { ExpandService } from '@/services/expand'
- * 
+ *
  * const expandService = new ExpandService()
  * expandService.init(document.querySelector('.accordion'))
  * ```
@@ -404,7 +427,7 @@ For TypeScript services and utilities, use similar patterns:
 export class ExpandService {
   // Implementation
 }
-```
+````
 
 ## Documentation Quality Checklist
 
@@ -423,21 +446,24 @@ Before submitting CSS documentation, verify:
 ## Common Documentation Mistakes
 
 ### ❌ Duplicate @location Keys
+
 ```css
 /* File 1 */
 @location utilities.text Text
 
 /* File 2 */  
-@location utilities.text Text  /* DUPLICATE - NOT ALLOWED */
+@location utilities.text Text; /* DUPLICATE - NOT ALLOWED */
 ```
 
 ### ❌ Generic @location Keys
+
 ```css
 @location button Button  /* Too generic */
-@location utility Utility  /* Meaningless */
+@location utility Utility; /* Meaningless */
 ```
 
 ### ❌ Incomplete Examples
+
 ```css
 /**
  * @example
@@ -446,6 +472,7 @@ Before submitting CSS documentation, verify:
 ```
 
 ### ❌ No Context Examples
+
 ```css
 /**
  * @example
@@ -454,6 +481,7 @@ Before submitting CSS documentation, verify:
 ```
 
 ### ❌ Missing Variations
+
 ```css
 /**
  * @location components.button Button

@@ -21,9 +21,7 @@ The elevate copy-point provides sophisticated elevation effects without requirin
 
 ```html
 <!-- Basic elevation with level 4 -->
-<div class="elevate" style="--level: 4; --bg-color: 255 255 255;">
-  Elevated content
-</div>
+<div class="elevate" style="--level: 4; --bg-color: 255 255 255;">Elevated content</div>
 
 <!-- Multiple elevation levels -->
 <div class="elevate" style="--level: 0; --bg-color: 248 250 252;">No elevation</div>
@@ -55,7 +53,7 @@ The elevate copy-point provides sophisticated elevation effects without requirin
 
 ```css
 /* Import elevate utilities */
-@import "./stubs/elevate/styles/03_utilities/elevate.css";
+@import './stubs/elevate/styles/03_utilities/elevate.css';
 ```
 
 ## CSS Architecture
@@ -67,13 +65,13 @@ The elevate utility uses CSS custom properties for flexible customization:
 ```css
 :root {
   /* Core elevation properties */
-  --level: 0;                    /* Elevation level (0-24) */
-  --elevate-color: 255 255 255;  /* RGB color for elevation mixing */
-  --elevate-boost: 0%;           /* Additional elevation boost */
-  
+  --level: 0; /* Elevation level (0-24) */
+  --elevate-color: 255 255 255; /* RGB color for elevation mixing */
+  --elevate-boost: 0%; /* Additional elevation boost */
+
   /* Required background color */
-  --bg-color: 255 255 255;       /* Element background color */
-  --font-color: 17 24 39;        /* Text color */
+  --bg-color: 255 255 255; /* Element background color */
+  --font-color: 17 24 39; /* Text color */
 }
 ```
 
@@ -82,7 +80,7 @@ The elevate utility uses CSS custom properties for flexible customization:
 The elevation effect uses sophisticated color mixing calculations:
 
 - **Levels 0-2**: 0% to 7% elevation with 2% increments
-- **Levels 3-6**: 8% to 11% elevation with 1% increments  
+- **Levels 3-6**: 8% to 11% elevation with 1% increments
 - **Levels 7-12**: 11.5% to 14% elevation with 0.5% increments
 - **Levels 13-16**: 14.25% to 15% elevation with 0.25% increments
 - **Levels 17-24**: 15.125% to 16% elevation with 0.125% increments
@@ -92,11 +90,13 @@ The elevation effect uses sophisticated color mixing calculations:
 ### Installation
 
 Use the CopyKit CLI:
+
 ```bash
 copykit add elevate
 ```
 
 Or copy manually:
+
 ```bash
 cp -r stubs/elevate/ your-project/src/
 ```
@@ -112,7 +112,7 @@ cp -r stubs/elevate/ your-project/src/
 }
 
 /* Dark theme elevation */
-[data-theme="dark"] {
+[data-theme='dark'] {
   --elevate-color: 17 24 39;
   --bg-color: 24 24 27;
   --font-color: 255 255 255;
@@ -143,14 +143,30 @@ cp -r stubs/elevate/ your-project/src/
 
 ```css
 /* Elevation utility classes */
-.elevation-0 { --level: 0; }
-.elevation-2 { --level: 2; }
-.elevation-4 { --level: 4; }
-.elevation-6 { --level: 6; }
-.elevation-8 { --level: 8; }
-.elevation-12 { --level: 12; }
-.elevation-16 { --level: 16; }
-.elevation-24 { --level: 24; }
+.elevation-0 {
+  --level: 0;
+}
+.elevation-2 {
+  --level: 2;
+}
+.elevation-4 {
+  --level: 4;
+}
+.elevation-6 {
+  --level: 6;
+}
+.elevation-8 {
+  --level: 8;
+}
+.elevation-12 {
+  --level: 12;
+}
+.elevation-16 {
+  --level: 16;
+}
+.elevation-24 {
+  --level: 24;
+}
 
 /* Hover elevation effects */
 .hover-elevate:hover {
@@ -220,15 +236,15 @@ cp -r stubs/elevate/ your-project/src/
 
 The elevation levels correspond to Material Design specifications:
 
-| Level | Material Design Use Case | Typical Usage |
-|-------|-------------------------|---------------|
-| 0     | No elevation | Flat surfaces |
-| 1-2   | Switch, text button | Subtle elements |
-| 3-4   | Raised button, card | Interactive elements |
-| 6-8   | Floating action button | Prominent elements |
-| 9-12  | Navigation drawer | Navigation components |
-| 16    | Modal surfaces | Dialogs and overlays |
-| 24    | Dialog surfaces | Critical dialogs |
+| Level | Material Design Use Case | Typical Usage         |
+| ----- | ------------------------ | --------------------- |
+| 0     | No elevation             | Flat surfaces         |
+| 1-2   | Switch, text button      | Subtle elements       |
+| 3-4   | Raised button, card      | Interactive elements  |
+| 6-8   | Floating action button   | Prominent elements    |
+| 9-12  | Navigation drawer        | Navigation components |
+| 16    | Modal surfaces           | Dialogs and overlays  |
+| 24    | Dialog surfaces          | Critical dialogs      |
 
 ### Design System Integration
 
@@ -364,7 +380,7 @@ The elevation levels correspond to Material Design specifications:
 ```css
 /* Debug elevation levels */
 .elevate.debug::before {
-  content: "Level: " attr(style);
+  content: 'Level: ' attr(style);
   position: absolute;
   top: 0;
   left: 0;

@@ -7,20 +7,24 @@ This document provides specific CSS writing guidelines and patterns to follow wh
 **Before writing ANY CSS, verify ALL of these requirements:**
 
 ### ✅ Selector Pattern Compliance
+
 - [ ] **MANDATORY**: Use child selectors (`.component > .child`) instead of class proliferation (`.component-child`)
 - [ ] **MANDATORY**: Keep selectors shallow (max 3 levels deep)
 - [ ] **MANDATORY**: Use direct child selectors (>) for performance
 
-### ✅ Variable Pattern Compliance  
+### ✅ Variable Pattern Compliance
+
 - [ ] **MANDATORY**: Define component variables in component selector, NOT in `:root`
 - [ ] **MANDATORY**: Component variables must reference base variables (`--component-color: var(--font-color)`)
 - [ ] **MANDATORY**: Use colorset variables, NEVER hardcoded colors (`#000`, `blue`, `rgba()`)
 
 ### ✅ Architecture Compliance
+
 - [ ] **MANDATORY**: Follow 4-layer organization (defaults, components, utilities, layouts)
 - [ ] **MANDATORY**: Use RGB space-separated format for colors (`rgb(var(--color) / 0.5)`)
 
 ### ✅ Accessibility Compliance
+
 - [ ] **MANDATORY**: Include component-level accessibility CSS for interactive elements
 - [ ] **MANDATORY**: Add user preference support (`prefers-reduced-motion`, `prefers-contrast`)
 - [ ] **MANDATORY**: Include focus management and selection styles when component has interactive elements
@@ -32,14 +36,17 @@ This document provides specific CSS writing guidelines and patterns to follow wh
 **🔴 MOST COMMON ERROR: Component Pattern Confusion**
 
 Components use **STANDALONE** prefix-based classes:
-- ✅ `<button class="btn-primary">` 
+
+- ✅ `<button class="btn-primary">`
 - ❌ `<button class="btn btn-primary">`
 
 Utilities use **COMPOUND** classes that stack:
+
 - ✅ `<div class="flex gap column">`
 - ❌ `<div class="flex-column-gap">`
 
 **If you're unsure which pattern to use, ask yourself:**
+
 - Is this a distinct UI element? → Component pattern (standalone classes)
 - Is this single-purpose styling? → Utility pattern (compound classes)
 
@@ -52,74 +59,102 @@ Utilities use **COMPOUND** classes that stack:
 🚨 **CRITICAL: Choose the correct pattern based on PURPOSE, not syntax:**
 
 #### Component Pattern - Use For:
+
 - **Distinct UI elements** (buttons, cards, modals, accordions)
 - **Complete interface components** with multiple variations
 - **Standalone elements** that represent a complete functional unit
 - **Elements requiring consistent behavior** across all variations
 
 **Implementation**: Standalone prefix-based classes
+
 ```css
 /* Component base + variations as separate classes */
-.btn { /* base styles */ }
-.btn-primary { /* replaces .btn entirely */ }
-.btn-outline { /* replaces .btn entirely */ }
+.btn {
+  /* base styles */
+}
+.btn-primary {
+  /* replaces .btn entirely */
+}
+.btn-outline {
+  /* replaces .btn entirely */
+}
 ```
 
 #### Utility Pattern - Use For:
+
 - **Single-purpose styling** (spacing, layout, colors)
 - **Composable functionality** that chains together
 - **Styling that applies** to many different elements
 - **Flexible layout systems** that combine behaviors
 
 **Implementation**: Compound classes that stack
+
 ```css
 /* Utilities combine together */
-.flex { display: flex; }
-.flex.gap { gap: var(--gap-space); }
-.flex.column { flex-direction: column; }
+.flex {
+  display: flex;
+}
+.flex.gap {
+  gap: var(--gap-space);
+}
+.flex.column {
+  flex-direction: column;
+}
 ```
 
 #### Structure Pattern - Use For:
+
 - **Parent-child relationships** within components
 - **Clean HTML** without verbose class names
 
 **Implementation**: Child selectors
+
 ```css
 /* Structure uses child selectors */
-.accordion > .item > .control { /* styles */ }
+.accordion > .item > .control {
+  /* styles */
+}
 ```
 
 ### 2. Always Use Colorset Variables
+
 **REQUIRED**: Never use direct color values. Always use colorset variables for consistent theming.
 
 #### Colorset System Overview
+
 CopyKit uses a **colorset** approach for systematic color management. A colorset is a comprehensive color definition system that establishes a complete visual identity for UI components or sections, providing all essential color variables needed for consistent theming across your entire application.
 
 #### Available Colorset Variables
 
 **Core Colors:**
+
 - `--font-color` - Primary text color for readable content
 - `--bg-color` - Main background color for containers and surfaces
 - `--border-color` - Color for borders, dividers, and outlines
 
 **Visual Enhancement:**
+
 - `--shadow-color` - RGB values for drop shadows and depth effects
 - `--shadow-alpha` - Opacity level for shadow transparency (0.0-1.0)
 
 **Interactive Elements:**
+
 - `--accent-color` - Highlight color for UI elements and emphasis
 - `--accent-font-color` - Text color when displayed on accent backgrounds
 - `--accent-bg-color` - Background color for accent elements and highlights
 
 **Hover States:**
+
 - `--accent-hover-font-color` - Text color for interactive elements on hover
 - `--accent-hover-bg-color` - Background color for interactive elements on hover
 
 **Text Selection:**
+
 - `--selection-color` - Text color when selected by user
 - `--selection-bg-color` - Background color for selected text
 
 **✅ Required Pattern:**
+
 ```css
 .component {
   /* Components should define their own variables that reference base variables */
@@ -128,11 +163,11 @@ CopyKit uses a **colorset** approach for systematic color management. A colorset
   --component-border-color: var(--border-color);
   --component-shadow-color: var(--shadow-color);
   --component-shadow-alpha: var(--shadow-alpha);
-  
+
   /* Selection colors using component colorset - inverted for better contrast */
   --selection-color: var(--component-bg-color);
   --selection-bg-color: var(--component-font-color);
-  
+
   color: rgb(var(--component-font-color));
   background: rgb(var(--component-bg-color));
   border: 1px solid rgb(var(--component-border-color));
@@ -143,7 +178,7 @@ CopyKit uses a **colorset** approach for systematic color management. A colorset
   /* Standalone component variation */
   --component-font-color: var(--accent-font-color);
   --component-bg-color: var(--accent-bg-color);
-  
+
   /* Inherits all base component styles */
   color: rgb(var(--component-font-color));
   background: rgb(var(--component-bg-color));
@@ -157,6 +192,7 @@ CopyKit uses a **colorset** approach for systematic color management. A colorset
 ```
 
 **❌ Forbidden Patterns:**
+
 ```css
 .component {
   color: #000000;
@@ -167,6 +203,7 @@ CopyKit uses a **colorset** approach for systematic color management. A colorset
 ```
 
 #### Benefits of Colorsets
+
 - **Component theming** - Apply consistent colors across buttons, cards, forms, and other UI elements
 - **Section-based styling** - Define distinct visual zones like headers, sidebars, or content areas
 - **Theme variations** - Create light/dark modes or brand-specific color schemes
@@ -179,6 +216,7 @@ CopyKit uses a **colorset** approach for systematic color management. A colorset
 - **Future-proof** - For light/dark mode implementations
 
 #### Development Guidelines
+
 - Always use colorset variables instead of direct color values
 - Create new colorsets for different themes or component contexts
 - Ensure all colorset variables work harmoniously together
@@ -189,16 +227,17 @@ CopyKit uses a **colorset** approach for systematic color management. A colorset
 The `_base` copy-point provides a comprehensive set of CSS variables that should be reused in new copy-points. Understanding these variables is essential for creating consistent, themeable components.
 
 ### Base Color Variables (RGB Space-Separated)
+
 **Core palette colors used throughout the system:**
+
 ```css
---color-black: 40 40 40          /* Primary dark color */
---color-white: 255 255 255       /* Primary light color */
---color-gray-300: 209 213 219    /* Light gray */
---color-gray-500: 107 114 128    /* Medium gray */
---color-gray-600: 75 85 99       /* Dark gray */
+--color-black: 40 40 40 /* Primary dark color */ --color-white: 255 255 255
+  /* Primary light color */ --color-gray-300: 209 213 219 /* Light gray */ --color-gray-500: 107 114
+  128 /* Medium gray */ --color-gray-600: 75 85 99 /* Dark gray */;
 ```
 
 **Usage Pattern:**
+
 ```css
 .component {
   color: rgb(var(--color-black));
@@ -207,40 +246,41 @@ The `_base` copy-point provides a comprehensive set of CSS variables that should
 ```
 
 ### Spacing System Variables
+
 **Multiplier-based spacing system:**
+
 ```css
---space-unit: 1em                /* Base unit for all spacing calculations */
---space-xxs: 0.35                /* Extra extra small (0.35em) */
---space-xs: 0.5                  /* Extra small (0.5em) */
---space-sm: 0.7                  /* Small (0.7em) */
---space-base: 1                  /* Base/Medium (1em) */
---space-md: 1.3                  /* Medium (1.3em) */
---space-lg: 1.8                  /* Large (1.8em) */
---space-xl: 3.2                  /* Extra large (3.2em) */
---space-2xl: 4.8                 /* 2x extra large (4.8em) */
+--space-unit: 1em /* Base unit for all spacing calculations */ --space-xxs: 0.35
+  /* Extra extra small (0.35em) */ --space-xs: 0.5 /* Extra small (0.5em) */ --space-sm: 0.7
+  /* Small (0.7em) */ --space-base: 1 /* Base/Medium (1em) */ --space-md: 1.3 /* Medium (1.3em) */
+  --space-lg: 1.8 /* Large (1.8em) */ --space-xl: 3.2 /* Extra large (3.2em) */ --space-2xl: 4.8
+  /* 2x extra large (4.8em) */;
 ```
 
 **Component Usage Pattern:**
+
 ```css
 .component {
   /* Define component-specific spacing variables that reference base variables */
   --component-padding: var(--space-md);
   --component-margin: var(--space-lg);
-  
+
   padding: calc(var(--space-unit) * var(--component-padding));
   margin: calc(var(--space-unit) * var(--component-margin));
 }
 ```
 
 ### Animation/Transition Variables
+
 **Standard timing values:**
+
 ```css
---transition-fast: 150ms         /* Quick transitions */
---transition-base: 250ms         /* Standard transitions */
---transition-slow: 350ms         /* Slow transitions */
+--transition-fast: 150ms /* Quick transitions */ --transition-base: 250ms /* Standard transitions */
+  --transition-slow: 350ms /* Slow transitions */;
 ```
 
 **Component Usage Pattern:**
+
 ```css
 .component {
   --component-transition-time: var(--transition-base);
@@ -249,50 +289,54 @@ The `_base` copy-point provides a comprehensive set of CSS variables that should
 ```
 
 ### Typography Variables
+
 **Font families:**
+
 ```css
---font-family-base: system-ui, "Segoe UI", roboto, helvetica, arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"
+--font-family-base:
+  system-ui, 'Segoe UI', roboto, helvetica, arial, sans-serif, 'Apple Color Emoji',
+  'Segoe UI Emoji', 'Segoe UI Symbol';
 ```
 
 **Font weights:**
+
 ```css
---font-weight-normal: 400
---font-weight-bold: 700
+--font-weight-normal: 400 --font-weight-bold: 700;
 ```
 
 **Font sizes:**
+
 ```css
---font-size-sm: 0.875em          /* Small text */
---font-size-base: 1em            /* Standard body text */
---font-size-md: 1.125em          /* Medium text */
---font-size-lg: 1.25em           /* Large text */
---font-size-xl: 1.25em           /* Extra large text */
---font-size-2xl: 1.5rem          /* 2x extra large text */
+--font-size-sm: 0.875em /* Small text */ --font-size-base: 1em /* Standard body text */
+  --font-size-md: 1.125em /* Medium text */ --font-size-lg: 1.25em /* Large text */
+  --font-size-xl: 1.25em /* Extra large text */ --font-size-2xl: 1.5rem /* 2x extra large text */;
 ```
 
 **Line heights:**
+
 ```css
---line-height-tight: 1.25        /* Compact line spacing */
---line-height-base: 1.4          /* Standard line spacing */
---line-height-relaxed: 1.6       /* Loose line spacing */
+--line-height-tight: 1.25 /* Compact line spacing */ --line-height-base: 1.4
+  /* Standard line spacing */ --line-height-relaxed: 1.6 /* Loose line spacing */;
 ```
 
 **Active typography variables (applied to elements):**
+
 ```css
---font-family: var(--font-family-base)     /* Active font family */
---font-weight: var(--font-weight-normal)   /* Active font weight */
---font-size: var(--font-size-base)         /* Active font size */
---font-line-height: var(--line-height-base) /* Active line height */
+--font-family: var(--font-family-base) /* Active font family */
+  --font-weight: var(--font-weight-normal) /* Active font weight */
+  --font-size: var(--font-size-base) /* Active font size */
+  --font-line-height: var(--line-height-base) /* Active line height */;
 ```
 
 **Component Usage Pattern:**
+
 ```css
 .component {
   /* Component should define its own font variables */
   --component-font-size: var(--font-size-sm);
   --component-font-weight: var(--font-weight-bold);
   --component-line-height: var(--line-height-tight);
-  
+
   font-size: var(--component-font-size);
   font-weight: var(--component-font-weight);
   line-height: var(--component-line-height);
@@ -300,41 +344,46 @@ The `_base` copy-point provides a comprehensive set of CSS variables that should
 ```
 
 ### Colorset System Variables
+
 **Complete theming system for consistent UI colors:**
 
 **Core Colors:**
+
 ```css
---font-color: var(--color-black)           /* Primary text color */
---bg-color: var(--color-white)             /* Main background color */
---border-color: var(--color-gray-300)      /* Border and divider color */
+--font-color: var(--color-black) /* Primary text color */ --bg-color: var(--color-white)
+  /* Main background color */ --border-color: var(--color-gray-300) /* Border and divider color */;
 ```
 
 **Visual Enhancement:**
+
 ```css
---shadow-color: 0 0 0                      /* RGB for shadows */
---shadow-alpha: 0.1                        /* Shadow opacity (0.0-1.0) */
+--shadow-color: 0 0 0 /* RGB for shadows */ --shadow-alpha: 0.1 /* Shadow opacity (0.0-1.0) */;
 ```
 
 **Interactive Elements:**
+
 ```css
---accent-color: var(--color-gray-500)         /* Highlight/accent color */
---accent-font-color: var(--color-white)       /* Text on accent backgrounds */
---accent-bg-color: var(--accent-color)        /* Accent background color */
+--accent-color: var(--color-gray-500) /* Highlight/accent color */
+  --accent-font-color: var(--color-white) /* Text on accent backgrounds */
+  --accent-bg-color: var(--accent-color) /* Accent background color */;
 ```
 
 **Hover States:**
+
 ```css
---accent-hover-font-color: var(--color-white)  /* Hover text color */
---accent-hover-bg-color: var(--color-gray-600) /* Hover background color */
+--accent-hover-font-color: var(--color-white) /* Hover text color */
+  --accent-hover-bg-color: var(--color-gray-600) /* Hover background color */;
 ```
 
 **Text Selection:**
+
 ```css
---selection-color: var(--bg-color)          /* Selected text color */
---selection-bg-color: var(--font-color)     /* Selected text background */
+--selection-color: var(--bg-color) /* Selected text color */ --selection-bg-color: var(--font-color)
+  /* Selected text background */;
 ```
 
 **Component Usage Pattern:**
+
 ```css
 .component {
   /* Components should define their own colorset variables */
@@ -342,7 +391,7 @@ The `_base` copy-point provides a comprehensive set of CSS variables that should
   --component-bg-color: var(--bg-color);
   --component-border-color: var(--border-color);
   --component-accent-color: var(--accent-color);
-  
+
   color: rgb(var(--component-font-color));
   background: rgb(var(--component-bg-color));
   border: 1px solid rgb(var(--component-border-color));
@@ -352,7 +401,7 @@ The `_base` copy-point provides a comprehensive set of CSS variables that should
   /* Standalone component variation */
   --component-font-color: var(--accent-font-color);
   --component-bg-color: var(--accent-bg-color);
-  
+
   /* Inherits all base component styles */
   color: rgb(var(--component-font-color));
   background: rgb(var(--component-bg-color));
@@ -366,16 +415,17 @@ The `_base` copy-point provides a comprehensive set of CSS variables that should
 ```
 
 ### Layout Constraint Variables
+
 **Responsive width system:**
+
 ```css
---width-sm: 640px                /* Small breakpoint */
---width-base: 1024px             /* Standard breakpoint */
---width-lg: 1280px               /* Large breakpoint */
---width-content: var(--width-base)  /* Active content width */
---width-min-offset-x: 22px       /* Minimum horizontal offset */
+--width-sm: 640px /* Small breakpoint */ --width-base: 1024px /* Standard breakpoint */
+  --width-lg: 1280px /* Large breakpoint */ --width-content: var(--width-base)
+  /* Active content width */ --width-min-offset-x: 22px /* Minimum horizontal offset */;
 ```
 
 **Component Usage Pattern:**
+
 ```css
 .component {
   --component-max-width: var(--width-content);
@@ -384,30 +434,35 @@ The `_base` copy-point provides a comprehensive set of CSS variables that should
 ```
 
 ### Headline Variables
+
 **Heading and title styling:**
+
 ```css
---headline-space: var(--space-base)        /* Space above headlines */
---headline-family: var(--font-family-base) /* Headline font family */
---headline-weight: var(--font-weight-bold) /* Headline font weight */
---headline-line-height: var(--line-height-base) /* Headline line height */
---headline-color: inherit                   /* Headline text color */
---headline-scale: 1                        /* Headline size multiplier */
+--headline-space: var(--space-base) /* Space above headlines */
+  --headline-family: var(--font-family-base) /* Headline font family */
+  --headline-weight: var(--font-weight-bold) /* Headline font weight */
+  --headline-line-height: var(--line-height-base) /* Headline line height */
+  --headline-color: inherit /* Headline text color */ --headline-scale: 1
+  /* Headline size multiplier */;
 ```
 
 ### Link Variables
+
 **Link styling and behavior:**
+
 ```css
---link-color: inherit                       /* Link text color */
---link-decoration: underline                /* Link text decoration */
---link-hover-color: var(--accent-color)    /* Link hover color */
---link-hover-decoration: none               /* Link hover decoration */
---link-transition-time: var(--transition-base) /* Link transition timing */
+--link-color: inherit /* Link text color */ --link-decoration: underline /* Link text decoration */
+  --link-hover-color: var(--accent-color) /* Link hover color */ --link-hover-decoration: none
+  /* Link hover decoration */ --link-transition-time: var(--transition-base)
+  /* Link transition timing */;
 ```
 
 ### Variable Usage Best Practices
 
 #### 1. Always Define Component Variables
+
 **✅ Correct Pattern:**
+
 ```css
 .btn {
   /* Component defines its own variables that reference base variables */
@@ -415,7 +470,7 @@ The `_base` copy-point provides a comprehensive set of CSS variables that should
   --btn-bg-color: var(--accent-bg-color);
   --btn-font-size: var(--font-size);
   --btn-padding: var(--space-sm);
-  
+
   color: rgb(var(--btn-font-color));
   background: rgb(var(--btn-bg-color));
   font-size: var(--btn-font-size);
@@ -424,6 +479,7 @@ The `_base` copy-point provides a comprehensive set of CSS variables that should
 ```
 
 **❌ Incorrect Pattern:**
+
 ```css
 .btn {
   /* Never use base variables directly in component styles */
@@ -434,6 +490,7 @@ The `_base` copy-point provides a comprehensive set of CSS variables that should
 ```
 
 #### 2. Component Variable Naming Convention
+
 ```css
 /* Format: --[component-name]-[property] */
 --btn-font-color: var(--accent-font-color);
@@ -443,25 +500,29 @@ The `_base` copy-point provides a comprehensive set of CSS variables that should
 ```
 
 #### 3. Predefined vs. Referenced Values
+
 **Predefined base variables** (contain actual values):
+
 ```css
---font-size-sm: 0.875em          /* Use when you need the specific small size */
---space-lg: 1.8                  /* Use when you need the specific large spacing */
---color-gray-500: 107 114 128    /* Use when you need the specific gray color */
+--font-size-sm: 0.875em /* Use when you need the specific small size */ --space-lg: 1.8
+  /* Use when you need the specific large spacing */ --color-gray-500: 107 114 128
+  /* Use when you need the specific gray color */;
 ```
 
 **Referenced variables** (point to other variables):
+
 ```css
---font-size: var(--font-size-base)  /* Use when you want the "current" font size */
---accent-color: var(--color-gray-500) /* Use when you want the "current" accent color */
+--font-size: var(--font-size-base) /* Use when you want the "current" font size */
+  --accent-color: var(--color-gray-500) /* Use when you want the "current" accent color */;
 ```
 
 **Component Usage Example:**
+
 ```css
 .component {
   /* Sometimes you need the specific predefined value */
   --component-small-text: var(--font-size-sm);
-  
+
   /* Sometimes you need the current/active value */
   --component-font-size: var(--font-size);
 }
@@ -472,7 +533,9 @@ The `_base` copy-point provides a comprehensive set of CSS variables that should
 The `_base` copy-point provides a comprehensive foundation that should be reused in new copy-points rather than recreated. Here's a quick reference of what's available:
 
 ### Reset & Defaults (Automatic)
+
 **Applied automatically when importing `_base`:**
+
 - **Border-box sizing** - All elements use `box-sizing: border-box`
 - **Responsive media** - Images, videos, canvas responsive by default (`max-width: 100%`)
 - **Smooth scrolling** - `scroll-behavior: smooth` with scroll padding support
@@ -481,7 +544,9 @@ The `_base` copy-point provides a comprehensive foundation that should be reused
 - **Form inheritance** - Inputs, buttons inherit font settings
 
 ### Variables & Colorset (Always Available)
+
 **CSS custom properties defined in `:root`:**
+
 - **Colors**: `--color-black`, `--color-white`, `--color-gray-*` (RGB space-separated)
 - **Spacing**: `--space-xxs` through `--space-2xl` (0.35 - 4.8 multipliers)
 - **Animation**: `--transition-fast` (150ms), `--transition-base` (250ms), `--transition-slow` (350ms)
@@ -490,34 +555,43 @@ The `_base` copy-point provides a comprehensive foundation that should be reused
 - **Width constraints**: `--width-sm` (640px), `--width-base` (1024px), `--width-lg` (1280px)
 
 ### Typography Classes
+
 **Headlines:**
+
 - `.headline` + `.h1` through `.h6` - Semantic headline styling without HTML semantics
 - `.headline.no-space` - Remove top margin from headlines
 - `h1` through `h6` - Standard HTML headlines with consistent sizing scale
 
 **Text formatting (applied via CSS reset):**
+
 - `strong`, `b` - Bold weight using `--font-weight-bold`
 - `small` - Smaller text using `--font-size-sm`
 - `a` - Consistent link styling with hover transitions
 
 ### Component Classes
+
 **Buttons (`.btn`):**
+
 - `.btn` - Base button component with colorset integration
 - `.btn[disabled]`, `.btn[aria-disabled="true"]` - Disabled states
 - `.btn.cs-*` - Use with colorset classes for theming
 - `.btn.no-hover` - Disable hover effects
 
 **Controls (`.control`):**
+
 - `.control` - Base control component (lightweight button alternative)
 - `.control.py`, `.control.px`, `.control.pxy` - Padding modifiers
 - Works with colorset system and accessibility states
 
 **Images (`.image`):**
+
 - `.image` - Responsive image container for `<picture>` elements
 - Provides proper responsive behavior and positioning
 
 ### Layout Utilities
+
 **Flexbox (`.flex`):**
+
 - `.flex` - Base flexbox container
 - `.flex.gap` - Add gap spacing (customizable with `--gap-space`)
 - `.flex.row` / `.flex.column` - Direction control
@@ -527,6 +601,7 @@ The `_base` copy-point provides a comprehensive foundation that should be reused
 - **Special**: `.pull-right` - Auto-margin for right alignment in flex rows
 
 **Grid (`.grid`):**
+
 - `.grid` - Base grid container
 - `.grid.gap` - Add gap spacing
 - `.grid.cols` - 12-column grid system
@@ -534,46 +609,59 @@ The `_base` copy-point provides a comprehensive foundation that should be reused
 - **Column positioning**: `.col-start-1` through `.col-start-12`, `.col-end-1` through `.col-end-12`
 
 ### Spacing Utilities
+
 **Margin:**
+
 - **Individual**: `.mt`, `.mr`, `.mb`, `.ml` - Single direction margins
 - **Axis**: `.mx` (left+right), `.my` (top+bottom), `.mxy` (all)
 - **Full**: `.margin` - All directions
 - Customizable with `--*-space` variables (e.g., `--mt-space: var(--space-lg)`)
 
 **Padding:**
+
 - **Individual**: `.pt`, `.pr`, `.pb`, `.pl` - Single direction padding
 - **Axis**: `.px` (left+right), `.py` (top+bottom), `.pxy` (all)
 - **Full**: `.padding` - All directions
 - Customizable with `--*-space` variables (e.g., `--px-space: var(--space-md)`)
 
 ### Sizing Utilities
+
 **Width:**
+
 - **Content constraints**: `.width-content`, `.width-base`, `.width-sm`, `.width-lg`
 - **Responsive**: Uses `--width-content` and `--width-min-offset-x` for smart responsive behavior
 - **Basic**: `.width-full` (100%), `.width-auto`, `.width-fit` (fit-content)
 
 **Height:**
+
 - `.height-full` (100%), `.height-auto`, `.height-fit` (fit-content)
 
 ### Visual Utilities
+
 **Background:**
+
 - `.bg` - Apply colorset background and text colors
 - Automatically integrates with colorset system
 - Inverts selection colors for better contrast
 
 **Text:**
+
 - **Alignment**: `.text-left`, `.text-center`, `.text-right`, `.text-justify`
 - **Colors**: `.tc` (current colorset), `.tc-white`, `.tc-black`
 
 **Visibility:**
+
 - `.hidden` - Hide elements (`display: none`)
 - `[hidden]` - Attribute-based hiding (preferred for accessibility)
 
 ### Container Utilities
+
 **Wrapper:**
+
 - `.wrapper` - Remove margins from first/last children to prevent spacing issues
 
 ### Usage Examples in New Copy-Points
+
 ```html
 <!-- Reusing _base components and utilities -->
 <div class="flex gap items-center">
@@ -597,6 +685,7 @@ The `_base` copy-point provides a comprehensive foundation that should be reused
 ```
 
 **Key Benefits of Reusing `_base` Classes:**
+
 - **Consistent theming** - All classes integrate with colorset system
 - **Accessibility built-in** - Focus management, ARIA support, user preferences
 - **Performance** - No duplicate CSS, smaller bundle sizes
@@ -604,6 +693,7 @@ The `_base` copy-point provides a comprehensive foundation that should be reused
 - **Predictable behavior** - Well-tested, standardized implementations
 
 ### 3. RGB Space-Separated Format
+
 Use RGB format with space-separated values for alpha transparency support:
 
 ```css
@@ -621,6 +711,7 @@ Use RGB format with space-separated values for alpha transparency support:
 ### Component Pattern Rules
 
 #### ✅ CORRECT Component Usage:
+
 ```html
 <!-- Components: Use ONE class that replaces the base -->
 <button class="btn-primary">Primary Button</button>
@@ -630,6 +721,7 @@ Use RGB format with space-separated values for alpha transparency support:
 ```
 
 #### ❌ INCORRECT Component Usage:
+
 ```html
 <!-- NEVER use compound classes for components -->
 <button class="btn btn-primary">Wrong!</button>
@@ -639,6 +731,7 @@ Use RGB format with space-separated values for alpha transparency support:
 ```
 
 ### Component Implementation Pattern
+
 ```css
 /* Base component (standalone, complete implementation) */
 .btn {
@@ -646,31 +739,31 @@ Use RGB format with space-separated values for alpha transparency support:
   --btn-font-color: var(--accent-font-color);
   --btn-bg-color: var(--accent-bg-color);
   --btn-border-color: var(--accent-color);
-  
+
   cursor: pointer;
   color: rgb(var(--btn-font-color));
   background: rgb(var(--btn-bg-color));
 }
 
 /* Standalone variations (each replaces the base completely) */
-.btn-primary { 
+.btn-primary {
   /* Inherits ALL .btn styles, then overrides specific properties */
   --btn-font-color: var(--accent-font-color);
   --btn-bg-color: var(--accent-bg-color);
   --btn-border-color: var(--accent-color);
-  
+
   cursor: pointer;
   color: rgb(var(--btn-font-color));
   background: rgb(var(--btn-bg-color));
   /* Additional primary-specific styles */
 }
 
-.btn-outline { 
+.btn-outline {
   /* Inherits ALL .btn styles, then overrides specific properties */
   --btn-font-color: var(--accent-color);
   --btn-bg-color: transparent;
   --btn-border-color: var(--accent-color);
-  
+
   cursor: pointer;
   color: rgb(var(--btn-font-color));
   background: rgb(var(--btn-bg-color));
@@ -682,7 +775,6 @@ Use RGB format with space-separated values for alpha transparency support:
   outline: 2px solid rgb(var(--btn-border-color));
   outline-offset: 2px;
 }
-
 
 /* REQUIRED: User preference support for interactive components */
 @media (prefers-reduced-motion: reduce) {
@@ -701,9 +793,11 @@ Use RGB format with space-separated values for alpha transparency support:
 ```
 
 ### Child Selector Strategy
+
 **🚨 CRITICAL REQUIREMENT**: Use child selectors to avoid verbose class names - this is MANDATORY per the compliance checklist above.
 
 **✅ Clean Structure:**
+
 ```html
 <div class="accordion">
   <div class="item">
@@ -720,7 +814,7 @@ Use RGB format with space-separated values for alpha transparency support:
 }
 
 .accordion > .item > .control.chevron::after {
-  content: "";
+  content: '';
   border-right: 2px solid currentcolor;
   border-bottom: 2px solid currentcolor;
   transform: rotate(45deg);
@@ -728,6 +822,7 @@ Use RGB format with space-separated values for alpha transparency support:
 ```
 
 **Child Selector Rules:**
+
 - Keep selectors shallow (max 3 levels)
 - Use direct child selectors (>) for performance
 - Combine with state selectors when needed
@@ -740,6 +835,7 @@ Use RGB format with space-separated values for alpha transparency support:
 ### Utility Pattern Rules
 
 #### ✅ CORRECT Utility Usage:
+
 ```html
 <!-- Utilities: Stack multiple classes together -->
 <div class="flex gap column items-center">Flexible Container</div>
@@ -749,6 +845,7 @@ Use RGB format with space-separated values for alpha transparency support:
 ```
 
 #### ❌ INCORRECT Utility Usage:
+
 ```html
 <!-- NEVER use standalone utility variations -->
 <div class="flex-column-gap">Wrong!</div>
@@ -757,24 +854,45 @@ Use RGB format with space-separated values for alpha transparency support:
 ```
 
 ### Utility Implementation Pattern
+
 ```css
 /* Base utility classes that combine */
-.flex { display: flex; }
-.flex.gap { gap: var(--gap-space); }
-.flex.column { flex-direction: column; }
-.flex.items-center { align-items: center; }
+.flex {
+  display: flex;
+}
+.flex.gap {
+  gap: var(--gap-space);
+}
+.flex.column {
+  flex-direction: column;
+}
+.flex.items-center {
+  align-items: center;
+}
 
 /* Utilities are designed to work together */
-.grid { display: grid; }
-.grid.cols { 
+.grid {
+  display: grid;
+}
+.grid.cols {
   grid-template-columns: repeat(var(--grid-cols, 12), minmax(0, 1fr));
 }
-.grid.gap { gap: var(--gap-space); }
+.grid.gap {
+  gap: var(--gap-space);
+}
 
 /* Spacing utilities that stack */
-.px { padding-left: calc(var(--space-unit) * var(--px-space)); padding-right: calc(var(--space-unit) * var(--px-space)); }
-.py { padding-top: calc(var(--space-unit) * var(--py-space)); padding-bottom: calc(var(--space-unit) * var(--py-space)); }
-.mt { margin-top: calc(var(--space-unit) * var(--mt-space)); }
+.px {
+  padding-left: calc(var(--space-unit) * var(--px-space));
+  padding-right: calc(var(--space-unit) * var(--px-space));
+}
+.py {
+  padding-top: calc(var(--space-unit) * var(--py-space));
+  padding-bottom: calc(var(--space-unit) * var(--py-space));
+}
+.mt {
+  margin-top: calc(var(--space-unit) * var(--mt-space));
+}
 ```
 
 ## CSS Layer Organization
@@ -782,14 +900,16 @@ Use RGB format with space-separated values for alpha transparency support:
 Copy-points use a 4-layer CSS architecture that provides clear separation of concerns and predictable cascade behavior.
 
 ### 4-Layer Structure
+
 1. **01_defaults/**: Variables, resets, typography, global properties
 2. **02_components/**: Self-contained UI components
-3. **03_utilities/**: Single-purpose utility classes  
+3. **03_utilities/**: Single-purpose utility classes
 4. **04_layouts/**: Page-level structural styles
 
 ### Layer Structure and Purpose
 
 **1. Defaults (`01_defaults/`):**
+
 - **Why first**: Establishes foundation that everything else builds on
 - **Contains**: CSS custom properties, browser resets, base typography
 - Browser resets and normalizations
@@ -798,6 +918,7 @@ Copy-points use a 4-layer CSS architecture that provides clear separation of con
 - Global configuration
 
 **2. Components (`02_components/`):**
+
 - **Why second**: Components need default values but override them
 - **Contains**: Buttons, accordions, controls, modals, cards
 - Reusable UI components
@@ -808,6 +929,7 @@ Copy-points use a 4-layer CSS architecture that provides clear separation of con
 - ARIA and accessibility styles
 
 **3. Utilities (`03_utilities/`):**
+
 - **Why third**: Utilities can override component defaults when needed
 - **Contains**: Spacing, layout, colors, text alignment
 - Single-purpose utility classes
@@ -816,6 +938,7 @@ Copy-points use a 4-layer CSS architecture that provides clear separation of con
 - Responsive helpers
 
 **4. Layouts (`04_layouts/`):**
+
 - **Why last**: Layouts can override anything for specific page needs
 - **Contains**: Page containers, section layouts, responsive breakpoints
 - Page-level structural styles
@@ -827,16 +950,19 @@ Copy-points use a 4-layer CSS architecture that provides clear separation of con
 ### Benefits of Layer Organization
 
 **Predictable Cascade:**
+
 - Utilities can override component styles when combined
 - Layout styles can override both components and utilities
 - Clear hierarchy prevents unexpected style conflicts
 
 **Easy Maintenance:**
+
 - Related styles are logically grouped
 - Easy to find and modify specific types of styles
 - Clear boundaries between different style purposes
 
 ### Special Notes
+
 - Only `_base/` has an `index.css` master import file
 - Other copy-points import specific CSS files as needed
 - Not all copy-points require JavaScript (some are CSS-only)
@@ -845,6 +971,7 @@ Copy-points use a 4-layer CSS architecture that provides clear separation of con
 ## Pattern Integration and Examples
 
 ### ✅ CORRECT: Components + Utilities
+
 ```html
 <!-- Component (standalone) + Utilities (compound) -->
 <button class="btn-primary px py mt">Primary button with spacing</button>
@@ -859,6 +986,7 @@ Copy-points use a 4-layer CSS architecture that provides clear separation of con
 ```
 
 ### ✅ CORRECT: Layout + Components
+
 ```html
 <div class="flex gap justify-between items-center">
   <h1 class="headline h2">Page Title</h1>
@@ -870,6 +998,7 @@ Copy-points use a 4-layer CSS architecture that provides clear separation of con
 ```
 
 ### ❌ INCORRECT: Common Mistakes
+
 ```html
 <!-- WRONG: Using compound classes for components -->
 <button class="btn btn-primary">Wrong!</button>
@@ -887,6 +1016,7 @@ Copy-points must follow comprehensive accessibility standards to ensure consiste
 ### 🚨 CRITICAL: When Component-Level Accessibility CSS is Required
 
 **ALWAYS include accessibility CSS when your component has:**
+
 - **Interactive elements** (buttons, controls, inputs, links)
 - **Focus states** (any element that can receive keyboard focus)
 - **Hover interactions** (elements that respond to mouse hover)
@@ -895,6 +1025,7 @@ Copy-points must follow comprehensive accessibility standards to ensure consiste
 - **Visual feedback** (loading states, progress indicators)
 
 **Components that require accessibility CSS include:**
+
 - Modals, accordions, tabs, dropdowns
 - Buttons, controls, form inputs
 - Cards with interactive areas
@@ -905,17 +1036,18 @@ Copy-points must follow comprehensive accessibility standards to ensure consiste
 When developing copy-points, components should handle their own specific accessibility behaviors through CSS:
 
 #### Required Accessibility Template for Interactive Components
+
 ```css
 /* Component base styles */
 .component {
   --component-font-color: var(--font-color);
   --component-bg-color: var(--bg-color);
   --component-border-color: var(--border-color);
-  
+
   /* Selection colors using component colorset - automatically handled by base system */
   --selection-color: var(--component-bg-color);
   --selection-bg-color: var(--component-font-color);
-  
+
   /* Component implementation */
 }
 
@@ -926,13 +1058,12 @@ When developing copy-points, components should handle their own specific accessi
   outline-offset: 2px;
 }
 
-
 /* REQUIRED: Content hiding for accessibility */
 .component > .content[hidden] {
   display: none;
 }
 
-.component > .content[aria-hidden="true"] {
+.component > .content[aria-hidden='true'] {
   visibility: hidden;
 }
 
@@ -953,6 +1084,7 @@ When developing copy-points, components should handle their own specific accessi
 ```
 
 #### Focus Management
+
 ```css
 .component > .control {
   /* Focus indicators that work with colorset system */
@@ -967,13 +1099,14 @@ When developing copy-points, components should handle their own specific accessi
 ```
 
 #### Proper Content Hiding
+
 ```css
 .component > .content[hidden] {
   /* Proper hiding for screen readers */
   display: none;
 }
 
-.component > .content[aria-hidden="true"] {
+.component > .content[aria-hidden='true'] {
   /* Alternative hiding method */
   visibility: hidden;
 }
@@ -984,6 +1117,7 @@ When developing copy-points, components should handle their own specific accessi
 Copy-points should include layout files (`04_layouts/`) only for global accessibility overrides:
 
 #### User Preference Handling
+
 ```css
 /* 04_layouts/prefers-contrast.css - Override colorset for high contrast */
 @media (prefers-contrast: more) {
@@ -1006,23 +1140,25 @@ Copy-points should include layout files (`04_layouts/`) only for global accessib
 ```
 
 #### When to Add Layout Accessibility Files
+
 - **Always add** if your copy-point introduces new interactive elements
 - **Include prefers-contrast overrides** if using custom colorset variations
 - **Include reduced-motion overrides** if adding animations or transitions
-- **Follow the _base pattern** for consistent implementation
+- **Follow the \_base pattern** for consistent implementation
 
 ### Colorset Accessibility Integration
 
 Always ensure copy-point colors work with accessibility overrides:
 
 #### Required Colorset Patterns
+
 ```css
 .component {
   /* Component defines its own variables that reference colorset variables */
   --component-font-color: var(--font-color);
   --component-bg-color: var(--bg-color);
   --component-border-color: var(--border-color);
-  
+
   color: rgb(var(--component-font-color));
   background-color: rgb(var(--component-bg-color));
   border: 1px solid rgb(var(--component-border-color));
@@ -1044,8 +1180,9 @@ Always ensure copy-point colors work with accessibility overrides:
 ### Accessibility Requirements Summary
 
 **🚨 CRITICAL: Component CSS Must Include (directly in component file):**
+
 - Focus indicators using colorset system
-- Proper content hiding for screen readers  
+- Proper content hiding for screen readers
 - ARIA state styling support
 - Keyboard navigation visual feedback
 - User preference media queries (`prefers-reduced-motion`, `prefers-contrast`)
@@ -1053,22 +1190,24 @@ Always ensure copy-point colors work with accessibility overrides:
 **✅ Include accessibility CSS directly in component files, not separate layout files**
 
 **Layout CSS Should Include:**
+
 - User preference media queries (prefers-contrast, prefers-reduced-motion)
 - Colorset overrides for accessibility modes
 - Animation and transition controls
 - High contrast color schemes
 
-**Documentation Requirements:**
-Copy-point README.md files must document accessibility features with required sections covering WCAG compliance, keyboard navigation, screen reader support, and user preference handling.
+**Documentation Requirements:** Copy-point README.md files must document accessibility features with required sections covering WCAG compliance, keyboard navigation, screen reader support, and user preference handling.
 
 ## Performance Best Practices
 
 ### Selector Efficiency
+
 - Child selectors (>) are more efficient than descendant selectors
 - Class selectors are faster than attribute or pseudo-selectors
 - Keep selectors shallow (max 3 levels)
 
 ### CSS Size Optimization
+
 - Utilities prevent property duplication
 - Child selectors reduce total number of classes needed
 - Colorset variables enable theme switching without duplicate CSS
@@ -1078,7 +1217,7 @@ Copy-point README.md files must document accessibility features with required se
 ## 🚨 CRITICAL: Quick Reference Table
 
 | Pattern | Purpose | CSS Classes | HTML Usage | Example |
-|---------|---------|-------------|------------|----------|
+| --- | --- | --- | --- | --- |
 | **Component** | Distinct UI elements | Standalone prefix-based | ONE class replaces base | `<button class="btn-primary">` |
 | **Utility** | Single-purpose styling | Compound classes | MULTIPLE classes stack | `<div class="flex gap column">` |
 | **Structure** | Parent-child relationships | Child selectors | Clean HTML structure | `.accordion > .item > .control` |
@@ -1098,20 +1237,24 @@ Copy-point README.md files must document accessibility features with required se
 ## CSS Documentation Standards
 
 ### When to Add JSDoc Documentation
+
 Only document CSS where it provides meaningful showcase value:
 
 **Document these patterns:**
+
 - Base components with complete usage examples
 - Component variants that showcase different behaviors
 - Interactive features with special behaviors
 - Complex patterns requiring specific HTML structure
 
 **Don't document these patterns:**
+
 - Simple structural elements
 - Basic utility classes or state selectors
 - Internal implementation details
 
 ### Documentation Template
+
 ```css
 /**
  * Brief description of the component variant and its purpose
@@ -1133,6 +1276,7 @@ Only document CSS where it provides meaningful showcase value:
 ```
 
 ### @location Key Rules
+
 - Use dot notation: `category.component.variant`
 - Each key must be globally unique across the entire project
 - Follow hierarchical patterns for better organization
