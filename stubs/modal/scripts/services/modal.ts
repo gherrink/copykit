@@ -35,7 +35,7 @@ interface ModalEvents {
  * <dialog class="modal" data-modal="center">
  *   <header class="header">
  *     <h2 class="headline">Modal Title</h2>
- *     <button class="control close" aria-label="Close">×</button>
+ *     <button class="control close" data-modal-close aria-label="Close">×</button>
  *   </header>
  *   <div class="content">
  *     Modal content goes here
@@ -431,7 +431,7 @@ export class Modal extends EventEmitter<ModalEvents> {
  * <dialog class="modal" id="my-modal">
  *   <header class="header">
  *     <h2 class="headline">Confirm Action</h2>
- *     <button class="control close" aria-label="Close">×</button>
+ *     <button class="control close" data-modal-close aria-label="Close">×</button>
  *   </header>
  *   <div class="content">
  *     <p>Are you sure you want to proceed?</p>
@@ -497,7 +497,7 @@ export function createModal(
  * <dialog id="my-modal" class="modal">
  *   <header class="header">
  *     <h2 class="headline">Auto-initialized Modal</h2>
- *     <button class="control close" aria-label="Close">×</button>
+ *     <button class="control close" data-modal-close aria-label="Close">×</button>
  *   </header>
  *   <div class="content">
  *     <p>This modal is automatically initialized with open button</p>
@@ -508,7 +508,7 @@ export function createModal(
  * <dialog class="modal" data-modal-auto-open="true">
  *   <header class="header">
  *     <h2 class="headline">Welcome!</h2>
- *     <button class="control close" aria-label="Close">×</button>
+ *     <button class="control close" data-modal-close aria-label="Close">×</button>
  *   </header>
  *   <div class="content">
  *     <p>This modal opens automatically when the page loads</p>
@@ -519,7 +519,7 @@ export function createModal(
  * <dialog class="modal" data-modal-auto-open="true" data-modal-auto-open-delay="2000">
  *   <header class="header">
  *     <h2 class="headline">Delayed Notification</h2>
- *     <button class="control close" aria-label="Close">×</button>
+ *     <button class="control close" data-modal-close aria-label="Close">×</button>
  *   </header>
  *   <div class="content">
  *     <p>This modal opens automatically after 2 seconds</p>

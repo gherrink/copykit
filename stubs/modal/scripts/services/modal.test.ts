@@ -13,7 +13,7 @@ describe('Modal', () => {
     dialog.innerHTML = `
       <header class="header">
         <h2 class="headline">Test Modal</h2>
-        <button class="control close" aria-label="Close">×</button>
+        <button class="control close" data-modal-close aria-label="Close">×</button>
       </header>
       <div class="content">
         <p>Test content</p>
@@ -296,7 +296,7 @@ describe('Modal', () => {
       const modal = new Modal(dialog)
       const closeSpy = vi.spyOn(modal, 'close')
 
-      const closeButton = dialog.querySelector('.control.close') as HTMLButtonElement
+      const closeButton = dialog.querySelector('[data-modal-close]') as HTMLButtonElement
       closeButton.click()
 
       expect(closeSpy).toHaveBeenCalled()
@@ -363,10 +363,11 @@ describe('Modal', () => {
       expect(focusSpy).toHaveBeenCalled()
     })
 
-    it('should focus on first footer button if no target specified', () => {
+    it('should focus on first focusable element if no target specified', () => {
       const modal = new Modal(dialog)
-      const firstButton = dialog.querySelector('.footer button') as HTMLButtonElement
-      const focusSpy = vi.spyOn(firstButton, 'focus')
+      // The first focusable element is the close button (comes first in DOM order)
+      const firstFocusable = dialog.querySelector('[data-modal-close]') as HTMLButtonElement
+      const focusSpy = vi.spyOn(firstFocusable, 'focus')
 
       modal['manageFocus']()
 
@@ -377,7 +378,7 @@ describe('Modal', () => {
       dialog.querySelector('.footer')?.remove()
 
       const modal = new Modal(dialog)
-      const closeButton = dialog.querySelector('.control.close') as HTMLButtonElement
+      const closeButton = dialog.querySelector('[data-modal-close]') as HTMLButtonElement
       const focusSpy = vi.spyOn(closeButton, 'focus')
 
       modal['manageFocus']()

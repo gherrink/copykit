@@ -17,7 +17,7 @@ function createModalElement(
 
   if (simple) {
     dialog.innerHTML = `
-      <button class="control close" aria-label="Close modal">×</button>
+      <button class="control close" data-modal-close aria-label="Close modal">×</button>
       <h3 class="headline">Simple Modal</h3>
       <p>Simple modal content</p>
       <button class="btn primary">OK</button>
@@ -26,7 +26,7 @@ function createModalElement(
     dialog.innerHTML = `
       <header class="header">
         <h2 class="headline">Test Modal</h2>
-        <button class="control close" aria-label="Close modal">×</button>
+        <button class="control close" data-modal-close aria-label="Close modal">×</button>
       </header>
       <div class="content">
         <p>This is test content for the modal.</p>
@@ -123,7 +123,7 @@ describe('Modal Accessibility', () => {
     })
 
     it('should have accessible close button', () => {
-      const closeButton = dialog.querySelector('.control.close') as HTMLButtonElement
+      const closeButton = dialog.querySelector('[data-modal-close]') as HTMLButtonElement
 
       expect(closeButton).toBeTruthy()
       expect(closeButton.getAttribute('aria-label')).toBe('Close modal')
@@ -143,8 +143,9 @@ describe('Modal Accessibility', () => {
   describe('Keyboard Navigation', () => {
     it('should focus on first interactive element when opened', () => {
       const modal = new Modal(dialog)
-      const firstButton = dialog.querySelector('.footer button') as HTMLButtonElement
-      const focusSpy = vi.spyOn(firstButton, 'focus')
+      // The first focusable element is the close button (comes first in DOM order)
+      const firstFocusable = dialog.querySelector('[data-modal-close]') as HTMLButtonElement
+      const focusSpy = vi.spyOn(firstFocusable, 'focus')
 
       // showModal is already mocked by createModalElement()
 
@@ -268,22 +269,24 @@ describe('Modal Accessibility', () => {
     })
 
     it('should find focusable elements in correct priority order', () => {
-      // Test footer button priority
+      // Test first focusable element priority (close button comes first in DOM)
       let modal = new Modal(dialog)
+      const firstFocusable = dialog.querySelector('[data-modal-close]') as HTMLButtonElement
+      const firstFocusSpy = vi.spyOn(firstFocusable, 'focus')
+
+      modal['manageFocus']()
+      expect(firstFocusSpy).toHaveBeenCalled()
+
+      // Test footer button priority when no other focusable elements exist
+      // Remove all focusable elements except footer buttons
+      dialog.querySelector('[data-modal-close]')?.remove()
+      dialog.querySelector('.content button')?.remove()
+      modal = new Modal(dialog)
       const footerButton = dialog.querySelector('.footer button') as HTMLButtonElement
       const footerFocusSpy = vi.spyOn(footerButton, 'focus')
 
       modal['manageFocus']()
       expect(footerFocusSpy).toHaveBeenCalled()
-
-      // Test close button priority when no footer
-      dialog.querySelector('.footer')?.remove()
-      modal = new Modal(dialog)
-      const closeButton = dialog.querySelector('.control.close') as HTMLButtonElement
-      const closeFocusSpy = vi.spyOn(closeButton, 'focus')
-
-      modal['manageFocus']()
-      expect(closeFocusSpy).toHaveBeenCalled()
     })
 
     it('should handle focus when no focusable elements exist', () => {
@@ -313,7 +316,7 @@ describe('Modal Accessibility', () => {
     })
 
     it('should have descriptive button text', () => {
-      const closeButton = dialog.querySelector('.control.close') as HTMLButtonElement
+      const closeButton = dialog.querySelector('[data-modal-close]') as HTMLButtonElement
       const cancelButton = dialog.querySelector('button[value="cancel"]') as HTMLButtonElement
       const confirmButton = dialog.querySelector('button[value="confirm"]') as HTMLButtonElement
 
@@ -328,7 +331,7 @@ describe('Modal Accessibility', () => {
     it('should work with simple modal structure', () => {
       const simpleDialog = createModalElement({ simple: true })
       // In simple modal, focus goes to close button first (no footer buttons)
-      const closeButton = simpleDialog.querySelector('.control.close') as HTMLButtonElement
+      const closeButton = simpleDialog.querySelector('[data-modal-close]') as HTMLButtonElement
 
       // Create spy first, before adding to DOM
       const focusSpy = vi.spyOn(closeButton, 'focus').mockImplementation(() => {
@@ -407,6 +410,7 @@ describe('Modal Accessibility', () => {
       // Add additional close button
       const additionalClose = document.createElement('button')
       additionalClose.className = 'control close'
+      additionalClose.setAttribute('data-modal-close', '')
       additionalClose.setAttribute('aria-label', 'Close')
       additionalClose.textContent = 'Close'
       multiCloseDialog.querySelector('.content')?.appendChild(additionalClose)
@@ -418,10 +422,10 @@ describe('Modal Accessibility', () => {
 
       // Both close buttons should work
       const firstClose = multiCloseDialog.querySelector(
-        '.header .control.close',
+        '.header [data-modal-close]',
       ) as HTMLButtonElement
       const secondClose = multiCloseDialog.querySelector(
-        '.content .control.close',
+        '.content [data-modal-close]',
       ) as HTMLButtonElement
 
       firstClose.click()
